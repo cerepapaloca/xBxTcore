@@ -1,0 +1,40 @@
+main: Plugin.xBxTcore
+name: xBxTcore
+author: Ceres
+description: Las Bases Del servidor
+version: 1.5.3
+api-version: 1.20
+depend: [Multiverse-Core, TAB, Votifier]
+
+commands:
+  kit:
+  savekit:
+    aliases: sk
+  delkit:
+    aliases: dk
+  kitfavorite:
+    aliases: kf
+  Cleaner:
+    description: eliminar bloques
+  info:
+    description: infomacion del sever
+  lobby:
+    aliases:
+     - spawn
+     - sw
+    description: teleports to the lobby
+  kill:
+  help:
+  duel:
+  discord:
+  spectator:
+  ping:
+  debugkit:
+  rank:
+  vote:
+  donate:
+  prefix:
+  inv:
+permissions:
+  xBxTpvp.vote:
+    description: vote
