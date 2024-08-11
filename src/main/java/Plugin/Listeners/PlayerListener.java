@@ -1,5 +1,6 @@
 package Plugin.Listeners;
 
+import Plugin.Managers.PlayerfileManager;
 import Plugin.Model.EndCombatCauses;
 import Plugin.Model.Messages;
 import Plugin.Model.PlayerDataGLobal;
@@ -31,7 +32,6 @@ public class PlayerListener implements Listener {
     private Material MaterialFalling;
     public PlayerDataGLobal playerDataGLobal;
     private Player playerMasterKiller;
-    private Long coolDownJoin = System.currentTimeMillis();
 
     public PlayerListener(xBxTcore plugin) {
         this.plugin = plugin;
@@ -93,22 +93,54 @@ public class PlayerListener implements Listener {
         }
     }
 
+    private Long coolDownJoin = System.currentTimeMillis();
+    private final HashMap<String, Long> listAntiBot = new HashMap<>();
+    private final HashMap<String, Integer> listAntiBotBan = new HashMap<>();
     private final String messageKick = ChatColor.translateAlternateColorCodes('&',prefixKick + Colorinfo + "Only one player can join every 3 seconds\nSolo se puede unir un jugador por cada 3 segundos");
-    private final String messageKickConsole = ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorWarning + "Se expulso al jugador " + Colorplayer + "%p%" + ColorWarning + " por entrar paridamente");
+    private final String messageKick2 = ChatColor.translateAlternateColorCodes('&',prefixKick + Colorinfo + "Please &l Do Not Enter&r " + Colorinfo + "it is possible that the server is under a bot attack\nPor favor &l No Entrar&r " + Colorinfo + "es posible que el servidor este bajo un ataque de bots");
+    private final String messageKickConsole1 = ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorWarning + "Se expulso al jugador " + Colorplayer + "%p%" + ColorWarning + " por entrar paridamente");
+    private final String messageKickConsole2 = ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorWarning + "Se expulso al jugador " + Colorplayer + "%p%" + ColorWarning + " por posible ataque de bots");
+    private final String messageKickConsole3 = ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorWarning + "Se le baneo ip del jugador " + Colorplayer + "%p%" + ColorWarning + " por posible ataque de bots");
+
 
     @EventHandler
     public void PlayerPreLoginEvent(AsyncPlayerPreLoginEvent event) {
-        if (coolDownJoin >= System.currentTimeMillis()) {
-            event.setLoginResult(AsyncPlayerPreLoginEvent.Result.KICK_OTHER);
-            event.setKickMessage(messageKick);
-            Bukkit.getConsoleSender().sendMessage(messageKickConsole.replace("%p%", event.getName()));
-            coolDownJoin = System.currentTimeMillis() + 3500;
+
+        if (PlayerfileManager.namesPlayres.contains(event.getName())) {
+            if (!listAntiBot.containsKey(event.getName())) {
+                return;
+            }
+
+            if (listAntiBot.get(event.getName()) >= System.currentTimeMillis()) {
+                event.setLoginResult(AsyncPlayerPreLoginEvent.Result.KICK_OTHER);
+                event.setKickMessage(messageKick);
+                Bukkit.getConsoleSender().sendMessage(messageKickConsole1.replace("%p%", event.getName()));
+                listAntiBot.put(event.getName(), System.currentTimeMillis() + 3500);
+            }
+        }else{
+            if (coolDownJoin >= System.currentTimeMillis()) {
+                String name = event.getName();
+                Bukkit.getConsoleSender().sendMessage(messageKickConsole2.replace("%p%", name));
+                if (listAntiBotBan.containsKey(event.getName())) {
+                    if (listAntiBotBan.get(event.getName()) >= 5) {
+                        Bukkit.banIP(event.getAddress());
+                        Bukkit.getConsoleSender().sendMessage(messageKickConsole3.replace("%p%", name));
+                        listAntiBotBan.remove(event.getName());
+                    }
+                }
+                event.setLoginResult(AsyncPlayerPreLoginEvent.Result.KICK_OTHER);
+                event.setKickMessage(messageKick2);
+                listAntiBotBan.put(name, listAntiBotBan.getOrDefault(name, 0) + 1);
+            }else{
+                Bukkit.unbanIP(event.getAddress());
+            }
+            coolDownJoin = System.currentTimeMillis() + 30000;
         }
     }
 
     @EventHandler
     public void PlayerLoginEvent(PlayerLoginEvent event) {
-        coolDownJoin = System.currentTimeMillis() + 3000;
+        listAntiBot.put(event.getPlayer().getName(), System.currentTimeMillis() + 3000);
     }
 
     @EventHandler

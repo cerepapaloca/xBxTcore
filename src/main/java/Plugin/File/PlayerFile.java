@@ -76,7 +76,7 @@ public class PlayerFile {
         return fileConfiguration;
     }
 
-    public boolean reloadConfig() {
+    public void reloadConfig() {
         if (fileConfiguration == null) {
             if(folderName != null){
                 file = new File(plugin.getDataFolder() +File.separator + folderName, fileName);
@@ -91,6 +91,5 @@ public class PlayerFile {
             YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(file);
             fileConfiguration.setDefaults(defConfig);
         }
-        return true;
     }
 }

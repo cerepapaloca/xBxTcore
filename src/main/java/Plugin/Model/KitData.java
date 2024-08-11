@@ -2,7 +2,6 @@ package Plugin.Model;
 
 import org.bukkit.Material;
 
-import java.util.PrimitiveIterator;
 import java.util.UUID;
 
 public class KitData {

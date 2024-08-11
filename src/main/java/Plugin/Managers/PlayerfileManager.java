@@ -14,6 +14,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
+import java.io.ObjectInputFilter;
 import java.util.*;
 
 import static Plugin.Managers.MessageManager.*;
@@ -30,6 +31,7 @@ public class PlayerfileManager {
     public String namekitfavorite;
     public static PlayersFiles playesfiles;
     public HashMap<UUID, String> listPrefix;
+    public static ArrayList<String> namesPlayres;
 
 
     public PlayerfileManager(xBxTcore plugin) {
@@ -42,6 +44,8 @@ public class PlayerfileManager {
         nameskitsglobal = new ArrayList<>();
         nameskitsboth = new ArrayList<>();
         listPrefix = new HashMap<>();
+        namesPlayres = new ArrayList<>();
+        loadNamesPlayers();
     }
 
     public void loadKit(UUID uuid, String namekit, Inventory inv, Player player) {
@@ -175,6 +179,14 @@ public class PlayerfileManager {
         }
     }
 
+    public void loadNamesPlayers() {
+        nameskits.clear();
+        for(PlayerFile playerFile : playesfiles.getConfigFiles()){
+            String name = playerFile.getkitConfigFile().getString("metadataplayer.Name");
+            namesPlayres.add(name);
+        }
+    }
+
     public void SaveKit(UUID uuid, String namekit, Material material, ArrayList<ItemStack> itemstacks){
         getfile(uuid).getkitConfigFile().set("Kits." + namekit, null);
         getfile(uuid).getkitConfigFile().set("Kits." + namekit + ".inventory", itemstacks);
@@ -211,6 +223,7 @@ public class PlayerfileManager {
             getfile(uuid).getkitConfigFile().set("Kits.test", null);
             getfile(uuid).saveConfig();
             getPlayerFileManager().reloadCustomConfig(uuid);
+            loadNamesPlayers();
             Objects.requireNonNull(Bukkit.getPlayer(uuid)).sendMessage(xBxTcore.getMessageManager().MasterMessage(Objects.requireNonNull(Bukkit.getPlayer(uuid)),Messages.NewPlayer));
         }
     }
