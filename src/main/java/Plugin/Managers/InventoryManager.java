@@ -154,7 +154,7 @@ public class InventoryManager {
                     case ENDER_CHEST:
                         invetoryPlayer.setuuidkit(UUID.fromString("00000000-0000-0000-0000-000000000000"));
                         invetoryPlayer.setPage(0);
-                        invetorymenu().OpenInvetoryKitsList(invetoryPlayer, 0, false);
+                        invetorymenu().OpenInvetoryKitsList(invetoryPlayer, 0);
                         break;
                     case MINECART:
                         MultiverseWorld mvWorld = xBxTcore.getMultiverseCore().getMVWorldManager().getMVWorld("creatorkits");
@@ -172,7 +172,7 @@ public class InventoryManager {
                         break;
                     case CHEST:
                         invetoryPlayer.setuuidkit(invetoryPlayer.getPlayer().getUniqueId());
-                        invetorymenu().OpenInvetoryKitsList(invetoryPlayer, 0, false);
+                        invetorymenu().OpenInvetoryKitsList(invetoryPlayer, 0);
                         break;
                 }break;
             case MENUKITS:
@@ -210,14 +210,14 @@ public class InventoryManager {
                         int i = invetoryPlayer.getPage();
                         i--;
                         invetoryPlayer.setPage(i);
-                        invetorymenu().OpenInvetoryKitsList(invetoryPlayer, invetoryPlayer.getPage(), invetoryPlayer.getPreviewMode());
+                        invetorymenu().OpenInvetoryKitsList(invetoryPlayer, invetoryPlayer.getPage());
                         return;
                     }
                 } else if (slot == next && Material.ARROW == item.getType()) {
                     int i = invetoryPlayer.getPage();
                     i++;
                     invetoryPlayer.setPage(i);
-                    invetorymenu().OpenInvetoryKitsList(invetoryPlayer, invetoryPlayer.getPage(), invetoryPlayer.getPreviewMode());
+                    invetorymenu().OpenInvetoryKitsList(invetoryPlayer, invetoryPlayer.getPage());
                     return;
                 } else if (invetoryPlayer.getKitSelectMode()) {
                     if (slot == mid + 1){
@@ -227,11 +227,11 @@ public class InventoryManager {
                     }else if (slot == mid - 1){
                         if (item.getType() == Material.CHEST){
                             invetoryPlayer.setuuidkit(invetoryPlayer.getPlayer().getUniqueId());
-                            invetorymenu().OpenInvetoryKitsList(invetoryPlayer, 0, true);
+                            invetorymenu().OpenInvetoryKitsList(invetoryPlayer, 0);
                             return;
                         }else if(item.getType() == Material.ENDER_CHEST){
                             invetoryPlayer.setuuidkit(UUID.fromString("00000000-0000-0000-0000-000000000000"));
-                            invetorymenu().OpenInvetoryKitsList(invetoryPlayer, 0, true);
+                            invetorymenu().OpenInvetoryKitsList(invetoryPlayer, 0);
                             return;
                         }
                     }
@@ -248,7 +248,7 @@ public class InventoryManager {
             case PREVIEWKITS:
                 switch (slot){
                     case 53:
-                        invetorymenu().OpenInvetoryKitsList(invetoryPlayer, invetoryPlayer.getPage(), false);
+                        invetorymenu().OpenInvetoryKitsList(invetoryPlayer, invetoryPlayer.getPage());
                         break;
                     case 45:
                         invetoryPlayer.getPlayer().closeInventory();
@@ -264,7 +264,7 @@ public class InventoryManager {
                     case 12:
                         invetoryPlayer.setKitSelectMode(true);
                         invetoryPlayer.setuuidkit(UUID.fromString("00000000-0000-0000-0000-000000000000"));
-                        invetorymenu().OpenInvetoryKitsList(invetoryPlayer, 0, true);
+                        invetorymenu().OpenInvetoryKitsList(invetoryPlayer, 0);
                         break;
                     case 14:
                         invetorymenu().OpenTimeSelect(invetoryPlayer);

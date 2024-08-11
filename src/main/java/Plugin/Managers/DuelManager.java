@@ -127,8 +127,6 @@ public class DuelManager{
                         }
                     }
 
-                    Bukkit.getConsoleSender().sendMessage(String.valueOf(i));
-
                     if (i > 2){
                         return;
                     }

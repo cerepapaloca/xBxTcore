@@ -148,10 +148,11 @@ public class MessageManager {
        enMessages.put("DuelTimeLimitOn",Coloritem + "Time limit activated");
        enMessages.put("DuelTimeLimitOff",Coloritem + "Time limit disabled");
        enMessages.put("DuelTimeLore", Colorinfo + "Maximum time: ");
-       enMessages.put("H1mas","&2&l1M+");
-       enMessages.put("S1mas","&2&l1S+");
-       enMessages.put("S1menos","&2&l1S-");
-       enMessages.put("H1menos","&2&l1M-");
+       enMessages.put("SelectKitFavorite",Coloritem  + "&lSelect favorite kit");
+       enMessages.put("H1mas","&21M+");
+       enMessages.put("S1mas","&21S+");
+       enMessages.put("S1menos","&c1S-");
+       enMessages.put("H1menos","&c1M-");
        //otros
        enMessages.put("TimeBossBar", Colorinfo + "Time remaining: ");
        enMessages.put("WarningGetGuestPlayers", ColorWarning + "One of the players you invited is not connected or does not exist");
@@ -284,6 +285,7 @@ public class MessageManager {
         esMessages.put("DuelTimeLimitOn",Coloritem + "Limite de tiempo activado");
         esMessages.put("DuelTimeLimitOff",Coloritem + "Limite de tiempo desactivado");
         esMessages.put("DuelTimeLore", Colorinfo + "Tiempo máximo: ");
+        enMessages.put("SelectKitFavorite",Coloritem  + "&lSeleccionar kit favorito");
         esMessages.put("H1mas","&21M+");
         esMessages.put("S1mas","&21S+");
         esMessages.put("S1menos","&c1S-");

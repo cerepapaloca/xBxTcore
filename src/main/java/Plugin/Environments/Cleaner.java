@@ -75,7 +75,6 @@ public class Cleaner {
                         if (z > maxZ) {
                             z = minZ;
                             y++;
-                            //break; //por si acaso
                         }
                     } else {
 

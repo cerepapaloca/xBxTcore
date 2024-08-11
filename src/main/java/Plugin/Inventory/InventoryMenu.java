@@ -92,7 +92,7 @@ public class InventoryMenu extends InventoryManager {
         getInvetoryManager().addplayer(invetoryplayer);
     }
 
-    public void OpenInvetoryKitsList(InvetoryPlayer invetoryplayer, int page, Boolean selectkitsmode) {
+    public void OpenInvetoryKitsList(InvetoryPlayer invetoryplayer, int page) {
         //invetoryplayer.setKitSelectMode(selectkitsmode);
         ItemMeta itemMeta;
         invetoryplayer.setSection(InvetorySection.MENUKITS);
@@ -127,14 +127,17 @@ public class InventoryMenu extends InventoryManager {
         BARRIER.setItemMeta(BARRIERMeta);
         ///////////////////////////////////////////////////
         ItemStack CHEST_MINECART;
+        Messages messages;
         if (invetoryplayer.getuuidkit().equals(invetoryplayer.getPlayer().getUniqueId())){
             CHEST_MINECART = new ItemStack(Material.ENDER_CHEST);
+            messages = Messages.InvGlobal;
         }else{
             CHEST_MINECART = new ItemStack(Material.CHEST);
+            messages = Messages.InvCustom;
         }
         ItemMeta CHEST_MINECARTmeta = CHEST_MINECART.getItemMeta();
         assert CHEST_MINECARTmeta != null;
-        CHEST_MINECARTmeta.setDisplayName(xBxTcore.getMessageManager().MasterMessage(player, Messages.InvExit));
+        CHEST_MINECARTmeta.setDisplayName(xBxTcore.getMessageManager().MasterMessage(player, messages));
         CHEST_MINECART.setItemMeta(CHEST_MINECARTmeta);
         ///////////////////////////////////////////////////
 
@@ -145,10 +148,6 @@ public class InventoryMenu extends InventoryManager {
         }else{
             STRUCTURE_VOID = new ItemStack(Material.STRUCTURE_VOID);
         }
-        itemMeta = STRUCTURE_VOID.getItemMeta();
-        assert itemMeta != null;
-        itemMeta.setDisplayName(xBxTcore.getMessageManager().MasterMessage(player, Messages.InvClear));
-        STRUCTURE_VOID.setItemMeta(itemMeta);
         ///////////////////////////////////////////////////
         xBxTcore.getPlayerFileManager().loadNameKit(invetoryplayer.getuuidkit());
         int posicion = 0;
@@ -160,15 +159,21 @@ public class InventoryMenu extends InventoryManager {
                 inv.setItem(53, ARROW);
             }
 
-            int previewslot;
-
-            if (!invetoryplayer.getKitSelectMode()){
-                inv.setItem(48, STRUCTURE_VOID);
-                previewslot = 50;
-            }else{
-                inv.setItem(47, CHEST_MINECART);
-                inv.setItem(49, STRUCTURE_VOID);
-                previewslot = 51;
+            int previewslot = 0;
+            itemMeta = STRUCTURE_VOID.getItemMeta();
+            if (itemMeta != null){
+                if (!invetoryplayer.getKitSelectMode()){
+                    itemMeta.setDisplayName(xBxTcore.getMessageManager().MasterMessage(player, Messages.SelectKitFavorite));
+                    STRUCTURE_VOID.setItemMeta(itemMeta);
+                    inv.setItem(48, STRUCTURE_VOID);
+                    previewslot = 50;
+                }else{
+                    itemMeta.setDisplayName(xBxTcore.getMessageManager().MasterMessage(player, Messages.InvClear));
+                    STRUCTURE_VOID.setItemMeta(itemMeta);
+                    inv.setItem(47, CHEST_MINECART);
+                    inv.setItem(49, STRUCTURE_VOID);
+                    previewslot = 51;
+                }
             }
 
             ItemMeta Meta;

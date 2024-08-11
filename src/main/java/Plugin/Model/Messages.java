@@ -112,6 +112,7 @@ public enum Messages {
     DuelTimeLimitOn,
     DuelTimeLimitOff,
     DuelTimeLore,
+    SelectKitFavorite,
     H1mas,
     S1mas,
     S1menos,
