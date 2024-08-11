@@ -15,6 +15,7 @@ public class MessageManager {
     private final Map<String, String> esMessages = new HashMap<>();
     private final Map<String, String> enMessages = new HashMap<>();
 
+    public static String prefixKick = "&6[&8&lxB&f&lxT &e&lPvP&6]&r \n";
     public static String prefixConsole = "&6[&8&lxB&f&lxT &eConsoler&6]&r ";
     public static String prefix = "&6[" + ChatColor.of("#61CAFD") + "&lx" + ChatColor.of("#7CAFEC") + "&lB" + ChatColor.of("#9893DC")
             + "&lx" + ChatColor.of("#B378CB") + "&lT" + ChatColor.of("#FDC661") + " &lC" + ChatColor.of("#FEAA41") + "&lo" +
@@ -169,7 +170,7 @@ public class MessageManager {
                 + "&lx" + ChatColor.of("#B378CB") + "&lT" + ChatColor.of("#FDC661") + "&l." + ChatColor.of("#FEAA41") + "&lx" +
                 ChatColor.of("#FE8F22") + "&ly" + ChatColor.of("#FF7302") + "&lz" + Colorinfo + "\nJoin our discord:" + ColorLink + "https://discord.gg/QYBwEFvnsG");
        //Kick
-       enMessages.put("SpamCommand","Kicked out for command spam");
+       enMessages.put("SpamCommand",prefixKick + Colorinfo + "Kicked out for command spam");
 
 
         //ES//
@@ -306,7 +307,7 @@ public class MessageManager {
                 + "&lx" + ChatColor.of("#B378CB") + "&lT" + ChatColor.of("#FDC661") + "&l." + ChatColor.of("#FEAA41") + "&lx" +
                 ChatColor.of("#FE8F22") + "&ly" + ChatColor.of("#FF7302") + "&lz" + Colorinfo + "\núnete a nuestro discord discord:" + ColorLink + "https://discord.gg/QYBwEFvnsG");
         //Kick
-        esMessages.put("SpamCommand","Echado por spam de comando");
+        esMessages.put("SpamCommand",prefixKick  + Colorinfo + "Echado por spam de comando");
     }
 
     public String MasterMessage(Player player, Messages message){

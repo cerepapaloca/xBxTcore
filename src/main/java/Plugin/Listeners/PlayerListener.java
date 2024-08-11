@@ -31,6 +31,7 @@ public class PlayerListener implements Listener {
     private Material MaterialFalling;
     public PlayerDataGLobal playerDataGLobal;
     private Player playerMasterKiller;
+    private Long coolDownJoin = System.currentTimeMillis();
 
     public PlayerListener(xBxTcore plugin) {
         this.plugin = plugin;
@@ -90,6 +91,24 @@ public class PlayerListener implements Listener {
                 event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessage(event.getPlayer(),Messages.IncorrectLoc));
             }
         }
+    }
+
+    private final String messageKick = ChatColor.translateAlternateColorCodes('&',prefixKick + Colorinfo + "Only one player can join every 3 seconds\nSolo se puede unir un jugador por cada 3 segundos");
+    private final String messageKickConsole = ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorWarning + "Se expulso al jugador " + Colorplayer + "%p%" + ColorWarning + " por entrar paridamente");
+
+    @EventHandler
+    public void PlayerPreLoginEvent(AsyncPlayerPreLoginEvent event) {
+        if (coolDownJoin >= System.currentTimeMillis()) {
+            event.setLoginResult(AsyncPlayerPreLoginEvent.Result.KICK_OTHER);
+            event.setKickMessage(messageKick);
+            Bukkit.getConsoleSender().sendMessage(messageKickConsole.replace("%p%", event.getName()));
+            coolDownJoin = System.currentTimeMillis() + 3500;
+        }
+    }
+
+    @EventHandler
+    public void PlayerLoginEvent(PlayerLoginEvent event) {
+        coolDownJoin = System.currentTimeMillis() + 3000;
     }
 
     @EventHandler

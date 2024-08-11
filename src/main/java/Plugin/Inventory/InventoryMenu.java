@@ -93,7 +93,6 @@ public class InventoryMenu extends InventoryManager {
     }
 
     public void OpenInvetoryKitsList(InvetoryPlayer invetoryplayer, int page) {
-        //invetoryplayer.setKitSelectMode(selectkitsmode);
         ItemMeta itemMeta;
         invetoryplayer.setSection(InvetorySection.MENUKITS);
         Inventory inv;
