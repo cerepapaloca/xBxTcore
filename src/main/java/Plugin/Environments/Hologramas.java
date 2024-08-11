@@ -26,7 +26,7 @@ public class Hologramas{
     public Hologramas(xBxTcore plugin)  {
         this.armorStandsKills = new ArrayList<>();
         this.armorStandsUser = new ArrayList<>();
-        this.playerDataGLobal = xBxTcore.getPlayerData();
+        this.playerDataGLobal = xBxTcore.getPlayerDataGlobal();
         this.plugin = plugin;
         textholograms = new ArrayList<>();
         removeArmorStands();

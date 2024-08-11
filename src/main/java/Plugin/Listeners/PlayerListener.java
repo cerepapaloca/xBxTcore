@@ -1,5 +1,6 @@
 package Plugin.Listeners;
 
+import Plugin.Model.EndCombatCauses;
 import Plugin.Model.Messages;
 import Plugin.Model.PlayerDataGLobal;
 import Plugin.Model.Request;
@@ -105,7 +106,6 @@ public class PlayerListener implements Listener {
         ///////////////////////////////////////////////////
         String prefixName = xBxTcore.getPlayerFileManager().loadPrefix(player.getUniqueId());
         xBxTcore.getHologramas().updateHologramUser();
-        Bukkit.getConsoleSender().sendMessage(prefixName);
         new BukkitRunnable() {
             public void run() {
                 Objects.requireNonNull(xBxTcore.getTabAPI().getNameTagManager()).setPrefix(Objects.requireNonNull(xBxTcore.getTabAPI().getPlayer(player.getUniqueId())), prefixName);
@@ -127,7 +127,7 @@ public class PlayerListener implements Listener {
         xBxTcore.getMessageManager().BroadcastMessageleave(event.getPlayer());
         xBxTcore.getHologramas().PlayerQuit(event.getPlayer().getUniqueId());
         if (!xBxTcore.getWorldProtec().contains(event.getPlayer().getWorld()) && event.getPlayer().getGameMode().equals(GameMode.SURVIVAL)){
-            xBxTcore.getDuelManager().EndDuel(event.getPlayer().getWorld(), null, true);
+            xBxTcore.getDuelManager().EndDuel(event.getPlayer().getWorld(), null, EndCombatCauses.LEFT);
         }
         for(Request request : xBxTcore.getCommandDuel().getPendingRequests().values()){
             xBxTcore.getCommandDuel().denyRequest(event.getPlayer(), request.getRequesterId(), false);
@@ -163,7 +163,7 @@ public class PlayerListener implements Listener {
 
         if (event.getEntity().getLastDamageCause() != null) {
             Player p = event.getEntity();
-            if (event.getEntity().getWorld().equals(Bukkit.getWorld("lobby"))){
+            //if (event.getEntity().getWorld().equals(Bukkit.getWorld("lobby"))){
                 if(p == playerMasterKiller){
                     suicide(p);
                     event.setDeathMessage(null);
@@ -234,15 +234,19 @@ public class PlayerListener implements Listener {
                     int i = playerMasterKiller.getLevel();
                     playerMasterKiller.setLevel(i + 1);
                     xBxTcore.getcombatlogListener().endCombat(event.getEntity());
+                    xBxTcore.getcombatlogListener().endCombat(playerMasterKiller);
                     xBxTcore.getHologramas().PlayerKillerAdd(playerMasterKiller);
                     playerMasterKiller = null;
                 }
+                if (!event.getEntity().getWorld().equals(Bukkit.getWorld("lobby"))){
+                xBxTcore.getDuelManager().EndDuel(event.getEntity().getWorld(), playerMasterKiller, EndCombatCauses.DIED);
+                }
                 event.setDeathMessage(null);
-            }else{
+            /*}else{
                 if (event.getEntity().getGameMode().equals(GameMode.SURVIVAL)) {
                     for(Player player : event.getEntity().getWorld().getPlayers()){
                        if(player != event.getEntity() && player.getGameMode().equals(GameMode.SURVIVAL)){
-                           xBxTcore.getDuelManager().EndDuel(event.getEntity().getWorld(), player, false);
+                           xBxTcore.getDuelManager().EndDuel(event.getEntity().getWorld(), player, EndCombatCauses.DIED);
                            xBxTcore.getHologramas().PlayerKillerAdd(player);
                            int i = player.getLevel();
                            player.setLevel(i + 1);
@@ -251,7 +255,7 @@ public class PlayerListener implements Listener {
                        }
                     }
                 }
-            }
+            }*/
         }
         event.setDeathMessage(null);
     }

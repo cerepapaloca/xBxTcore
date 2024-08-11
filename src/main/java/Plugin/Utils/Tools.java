@@ -52,8 +52,8 @@ public class Tools {
     public void AntiSpam(Player p, Messages messages) {
         UUID uuid = p.getUniqueId();
         playersExecute.put(uuid, playersExecute.getOrDefault(uuid, 0) + 1);
-        if (playersExecute.get(uuid) > 3){
-            xBxTcore.getMessageManager().KickMessage(p ,messages);
+        if (playersExecute.get(uuid) > 3) {
+            xBxTcore.getMessageManager().KickMessage(p, messages);
             playersExecute.remove(uuid);
         }
         new BukkitRunnable() {

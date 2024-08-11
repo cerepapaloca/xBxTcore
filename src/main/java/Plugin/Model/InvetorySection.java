@@ -4,5 +4,6 @@ public enum InvetorySection {
     MENU,
     MENUKITS,
     PREVIEWKITS,
-    MENUDUEL
+    MENUDUEL,
+    TIMESELECT
 }

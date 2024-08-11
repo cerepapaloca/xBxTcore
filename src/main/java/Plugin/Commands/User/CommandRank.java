@@ -20,7 +20,7 @@ public class CommandRank implements CommandExecutor {
 
     public CommandRank(xBxTcore plugin){
         this.plugin = plugin;
-        playerDataGLobal = xBxTcore.getPlayerData();
+        playerDataGLobal = xBxTcore.getPlayerDataGlobal();
     }
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
         if(sender instanceof Player p){

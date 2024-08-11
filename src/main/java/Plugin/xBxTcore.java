@@ -209,7 +209,7 @@ public class xBxTcore extends JavaPlugin {
         return messageManager;
     }
 
-    public static PlayerDataGLobal getPlayerData(){
+    public static PlayerDataGLobal getPlayerDataGlobal(){
         return playerDataGLobal;
     }
 
@@ -319,10 +319,9 @@ public class xBxTcore extends JavaPlugin {
     public static PlayerDataUnique getPlayerDataUnique(UUID uuid){
         if (!playerDataUnique.containsKey(uuid)){
             PlayerDataUnique playerDataUnique1 = new PlayerDataUnique(uuid);
-            return playerDataUnique.put(uuid, playerDataUnique1);
-        }else{
-            return playerDataUnique.get(uuid);
+            playerDataUnique.put(uuid, playerDataUnique1);
         }
+        return playerDataUnique.get(uuid);
     }
 
     public static void deletePlayerDataUnique(UUID uuid){

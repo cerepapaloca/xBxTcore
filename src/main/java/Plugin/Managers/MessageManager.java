@@ -28,6 +28,7 @@ public class MessageManager {
     public static String Colorinfo = "&3";
     public static String Colorplayer = "&6";
     public static String ColorLink = "&a&n";
+    public static String Coloritem = "&b";
 
     private static final String esErrorMensaje = prefix + ColorError + "&LHubo un error con el mensaje: '%message%' Contacta rapidamente con el dueño del servidor";
     private static final String enErrorMensaje = prefix + ColorError + "&LThere was an error with the message: '%message%' Please contact the server owner quickly";
@@ -73,6 +74,9 @@ public class MessageManager {
        //Combate Log
        enMessages.put("OnCombat",prefix + ColorError + "It is not allowed to use in combat wait "+ "&b" + "%time%" + ColorError + " seconds to use it");
        //Las Solisitudes del Duel
+       enMessages.put("Inv",prefix + ColorSuccess + "Guest list saved successfully");
+       enMessages.put("MissingPlayers",prefix + Colorinfo + "Missing players ");
+       enMessages.put("SelfAccepted",prefix + ColorError + "Cannot accept or deny your own request");
        enMessages.put("OnDuel",prefix + ColorError + "You are already in a duel");
        enMessages.put("SendSelf",prefix + ColorError + "Can't send yourself");
        enMessages.put("RequestExpired",prefix + ColorError + "The request has expired");
@@ -93,10 +97,16 @@ public class MessageManager {
        enMessages.put("HoverDeny","Deny");
        enMessages.put("ArenaDuel",Colorinfo + "World: " + Colorplayer);
        enMessages.put("SenderPlayer",Colorinfo + "Send by: " + Colorplayer);
+       enMessages.put("KitSelect", Colorinfo + "Kit:&r ");
+       enMessages.put("TimeLimit",Colorinfo + "Time limit: " + Colorplayer);
+       enMessages.put("KitFavorite", Colorplayer + "Your favorite kit");
+       enMessages.put("EndTimeDuel",prefix + Colorinfo + "Time is up");
+       enMessages.put("ListPlayersEmpty",prefix + ColorError + "You haven't invited anyone");
         //En el mundo del duelo
        enMessages.put("EndCombat",prefix + ColorWarning + "End Combat, player disconnected");
        enMessages.put("IncorrectLoc",prefix + ColorError + "You are not allowed to be on the roof");
-       enMessages.put("DuelStarted",prefixDuel + Colorinfo + "Duel started: " + Colorplayer + "%player1% " + Colorinfo + "VS " + Colorplayer + "%player2% " + Colorinfo + "In:" + Colorplayer + " %world%");
+       enMessages.put("DuelStarted1",prefixDuel + Colorinfo + "Duel started: " + Colorplayer + "%player1% " + Colorinfo + "VS " + Colorplayer + "%player2% " + Colorinfo + "In:" + Colorplayer + " %world%");
+       enMessages.put("DuelStarted2",prefixDuel + Colorinfo + "Duel started:" + Colorplayer + " %player1% " + Colorinfo + "With " + Colorplayer + "%player2% " + Colorinfo + "players in:" + Colorplayer + " %world%");
        enMessages.put("Go","&2&lGO!!");
        enMessages.put("HoverDuel", "See the last duel");
        //Para modo espetador
@@ -123,7 +133,30 @@ public class MessageManager {
        enMessages.put("KitListBedrock", "&bKits List");
        enMessages.put("PreviewOn", "&bPreview:&2&l Enabled");
        enMessages.put("PreviewOff", "&bPreview:&c&l Disabled");
+       enMessages.put("DuelSendQuest", "&2&lEnviar Petición");
+       enMessages.put("DuelInvPlayers", Coloritem + "&lList of invited players");
+       enMessages.put("DuelSelectKit", Coloritem + "&lThe selected kit");
+       enMessages.put("DuelTimeLimit", Coloritem + "&lTime limit");
+       enMessages.put("DuelSelectWorld", Coloritem + "&lSelected world");
+       enMessages.put("DuelLoreInvPlayers", Colorinfo + "Selected players");
+       enMessages.put("DuelLoreInvPlayersEmpty", Colorinfo + "Invite your friends!");
+       enMessages.put("DuelLoreSelectKit", Colorinfo + "The selected kit is: &e");
+       enMessages.put("DuelLoreSelectKitEmpty", Colorinfo + "The selected kit is the favorite");
+       enMessages.put("DuelLoreTimeLimit", Colorinfo + "Active time limit");
+       enMessages.put("DuelLoreTimeLimitDisabled", Colorinfo + "No time limit");
+       enMessages.put("DuelLoreSelectWorld", Colorplayer + "Selected: ");
+       enMessages.put("DuelTimeLimitOn",Coloritem + "Time limit activated");
+       enMessages.put("DuelTimeLimitOff",Coloritem + "Time limit disabled");
+       enMessages.put("DuelTimeLore", Colorinfo + "Maximum time: ");
+       enMessages.put("H1mas","&2&l1M+");
+       enMessages.put("S1mas","&2&l1S+");
+       enMessages.put("S1menos","&2&l1S-");
+       enMessages.put("H1menos","&2&l1M-");
        //otros
+       enMessages.put("TimeBossBar", Colorinfo + "Time remaining: ");
+       enMessages.put("WarningGetGuestPlayers", ColorWarning + "One of the players you invited is not connected or does not exist");
+       enMessages.put("IvnPlayers1", Colorinfo + "Use /inv");
+       enMessages.put("IvnPlayers2", Colorinfo + "Write the names of the players.");
        enMessages.put("Alone",prefix + Colorinfo + "If you are alone on the server, join our discord to find someone to play with.\nDiscord:" + ColorLink + "https://discord.gg/QYBwEFvnsG");
        enMessages.put("message1Minute",prefix + Colorinfo + "1 minute Cleaner");
        enMessages.put("message5Seconds",prefix + Colorinfo + "5 seconds Cleaner");
@@ -177,6 +210,9 @@ public class MessageManager {
         //Combate Log
         esMessages.put("OnCombat",prefix + ColorError + "No esta permitido usar eso en combate, espera "+ "&b" + "%time%" + ColorError + " segundos para usarlo");
         //Las Solisitudes del Duel
+        esMessages.put("Inv",prefix + ColorSuccess + "Se guardo exitosamente la lista de invitados");
+        esMessages.put("MissingPlayers",prefix + Colorinfo + "Jugadores faltantes ");
+        esMessages.put("SelfAccepted",prefix + ColorError + "No puede aceptar o denegar tu propia solicitud");
         esMessages.put("OnDuel",prefix + ColorError + "Ya estas en un duelo");
         esMessages.put("SendSelf",prefix + ColorError + "No puede enviarte a tí mismo");
         esMessages.put("RequestExpired",prefix + ColorError + "La solicitud ya expiro");
@@ -197,10 +233,16 @@ public class MessageManager {
         esMessages.put("HoverDeny","No");
         esMessages.put("ArenaDuel",Colorinfo + "Mundo: " + Colorplayer);
         esMessages.put("SenderPlayer",Colorinfo + "Enviado por: " + Colorplayer);
+        esMessages.put("KitSelect", Colorinfo + "Kit:&r ");
+        esMessages.put("TimeLimit",Colorinfo + "Tiempo Limite: " + Colorplayer);
+        esMessages.put("KitFavorite", Colorplayer + "Tu kit favorito");
+        esMessages.put("EndTimeDuel",prefix + Colorinfo + "Se acabo el tiempo");
+        esMessages.put("ListPlayersEmpty",prefix + ColorError + "No has invitado a nadie");
         //En el mundo del duelo
         esMessages.put("EndCombat",prefix + ColorWarning + "Fin del combate, jugador desconectado");
         esMessages.put("IncorrectLoc",prefix + ColorError + "No esta permitido estar en el techo");
-        esMessages.put("DuelStarted",prefixDuel + Colorinfo + "Duelo iniciado:" + Colorplayer + " %player1% " + Colorinfo + "VS " + Colorplayer + "%player2%" + Colorinfo + " En:" + Colorplayer + " %world%");
+        esMessages.put("DuelStarted1",prefixDuel + Colorinfo + "Duelo iniciado:" + Colorplayer + " %player1% " + Colorinfo + "VS " + Colorplayer + "%player2%" + Colorinfo + " En:" + Colorplayer + " %world%");
+        esMessages.put("DuelStarted2",prefixDuel + Colorinfo + "Duelo iniciado:" + Colorplayer + " %player1% " + Colorinfo + "Con " + Colorplayer + "%player2% " + Colorinfo + "jugadores En:" + Colorplayer + " %world%");
         esMessages.put("Go","&2&lVAMOS!!");
         esMessages.put("HoverDuel", "Ver el último duelo");
         //Para modo espetador
@@ -227,7 +269,30 @@ public class MessageManager {
         esMessages.put("KitListBedrock", "&bLista de kits");
         esMessages.put("PreviewOn", "&bPrevisualización:&2&l Activada");
         esMessages.put("PreviewOff", "&bPrevisualización:&c&l Desactivada");
+        esMessages.put("DuelSendQuest", "&2&lEnviar Petición");
+        esMessages.put("DuelInvPlayers", "&b&lLista de jugadores invitado");
+        esMessages.put("DuelSelectKit", "&b&lEl kit seleccionado");
+        esMessages.put("DuelTimeLimit", "&b&lLimite de tiempo");
+        esMessages.put("DuelSelectWorld", "&b&lMundo seleccionado");
+        esMessages.put("DuelLoreInvPlayers", Colorinfo + "Jugadores seleccionado ");
+        esMessages.put("DuelLoreInvPlayersEmpty", Colorinfo + "Invita a tus amigos!");
+        esMessages.put("DuelLoreSelectKit", Colorinfo + "El kit seleccionado es: &e");
+        esMessages.put("DuelLoreSelectKitEmpty", Colorinfo + "El kit seleccionado es el favorito");
+        esMessages.put("DuelLoreTimeLimit", Colorinfo + "Limite de tiempo activo");
+        esMessages.put("DuelLoreTimeLimitDisabled", Colorinfo + "Sin limite de tiempo");
+        esMessages.put("DuelLoreSelectWorld", Colorplayer + "Seleccionado: ");
+        esMessages.put("DuelTimeLimitOn",Coloritem + "Limite de tiempo activado");
+        esMessages.put("DuelTimeLimitOff",Coloritem + "Limite de tiempo desactivado");
+        esMessages.put("DuelTimeLore", Colorinfo + "Tiempo máximo: ");
+        esMessages.put("H1mas","&21M+");
+        esMessages.put("S1mas","&21S+");
+        esMessages.put("S1menos","&c1S-");
+        esMessages.put("H1menos","&c1M-");
         //otros
+        esMessages.put("TimeBossBar", Colorinfo + "Tiempo restante: ");
+        esMessages.put("WarningGetGuestPlayers", ColorWarning + "Unos de jugadores que invitaste no esta o no existe");
+        esMessages.put("IvnPlayers1", Coloritem + "Usa /inv");
+        esMessages.put("IvnPlayers2", Colorinfo + "Escribe los nombres de los jugadores");
         esMessages.put("Alone",prefix + Colorinfo + "Si estas solo en el servidor, únete a nuestro discord para jugar con alguien.\nDiscord:" + ColorLink + "https://discord.gg/QYBwEFvnsG");
         esMessages.put("message1Minute",prefix + Colorinfo + "Limpieza en 1 minuto");
         esMessages.put("message5Seconds",prefix + Colorinfo + "Limpieza en 5 segundos");
@@ -285,7 +350,7 @@ public class MessageManager {
     }
 
     public void KickMessage(Player p ,Messages message){
-        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "minecraft:kick " + p.getName() + " " + MasterMessage(p, message));
+        p.kickPlayer(MasterMessage(p,message));
     }
 
     public void BroadcastMessagejoin(Player player){

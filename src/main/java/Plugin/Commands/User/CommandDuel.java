@@ -1,5 +1,6 @@
 package Plugin.Commands.User;
 
+import Plugin.Managers.InventoryManager;
 import Plugin.Model.InvetoryPlayer;
 import Plugin.Model.Messages;
 import Plugin.Model.Request;
@@ -43,70 +44,74 @@ public class CommandDuel implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
-        if (sender instanceof Player requester) {
+        if (sender instanceof Player playareSender) {
             players.clear();
             if(args.length > 0){
 
 
             }/*else{
-                //requester.sendMessage(xBxTcore.getMessageManager().MasterMessage(requester, Messages.DuelError));
+                //playareSender.sendMessage(xBxTcore.getMessageManager().MasterMessage(playareSender, Messages.DuelError));
             }*/
-            if (xBxTcore.getWorldProtec().contains(requester.getWorld())) {
+            if (xBxTcore.getWorldProtec().contains(playareSender.getWorld())) {
                 switch (args.length) {
                     case 0:
-                        xBxTcore.getInventoryMenu().OpenDuel(new InvetoryPlayer(requester));
+                        xBxTcore.getInventoryMenu().OpenDuel(new InvetoryPlayer(playareSender));
                         return true;
                     case 1:
                         Player target = Bukkit.getPlayer(args[0]);
                         if (args[0].equalsIgnoreCase("deny")) {
-                            if (requestlast.getPlayers().contains(requester)) {
-                                denyRequest((Player) sender, requestlast.getRequesterId(), true);
-                            }else{
-                                Bukkit.getConsoleSender().sendMessage("No such player");
-                            }
+                            denyRequest((Player) sender, requestlast.getRequesterId(), true);
                             return true;
                         } else if (args[0].equalsIgnoreCase("yes")){
-                            if (requestlast.getPlayers().contains(requester)) {
-                                acceptRequest((Player) sender, requestlast.getRequesterId());
-                            }else{
-                                Bukkit.getConsoleSender().sendMessage("No such player");
-                            }
+                            acceptRequest((Player) sender, requestlast.getRequesterId());
+                            return true;
+                        } else if (args[0].equalsIgnoreCase("fast_inv")){
+                            xBxTcore.getCommandDuel().sendRequest(xBxTcore.getPlayerDataUnique(playareSender.getUniqueId()).getGuestPlayers(false), xBxTcore.getPlayerDataUnique(playareSender.getUniqueId()).getNameWolrd(), playareSender.getUniqueId());
                             return true;
                         }
 
                         if (target != null) {
-                            if(target != requester){
-                                players.add(requester);
+                            if(target != playareSender){
+                                ClearSttingsDuel(playareSender.getUniqueId());
+                                players.add(playareSender);
                                 players.add(target);
-                                sendRequest(players, "bedrock", ((Player) sender).getUniqueId());
+                                sendRequest(players, "bedrock", (playareSender).getUniqueId());
                             }else{
-                                requester.sendMessage(xBxTcore.getMessageManager().MasterMessage(requester, Messages.SendSelf));
+                                playareSender.sendMessage(xBxTcore.getMessageManager().MasterMessage(playareSender, Messages.SendSelf));
                             }
                         }else{
-                            requester.sendMessage(xBxTcore.getMessageManager().MasterMessage(requester, Messages.PlayerOffTarget));
+                            playareSender.sendMessage(xBxTcore.getMessageManager().MasterMessage(playareSender, Messages.PlayerOffTarget));
                         }
                         return true;
                     case 2:
+                        if (args[0].equalsIgnoreCase("deny") && pendingRequests.containsKey(Bukkit.getPlayer(args[1]).getUniqueId())){
+                            denyRequest((Player) sender, Bukkit.getPlayer(args[1]).getUniqueId(), true);
+                            return true;
+                        } else if (args[0].equalsIgnoreCase("yes") && pendingRequests.containsKey(Bukkit.getPlayer(args[1]).getUniqueId())){
+                            acceptRequest((Player) sender, Bukkit.getPlayer(args[1]).getUniqueId());
+                            return true;
+                        }
                         target = Bukkit.getPlayer(args[0]);
                         if (target != null) {
-                            if(target != requester){
+                            if(target != playareSender){
                                 if(args[1].equalsIgnoreCase("bedrock") || args[1].equalsIgnoreCase("flat_bedrock") || args[1].equalsIgnoreCase("flat_world")){
-                                    players.add(requester);
+                                    ClearSttingsDuel(playareSender.getUniqueId());
+                                    players.add(playareSender);
                                     players.add(target);
-                                    sendRequest(players, args[1].toLowerCase(), ((Player) sender).getUniqueId());
+                                    sendRequest(players, args[1].toLowerCase(), (playareSender).getUniqueId());
 
                                 }else{
-                                    requester.sendMessage(xBxTcore.getMessageManager().MasterMessage(requester, Messages.WorldType));
+                                    playareSender.sendMessage(xBxTcore.getMessageManager().MasterMessage(playareSender, Messages.WorldType));
                                 }
                             }else{
-                                requester.sendMessage(xBxTcore.getMessageManager().MasterMessage(requester, Messages.SendSelf));
+                                playareSender.sendMessage(xBxTcore.getMessageManager().MasterMessage(playareSender, Messages.SendSelf));
                             }
                         }else{
-                            requester.sendMessage(xBxTcore.getMessageManager().MasterMessage(requester, Messages.PlayerOffTarget));
+                            playareSender.sendMessage(xBxTcore.getMessageManager().MasterMessage(playareSender, Messages.PlayerOffTarget));
                         }
                 }
             }else{
-                requester.sendMessage(xBxTcore.getMessageManager().MasterMessage(requester, Messages.OnDuel));
+                playareSender.sendMessage(xBxTcore.getMessageManager().MasterMessage(playareSender, Messages.OnDuel));
             }
 
         } else {
@@ -116,9 +121,16 @@ public class CommandDuel implements CommandExecutor {
     }
 
     public void sendRequest(ArrayList<Player> players1, String worldType, UUID requesterId) {
+        Bukkit.getConsoleSender().sendMessage("petición");
         requestlast = new Request(requesterId, System.currentTimeMillis() + 60000, world, players1, worldType); // 60 segundos
         Player requester = Bukkit.getPlayer(requesterId);
         players1.remove(requester);
+
+        if(players1.isEmpty()){
+            requester.sendMessage(xBxTcore.getMessageManager().MasterMessage(requester, Messages.ListPlayersEmpty));
+            return;
+        }
+
         pendingRequests.put(requesterId, requestlast);
         for (Player player : players1){
             TextComponent finalMessage = new TextComponent();
@@ -127,8 +139,19 @@ public class CommandDuel implements CommandExecutor {
             yes.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(xBxTcore.getMessageManager().MasterMessage(player,Messages.HoverYes)).create()));
             deny.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(xBxTcore.getMessageManager().MasterMessage(player,Messages.HoverDeny)).create()));
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + Colorinfo + "&l⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊>"));
+            if (xBxTcore.getPlayerDataUnique(requesterId).getTimelimit()){
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "-" + xBxTcore.getMessageManager().MasterMessage(player,Messages.TimeLimit) + Colorplayer + InventoryManager.secondsToMinutesLore(requester).get(0)));
+            }else {
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "-" + xBxTcore.getMessageManager().MasterMessage(player,Messages.TimeLimit) + Colorplayer + "No"));
+            }
+
+            if (xBxTcore.getPlayerDataUnique(requesterId).getKitData().getName() != null){
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "-" + xBxTcore.getMessageManager().MasterMessage(player,Messages.KitSelect) + xBxTcore.getPlayerDataUnique(requesterId).getKitData().getName()));
+            }else {
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "-" + xBxTcore.getMessageManager().MasterMessage(player,Messages.KitSelect) + xBxTcore.getMessageManager().MasterMessage(player,Messages.KitFavorite)));
+            }
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', "-" + xBxTcore.getMessageManager().MasterMessage(player,Messages.ArenaDuel) + worldType));
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "-" + xBxTcore.getMessageManager().MasterMessage(player,Messages.SenderPlayer) + requester.getDisplayName()));
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "-" + xBxTcore.getMessageManager().MasterMessage(player,Messages.SenderPlayer) + requester.getName()));
             finalMessage.addExtra(message1);
             finalMessage.addExtra(yes);
             finalMessage.addExtra(message2);
@@ -136,8 +159,6 @@ public class CommandDuel implements CommandExecutor {
             player.spigot().sendMessage(finalMessage);
             requester.sendMessage(xBxTcore.getMessageManager().MasterMessage(requester, Messages.SendRequest).replace("%player%", player.getName()));
         }
-
-        assert requester != null;
         xBxTcore.getTools().AntiSpam(requester, Messages.SpamCommand);
     }
 
@@ -147,14 +168,18 @@ public class CommandDuel implements CommandExecutor {
             if (System.currentTimeMillis() <= request.getExpirationTime()) {
                 Player requester = Bukkit.getPlayer(request.getRequesterId());
                 if (requester != null) {
-                    accepter.sendMessage(xBxTcore.getMessageManager().MasterMessage(accepter, Messages.AcceptedRequest));
-                    requester.sendMessage(xBxTcore.getMessageManager().MasterMessage(requester, Messages.AcceptedYourRequest));
-                    if(request.getPlayers().get(1).getWorld().equals(Bukkit.getWorld("lobby")) || request.getPlayers().get(1).getWorld().equals(Bukkit.getWorld("creatorkits"))) {
-                        request.getAcceptPlayers().add(accepter);
-                        teleportDuel(request);
+                    if (requestlast.getPlayers().contains(accepter)) {
+                        accepter.sendMessage(xBxTcore.getMessageManager().MasterMessage(accepter, Messages.AcceptedRequest));
+                        requester.sendMessage(xBxTcore.getMessageManager().MasterMessage(requester, Messages.AcceptedYourRequest));
+                        if (accepter.getWorld().equals(Bukkit.getWorld("lobby")) || accepter.getWorld().equals(Bukkit.getWorld("creatorkits"))) {
+                            request.getAcceptPlayers().add(accepter);
+                            teleportDuel(request);
 
-                    }else{
-                        accepter.sendMessage(xBxTcore.getMessageManager().MasterMessage(accepter, Messages.OnDuel));
+                        } else {
+                            accepter.sendMessage(xBxTcore.getMessageManager().MasterMessage(accepter, Messages.OnDuel));
+                        }
+                    } else {
+                        accepter.sendMessage(xBxTcore.getMessageManager().MasterMessage(accepter, Messages.SelfAccepted));
                     }
                 } else {
                     accepter.sendMessage(xBxTcore.getMessageManager().MasterMessage(accepter, Messages.PlayerOffSender));
@@ -177,9 +202,7 @@ public class CommandDuel implements CommandExecutor {
                 request.getAcceptPlayers().remove(denier);
                 if (request.getPlayers().size() <= 2) {
                     pendingRequests.remove(uuidResquest);
-                    Bukkit.getConsoleSender().sendMessage("Se elimino");
                 }else{
-                    Bukkit.getConsoleSender().sendMessage("Se elimino un jugador");
                     request.getPlayers().remove(denier);
                     teleportDuel(request);
                 }
@@ -199,6 +222,7 @@ public class CommandDuel implements CommandExecutor {
 
     private void teleportDuel(Request request){
         if (!(request.getPlayers().size() == request.getAcceptPlayers().size())){
+            Broadcast(request);
             Bukkit.getConsoleSender().sendMessage("falta jugadores " + request.getPlayers().size() + "/" + request.getAcceptPlayers().size());
             return;
         }
@@ -233,6 +257,22 @@ public class CommandDuel implements CommandExecutor {
         }
         for (Player player : request.getPlayers()) {
             player.sendMessage(xBxTcore.getMessageManager().MasterMessage(player, Messages.FullSites));
+        }
+    }
+
+    public void Broadcast(Request request){
+        for (Player player : request.getPlayers()) {
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&',xBxTcore.getMessageManager().MasterMessage(player, Messages.MissingPlayers) + "(" + Colorplayer + request.getPlayers().size() + Colorinfo + "/" + Colorplayer + request.getAcceptPlayers().size() + Colorinfo + ")"));
+        }
+    }
+
+    public void ClearSttingsDuel(UUID uuid){
+        try{
+            xBxTcore.getPlayerDataUnique(uuid).getKitData();
+            xBxTcore.getPlayerDataUnique(uuid).setIndexMap(0);
+            xBxTcore.getPlayerDataUnique(uuid).setTimelimit(false);
+        }catch (Exception ignored){
+
         }
     }
 

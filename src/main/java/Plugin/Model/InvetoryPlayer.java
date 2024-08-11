@@ -1,9 +1,7 @@
 package Plugin.Model;
 
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 
-import java.util.ArrayList;
 import java.util.UUID;
 
 public class InvetoryPlayer {
@@ -11,7 +9,7 @@ public class InvetoryPlayer {
     private Player player;
     private UUID uuidkit;
     private int page;
-    private Boolean previewMode;
+    private Boolean previewMode = false;
     private Boolean kitSelectMode = false;
 
     public InvetoryPlayer(Player player) {
