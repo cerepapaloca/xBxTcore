@@ -26,6 +26,7 @@ public enum Messages {
     //kit
     KitNotExist,
     SaveError,
+    SaveErrorPunto,
     DelError,
     Removed,
     RemovedWaring,

@@ -3,6 +3,7 @@ package Plugin.Commands.User;
 import Plugin.Model.Messages;
 import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -11,6 +12,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 import java.util.UUID;
+
+import static Plugin.Managers.MessageManager.*;
 
 public class CommandInv implements CommandExecutor {
 
@@ -34,7 +37,7 @@ public class CommandInv implements CommandExecutor {
                 }
             }
             p.sendMessage(xBxTcore.getMessageManager().MasterMessage(p,Messages.Inv));
-            Bukkit.getConsoleSender().sendMessage(xBxTcore.getPlayerDataUnique(p.getUniqueId()).getGuestPlayers(false).size() + " Catidad de ivn");
+            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',   prefixConsole + Colorplayer + xBxTcore.getPlayerDataUnique(p.getUniqueId()).getGuestPlayers(false).size() + Colorinfo + " Catidad de ivn"));
         }else{
             plugin.messageOnlyPlayer();
         }

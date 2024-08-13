@@ -47,6 +47,11 @@ public class CommandSaveKit implements CommandExecutor {
 
     public void GetItemInvetort(Player player){
         items.clear();
+        if (namekit.contains(".")) {
+            player.sendMessage(xBxTcore.getMessageManager().MasterMessage(player, Messages.SaveErrorPunto));
+            return;
+        }
+
         for(int i = 0; i<player.getInventory().getContents().length;){
             ItemStack itemstack = player.getInventory().getItem(i);
             items.add(itemstack);

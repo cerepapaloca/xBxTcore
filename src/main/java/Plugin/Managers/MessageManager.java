@@ -63,6 +63,7 @@ public class MessageManager {
         //kit
        enMessages.put("KitNotExist",prefix + ColorError + "The Kit Does Not Exist");
        enMessages.put("SaveError",prefix + ColorError + "You must specify the name of the kits and/or item");
+       enMessages.put("SaveErrorPunto",prefix + ColorError + "It can't have dot");
        enMessages.put("DelError",prefix + ColorError + "You must specify the name of the kit");
        enMessages.put("Removed",prefix + ColorSuccess + "the kit &r%namekit%"+ ColorSuccess +" was removed successfully");
        enMessages.put("RemovedWaring",prefix + ColorWarning + "An attempt was made to delete a kit that does not exist");
@@ -200,6 +201,7 @@ public class MessageManager {
         //kit
         esMessages.put("KitNotExist",prefix + ColorError + "El kit no existe");
         esMessages.put("SaveError",prefix + ColorError + "Debes especificar el nombre del kit y/o el objeto");
+        esMessages.put("SaveErrorPunto",prefix + ColorError + "No puede tener puntos");
         esMessages.put("DelError",prefix + ColorError + "Debes especificar el nombre del kit");
         esMessages.put("Removed",prefix + ColorSuccess + "El kit &r%namekit%"+ ColorSuccess +" fue eliminado exitosamente");
         esMessages.put("RemovedWaring",prefix + ColorWarning + "Se intento eliminar un kit que no existe");

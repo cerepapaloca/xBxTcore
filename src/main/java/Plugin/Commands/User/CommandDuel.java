@@ -222,7 +222,7 @@ public class CommandDuel implements CommandExecutor {
     private void teleportDuel(Request request){
         if (!(request.getPlayers().size() == request.getAcceptPlayers().size())){
             Broadcast(request);
-            Bukkit.getConsoleSender().sendMessage("falta jugadores " + request.getPlayers().size() + "/" + request.getAcceptPlayers().size());
+            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',prefixConsole + Colorinfo + "falta jugadores " + request.getPlayers().size() + "/" + request.getAcceptPlayers().size()));
             return;
         }
 
