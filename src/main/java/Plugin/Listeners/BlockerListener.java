@@ -2,7 +2,9 @@ package Plugin.Listeners;
 
 import Plugin.Model.Messages;
 import Plugin.xBxTcore;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -11,10 +13,9 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityPlaceEvent;
 import org.bukkit.event.entity.ExplosionPrimeEvent;
-import org.bukkit.event.player.PlayerBucketEmptyEvent;
-import org.bukkit.event.player.PlayerCommandPreprocessEvent;
-import org.bukkit.event.player.PlayerExpChangeEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.*;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.*;
 import java.util.List;
@@ -73,7 +74,20 @@ public class BlockerListener implements Listener {
     @EventHandler
     public void BlockBreak(BlockBreakEvent event) {
         if (!event.getPlayer().isOp() && ejey <= event.getBlock().getLocation().getBlockY() && xBxTcore.getWorldProtec().contains(event.getPlayer().getWorld())) {
+            if (event.getBlock().getType().equals(Material.BLUE_GLAZED_TERRACOTTA)) {
+                event.setDropItems(false);
+                event.getPlayer().playSound(event.getPlayer(),Sound.ENTITY_ITEM_PICKUP, 1,1);
+                event.getPlayer().getInventory().addItem(new ItemStack(event.getBlock().getType()));
+                return;
+            }
+            event.setCancelled(true);
             event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessage(event.getPlayer(), Messages.NotAllowed));
+        }
+    }
+
+    @EventHandler
+    public void onItemDamage(PlayerItemDamageEvent event) {
+        if (event.getPlayer().getWorld().equals(Bukkit.getWorld("boxpvp"))) {
             event.setCancelled(true);
         }
     }

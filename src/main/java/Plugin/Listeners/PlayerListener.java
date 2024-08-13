@@ -81,7 +81,7 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void PlayerMove(PlayerMoveEvent event) {
-        if (!xBxTcore.getWorldProtec().contains(event.getPlayer().getWorld())){
+        if (!xBxTcore.getWorldProtec().contains(event.getPlayer().getWorld()) && !Objects.equals(Bukkit.getWorld("boxpvp"), event.getPlayer().getWorld())){
             if (50 <= event.getPlayer().getLocation().getY() && event.getPlayer().getGameMode().equals(GameMode.SURVIVAL)) {
                 if (event.getPlayer().getWorld().getName().contains("stone")){
                     event.getPlayer().teleport(new Location(event.getPlayer().getWorld(), 0, 21, 0));

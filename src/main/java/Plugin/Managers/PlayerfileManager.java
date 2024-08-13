@@ -180,7 +180,7 @@ public class PlayerfileManager {
     }
 
     public void loadNamesPlayers() {
-        nameskits.clear();
+        namesPlayres.clear();
         for(PlayerFile playerFile : playesfiles.getConfigFiles()){
             String name = playerFile.getkitConfigFile().getString("metadataplayer.Name");
             namesPlayres.add(name);

@@ -6,6 +6,7 @@ import Plugin.Commands.OnlyOp.CommandPing;
 import Plugin.Commands.OnlyOp.Commandinfo;
 import Plugin.Commands.Tab.*;
 import Plugin.Commands.User.*;
+import Plugin.Environments.AutoFillsBox;
 import Plugin.Environments.Cleaner;
 import Plugin.Environments.Hologramas;
 import Plugin.Inventory.InventoryMenu;
@@ -26,6 +27,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
 import net.md_5.bungee.api.ChatColor;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
@@ -46,10 +48,13 @@ public class xBxTcore extends JavaPlugin {
     private static DuelManager duelManager;
     private static CommandDuel commandDuel;
     private static MessageManager messageManager;
-    public static String bedrockPrefix = ".";
-    public static PlayerDataGLobal playerDataGLobal;
+    private static AutoFillsBox autoFillsBox;
     private static InventoryMenu inventoryMenu;
+    public static PlayerDataGLobal playerDataGLobal;
+
+    public static String bedrockPrefix = ".";
     private static Tools tools;
+    public static final World worldBoxpvp = Bukkit.getWorld("boxpvp");
 
     private long serverStartTime;
 
@@ -156,6 +161,7 @@ public class xBxTcore extends JavaPlugin {
         duelManager = new DuelManager(this);
         messageManager = new MessageManager();
         hologramas = new Hologramas(this);
+        autoFillsBox = new AutoFillsBox(this);
         inventoryMenu = new InventoryMenu(this);
         invetoryManager = new InventoryManager(this);
         tools = new Tools(this);
@@ -164,6 +170,7 @@ public class xBxTcore extends JavaPlugin {
     public void WorldProtec(){
         worlds.add(Bukkit.getWorld("lobby"));
         worlds.add(Bukkit.getWorld("creatorkits"));
+        worlds.add(Bukkit.getWorld("boxpvp"));
     }
 
     ///////////////////////////////////////////////////
