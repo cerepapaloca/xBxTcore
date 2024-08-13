@@ -121,7 +121,6 @@ public class CommandDuel implements CommandExecutor {
     }
 
     public void sendRequest(ArrayList<Player> players1, String worldType, UUID requesterId) {
-        Bukkit.getConsoleSender().sendMessage("petición");
         requestlast = new Request(requesterId, System.currentTimeMillis() + 60000, world, players1, worldType); // 60 segundos
         Player requester = Bukkit.getPlayer(requesterId);
         players1.remove(requester);
@@ -140,7 +139,7 @@ public class CommandDuel implements CommandExecutor {
             deny.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(xBxTcore.getMessageManager().MasterMessage(player,Messages.HoverDeny)).create()));
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + Colorinfo + "&l⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊>"));
             if (xBxTcore.getPlayerDataUnique(requesterId).getTimelimit()){
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "-" + xBxTcore.getMessageManager().MasterMessage(player,Messages.TimeLimit) + Colorplayer + InventoryManager.secondsToMinutesLore(requester).get(0)));
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "-" + InventoryManager.secondsToMinutesLore(requester).get(0)));
             }else {
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', "-" + xBxTcore.getMessageManager().MasterMessage(player,Messages.TimeLimit) + Colorplayer + "No"));
             }

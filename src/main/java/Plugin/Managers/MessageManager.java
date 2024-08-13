@@ -106,8 +106,8 @@ public class MessageManager {
         //En el mundo del duelo
        enMessages.put("EndCombat",prefix + ColorWarning + "End Combat, player disconnected");
        enMessages.put("IncorrectLoc",prefix + ColorError + "You are not allowed to be on the roof");
-       enMessages.put("DuelStarted1",prefixDuel + Colorinfo + "Duel started: " + Colorplayer + "%player1% " + Colorinfo + "VS " + Colorplayer + "%player2% " + Colorinfo + "In:" + Colorplayer + " %world%");
-       enMessages.put("DuelStarted2",prefixDuel + Colorinfo + "Duel started:" + Colorplayer + " %player1% " + Colorinfo + "With " + Colorplayer + "%player2% " + Colorinfo + "players in:" + Colorplayer + " %world%");
+       enMessages.put("DuelStarted1",prefixDuel + Colorinfo + "Duel started: " + Colorplayer + "%player1% " + Colorinfo + "VS " + Colorplayer + "%player2% " + Colorinfo + "In: " + Colorplayer + "%world%");
+       enMessages.put("DuelStarted2",prefixDuel + Colorinfo + "Duel started: " + Colorplayer + "%player% " + Colorinfo + "In: " + Colorplayer + "%world% " + Colorinfo + "With these players: ");
        enMessages.put("Go","&2&lGO!!");
        enMessages.put("HoverDuel", "See the last duel");
        //Para modo espetador
@@ -148,14 +148,14 @@ public class MessageManager {
        enMessages.put("DuelLoreSelectWorld", Colorplayer + "Selected: ");
        enMessages.put("DuelTimeLimitOn",Coloritem + "Time limit activated");
        enMessages.put("DuelTimeLimitOff",Coloritem + "Time limit disabled");
-       enMessages.put("DuelTimeLore", Colorinfo + "Maximum time: ");
+       enMessages.put("DuelTimeLore", Colorinfo + "Maximum time: " + Colorplayer);
        enMessages.put("SelectKitFavorite",Coloritem  + "&lSelect favorite kit");
        enMessages.put("H1mas","&21M+");
        enMessages.put("S1mas","&21S+");
        enMessages.put("S1menos","&c1S-");
        enMessages.put("H1menos","&c1M-");
        //otros
-       enMessages.put("TimeBossBar", Colorinfo + "Time remaining: ");
+       enMessages.put("TimeBossBar", Colorinfo + "Time remaining: " + Colorplayer);
        enMessages.put("WarningGetGuestPlayers", ColorWarning + "One of the players you invited is not connected or does not exist");
        enMessages.put("IvnPlayers1", Colorinfo + "Use /inv");
        enMessages.put("IvnPlayers2", Colorinfo + "Write the names of the players.");
@@ -244,7 +244,7 @@ public class MessageManager {
         esMessages.put("EndCombat",prefix + ColorWarning + "Fin del combate, jugador desconectado");
         esMessages.put("IncorrectLoc",prefix + ColorError + "No esta permitido estar en el techo");
         esMessages.put("DuelStarted1",prefixDuel + Colorinfo + "Duelo iniciado:" + Colorplayer + " %player1% " + Colorinfo + "VS " + Colorplayer + "%player2%" + Colorinfo + " En:" + Colorplayer + " %world%");
-        esMessages.put("DuelStarted2",prefixDuel + Colorinfo + "Duelo iniciado:" + Colorplayer + " %player1% " + Colorinfo + "Con " + Colorplayer + "%player2% " + Colorinfo + "jugadores En:" + Colorplayer + " %world%");
+        esMessages.put("DuelStarted2",prefixDuel + Colorinfo + "Duelo iniciado:" + Colorplayer + " %player% " + Colorinfo + "En: " + Colorplayer + "%world% " + Colorinfo + "Con estos jugadores: ");
         esMessages.put("Go","&2&lVAMOS!!");
         esMessages.put("HoverDuel", "Ver el último duelo");
         //Para modo espetador
@@ -285,14 +285,14 @@ public class MessageManager {
         esMessages.put("DuelLoreSelectWorld", Colorplayer + "Seleccionado: ");
         esMessages.put("DuelTimeLimitOn",Coloritem + "Limite de tiempo activado");
         esMessages.put("DuelTimeLimitOff",Coloritem + "Limite de tiempo desactivado");
-        esMessages.put("DuelTimeLore", Colorinfo + "Tiempo máximo: ");
+        esMessages.put("DuelTimeLore", Colorinfo + "Tiempo máximo: " + Colorplayer);
         enMessages.put("SelectKitFavorite",Coloritem  + "&lSeleccionar kit favorito");
         esMessages.put("H1mas","&21M+");
         esMessages.put("S1mas","&21S+");
         esMessages.put("S1menos","&c1S-");
         esMessages.put("H1menos","&c1M-");
         //otros
-        esMessages.put("TimeBossBar", Colorinfo + "Tiempo restante: ");
+        esMessages.put("TimeBossBar", Colorinfo + "Tiempo restante: " + Colorplayer);
         esMessages.put("WarningGetGuestPlayers", ColorWarning + "Unos de jugadores que invitaste no esta o no existe");
         esMessages.put("IvnPlayers1", Coloritem + "Usa /inv");
         esMessages.put("IvnPlayers2", Colorinfo + "Escribe los nombres de los jugadores");

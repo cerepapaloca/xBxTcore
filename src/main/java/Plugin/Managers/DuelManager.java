@@ -75,11 +75,18 @@ public class DuelManager{
                         .replace("%player2%", players.get(1).getName()).replace("%world%", world.getName()));
                 player.spigot().sendMessage(tp);
             }else {
-                tp.setText(xBxTcore.getMessageManager().MasterMessage(player, Messages.DuelStarted2).replace("%player1%", players.get(0).getName())
-                        .replace("%player2%",String.valueOf(players.size() - 1)).replace("%world%", world.getName()));
+                tp.setText(xBxTcore.getMessageManager().MasterMessage(player, Messages.DuelStarted2).replace("%player%", players.get(0).getName())
+                        .replace("%world%", world.getName()));
                 player.spigot().sendMessage(tp);
             }
+        }
 
+        if(players.size() >= 3){
+            for (Player player1 : players){
+                if (!player1.getName().equals(players.get(0).getName())){
+                    Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&l- " + MessageManager.Colorplayer + player1.getName()));
+                }
+            }
         }
 
     }

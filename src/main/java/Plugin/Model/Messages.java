@@ -22,7 +22,7 @@ public enum Messages {
     Died3,
     Died4,
     Died5,
-    DiedDuel,
+    DiedDuel,//No creo que lo vuelva incluir
     //kit
     KitNotExist,
     SaveError,
