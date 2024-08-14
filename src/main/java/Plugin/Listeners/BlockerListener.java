@@ -15,7 +15,6 @@ import org.bukkit.event.entity.EntityPlaceEvent;
 import org.bukkit.event.entity.ExplosionPrimeEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.*;
 import java.util.List;
@@ -68,6 +67,7 @@ public class BlockerListener implements Listener {
         restrictedCommands.add("prefix");
         restrictedCommands.add("plugins");
         restrictedCommands.add("inv");
+        restrictedCommands.add("boxpvp");
         //////////////////////////////////////
     }
 

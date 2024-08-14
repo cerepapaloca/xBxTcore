@@ -35,6 +35,7 @@ commands:
   donate:
   prefix:
   inv:
+  boxpvp:
 permissions:
   xBxTpvp.vote:
     description: vote

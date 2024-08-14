@@ -1,7 +1,6 @@
 package Plugin.Commands.User;
 
 import Plugin.Model.Messages;
-import Plugin.Utils.Tools;
 import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -10,16 +9,13 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-
-public class CommandLobby implements CommandExecutor {
+public class CommandBoxPvp implements CommandExecutor {
 
     private final xBxTcore plugin;
 
-    public CommandLobby(xBxTcore plugin){
+    public CommandBoxPvp(xBxTcore plugin){
         this.plugin = plugin;
     }
 
@@ -31,11 +27,11 @@ public class CommandLobby implements CommandExecutor {
                     player.setLevel(0);
                     player.setExp(0);
                 }
-                if (player.getWorld().getName().equals("boxpvp")) {
-                    xBxTcore.getPlayerFileManager().SaveInventoryBoxPvp(player.getUniqueId(), Tools.getItensInvetory(player));
+                if (!player.getWorld().getName().equals("boxpvp")) {
                     player.getInventory().clear();
+                    xBxTcore.getPlayerFileManager().loadInventoryBoxPvp(player);
                 }
-                player.teleport(new Location(Bukkit.getWorld("lobby"), 0 , 68, 0));
+                player.teleport(new Location(Bukkit.getWorld("boxpvp"), 0 , 68, 0));
                 player.setGameMode(GameMode.SURVIVAL);
             }else{
                 player.sendMessage(xBxTcore.getMessageManager().MasterMessage(player, Messages.InArea));

@@ -22,12 +22,12 @@ import me.neznamy.tab.api.TabAPI;
 import net.luckperms.api.LuckPerms;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
 import net.md_5.bungee.api.ChatColor;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
@@ -79,6 +79,9 @@ public class xBxTcore extends JavaPlugin {
     }
 
     public void onDisable() {
+        for (Player p : Bukkit.getWorld("boxpvp").getPlayers()) {
+            Tools.getItensInvetory(p);
+        }
         MessageOFF();
     }
 
@@ -118,6 +121,7 @@ public class xBxTcore extends JavaPlugin {
         Objects.requireNonNull(this.getCommand("donate")).setExecutor(new CommandDonate(this));
         Objects.requireNonNull(this.getCommand("prefix")).setExecutor(new CommandPrefix(this));
         Objects.requireNonNull(this.getCommand("inv")).setExecutor(new CommandInv(this));
+        Objects.requireNonNull(this.getCommand("boxpvp")).setExecutor(new CommandBoxPvp(this));
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////
         Objects.requireNonNull(this.getCommand("sk")).setExecutor(new CommandSaveKit(this));
         Objects.requireNonNull(this.getCommand("dk")).setExecutor(new CommandDelKit(this));

@@ -187,6 +187,33 @@ public class PlayerfileManager {
         }
     }
 
+    public void loadInventoryBoxPvp(Player player){
+        UUID uuid = player.getUniqueId();
+        List<?> rawList = getfile(uuid).getkitConfigFile().getList("InventoryBoxPvp", null);
+        itemStacks.clear();
+        if (rawList != null) {
+            for (Object obj : rawList) {
+                if (obj == null) {
+                    itemStacks.add(new ItemStack(Material.AIR));
+                }else if (obj instanceof ItemStack) {
+                    itemStacks.add((ItemStack) obj);
+                }else {
+                    Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorWarning + "Contiene un objeto no válido: " + obj));
+                }
+            }
+        }else{
+            Objects.requireNonNull(player.getPlayer()).sendMessage(xBxTcore.getMessageManager().MasterMessage(player, Messages.LoadError));
+        }
+        int i = 0;
+        for(ItemStack item : itemStacks) {
+            if (item != null){
+                player.getInventory().setItem(i,item);
+            }
+            ++i;
+        }
+    }
+
+
     public void SaveKit(UUID uuid, String namekit, Material material, ArrayList<ItemStack> itemstacks){
         getfile(uuid).getkitConfigFile().set("Kits." + namekit, null);
         getfile(uuid).getkitConfigFile().set("Kits." + namekit + ".inventory", itemstacks);
@@ -200,6 +227,16 @@ public class PlayerfileManager {
         }
         Objects.requireNonNull(Bukkit.getPlayer(uuid)).sendMessage(xBxTcore.getMessageManager().MasterMessage(Objects.requireNonNull(Bukkit.getPlayer(uuid))
                 ,Messages.Save).replace("%namekit%", ChatColor.translateAlternateColorCodes('&', namekit)));
+        itemstacks.clear();
+    }
+
+    public void SaveInventoryBoxPvp(UUID uuid, ArrayList<ItemStack> itemstacks){
+        getfile(uuid).getkitConfigFile().set("InventoryBoxPvp", null);
+        getfile(uuid).getkitConfigFile().set("InventoryBoxPvp", itemstacks);
+        getfile(uuid).saveConfig();
+        getPlayerFileManager().reloadCustomConfig(uuid);
+        //Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorSuccess
+                //+ "Fue guardado correctamente el inventario&r " + namekit + ColorSuccess + " hacia el jugador " + Colorplayer + Bukkit.getOfflinePlayer(uuid).getName()));
         itemstacks.clear();
     }
 

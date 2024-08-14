@@ -175,16 +175,20 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void PlayerQuit(PlayerQuitEvent event) {
         event.setQuitMessage(null);
+        Player player = event.getPlayer();
         xBxTcore.getMessageManager().BroadcastMessageleave(event.getPlayer());
-        xBxTcore.getHologramas().PlayerQuit(event.getPlayer().getUniqueId());
+        xBxTcore.getHologramas().PlayerQuit(player.getUniqueId());
         if (!xBxTcore.getWorldProtec().contains(event.getPlayer().getWorld()) && event.getPlayer().getGameMode().equals(GameMode.SURVIVAL)){
             xBxTcore.getDuelManager().EndDuel(event.getPlayer().getWorld(), null, EndCombatCauses.LEFT);
         }
         for(Request request : xBxTcore.getCommandDuel().getPendingRequests().values()){
-            xBxTcore.getCommandDuel().denyRequest(event.getPlayer(), request.getRequesterId(), false);
+            xBxTcore.getCommandDuel().denyRequest(player, request.getRequesterId(), false);
         }
         if(event.getPlayer().isOp()){
             event.getPlayer().setOp(false);
+        }
+        if(event.getPlayer().getWorld().getName().equals("boxpvp")){
+            xBxTcore.getPlayerFileManager().SaveInventoryBoxPvp(event.getPlayer().getUniqueId(), Tools.getItensInvetory(player));
         }
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + Colorinfo
          + "EL ping del jugador es: " + Colorplayer + event.getPlayer().getPing()));

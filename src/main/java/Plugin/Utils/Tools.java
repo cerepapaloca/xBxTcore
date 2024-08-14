@@ -129,4 +129,14 @@ public class Tools {
         itemStack.setItemMeta(itemMeta);
         i.setItem(slot, itemStack);
     }
+
+    public static ArrayList<ItemStack> getItensInvetory(Player player){
+        ArrayList<ItemStack> items = new ArrayList<>();
+        for(int i = 0; i<player.getInventory().getContents().length;){
+            ItemStack itemstack = player.getInventory().getItem(i);
+            items.add(itemstack);
+            i++;
+        }
+        return items;
+    }
 }
