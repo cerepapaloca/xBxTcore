@@ -3,9 +3,11 @@ package Plugin.Listeners;
 import Plugin.Model.Messages;
 import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -15,11 +17,13 @@ import org.bukkit.event.entity.EntityPlaceEvent;
 import org.bukkit.event.entity.ExplosionPrimeEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.*;
 import java.util.List;
 
 public class BlockerListener implements Listener {
+    public final static ArrayList<Location> blockLocations = new ArrayList<>();
     private final int ejey = 30;
     private final List<String> restrictedCommands = new ArrayList<>();
     private static final Set<Material> materials = EnumSet.of(
@@ -41,8 +45,17 @@ public class BlockerListener implements Listener {
             Material.BROWN_SHULKER_BOX, Material.GREEN_SHULKER_BOX,
             Material.RED_SHULKER_BOX, Material.BLACK_SHULKER_BOX,
             Material.OAK_SIGN);
+    private final Set<Material> materialsBoxPvp = EnumSet.of(Material.BLUE_GLAZED_TERRACOTTA,
+            Material.BLACK_GLAZED_TERRACOTTA, Material.BROWN_GLAZED_TERRACOTTA, Material.GREEN_GLAZED_TERRACOTTA,
+            Material.CYAN_GLAZED_TERRACOTTA, Material.LIGHT_BLUE_GLAZED_TERRACOTTA, Material.GRAY_GLAZED_TERRACOTTA,
+            Material.LIME_GLAZED_TERRACOTTA, Material.ORANGE_GLAZED_TERRACOTTA, Material.PINK_GLAZED_TERRACOTTA, Material.RED_GLAZED_TERRACOTTA,
+            Material.MAGENTA_GLAZED_TERRACOTTA, Material.WHITE_GLAZED_TERRACOTTA, Material.LIGHT_GRAY_GLAZED_TERRACOTTA, Material.PURPLE_GLAZED_TERRACOTTA
+            );
 
-    public BlockerListener() {
+    private final xBxTcore plugin;
+
+    public BlockerListener(xBxTcore plugin) {
+        this.plugin = plugin;
         restrictedCommands.add("kill");
         restrictedCommands.add("sk");
         restrictedCommands.add("kf");
@@ -74,10 +87,17 @@ public class BlockerListener implements Listener {
     @EventHandler
     public void BlockBreak(BlockBreakEvent event) {
         if (!event.getPlayer().isOp() && ejey <= event.getBlock().getLocation().getBlockY() && xBxTcore.getWorldProtec().contains(event.getPlayer().getWorld())) {
-            if (event.getBlock().getType().equals(Material.BLUE_GLAZED_TERRACOTTA)) {
-                event.setDropItems(false);
-                event.getPlayer().playSound(event.getPlayer(),Sound.ENTITY_ITEM_PICKUP, 1,1);
-                event.getPlayer().getInventory().addItem(new ItemStack(event.getBlock().getType()));
+            if (materialsBoxPvp.contains(event.getBlock().getType())) {
+                int i = 0;
+                for (ItemStack stack : event.getPlayer().getInventory().getContents()) {
+                    if (stack == null || stack.getType() == Material.AIR) {
+                        i++;
+                    }
+                }
+                if(i >= 1){
+                    event.setDropItems(false);
+                    additem(event.getPlayer(), event.getBlock());
+                }
                 return;
             }
             event.setCancelled(true);
@@ -96,6 +116,8 @@ public class BlockerListener implements Listener {
     public void BlockPlace(BlockPlaceEvent event) {
         if (!event.getPlayer().isOp() && ejey <= event.getBlock().getLocation().getBlockY() && xBxTcore.getWorldProtec().contains(event.getPlayer().getWorld())) {
             if (event.getPlayer().getWorld().equals(Bukkit.getWorld("boxpvp")) && (event.getBlock().getType().equals(Material.OBSIDIAN)) || event.getBlock().getType().equals(Material.COBWEB)){
+                temporalBlock(event.getBlock().getLocation());
+                blockLocations.add(event.getBlock().getLocation());
                 return;
             }
             event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessage(event.getPlayer(), Messages.NotAllowed));
@@ -168,6 +190,21 @@ public class BlockerListener implements Listener {
     @EventHandler
     public void Exp(PlayerExpChangeEvent event) {
         event.setAmount(0);
+    }
+
+    public void temporalBlock(Location location) {
+        new BukkitRunnable() {
+            public void run() {
+                location.getBlock().setType(Material.AIR);
+                blockLocations.remove(location);
+            }
+        }.runTaskLater(plugin, 20 * 3);
+    }
+
+    public void additem(Player player, Block block){
+        ItemStack item = new ItemStack(block.getType());
+        player.playSound(player,Sound.ENTITY_ITEM_PICKUP, 1,1);
+        player.getInventory().addItem(item);
     }
 
 }

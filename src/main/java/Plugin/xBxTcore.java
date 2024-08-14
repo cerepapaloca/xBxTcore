@@ -10,21 +10,22 @@ import Plugin.Inventory.InventoryMenu;
 import Plugin.Listeners.*;
 import Plugin.Managers.*;
 import Plugin.Model.Messages;
-import Plugin.Model.PlayerDataGLobal;
-import Plugin.Model.PlayerDataUnique;
+import Plugin.Model.Player.PlayerDataGLobal;
+import Plugin.Model.Player.PlayerDataUnique;
 import Plugin.Utils.Tools;
 import com.onarandombox.MultiverseCore.MultiverseCore;
 import com.vexsoftware.votifier.NuVotifierBukkit;
 import me.neznamy.tab.api.TabAPI;
 import net.luckperms.api.LuckPerms;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
 import net.md_5.bungee.api.ChatColor;
-import org.checkerframework.checker.units.qual.C;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -77,7 +78,11 @@ public class xBxTcore extends JavaPlugin {
     }
 
     public void onDisable() {
-        for (Player p : Bukkit.getWorld("boxpvp").getPlayers()) {
+        for (Location loc : BlockerListener.blockLocations){
+            loc.getBlock().setType(Material.AIR);
+        }
+
+        for (Player p : Objects.requireNonNull(Bukkit.getWorld("boxpvp")).getPlayers()) {
             Tools.getItensInvetory(p);
         }
         MessageOFF();
@@ -144,7 +149,7 @@ public class xBxTcore extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new InventoryListener(), this);
         getServer().getPluginManager().registerEvents(new ItemframeListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
-        getServer().getPluginManager().registerEvents(new BlockerListener(),this);
+        getServer().getPluginManager().registerEvents(new BlockerListener(this ),this);
         getServer().getPluginManager().registerEvents(new VoteListener(),this);
         getServer().getPluginManager().registerEvents(combatlogListener = new CombatlogListener(),this);
     }
@@ -243,6 +248,10 @@ public class xBxTcore extends JavaPlugin {
         return nuVotifier;
     }
 
+    public static AutoFillsBox getAutoFillsBox(){
+        return autoFillsBox;
+    }
+
     public static LuckPerms getLuckPerms(){
         return luckPerms;
     }
@@ -278,7 +287,6 @@ public class xBxTcore extends JavaPlugin {
     private void ExecuteClener(){
         messageManager.BroadcastMessage(Messages.messageStarCleaner);
         cleaner.clearArea("lobby");
-        cleaner.clearArea("boxpvp");
         task5seconds.cancel();
     }
 

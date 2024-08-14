@@ -155,4 +155,14 @@ public class Tools {
 
         return gradientText.toString();
     }
+
+    public static String SecondToMinutes(Integer time){
+        int minutes = time/60;
+        int seconds = time%60;
+        if (seconds < 10){
+            return minutes + ":0" + seconds;
+        }else{
+            return minutes + ":" + seconds;
+        }
+    }
 }

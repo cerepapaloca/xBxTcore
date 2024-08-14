@@ -62,7 +62,6 @@ public class Cleaner {
 
                         i = switch (worldname) {
                             case "flat_world" -> CleanerWorld(y, loc, i);
-                            case "boxpvp" -> CleanerBoxPvp(loc, i);
                             default -> CleanerLobby(loc, i);
                         };
 
@@ -120,15 +119,6 @@ public class Cleaner {
 
     public int CleanerLobby(Location loc, int i){
         if(!loc.getBlock().getType().equals(Material.AIR) && !loc.getBlock().getType().equals(Material.BEDROCK)){
-            loc.getBlock().setType(Material.AIR);
-            CountBLock++;
-            return i + 1;
-        }
-        return i;
-    }
-
-    public int CleanerBoxPvp(Location loc, int i){
-        if(loc.getBlock().getType().equals(Material.OBSIDIAN) || loc.getBlock().getType().equals(Material.COBWEB)){
             loc.getBlock().setType(Material.AIR);
             CountBLock++;
             return i + 1;

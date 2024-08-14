@@ -14,7 +14,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
-import java.io.ObjectInputFilter;
 import java.util.*;
 
 import static Plugin.Managers.MessageManager.*;

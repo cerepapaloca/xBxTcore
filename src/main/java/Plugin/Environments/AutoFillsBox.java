@@ -1,29 +1,37 @@
 package Plugin.Environments;
 
+import Plugin.Model.MinaBoxPvp;
 import Plugin.xBxTcore;
 import org.bukkit.*;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.Locale;
-import java.util.LongSummaryStatistics;
-import java.util.Objects;
+import java.util.ArrayList;
 
 public class AutoFillsBox {
 
     public final xBxTcore plugin;
+    public final ArrayList<MinaBoxPvp> minas = new ArrayList<>();
 
     public AutoFillsBox(xBxTcore plugin) {
         this.plugin = plugin;
-
         /////
         Location location1 = new Location(xBxTcore.worldBoxpvp, 5, 60, 5);
         Location location2 = new Location(xBxTcore.worldBoxpvp, 10, 64, 10);
-
+        minas.add(new MinaBoxPvp("Cosa", Material.BLUE_GLAZED_TERRACOTTA, 45, location1, location2, new Location(xBxTcore.worldBoxpvp, 5, 60, 5)));
         new BukkitRunnable() {
             public void run() {
-                FillArea(location1, location2, Material.BLUE_GLAZED_TERRACOTTA);
+
+                for (MinaBoxPvp minaBoxPvp : minas) {
+                    if (minaBoxPvp.getTimeLeft() < 1){
+                        FillArea(location1, location2, Material.BLUE_GLAZED_TERRACOTTA);
+                        minaBoxPvp.resetTimeLeft();
+                    }
+                    minaBoxPvp.setTimeLeft(minaBoxPvp.getTimeLeft() - 1);
+                }
+
+                xBxTcore.getHologramas().updateHologramTimes();
             }
-        }.runTaskTimer(plugin, 100, 100);
+        }.runTaskTimer(plugin, 20, 20);
     }
 
     public void FillArea(Location location1, Location location2, Material material1) {

@@ -1,6 +1,6 @@
 package Plugin.Commands.User;
 
-import Plugin.Model.PlayerDataGLobal;
+import Plugin.Model.Player.PlayerDataGLobal;
 import Plugin.xBxTcore;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;

@@ -1,9 +1,8 @@
 package Plugin.Listeners;
 
-import Plugin.Managers.PlayerfileManager;
 import Plugin.Model.EndCombatCauses;
 import Plugin.Model.Messages;
-import Plugin.Model.PlayerDataGLobal;
+import Plugin.Model.Player.PlayerDataGLobal;
 import Plugin.Model.Request;
 import Plugin.Utils.Tools;
 import Plugin.xBxTcore;
@@ -73,9 +72,15 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void PlayerRespawn(PlayerRespawnEvent event) {
         Player player = event.getPlayer();
-        xBxTcore.getPlayerFileManager().loadkitfavorite(player);
-        if(!player.getWorld().equals(Bukkit.getWorld("lobby"))){
-            DelayTeleport(player);
+
+        if (!player.getWorld().getName().equals("boxpvp")){
+            DelayTeleport(player, "boxpvp");
+            return;
+        }
+
+        if(!player.getWorld().equals(Bukkit.getWorld("lobby")) && !player.getWorld().equals(Bukkit.getWorld("boxpvp"))){
+            xBxTcore.getPlayerFileManager().loadkitfavorite(player);
+            DelayTeleport(player, "lobby");
         }
     }
 
@@ -90,57 +95,9 @@ public class PlayerListener implements Listener {
                 }
                 event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessage(event.getPlayer(),Messages.IncorrectLoc));
             }
+        } else {
+            event.getPlayer().setInvisible(event.getPlayer().getWorld().getName().equals("boxpvp") && event.getPlayer().getLocation().getX() > 10);
         }
-    }
-
-    private Long coolDownJoin = System.currentTimeMillis();
-    private final HashMap<String, Long> listAntiBot = new HashMap<>();
-    private final HashMap<String, Integer> listAntiBotBan = new HashMap<>();
-    private final String messageKick = ChatColor.translateAlternateColorCodes('&',prefixKick + Colorinfo + "Only one player can join every 3 seconds\nSolo se puede unir un jugador por cada 3 segundos");
-    private final String messageKick2 = ChatColor.translateAlternateColorCodes('&',prefixKick + Colorinfo + "Please &l Do Not Enter&r " + Colorinfo + "it is possible that the server is under a bot attack\nPor favor &l No Entrar&r " + Colorinfo + "es posible que el servidor este bajo un ataque de bots");
-    private final String messageKickConsole1 = ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorWarning + "Se expulso al jugador " + Colorplayer + "%p%" + ColorWarning + " por entrar paridamente");
-    private final String messageKickConsole2 = ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorWarning + "Se expulso al jugador " + Colorplayer + "%p%" + ColorWarning + " por posible ataque de bots");
-    private final String messageKickConsole3 = ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorWarning + "Se le baneo ip del jugador " + Colorplayer + "%p%" + ColorWarning + " por posible ataque de bots");
-
-
-    @EventHandler
-    public void PlayerPreLoginEvent(AsyncPlayerPreLoginEvent event) {
-
-        if (PlayerfileManager.namesPlayres.contains(event.getName())) {
-            if (!listAntiBot.containsKey(event.getName())) {
-                return;
-            }
-
-            if (listAntiBot.get(event.getName()) >= System.currentTimeMillis()) {
-                event.setLoginResult(AsyncPlayerPreLoginEvent.Result.KICK_OTHER);
-                event.setKickMessage(messageKick);
-                Bukkit.getConsoleSender().sendMessage(messageKickConsole1.replace("%p%", event.getName()));
-                listAntiBot.put(event.getName(), System.currentTimeMillis() + 3500);
-            }
-        }else{
-            if (coolDownJoin >= System.currentTimeMillis()) {
-                String name = event.getName();
-                Bukkit.getConsoleSender().sendMessage(messageKickConsole2.replace("%p%", name));
-                if (listAntiBotBan.containsKey(event.getName())) {
-                    if (listAntiBotBan.get(event.getName()) >= 5) {
-                        Bukkit.banIP(event.getAddress());
-                        Bukkit.getConsoleSender().sendMessage(messageKickConsole3.replace("%p%", name));
-                        listAntiBotBan.remove(event.getName());
-                    }
-                }
-                event.setLoginResult(AsyncPlayerPreLoginEvent.Result.KICK_OTHER);
-                event.setKickMessage(messageKick2);
-                listAntiBotBan.put(name, listAntiBotBan.getOrDefault(name, 0) + 1);
-            }else{
-                Bukkit.unbanIP(event.getAddress());
-            }
-            coolDownJoin = System.currentTimeMillis() + 30000;
-        }
-    }
-
-    @EventHandler
-    public void PlayerLoginEvent(PlayerLoginEvent event) {
-        listAntiBot.put(event.getPlayer().getName(), System.currentTimeMillis() + 3000);
     }
 
     @EventHandler
@@ -154,15 +111,18 @@ public class PlayerListener implements Listener {
         event.setJoinMessage(null);
         ///////////////////////////////////////////////////
         xBxTcore.getHologramas().ResetKills(player.getUniqueId());
+        xBxTcore.getHologramas().updateHologramUser();
         ///////////////////////////////////////////////////
         /*String prefixName = xBxTcore.getPlayerFileManager().loadPrefix(player.getUniqueId());
-        xBxTcore.getHologramas().updateHologramUser();
         new BukkitRunnable() {
             public void run() {
                 Objects.requireNonNull(xBxTcore.getTabAPI().getNameTagManager()).setPrefix(Objects.requireNonNull(xBxTcore.getTabAPI().getPlayer(player.getUniqueId())), prefixName);
                 Objects.requireNonNull(xBxTcore.getTabAPI().getTabListFormatManager()).setPrefix(Objects.requireNonNull(xBxTcore.getTabAPI().getPlayer(player.getUniqueId())), prefixName);
             }
         }.runTaskLater(plugin, 20);*/
+        if(!event.getPlayer().getWorld().getName().equals("boxpvp")){
+            player.getInventory().clear();
+        }
         ///////////////////////////////////////////////////
         Tools.RewardVote(player.getName(), false);
         ///////////////////////////////////////////////////
@@ -338,11 +298,11 @@ public class PlayerListener implements Listener {
     }
 
 
-    private void DelayTeleport(Player player) {
+    private void DelayTeleport(Player player, String worldName) {
         new BukkitRunnable() {
             @Override
             public void run() {
-                player.teleport(new Location((Bukkit.getWorld("lobby")), 0, 69, 0, 0, 0));
+                player.teleport(new Location((Bukkit.getWorld(worldName)), 0, 69, 0, 0, 0));
                 cancel();
             }
         }.runTaskTimer(plugin, 4, 0);

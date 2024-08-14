@@ -111,13 +111,7 @@ public class InventoryManager {
     public static ArrayList<String> secondsToMinutesLore(Player player){
         int time = xBxTcore.getPlayerDataUnique(player.getUniqueId()).getTimeDuel();
         ArrayList<String> lore = new ArrayList<>();
-        int minutes = time/60;
-        int seconds = time%60;
-        if (seconds < 10){
-            lore.add(xBxTcore.getMessageManager().MasterMessage(player, Messages.DuelTimeLore) + minutes + ":0" + seconds);
-        }else{
-            lore.add(xBxTcore.getMessageManager().MasterMessage(player, Messages.DuelTimeLore) + minutes + ":" + seconds);
-        }
+        lore.add(xBxTcore.getMessageManager().MasterMessage(player, Messages.DuelTimeLore) + Tools.SecondToMinutes(time));
         return lore;
     }
 

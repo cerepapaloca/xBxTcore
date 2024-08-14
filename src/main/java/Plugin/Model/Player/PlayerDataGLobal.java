@@ -1,4 +1,4 @@
-package Plugin.Model;
+package Plugin.Model.Player;
 
 import java.util.HashMap;
 import java.util.Map;

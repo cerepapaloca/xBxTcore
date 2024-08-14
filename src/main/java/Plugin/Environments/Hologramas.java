@@ -1,7 +1,9 @@
 package Plugin.Environments;
 
 import Plugin.Managers.PlayerfileManager;
-import Plugin.Model.PlayerDataGLobal;
+import Plugin.Model.MinaBoxPvp;
+import Plugin.Model.Player.PlayerDataGLobal;
+import Plugin.Utils.Tools;
 import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -19,6 +21,7 @@ public class Hologramas{
     private final ArrayList<String> textholograms;
     private ArrayList<ArmorStand> armorStandsKills;
     private ArrayList<ArmorStand> armorStandsUser;
+    private ArrayList<ArmorStand> armorStandsTimes;
     private final PlayerDataGLobal playerDataGLobal;
     private final HashMap<UUID, Long> playerLogoutTimes = new HashMap<>();
     private final xBxTcore plugin;
@@ -36,6 +39,7 @@ public class Hologramas{
     public void removeArmorStands() {
         Objects.requireNonNull(Bukkit.getWorld("lobby")).getEntities().stream().filter(entity -> entity instanceof ArmorStand).forEach(Entity::remove);
         Objects.requireNonNull(Bukkit.getWorld("creatorkits")).getEntities().stream().filter(entity -> entity instanceof ArmorStand).forEach(Entity::remove);
+        Objects.requireNonNull(Bukkit.getWorld("boxpvp")).getEntities().stream().filter(entity -> entity instanceof ArmorStand).forEach(Entity::remove);
         createPvPBoard(new Location(Bukkit.getWorld("lobby"), 0, 70, 5.5));
         textholograms.clear();
         createCommandsBoardEN(new Location(Bukkit.getWorld("lobby"), -6, 70.9, 6));
@@ -49,6 +53,8 @@ public class Hologramas{
         createkitsBord(new Location(Bukkit.getWorld("creatorkits"), 0, 64.5, 0));
         textholograms.clear();
         createUserBoard(new Location(Bukkit.getWorld("lobby"), 0, 70, -10));
+        textholograms.clear();
+        createTimesBoard(new Location(Bukkit.getWorld("boxpvp"), 0, 64.5, 0));
         textholograms.clear();
     }
 
@@ -86,6 +92,16 @@ public class Hologramas{
         textholograms.add(ChatColor.translateAlternateColorCodes('&', "&b<--&c&lDiscord&b-->"));
         textholograms.add(ChatColor.translateAlternateColorCodes('&', "&ehttps://discord.gg/QYBwEFvnsG"));
         createListArmorStand(textholograms, location ,textholograms.size());
+    }
+
+    public void createTimesBoard(Location location) {
+        ArmorStand armorStand = (ArmorStand) Objects.requireNonNull(location.getWorld()).spawnEntity(location, EntityType.ARMOR_STAND);
+        armorStand.setCustomName(ChatColor.translateAlternateColorCodes('&', "&b<--&c&lTiempos&r&b-->"));
+        armorStand.setCustomNameVisible(true);
+        armorStand.setInvisible(true);
+        armorStand.setGravity(false);
+        armorStand.setMarker(true);
+        armorStandsTimes = createListArmorStand(textholograms, location, 10);
     }
 
     public void createkitsBord(Location location) {
@@ -178,6 +194,15 @@ public class Hologramas{
             } else {
                 armorStand.setCustomName(ChatColor.translateAlternateColorCodes('&', "&8--"));
             }
+        }
+    }
+
+    public void updateHologramTimes(){
+        int i = 0;
+        for (MinaBoxPvp mina : xBxTcore.getAutoFillsBox().minas){
+            ArmorStand armorStand = armorStandsTimes.get(i);
+            armorStand.setCustomName(ChatColor.translateAlternateColorCodes('&',mina.getName() + Tools.SecondToMinutes(mina.getTimeLeft())));
+            i++;
         }
     }
 

@@ -1,5 +1,8 @@
-package Plugin.Model;
+package Plugin.Model.Player;
 
+import Plugin.Model.KitData;
+import Plugin.Model.MapsDuel;
+import Plugin.Model.Messages;
 import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
