@@ -155,14 +155,14 @@ public class PlayerListener implements Listener {
         ///////////////////////////////////////////////////
         xBxTcore.getHologramas().ResetKills(player.getUniqueId());
         ///////////////////////////////////////////////////
-        String prefixName = xBxTcore.getPlayerFileManager().loadPrefix(player.getUniqueId());
+        /*String prefixName = xBxTcore.getPlayerFileManager().loadPrefix(player.getUniqueId());
         xBxTcore.getHologramas().updateHologramUser();
         new BukkitRunnable() {
             public void run() {
                 Objects.requireNonNull(xBxTcore.getTabAPI().getNameTagManager()).setPrefix(Objects.requireNonNull(xBxTcore.getTabAPI().getPlayer(player.getUniqueId())), prefixName);
                 Objects.requireNonNull(xBxTcore.getTabAPI().getTabListFormatManager()).setPrefix(Objects.requireNonNull(xBxTcore.getTabAPI().getPlayer(player.getUniqueId())), prefixName);
             }
-        }.runTaskLater(plugin, 20);
+        }.runTaskLater(plugin, 20);*/
         ///////////////////////////////////////////////////
         Tools.RewardVote(player.getName(), false);
         ///////////////////////////////////////////////////

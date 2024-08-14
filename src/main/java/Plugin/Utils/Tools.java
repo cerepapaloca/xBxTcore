@@ -10,8 +10,6 @@ import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.entity.Parrot;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -20,12 +18,10 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 import static Plugin.Managers.MessageManager.*;
 import static Plugin.Managers.MessageManager.ColorLink;
-import static org.bukkit.Bukkit.getIdleTimeout;
 import static org.bukkit.Bukkit.getServer;
 
 public class Tools {
@@ -71,10 +67,8 @@ public class Tools {
                 Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',prefixConsole + ColorWarning + "El jugador&r " + name
                         + ColorWarning + " no existe o no esta conectado"));
             }else{
-                xBxTcore.getLuckPerms().getUserManager().loadUser(player.getUniqueId()).thenAccept(user -> {
-                    InheritanceNode node = InheritanceNode.builder("vote").build();
-                    user.data().add(node);
-                    xBxTcore.getLuckPerms().getUserManager().saveUser(user).join();
+                xBxTcore.getLuckPerms().getUserManager().modifyUser(player.getUniqueId(), user -> {
+                    user.data().add(InheritanceNode.builder("vote").build());
                 });
                 Bukkit.getConsoleSender().sendMessage(org.bukkit.ChatColor.translateAlternateColorCodes('&', prefixConsole + Colorinfo + "Ha votado el jugador: " + Colorplayer + name));
             }
@@ -88,7 +82,6 @@ public class Tools {
                 xBxTcore.playersOffline.remove(name);
                 assert player != null;
                 xBxTcore.getLuckPerms().getUserManager().modifyUser(player.getUniqueId(), user -> {
-                    user.data().clear();
                     user.data().add(InheritanceNode.builder("vote").build());
                 });
                 Bukkit.getConsoleSender().sendMessage(org.bukkit.ChatColor.translateAlternateColorCodes('&', prefixConsole + Colorinfo + "Se ha echo un voto por adelantado de parte del jugador: " + Colorplayer + name));
@@ -138,5 +131,28 @@ public class Tools {
             i++;
         }
         return items;
+    }
+
+    public static String applyGradient(String input) {
+        String startTag = input.substring(input.indexOf("<#") + 2, input.indexOf(">"));
+        String endTag = input.substring(input.lastIndexOf("<#") + 2, input.lastIndexOf(">"));
+        String text = input.substring(input.indexOf(">") + 1, input.lastIndexOf("<"));
+
+        int startColor = Integer.parseInt(startTag, 16);
+        int endColor = Integer.parseInt(endTag, 16);
+
+        int length = text.length();
+        StringBuilder gradientText = new StringBuilder();
+
+        for (int i = 0; i < length; i++) {
+            float ratio = (float) i / (length - 1);
+            int red = (int) ((1 - ratio) * ((startColor >> 16) & 0xFF) + ratio * ((endColor >> 16) & 0xFF));
+            int green = (int) ((1 - ratio) * ((startColor >> 8) & 0xFF) + ratio * ((endColor >> 8) & 0xFF));
+            int blue = (int) ((1 - ratio) * (startColor & 0xFF) + ratio * (endColor & 0xFF));
+            String hexColor = String.format("#%02x%02x%02x", red, green, blue);
+            gradientText.append(ChatColor.of(hexColor)).append(text.charAt(i));
+        }
+
+        return gradientText.toString();
     }
 }

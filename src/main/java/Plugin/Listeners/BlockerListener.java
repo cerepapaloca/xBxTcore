@@ -95,6 +95,9 @@ public class BlockerListener implements Listener {
     @EventHandler
     public void BlockPlace(BlockPlaceEvent event) {
         if (!event.getPlayer().isOp() && ejey <= event.getBlock().getLocation().getBlockY() && xBxTcore.getWorldProtec().contains(event.getPlayer().getWorld())) {
+            if (event.getPlayer().getWorld().equals(Bukkit.getWorld("boxpvp")) && (event.getBlock().getType().equals(Material.OBSIDIAN)) || event.getBlock().getType().equals(Material.COBWEB)){
+                return;
+            }
             event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessage(event.getPlayer(), Messages.NotAllowed));
             event.setCancelled(true);
         }

@@ -36,6 +36,7 @@ commands:
   prefix:
   inv:
   boxpvp:
+  ReloadDataPlayares:
 permissions:
   xBxTpvp.vote:
     description: vote

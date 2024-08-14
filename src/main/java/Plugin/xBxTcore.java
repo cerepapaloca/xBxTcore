@@ -1,9 +1,6 @@
 package Plugin;
 
-import Plugin.Commands.OnlyOp.CommandCleaner;
-import Plugin.Commands.OnlyOp.CommandDebugKit;
-import Plugin.Commands.OnlyOp.CommandPing;
-import Plugin.Commands.OnlyOp.Commandinfo;
+import Plugin.Commands.OnlyOp.*;
 import Plugin.Commands.Tab.*;
 import Plugin.Commands.User.*;
 import Plugin.Environments.AutoFillsBox;
@@ -27,6 +24,7 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
 import net.md_5.bungee.api.ChatColor;
+import org.checkerframework.checker.units.qual.C;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -122,6 +120,7 @@ public class xBxTcore extends JavaPlugin {
         Objects.requireNonNull(this.getCommand("prefix")).setExecutor(new CommandPrefix(this));
         Objects.requireNonNull(this.getCommand("inv")).setExecutor(new CommandInv(this));
         Objects.requireNonNull(this.getCommand("boxpvp")).setExecutor(new CommandBoxPvp(this));
+        Objects.requireNonNull(this.getCommand("ReloadDataPlayares")).setExecutor(new CommandReloadDataPlayares(this));
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////
         Objects.requireNonNull(this.getCommand("sk")).setExecutor(new CommandSaveKit(this));
         Objects.requireNonNull(this.getCommand("dk")).setExecutor(new CommandDelKit(this));
@@ -279,6 +278,7 @@ public class xBxTcore extends JavaPlugin {
     private void ExecuteClener(){
         messageManager.BroadcastMessage(Messages.messageStarCleaner);
         cleaner.clearArea("lobby");
+        cleaner.clearArea("boxpvp");
         task5seconds.cancel();
     }
 
