@@ -1,6 +1,6 @@
 package Plugin.Commands.User;
 
-import Plugin.Model.Messages;
+import Plugin.Enum.Messages;
 import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -11,7 +11,6 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
-import java.util.UUID;
 
 import static Plugin.Managers.MessageManager.*;
 

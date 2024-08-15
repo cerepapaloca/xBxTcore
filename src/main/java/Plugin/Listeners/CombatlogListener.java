@@ -1,6 +1,6 @@
 package Plugin.Listeners;
 
-import Plugin.Model.Messages;
+import Plugin.Enum.Messages;
 import Plugin.Utils.Tools;
 import Plugin.xBxTcore;
 import me.neznamy.tab.api.TabPlayer;

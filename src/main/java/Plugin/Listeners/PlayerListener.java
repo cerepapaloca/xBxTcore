@@ -1,7 +1,7 @@
 package Plugin.Listeners;
 
-import Plugin.Model.EndCombatCauses;
-import Plugin.Model.Messages;
+import Plugin.Enum.EndCombatCauses;
+import Plugin.Enum.Messages;
 import Plugin.Model.Player.PlayerDataGLobal;
 import Plugin.Model.Request;
 import Plugin.Utils.Tools;
@@ -66,6 +66,9 @@ public class PlayerListener implements Listener {
         Bukkit.broadcastMessage(event.getPlayer().getName() + " » " + event.getMessage());
         event.setMessage(ChatColor.translateAlternateColorCodes('&', event.getMessage()));
         event.setCancelled(true);
+        if (event.getMessage().equals("Hola")){
+            event.setMessage("Adios");
+        }
     }
 
 

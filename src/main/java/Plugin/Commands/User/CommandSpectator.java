@@ -1,13 +1,8 @@
 package Plugin.Commands.User;
 
-import Plugin.Model.Messages;
+import Plugin.Enum.Messages;
 import Plugin.Utils.Tools;
 import Plugin.xBxTcore;
-import me.neznamy.tab.api.TabPlayer;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.ComponentBuilder;
-import net.md_5.bungee.api.chat.HoverEvent;
-import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

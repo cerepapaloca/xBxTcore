@@ -1,6 +1,6 @@
 package Plugin.Listeners;
 
-import Plugin.Model.InvetoryPlayer;
+import Plugin.Model.Player.InvetoryPlayer;
 import Plugin.xBxTcore;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

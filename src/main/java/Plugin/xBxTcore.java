@@ -10,7 +10,7 @@ import Plugin.Environments.HologramasBoxPvp;
 import Plugin.Inventory.InventoryMenu;
 import Plugin.Listeners.*;
 import Plugin.Managers.*;
-import Plugin.Model.Messages;
+import Plugin.Enum.Messages;
 import Plugin.Model.Player.PlayerDataGLobal;
 import Plugin.Model.Player.PlayerDataUnique;
 import Plugin.Utils.Tools;

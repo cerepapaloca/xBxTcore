@@ -1,9 +1,9 @@
 package Plugin.Inventory;
 
 import Plugin.Managers.InventoryManager;
-import Plugin.Model.InvetoryPlayer;
-import Plugin.Model.InvetorySection;
-import Plugin.Model.Messages;
+import Plugin.Model.Player.InvetoryPlayer;
+import Plugin.Enum.InvetorySection;
+import Plugin.Enum.Messages;
 import Plugin.Utils.Tools;
 import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
@@ -16,7 +16,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
 
 import java.util.ArrayList;
 import java.util.List;

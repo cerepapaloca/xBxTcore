@@ -1,8 +1,8 @@
 package Plugin.Managers;
 
-import Plugin.Model.EndCombatCauses;
+import Plugin.Enum.EndCombatCauses;
 import Plugin.Model.KitData;
-import Plugin.Model.Messages;
+import Plugin.Enum.Messages;
 import Plugin.xBxTcore;
 import com.onarandombox.MultiverseCore.api.MultiverseWorld;
 import me.neznamy.tab.api.TabPlayer;

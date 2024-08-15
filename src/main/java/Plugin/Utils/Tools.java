@@ -1,6 +1,6 @@
 package Plugin.Utils;
 
-import Plugin.Model.Messages;
+import Plugin.Enum.Messages;
 import Plugin.xBxTcore;
 import net.luckperms.api.node.types.InheritanceNode;
 import net.md_5.bungee.api.ChatColor;

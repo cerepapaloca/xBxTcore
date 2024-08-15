@@ -1,7 +1,7 @@
 package Plugin.Commands.OnlyOp;
 
 import Plugin.Managers.PlayerfileManager;
-import Plugin.Model.Messages;
+import Plugin.Enum.Messages;
 import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

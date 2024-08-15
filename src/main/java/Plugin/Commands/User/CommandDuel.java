@@ -1,8 +1,8 @@
 package Plugin.Commands.User;
 
 import Plugin.Managers.InventoryManager;
-import Plugin.Model.InvetoryPlayer;
-import Plugin.Model.Messages;
+import Plugin.Model.Player.InvetoryPlayer;
+import Plugin.Enum.Messages;
 import Plugin.Model.Request;
 import Plugin.xBxTcore;
 import com.onarandombox.MultiverseCore.api.MultiverseWorld;

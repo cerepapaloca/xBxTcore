@@ -1,14 +1,12 @@
 package Plugin.Listeners;
 
-import Plugin.Model.InvetoryPlayer;
-import Plugin.Model.Messages;
+import Plugin.Enum.Messages;
 import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
+import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -16,7 +14,6 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.EntityPlaceEvent;
-import org.bukkit.event.entity.ExplosionPrimeEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -179,8 +176,10 @@ public class BlockerListener implements Listener {
     @EventHandler
     public void EntityDamage(EntityDamageEvent event) {
         if (event.getCause() != EntityDamageEvent.DamageCause.KILL){
-            if (ejey + 4 <= event.getEntity().getLocation().getBlockY() && xBxTcore.getWorldProtec().contains(event.getEntity().getWorld())) {
+            if (ejey + 4 <= event.getEntity().getLocation().getBlockY() && (Bukkit.getWorld("lobby") == event.getEntity().getWorld()) || Bukkit.getWorld("creatorkits") == event.getEntity().getWorld()) {
                 event.setCancelled(true);
+            }else if (Bukkit.getWorld("boxpvp") == event.getEntity().getWorld()){
+                Chunk chunk = event.getEntity().getLocation().getChunk();
             }
             if (event.getCause() == EntityDamageEvent.DamageCause.FALL && event.getDamage() > 30)  {
                 event.setCancelled(true);

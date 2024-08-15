@@ -1,4 +1,4 @@
-package Plugin.Model;
+package Plugin.Enum;
 
 public enum InvetorySection {
     MENU,

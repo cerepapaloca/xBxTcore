@@ -1,5 +1,6 @@
-package Plugin.Model;
+package Plugin.Model.Player;
 
+import Plugin.Enum.InvetorySection;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;

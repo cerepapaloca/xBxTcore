@@ -1,6 +1,6 @@
 package Plugin.Commands.User;
 
-import Plugin.Model.Messages;
+import Plugin.Enum.Messages;
 import Plugin.xBxTcore;
 import org.bukkit.Material;
 import org.bukkit.command.Command;

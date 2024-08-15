@@ -1,12 +1,13 @@
 package Plugin.Managers;
 
+import Plugin.Enum.MapsDuel;
+import Plugin.Enum.Messages;
 import Plugin.Inventory.InventoryMenu;
-import Plugin.Model.*;
+import Plugin.Model.Player.InvetoryPlayer;
 import Plugin.Utils.Tools;
 import Plugin.xBxTcore;
 import com.onarandombox.MultiverseCore.api.MultiverseWorld;
 import org.bukkit.*;
-import org.bukkit.entity.EnderPearl;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.Inventory;
@@ -14,7 +15,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
-import javax.xml.crypto.dsig.spec.XSLTTransformParameterSpec;
 import java.util.*;
 
 import static Plugin.xBxTcore.*;
@@ -80,7 +80,7 @@ public class InventoryManager {
             invetoryPlayer.setPreviewMode(true);
             ItemMeta Meta = ButtoPreviewOn.getItemMeta();
             assert Meta != null;
-            Meta.setDisplayName(xBxTcore.getMessageManager().MasterMessage(invetoryPlayer.getPlayer(),Messages.PreviewOn));
+            Meta.setDisplayName(xBxTcore.getMessageManager().MasterMessage(invetoryPlayer.getPlayer(), Messages.PreviewOn));
             ButtoPreviewOn.setItemMeta(Meta);
             invetoryPlayer.getPlayer().getOpenInventory().setItem(slot,ButtoPreviewOn);
         } else if (item.getType() == Material.ENDER_EYE) {

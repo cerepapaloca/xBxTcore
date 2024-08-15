@@ -2,7 +2,7 @@ package Plugin.Managers;
 
 import Plugin.File.PlayerFile;
 import Plugin.File.PlayersFiles;
-import Plugin.Model.Messages;
+import Plugin.Enum.Messages;
 import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

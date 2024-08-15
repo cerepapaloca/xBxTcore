@@ -1,6 +1,6 @@
 package Plugin.Listeners;
 
-import Plugin.Model.Messages;
+import Plugin.Enum.Messages;
 import Plugin.Utils.Tools;
 import com.vexsoftware.votifier.model.VotifierEvent;
 import org.bukkit.Bukkit;
