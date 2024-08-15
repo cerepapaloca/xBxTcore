@@ -14,7 +14,6 @@ public class Request {
     private final MultiverseWorld nameWold;
     private final ArrayList<Player> players = new ArrayList<>();
     private final ArrayList<Player> acceptPlayers = new ArrayList<>();
-    //private final ArrayList<UUID> uuids = new ArrayList<>();
     private final String WorldType;
 
     public Request(UUID requesterId, long expirationTime, MultiverseWorld nameWold, ArrayList<Player> players, String worldType) {

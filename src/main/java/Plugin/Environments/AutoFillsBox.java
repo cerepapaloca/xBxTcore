@@ -15,9 +15,13 @@ public class AutoFillsBox {
     public AutoFillsBox(xBxTcore plugin) {
         this.plugin = plugin;
         /////
-        Location location1 = new Location(xBxTcore.worldBoxpvp, 5, 60, 5);
-        Location location2 = new Location(xBxTcore.worldBoxpvp, 10, 64, 10);
-        minas.add(new MinaBoxPvp("Cosa", Material.BLUE_GLAZED_TERRACOTTA, 45, location1, location2, new Location(xBxTcore.worldBoxpvp, 5, 60, 5)));
+        Location location1 = new Location(Bukkit.getWorld("boxpvp"), 5, 60, 5);
+        Location location2 = new Location(Bukkit.getWorld("boxpvp"), 10, 64, 10);
+        Location location3 = new Location(Bukkit.getWorld("boxpvp"), 5, 60, 5);
+        minas.add(new MinaBoxPvp("Cosa", Material.BLUE_GLAZED_TERRACOTTA, 45, location1, location2, location3));
+        for (MinaBoxPvp minaBoxPvp : minas){
+            xBxTcore.getHologramasBoxPvp().createTimesMina(minaBoxPvp);
+        }
         new BukkitRunnable() {
             public void run() {
 
@@ -29,7 +33,8 @@ public class AutoFillsBox {
                     minaBoxPvp.setTimeLeft(minaBoxPvp.getTimeLeft() - 1);
                 }
 
-                xBxTcore.getHologramas().updateHologramTimes();
+                xBxTcore.getHologramasBoxPvp().updateHologramTimes();
+                xBxTcore.getHologramasBoxPvp().updateHologramTimesMina();
             }
         }.runTaskTimer(plugin, 20, 20);
     }

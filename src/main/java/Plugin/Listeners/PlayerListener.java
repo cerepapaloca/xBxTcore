@@ -113,13 +113,6 @@ public class PlayerListener implements Listener {
         xBxTcore.getHologramas().ResetKills(player.getUniqueId());
         xBxTcore.getHologramas().updateHologramUser();
         ///////////////////////////////////////////////////
-        /*String prefixName = xBxTcore.getPlayerFileManager().loadPrefix(player.getUniqueId());
-        new BukkitRunnable() {
-            public void run() {
-                Objects.requireNonNull(xBxTcore.getTabAPI().getNameTagManager()).setPrefix(Objects.requireNonNull(xBxTcore.getTabAPI().getPlayer(player.getUniqueId())), prefixName);
-                Objects.requireNonNull(xBxTcore.getTabAPI().getTabListFormatManager()).setPrefix(Objects.requireNonNull(xBxTcore.getTabAPI().getPlayer(player.getUniqueId())), prefixName);
-            }
-        }.runTaskLater(plugin, 20);*/
         if(!event.getPlayer().getWorld().getName().equals("boxpvp")){
             player.getInventory().clear();
         }
@@ -257,20 +250,6 @@ public class PlayerListener implements Listener {
                 xBxTcore.getDuelManager().EndDuel(event.getEntity().getWorld(), playerMasterKiller, EndCombatCauses.DIED);
                 }
                 event.setDeathMessage(null);
-            /*}else{
-                if (event.getEntity().getGameMode().equals(GameMode.SURVIVAL)) {
-                    for(Player player : event.getEntity().getWorld().getPlayers()){
-                       if(player != event.getEntity() && player.getGameMode().equals(GameMode.SURVIVAL)){
-                           xBxTcore.getDuelManager().EndDuel(event.getEntity().getWorld(), player, EndCombatCauses.DIED);
-                           xBxTcore.getHologramas().PlayerKillerAdd(player);
-                           int i = player.getLevel();
-                           player.setLevel(i + 1);
-                           xBxTcore.getMessageManager().BroadcastMessageDied(Messages.DiedDuel, p, player,"");
-                           break;
-                       }
-                    }
-                }
-            }*/
         }
         event.setDeathMessage(null);
     }

@@ -6,6 +6,7 @@ import Plugin.Commands.User.*;
 import Plugin.Environments.AutoFillsBox;
 import Plugin.Environments.Cleaner;
 import Plugin.Environments.Hologramas;
+import Plugin.Environments.HologramasBoxPvp;
 import Plugin.Inventory.InventoryMenu;
 import Plugin.Listeners.*;
 import Plugin.Managers.*;
@@ -33,6 +34,8 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+import static Plugin.Managers.MessageManager.*;
+
 public class xBxTcore extends JavaPlugin {
 
     private static InventoryManager invetoryManager;
@@ -49,6 +52,7 @@ public class xBxTcore extends JavaPlugin {
     private static MessageManager messageManager;
     private static AutoFillsBox autoFillsBox;
     private static InventoryMenu inventoryMenu;
+    private static HologramasBoxPvp hologramasBoxPvp;
     public static PlayerDataGLobal playerDataGLobal;
 
     public static String bedrockPrefix = ".";
@@ -56,20 +60,30 @@ public class xBxTcore extends JavaPlugin {
     public static final World worldBoxpvp = Bukkit.getWorld("boxpvp");
 
     private long serverStartTime;
+    private long timeStaring;
 
     public static ArrayList<World> worlds;
     public static ArrayList<String> playersOffline;
 
     @Override
     public void onEnable() {
+        timeStaring = System.currentTimeMillis();
         playerDataGLobal = new PlayerDataGLobal();
         cleaner = new Cleaner(this);
         worlds = new ArrayList<>();
         playersOffline = new ArrayList<>();
         APIs();
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + Colorinfo + "Apis Cargado " + Colorplayer + (System.currentTimeMillis() - timeStaring) + "ms"));
+        timeStaring = System.currentTimeMillis();
         ManagersRegister();
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + Colorinfo + "Managers Cargado " + Colorplayer + (System.currentTimeMillis() - timeStaring) + "ms"));
+        timeStaring = System.currentTimeMillis();
         CommandRegister();
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + Colorinfo + "Comandos Cargado " + Colorplayer + (System.currentTimeMillis() - timeStaring)+ "ms"));
+        timeStaring = System.currentTimeMillis();
         ListenersRegister();
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + Colorinfo + "Listener Cargado " + Colorplayer + (System.currentTimeMillis() - timeStaring) + "ms"));
+        timeStaring = System.currentTimeMillis();
         startAutoCleaner();
         Timeinfo();
         WorldProtec();
@@ -151,7 +165,7 @@ public class xBxTcore extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
         getServer().getPluginManager().registerEvents(new BlockerListener(this ),this);
         getServer().getPluginManager().registerEvents(new VoteListener(),this);
-        getServer().getPluginManager().registerEvents(combatlogListener = new CombatlogListener(),this);
+        getServer().getPluginManager().registerEvents(combatlogListener = new CombatlogListener(this),this);
     }
 
     public void APIs(){
@@ -168,11 +182,12 @@ public class xBxTcore extends JavaPlugin {
         playerfileManager = new PlayerfileManager(this);
         duelManager = new DuelManager(this);
         messageManager = new MessageManager();
-        hologramas = new Hologramas(this);
-        autoFillsBox = new AutoFillsBox(this);
         inventoryMenu = new InventoryMenu(this);
         invetoryManager = new InventoryManager(this);
         tools = new Tools(this);
+        hologramas = new Hologramas(this);
+        hologramasBoxPvp = new HologramasBoxPvp(this);
+        autoFillsBox = new AutoFillsBox(this);
     }
 
     public void WorldProtec(){
@@ -255,6 +270,11 @@ public class xBxTcore extends JavaPlugin {
     public static LuckPerms getLuckPerms(){
         return luckPerms;
     }
+
+    public static HologramasBoxPvp getHologramasBoxPvp(){
+        return hologramasBoxPvp;
+    }
+
     BukkitTask task1minute;
     BukkitTask task5seconds;
 
@@ -291,7 +311,7 @@ public class xBxTcore extends JavaPlugin {
     }
 
     public void messageOnlyPlayer(){
-        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', MessageManager.prefix + MessageManager.Colorinfo + "Solo jugadores Tonto"));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', MessageManager.prefix + Colorinfo + "Solo jugadores Tonto"));
     }
 
     public void info(){
@@ -308,25 +328,25 @@ public class xBxTcore extends JavaPlugin {
         float mb = (float) (Runtime.getRuntime().maxMemory() - Runtime.getRuntime().freeMemory())/1000000;
         memory *= 10;
         if (memory < 10){
-            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', MessageManager.prefix + MessageManager.Colorinfo + "[#---------]" + memory + "% used: " + mb + "MB" + " /////////////////////"));
+            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', MessageManager.prefix + Colorinfo + "[#---------]" + memory + "% used: " + mb + "MB" + " /////////////////////"));
         } else if (memory < 20){
-            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', MessageManager.prefix + MessageManager.Colorinfo + "[###-------] " + memory + "% used:" + mb + "MB" + " /////////////////////"));
+            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', MessageManager.prefix + Colorinfo + "[###-------] " + memory + "% used:" + mb + "MB" + " /////////////////////"));
         }  else if (memory < 30){
-            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', MessageManager.prefix + MessageManager.Colorinfo + "[####------] " + memory + "% used:" + mb + "MB" + " /////////////////////"));
+            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', MessageManager.prefix + Colorinfo + "[####------] " + memory + "% used:" + mb + "MB" + " /////////////////////"));
         } else if (memory < 40){
-            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', MessageManager.prefix + MessageManager.Colorinfo + "[#####-----] " + memory + "% used:" + mb + "MB" + " /////////////////////"));
+            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', MessageManager.prefix + Colorinfo + "[#####-----] " + memory + "% used:" + mb + "MB" + " /////////////////////"));
         } else if (memory < 50){
-            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', MessageManager.prefix + MessageManager.Colorinfo + "[######----] " + memory + "% used:" + mb + "MB" + " /////////////////////"));
+            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', MessageManager.prefix + Colorinfo + "[######----] " + memory + "% used:" + mb + "MB" + " /////////////////////"));
         } else if (memory < 60){
-            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', MessageManager.prefix + MessageManager.Colorinfo + "[#######---] " + memory + "% used:" + mb + "MB" + " /////////////////////"));
+            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', MessageManager.prefix + Colorinfo + "[#######---] " + memory + "% used:" + mb + "MB" + " /////////////////////"));
         } else if (memory < 80){
-            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', MessageManager.prefix + MessageManager.Colorinfo + "[########--] " + memory + "% used:" + mb + "MB" + " /////////////////////"));
+            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', MessageManager.prefix + Colorinfo + "[########--] " + memory + "% used:" + mb + "MB" + " /////////////////////"));
         } else if (memory < 90){
-            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', MessageManager.prefix + MessageManager.Colorinfo + "[#########-] " + memory + "% used:" + mb + "MB" + " /////////////////////"));
+            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', MessageManager.prefix + Colorinfo + "[#########-] " + memory + "% used:" + mb + "MB" + " /////////////////////"));
         } else if (memory < 95){
-            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', MessageManager.prefix + MessageManager.Colorinfo + "[##########] " + memory + "% used:" + mb + "MB" + " /////////////////////"));
+            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', MessageManager.prefix + Colorinfo + "[##########] " + memory + "% used:" + mb + "MB" + " /////////////////////"));
         }
-        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', MessageManager.prefix + MessageManager.Colorinfo +
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', MessageManager.prefix + Colorinfo +
                 getServer().getServerTickManager().getTickRate() + " TPS // " + Bukkit.getOnlinePlayers().size() + "/" +
                 Bukkit.getServer().getMaxPlayers() + " Players // " + "Tiempo de iniciado " + seconds + "S " + minutes + "M " + hours +"H " + days + "D " ));
         Bukkit.setMotd("xBxTCore el Mejor Plugin de todos los tiempos");
@@ -348,6 +368,6 @@ public class xBxTcore extends JavaPlugin {
     }
 
     private void Timeinfo() {
-        Bukkit.getScheduler().runTaskTimer(this, this::info, 2 * 20,10 * 60 * 20);
+        Bukkit.getScheduler().runTaskTimer(this, this::info, 40 * 20,10 * 60 * 20);
     }
 }

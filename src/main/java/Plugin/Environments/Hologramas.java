@@ -18,7 +18,7 @@ import static Plugin.Managers.MessageManager.Colorplayer;
 
 public class Hologramas{
 
-    private final ArrayList<String> textholograms;
+    protected final ArrayList<String> textholograms;
     private ArrayList<ArmorStand> armorStandsKills;
     private ArrayList<ArmorStand> armorStandsUser;
     private ArrayList<ArmorStand> armorStandsTimes;
@@ -139,7 +139,7 @@ public class Hologramas{
         armorStandsUser = createListArmorStand(textholograms, location, 2);
     }
 
-    private ArrayList<ArmorStand> createListArmorStand (ArrayList<String> text, Location location, int size){
+    protected ArrayList<ArmorStand> createListArmorStand (ArrayList<String> text, Location location, int size){
         ArrayList<ArmorStand> armorStands1 = new ArrayList<>();
         ArmorStand armorStand;
         for(int i = 0; i < size; i++) {
