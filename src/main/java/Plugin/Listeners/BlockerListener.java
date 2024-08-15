@@ -13,6 +13,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.EntityPlaceEvent;
 import org.bukkit.event.entity.ExplosionPrimeEvent;
 import org.bukkit.event.player.*;
@@ -21,6 +22,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.*;
 import java.util.List;
+
+import static Plugin.Utils.Tools.additem;
 
 public class BlockerListener implements Listener {
     public final static ArrayList<Location> blockLocations = new ArrayList<>();
@@ -88,16 +91,7 @@ public class BlockerListener implements Listener {
     public void BlockBreak(BlockBreakEvent event) {
         if (!event.getPlayer().isOp() && ejey <= event.getBlock().getLocation().getBlockY() && xBxTcore.getWorldProtec().contains(event.getPlayer().getWorld())) {
             if (materialsBoxPvp.contains(event.getBlock().getType())) {
-                int i = 0;
-                for (ItemStack stack : event.getPlayer().getInventory().getContents()) {
-                    if (stack == null || stack.getType() == Material.AIR) {
-                        i++;
-                    }
-                }
-                if(i >= 1){
-                    event.setDropItems(false);
-                    additem(event.getPlayer(), event.getBlock());
-                }
+                additem(event.getPlayer(), new ItemStack(event.getBlock().getType()));
                 return;
             }
             event.setCancelled(true);
@@ -169,9 +163,9 @@ public class BlockerListener implements Listener {
     }
 
     @EventHandler
-    public void ExplosionPrime(ExplosionPrimeEvent event) {
+    public void ExplosionPrime(EntityExplodeEvent event) {
         if(ejey <= event.getEntity().getLocation().getBlockY()){
-            event.setCancelled(true);
+            event.blockList().clear();
         }
     }
 
@@ -201,10 +195,6 @@ public class BlockerListener implements Listener {
         }.runTaskLater(plugin, 20 * 3);
     }
 
-    public void additem(Player player, Block block){
-        ItemStack item = new ItemStack(block.getType());
-        player.playSound(player,Sound.ENTITY_ITEM_PICKUP, 1,1);
-        player.getInventory().addItem(item);
-    }
+
 
 }

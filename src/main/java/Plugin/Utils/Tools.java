@@ -10,6 +10,7 @@ import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -163,6 +164,21 @@ public class Tools {
             return minutes + ":0" + seconds;
         }else{
             return minutes + ":" + seconds;
+        }
+    }
+
+    public static void additem(Player player, ItemStack item){
+        int i = 0;
+        for (ItemStack stack : player.getInventory().getContents()) {
+            if (stack == null || stack.getType() == Material.AIR) {
+                i++;
+            }
+        }
+        if(i >= 1){
+            player.playSound(player, Sound.ENTITY_ITEM_PICKUP, 1,1);
+            player.getInventory().addItem(item);
+        }else {
+            player.getWorld().dropItemNaturally(player.getLocation(),item);
         }
     }
 }

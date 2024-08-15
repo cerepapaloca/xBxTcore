@@ -361,4 +361,8 @@ public class InventoryMenu extends InventoryManager {
         player.openInventory(inv);
         getInvetoryManager().addplayer(invetoryPlayer);
     }
+
+    public void OpenRewardTimes(InvetoryPlayer invetoryPlayer){
+        invetoryPlayer.setSection(InvetorySection.TIMESELECT);
+    }
 }

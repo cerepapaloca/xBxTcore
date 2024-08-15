@@ -55,7 +55,7 @@ public class CombatlogListener implements Listener {
         new BukkitRunnable() {
             public void run() {
                 if (xBxTcore.getWorldProtec().contains(player.getWorld())) {
-                    if(getTimeRemaining(player) >= 0){
+                    if(getTimeRemaining(player) >= 1){
                         updateBossBars(getTimeRemaining(player),player,30);
                     }else{
                         cancel();

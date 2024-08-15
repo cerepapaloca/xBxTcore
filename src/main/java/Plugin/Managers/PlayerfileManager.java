@@ -32,6 +32,10 @@ public class PlayerfileManager {
     public HashMap<UUID, String> listPrefix;
     public static ArrayList<String> namesPlayres;
 
+    public long daily;
+    public long weekly;
+    public long monthly;
+
 
     public PlayerfileManager(xBxTcore plugin) {
         this.plugin = plugin;
@@ -186,6 +190,12 @@ public class PlayerfileManager {
         }
     }
 
+    public void loadTimesRewords(UUID uuid) {
+        daily = getfile(uuid).getkitConfigFile().getLong("metadataplayer.rewardsTimes.daily", 1);
+        weekly = getfile(uuid).getkitConfigFile().getLong("metadataplayer.rewardsTimes.weekly", 1);
+        monthly = getfile(uuid).getkitConfigFile().getLong("metadataplayer.rewardsTimes.monthly", 1);
+    }
+
     public void loadInventoryBoxPvp(Player player){
         UUID uuid = player.getUniqueId();
         List<?> rawList = getfile(uuid).getkitConfigFile().getList("InventoryBoxPvp", null);
@@ -212,6 +222,15 @@ public class PlayerfileManager {
         }
     }
 
+    public void SaveTimesRewords(UUID uuid, long daily, long weekly, long monthly) {
+        getfile(uuid).getkitConfigFile().set("metadataplayer.rewardsTimes.daily", null);
+        getfile(uuid).getkitConfigFile().set("metadataplayer.rewardsTimes.weekly", null);
+        getfile(uuid).getkitConfigFile().set("metadataplayer.rewardsTimes.monthly", null);
+        getfile(uuid).getkitConfigFile().set("metadataplayer.rewardsTimes.daily", daily);
+        getfile(uuid).getkitConfigFile().set("metadataplayer.rewardsTimes.weekly", weekly);
+        getfile(uuid).getkitConfigFile().set("metadataplayer.rewardsTimes.monthly", monthly);
+        getfile(uuid).saveConfig();
+    }
 
     public void SaveKit(UUID uuid, String namekit, Material material, ArrayList<ItemStack> itemstacks){
         getfile(uuid).getkitConfigFile().set("Kits." + namekit, null);
@@ -257,6 +276,8 @@ public class PlayerfileManager {
             getfile(uuid).getkitConfigFile().set("metadataplayer.Name", Objects.requireNonNull(Bukkit.getPlayer(uuid)).getName());
             getfile(uuid).getkitConfigFile().set("Kits.test", "null");
             getfile(uuid).getkitConfigFile().set("Kits.test", null);
+            SaveTimesRewords(uuid, 1,1,1);
+            SaveInventoryBoxPvp(uuid,null);
             getfile(uuid).saveConfig();
             getPlayerFileManager().reloadCustomConfig(uuid);
             loadNamesPlayers();
