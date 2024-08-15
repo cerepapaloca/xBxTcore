@@ -69,7 +69,7 @@ public class PlayerFile {
         }
     }
 
-    public FileConfiguration getkitConfigFile() {
+    public FileConfiguration getPlayerDataFile() {
         if (fileConfiguration == null) {
             reloadConfig();
         }

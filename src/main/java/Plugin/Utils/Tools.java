@@ -20,6 +20,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 import static Plugin.Managers.MessageManager.*;
 import static Plugin.Managers.MessageManager.ColorLink;
@@ -157,7 +158,7 @@ public class Tools {
         return gradientText.toString();
     }
 
-    public static String SecondToMinutes(Integer time){
+    public static String SecondToMinutes(int time){
         int minutes = time/60;
         int seconds = time%60;
         if (seconds < 10){
@@ -165,6 +166,17 @@ public class Tools {
         }else{
             return minutes + ":" + seconds;
         }
+    }
+
+    public static String SecondToMinutes(long time){
+        long days = TimeUnit.MILLISECONDS.toDays(time);
+        time -= TimeUnit.DAYS.toMillis(days);
+        long hours = TimeUnit.MILLISECONDS.toHours(time);
+        time -= TimeUnit.HOURS.toMillis(hours);
+        long minutes = TimeUnit.MILLISECONDS.toMinutes(time);
+        time -= TimeUnit.MINUTES.toMillis(minutes);
+        long seconds = TimeUnit.MILLISECONDS.toSeconds(time);
+        return days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
     }
 
     public static void additem(Player player, ItemStack item){

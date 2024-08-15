@@ -165,6 +165,7 @@ public class xBxTcore extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
         getServer().getPluginManager().registerEvents(new BlockerListener(this ),this);
         getServer().getPluginManager().registerEvents(new VoteListener(),this);
+        getServer().getPluginManager().registerEvents(new RewardsListener(),this);
         getServer().getPluginManager().registerEvents(combatlogListener = new CombatlogListener(this),this);
     }
 

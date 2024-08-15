@@ -27,7 +27,7 @@ public class AutoFillsBox {
 
                 for (MinaBoxPvp minaBoxPvp : minas) {
                     if (minaBoxPvp.getTimeLeft() < 1){
-                        FillArea(location1, location2, Material.BLUE_GLAZED_TERRACOTTA);
+                        FillArea(minaBoxPvp.getLocationA(), minaBoxPvp.getLocationB(), minaBoxPvp.getMaterial());
                         minaBoxPvp.resetTimeLeft();
                     }
                     minaBoxPvp.setTimeLeft(minaBoxPvp.getTimeLeft() - 1);

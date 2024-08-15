@@ -15,6 +15,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -363,6 +365,68 @@ public class InventoryMenu extends InventoryManager {
     }
 
     public void OpenRewardTimes(InvetoryPlayer invetoryPlayer){
-        invetoryPlayer.setSection(InvetorySection.TIMESELECT);
+        Player player = invetoryPlayer.getPlayer();
+        invetoryPlayer.setSection(InvetorySection.REWARDTIMES);
+        Inventory inv;
+        if (invetoryPlayer.getPlayer().getName().contains(bedrockPrefix)) {
+            inv = Bukkit.createInventory(null, 54, xBxTcore.getMessageManager().MasterMessage(player, Messages.KitListBedrock));
+        }else{
+            inv = Bukkit.createInventory(null, 45, xBxTcore.getMessageManager().MasterMessage(player, Messages.KitList));
+            ///////////////////////////////////////////////////
+            ItemStack PANEL_GLASS = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
+            ItemMeta PanelMeta = PANEL_GLASS.getItemMeta();
+            assert PanelMeta != null;
+            PanelMeta.setDisplayName(" ");
+            PANEL_GLASS.setItemMeta(PanelMeta);
+            for(int i = 0; i < inv.getSize(); i++){
+                inv.setItem(i,PANEL_GLASS);
+            }
+            ///////////////////////////////////////////////////
+            PANEL_GLASS = new ItemStack(Material.LIGHT_BLUE_STAINED_GLASS_PANE);
+            PanelMeta = PANEL_GLASS.getItemMeta();
+            assert PanelMeta != null;
+            PanelMeta.setDisplayName(" ");
+            PANEL_GLASS.setItemMeta(PanelMeta);
+            for(int i = 0; i < 9; i++){
+                inv.setItem(i,PANEL_GLASS);
+            }
+            for(int i = 36; i < inv.getSize(); i++){
+                inv.setItem(i,PANEL_GLASS);
+            }
+        }
+        ///////////////////////////////////////////////////
+        ArrayList<String> lore = new ArrayList<>();
+        new BukkitRunnable() {
+            public void run() {
+                if (player.getOpenInventory().getTopInventory().isEmpty()){
+                    cancel();
+                    return;
+                }
+                xBxTcore.getPlayerFileManager().loadTimesRewords(invetoryPlayer.getPlayer().getUniqueId());
+                lore.add(Tools.SecondToMinutes(getPlayerFileManager().daily - System.currentTimeMillis()));
+                if (getPlayerFileManager().daily <= System.currentTimeMillis()){
+                    Tools.NewitemInvetory(Messages.H1menos, Material.CHEST_MINECART, 20, inv, player);
+                }else{
+                    Tools.NewitemInvetory(Messages.H1menos, Material.MINECART, 20, inv, player, lore);
+                }
+                lore.clear();
+                lore.add(Tools.SecondToMinutes(getPlayerFileManager().weekly - System.currentTimeMillis()));
+                if (getPlayerFileManager().weekly <= System.currentTimeMillis()){
+                    Tools.NewitemInvetory(Messages.H1menos, Material.CHEST_MINECART, 22, inv, player);
+                }else{
+                    Tools.NewitemInvetory(Messages.H1menos, Material.MINECART, 22, inv, player, lore);
+                }
+                lore.clear();
+                lore.add(Tools.SecondToMinutes(getPlayerFileManager().monthly - System.currentTimeMillis()));
+                if (getPlayerFileManager().monthly <= System.currentTimeMillis()){
+                    Tools.NewitemInvetory(Messages.H1menos, Material.CHEST_MINECART, 24, inv, player);
+                }else{
+                    Tools.NewitemInvetory(Messages.H1menos, Material.MINECART, 24, inv, player, lore);
+                }
+                lore.clear();
+            }
+        }.runTaskTimer(plugin, 0, 20);
+        player.openInventory(inv);
+        getInvetoryManager().addplayer(invetoryPlayer);
     }
 }

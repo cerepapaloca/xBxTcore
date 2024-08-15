@@ -53,11 +53,11 @@ public class PlayerfileManager {
 
     public void loadKit(UUID uuid, String namekit, Inventory inv, Player player) {
         int i = 0;
-        if(!Objects.requireNonNull(getfile(uuid).getkitConfigFile().getConfigurationSection("Kits")).getKeys(false).contains(namekit)){
+        if(!Objects.requireNonNull(getfile(uuid).getPlayerDataFile().getConfigurationSection("Kits")).getKeys(false).contains(namekit)){
            player.sendMessage(xBxTcore.getMessageManager().MasterMessage(player,Messages.KitNotExist));
            return;
         }
-        List<?> rawList = getfile(uuid).getkitConfigFile().getList("Kits." + namekit + ".inventory", null);
+        List<?> rawList = getfile(uuid).getPlayerDataFile().getList("Kits." + namekit + ".inventory", null);
         itemStacks.clear();
         if (rawList != null) {
             for (Object obj : rawList) {
@@ -135,21 +135,21 @@ public class PlayerfileManager {
     }
 
     public void loadNameKit(UUID uuid) {
-        Set<String> names = Objects.requireNonNull(getfile(uuid).getkitConfigFile().getConfigurationSection("Kits")).getKeys(false);
+        Set<String> names = Objects.requireNonNull(getfile(uuid).getPlayerDataFile().getConfigurationSection("Kits")).getKeys(false);
         materials.clear();
         nameskits = List.of(names.toArray(new String[0]));
 
         for (String namekit : nameskits){
-            Material material = Material.getMaterial(Objects.requireNonNull(getfile(uuid).getkitConfigFile().getString("Kits." + namekit + ".metadata.icon")));
+            Material material = Material.getMaterial(Objects.requireNonNull(getfile(uuid).getPlayerDataFile().getString("Kits." + namekit + ".metadata.icon")));
             materials.add(material);
         }
-        Set<String> namesall = Objects.requireNonNull(getfile(UUID.fromString("00000000-0000-0000-0000-000000000000")).getkitConfigFile().getConfigurationSection("Kits")).getKeys(false);
+        Set<String> namesall = Objects.requireNonNull(getfile(UUID.fromString("00000000-0000-0000-0000-000000000000")).getPlayerDataFile().getConfigurationSection("Kits")).getKeys(false);
         nameskitsglobal = List.of(namesall.toArray(new String[0]));
         concatenate(nameskitsglobal,nameskits);
     }
 
     public String loadNameKitfavorite(UUID uuid) {
-        namekitfavorite = getfile(uuid).getkitConfigFile().getString("metadataplayer.kitfavorite", null);
+        namekitfavorite = getfile(uuid).getPlayerDataFile().getString("metadataplayer.kitfavorite", null);
         return namekitfavorite;
     }
 
@@ -176,7 +176,7 @@ public class PlayerfileManager {
         if (listPrefix.containsKey(uuid)){
             return listPrefix.get(uuid);
         }else{
-            String prefix = getfile(uuid).getkitConfigFile().getString("metadataplayer.Prefix", "");
+            String prefix = getfile(uuid).getPlayerDataFile().getString("metadataplayer.Prefix", "");
             listPrefix.put(uuid,prefix);
             return prefix;
         }
@@ -185,20 +185,20 @@ public class PlayerfileManager {
     public void loadNamesPlayers() {
         namesPlayres.clear();
         for(PlayerFile playerFile : playesfiles.getConfigFiles()){
-            String name = playerFile.getkitConfigFile().getString("metadataplayer.Name");
+            String name = playerFile.getPlayerDataFile().getString("metadataplayer.Name");
             namesPlayres.add(name);
         }
     }
 
     public void loadTimesRewords(UUID uuid) {
-        daily = getfile(uuid).getkitConfigFile().getLong("metadataplayer.rewardsTimes.daily", 1);
-        weekly = getfile(uuid).getkitConfigFile().getLong("metadataplayer.rewardsTimes.weekly", 1);
-        monthly = getfile(uuid).getkitConfigFile().getLong("metadataplayer.rewardsTimes.monthly", 1);
+        daily = getfile(uuid).getPlayerDataFile().getLong("metadataplayer.rewardsTimes.daily", 1);
+        weekly = getfile(uuid).getPlayerDataFile().getLong("metadataplayer.rewardsTimes.weekly", 1);
+        monthly = getfile(uuid).getPlayerDataFile().getLong("metadataplayer.rewardsTimes.monthly", 1);
     }
 
     public void loadInventoryBoxPvp(Player player){
         UUID uuid = player.getUniqueId();
-        List<?> rawList = getfile(uuid).getkitConfigFile().getList("InventoryBoxPvp", null);
+        List<?> rawList = getfile(uuid).getPlayerDataFile().getList("InventoryBoxPvp", null);
         itemStacks.clear();
         if (rawList != null) {
             for (Object obj : rawList) {
@@ -223,19 +223,19 @@ public class PlayerfileManager {
     }
 
     public void SaveTimesRewords(UUID uuid, long daily, long weekly, long monthly) {
-        getfile(uuid).getkitConfigFile().set("metadataplayer.rewardsTimes.daily", null);
-        getfile(uuid).getkitConfigFile().set("metadataplayer.rewardsTimes.weekly", null);
-        getfile(uuid).getkitConfigFile().set("metadataplayer.rewardsTimes.monthly", null);
-        getfile(uuid).getkitConfigFile().set("metadataplayer.rewardsTimes.daily", daily);
-        getfile(uuid).getkitConfigFile().set("metadataplayer.rewardsTimes.weekly", weekly);
-        getfile(uuid).getkitConfigFile().set("metadataplayer.rewardsTimes.monthly", monthly);
+        getfile(uuid).getPlayerDataFile().set("metadataplayer.rewardsTimes.daily", null);
+        getfile(uuid).getPlayerDataFile().set("metadataplayer.rewardsTimes.weekly", null);
+        getfile(uuid).getPlayerDataFile().set("metadataplayer.rewardsTimes.monthly", null);
+        getfile(uuid).getPlayerDataFile().set("metadataplayer.rewardsTimes.daily", daily);
+        getfile(uuid).getPlayerDataFile().set("metadataplayer.rewardsTimes.weekly", weekly);
+        getfile(uuid).getPlayerDataFile().set("metadataplayer.rewardsTimes.monthly", monthly);
         getfile(uuid).saveConfig();
     }
 
     public void SaveKit(UUID uuid, String namekit, Material material, ArrayList<ItemStack> itemstacks){
-        getfile(uuid).getkitConfigFile().set("Kits." + namekit, null);
-        getfile(uuid).getkitConfigFile().set("Kits." + namekit + ".inventory", itemstacks);
-        getfile(uuid).getkitConfigFile().set("Kits." + namekit + ".metadata.icon", material.name());
+        getfile(uuid).getPlayerDataFile().set("Kits." + namekit, null);
+        getfile(uuid).getPlayerDataFile().set("Kits." + namekit + ".inventory", itemstacks);
+        getfile(uuid).getPlayerDataFile().set("Kits." + namekit + ".metadata.icon", material.name());
         getfile(uuid).saveConfig();
         getPlayerFileManager().reloadCustomConfig(uuid);
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorSuccess
@@ -249,8 +249,8 @@ public class PlayerfileManager {
     }
 
     public void SaveInventoryBoxPvp(UUID uuid, ArrayList<ItemStack> itemstacks){
-        getfile(uuid).getkitConfigFile().set("InventoryBoxPvp", null);
-        getfile(uuid).getkitConfigFile().set("InventoryBoxPvp", itemstacks);
+        getfile(uuid).getPlayerDataFile().set("InventoryBoxPvp", null);
+        getfile(uuid).getPlayerDataFile().set("InventoryBoxPvp", itemstacks);
         getfile(uuid).saveConfig();
         getPlayerFileManager().reloadCustomConfig(uuid);
         //Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorSuccess
@@ -259,7 +259,7 @@ public class PlayerfileManager {
     }
 
     public void SaveNameKitFavorite(UUID uuid, String namekitfavorite){
-        getfile(uuid).getkitConfigFile().set("metadataplayer.kitfavorite", namekitfavorite);
+        getfile(uuid).getPlayerDataFile().set("metadataplayer.kitfavorite", namekitfavorite);
         getfile(uuid).saveConfig();
         getPlayerFileManager().reloadCustomConfig(uuid);
         loadNameKitfavorite(uuid);
@@ -273,9 +273,9 @@ public class PlayerfileManager {
     public void SaveUUIDplayer(UUID uuid){
         if(getfile(uuid) == null){
             playesfiles.registerConfigFile(uuid.toString() + ".yml");
-            getfile(uuid).getkitConfigFile().set("metadataplayer.Name", Objects.requireNonNull(Bukkit.getPlayer(uuid)).getName());
-            getfile(uuid).getkitConfigFile().set("Kits.test", "null");
-            getfile(uuid).getkitConfigFile().set("Kits.test", null);
+            getfile(uuid).getPlayerDataFile().set("metadataplayer.Name", Objects.requireNonNull(Bukkit.getPlayer(uuid)).getName());
+            getfile(uuid).getPlayerDataFile().set("Kits.test", "null");
+            getfile(uuid).getPlayerDataFile().set("Kits.test", null);
             SaveTimesRewords(uuid, 1,1,1);
             SaveInventoryBoxPvp(uuid,null);
             getfile(uuid).saveConfig();
@@ -286,19 +286,19 @@ public class PlayerfileManager {
     }
 
     public void SavePrefix(UUID uuid, String prefix){
-        getfile(uuid).getkitConfigFile().set("metadataplayer.Prefix", null);
-        getfile(uuid).getkitConfigFile().set("metadataplayer.Prefix", prefix);
+        getfile(uuid).getPlayerDataFile().set("metadataplayer.Prefix", null);
+        getfile(uuid).getPlayerDataFile().set("metadataplayer.Prefix", prefix);
         getfile(uuid).saveConfig();
         listPrefix.remove(uuid);
         getPlayerFileManager().reloadCustomConfig(uuid);
     }
 
     public void DeleteKitConfig(UUID uuid, String namekit){
-        if (null == getfile(uuid).getkitConfigFile().get("Kits." + namekit, null)){
+        if (null == getfile(uuid).getPlayerDataFile().get("Kits." + namekit, null)){
             Objects.requireNonNull(Bukkit.getPlayer(uuid)).sendMessage(xBxTcore.getMessageManager().MasterMessage(Objects.requireNonNull(Bukkit.getPlayer(uuid)),
                     Messages.RemovedWaring));
         }
-        getfile(uuid).getkitConfigFile().set("Kits." + namekit, null);
+        getfile(uuid).getPlayerDataFile().set("Kits." + namekit, null);
         getfile(uuid).saveConfig();
         itemStacks.clear();
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorSuccess

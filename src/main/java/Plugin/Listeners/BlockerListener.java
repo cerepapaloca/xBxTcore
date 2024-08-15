@@ -1,5 +1,6 @@
 package Plugin.Listeners;
 
+import Plugin.Model.InvetoryPlayer;
 import Plugin.Model.Messages;
 import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
@@ -91,7 +92,12 @@ public class BlockerListener implements Listener {
     public void BlockBreak(BlockBreakEvent event) {
         if (!event.getPlayer().isOp() && ejey <= event.getBlock().getLocation().getBlockY() && xBxTcore.getWorldProtec().contains(event.getPlayer().getWorld())) {
             if (materialsBoxPvp.contains(event.getBlock().getType())) {
+                event.setDropItems(false);
                 additem(event.getPlayer(), new ItemStack(event.getBlock().getType()));
+                return;
+            }
+            if (blockLocations.contains(event.getBlock().getLocation())) {
+                blockLocations.remove(event.getBlock().getLocation());
                 return;
             }
             event.setCancelled(true);
@@ -131,11 +137,12 @@ public class BlockerListener implements Listener {
     public void PlayerInteract(PlayerInteractEvent event) {
         if (!event.getPlayer().isOp() && ejey <= event.getPlayer().getLocation().getBlockY()) {
             Block block = event.getClickedBlock();
-            if (null != event.getClickedBlock()){
-                assert block != null;
+            if (null != block){
                 if (materials.contains(block.getType()) && xBxTcore.getWorldProtec().contains(event.getPlayer().getWorld())) {
-                    event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessage(event.getPlayer(), Messages.NotAllowed));
-                    event.setCancelled(true);
+                    if (!event.getPlayer().getWorld().equals(Bukkit.getWorld("boxpvp")) && !block.getType().equals(Material.YELLOW_SHULKER_BOX)) {
+                        event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessage(event.getPlayer(), Messages.NotAllowed));
+                        event.setCancelled(true);
+                    }
                 }
             }
         }
@@ -194,7 +201,4 @@ public class BlockerListener implements Listener {
             }
         }.runTaskLater(plugin, 20 * 3);
     }
-
-
-
 }
