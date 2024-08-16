@@ -3,10 +3,7 @@ package Plugin;
 import Plugin.Commands.OnlyOp.*;
 import Plugin.Commands.Tab.*;
 import Plugin.Commands.User.*;
-import Plugin.Environments.AutoFillsBox;
-import Plugin.Environments.Cleaner;
-import Plugin.Environments.Hologramas;
-import Plugin.Environments.HologramasBoxPvp;
+import Plugin.Environments.*;
 import Plugin.Inventory.InventoryMenu;
 import Plugin.Listeners.*;
 import Plugin.Managers.*;
@@ -54,10 +51,10 @@ public class xBxTcore extends JavaPlugin {
     private static InventoryMenu inventoryMenu;
     private static HologramasBoxPvp hologramasBoxPvp;
     public static PlayerDataGLobal playerDataGLobal;
+    private static ZoneSafeBoxPvp zoneSafeBoxPvp;
 
     public static String bedrockPrefix = ".";
     private static Tools tools;
-    public static final World worldBoxpvp = Bukkit.getWorld("boxpvp");
 
     private long serverStartTime;
     private long timeStaring;
@@ -189,6 +186,7 @@ public class xBxTcore extends JavaPlugin {
         hologramas = new Hologramas(this);
         hologramasBoxPvp = new HologramasBoxPvp(this);
         autoFillsBox = new AutoFillsBox(this);
+        zoneSafeBoxPvp = new ZoneSafeBoxPvp(this);
     }
 
     public void WorldProtec(){

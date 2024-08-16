@@ -8,9 +8,7 @@ import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -192,5 +190,13 @@ public class Tools {
         }else {
             player.getWorld().dropItemNaturally(player.getLocation(),item);
         }
+    }
+
+    public static Chunk getChunkByCoordinates(String worldName, int chunkX, int chunkZ) {
+        World world = Bukkit.getWorld(worldName);
+        if (world != null) {
+            return world.getChunkAt(chunkX, chunkZ);
+        }
+        return null;
     }
 }

@@ -12,6 +12,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.*;
@@ -40,6 +41,14 @@ public class CombatlogListener implements Listener {
     }
 
     @EventHandler
+    public void PlayerQuit(PlayerQuitEvent event){
+        Player player = event.getPlayer();
+        if(xBxTcore.getcombatlogListener().isInCombat(player)){
+            player.setHealth(0);
+        }
+    }
+
+    @EventHandler
     public void onPlayerCommand(PlayerCommandPreprocessEvent event) {
         Player player = event.getPlayer();
         if (isInCombat(player)) {
@@ -54,24 +63,31 @@ public class CombatlogListener implements Listener {
     private void combatUpdate(Player player) {
         new BukkitRunnable() {
             public void run() {
+                if (player == null){
+                    cancel();
+                    return;
+                }
                 if (xBxTcore.getWorldProtec().contains(player.getWorld())) {
                     if(getTimeRemaining(player) >= 1){
                         updateBossBars(getTimeRemaining(player),player,30);
                     }else{
+                        endCombat(player);
                         cancel();
                     }
                 }
             }
-        }.runTaskTimer(plugin, 20, 20);
+        }.runTaskTimer(plugin, 0, 20);
     }
 
     private void startCombat(Player player) {
-        combatUpdate(player);
+        if (!isInCombat(player)) {
+            combatUpdate(player);
+        }
         long COMBAT_COOLDOWN_TIME = 30 * 1000;
         combatCooldowns.put(player.getUniqueId(), System.currentTimeMillis() + COMBAT_COOLDOWN_TIME);
     }
 
-    private boolean isInCombat(Player player) {
+    public boolean isInCombat(Player player) {
         return combatCooldowns.containsKey(player.getUniqueId()) &&
                 combatCooldowns.get(player.getUniqueId()) > System.currentTimeMillis();
     }
@@ -95,14 +111,15 @@ public class CombatlogListener implements Listener {
         BarStyle barStyle = BarStyle.PROGRESS;
         BarColor barColor = BarColor.RED;
         BossBar bossBar = Objects.requireNonNull(xBxTcore.getTabAPI().getBossBarManager()).getBossBar("timerBossBarCombat");
-        if (bossBar == null) {
-            bossBar = xBxTcore.getTabAPI().getBossBarManager().createBossBar("timerBossBarCombat", 1.0f, barColor, barStyle);
-            bossBar.setTitle(title);
-            bossBar.setProgress(((float) timeLeft/timemax)*100);
-            TabPlayer tabPlayer = xBxTcore.getTabAPI().getPlayer(player.getUniqueId());
-            if (tabPlayer != null) {
-                xBxTcore.getTabAPI().getBossBarManager().sendBossBarTemporarily(tabPlayer, bossBar.getName(), 1);
-            }
+        if (bossBar != null) {
+            bossBar.removePlayer(Objects.requireNonNull(xBxTcore.getTabAPI().getPlayer(player.getUniqueId())));
+        }
+        bossBar = xBxTcore.getTabAPI().getBossBarManager().createBossBar("timerBossBarCombat", 1.0f, barColor, barStyle);
+        bossBar.setTitle(title);
+        bossBar.setProgress(((float) timeLeft/timemax)*100);
+        TabPlayer tabPlayer = xBxTcore.getTabAPI().getPlayer(player.getUniqueId());
+        if (tabPlayer != null){
+            xBxTcore.getTabAPI().getBossBarManager().sendBossBarTemporarily(tabPlayer, bossBar.getName(), 1);
         }
     }
 }

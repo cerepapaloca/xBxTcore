@@ -19,8 +19,8 @@ public class MessageManager {
     public static String prefix = "&6[" + ChatColor.of("#61CAFD") + "&lx" + ChatColor.of("#7CAFEC") + "&lB" + ChatColor.of("#9893DC")
             + "&lx" + ChatColor.of("#B378CB") + "&lT" + ChatColor.of("#FDC661") + " &lC" + ChatColor.of("#FEAA41") + "&lo" +
             ChatColor.of("#FE8F22") + "&lr" + ChatColor.of("#FF7302") + "&le" + "&6]&r ";
-    public static String prefixDuel = "&8[&4⚔&8]";
-    public static String prefixDied = "&8[&4☠&8]";
+    public static String prefixDuel = "&8[&4⚔&8] ";
+    public static String prefixDied = "&8[&4☠&8] ";
 
     public static String ColorError = "&c";
     public static String ColorSuccess = "&a";
@@ -50,8 +50,8 @@ public class MessageManager {
        enMessages.put("Voted",Colorinfo + "Thank you for voting, you can now use the command: ");
        enMessages.put("PrefixClear",prefix + Colorinfo + "The prefix has been cleared");
        //Eventos
-       enMessages.put("leave",Colorinfo + "left the game!");
-       enMessages.put("join",Colorinfo + "joined the game!");
+       enMessages.put("leave",Colorinfo + " left the game!");
+       enMessages.put("join",Colorinfo + " joined the game!");
        //Muertes
        enMessages.put("Died1",prefixDied + Colorplayer + "%player% " + Colorinfo + "was kill by " + Colorplayer + "%killer% " + Colorinfo + "with: %item%");
        enMessages.put("Died2",prefixDied + Colorplayer + "%player% " + Colorinfo + "was explode by " + Colorplayer + "%killer% " + Colorinfo + "with: %item%");
@@ -337,19 +337,27 @@ public class MessageManager {
     }
 
     public void BroadcastMessageDied(Messages message, Player player, Player killer, String item){
+        String prefixWorld;
+
+        switch (player.getWorld().getName()){
+            case "lobby" -> prefixWorld = "&8[&9FFA&8]&r ";
+            case "boxpvp" -> prefixWorld = "&8[&4BOXPVP&8]&r ";
+            default -> prefixWorld = "&8[&eDUEL&8]&r ";
+        }
+
         for(Player p : Bukkit.getOnlinePlayers()){
             if(killer != null){
-                p.sendMessage(ChatColor.translateAlternateColorCodes( '&',MasterMessage(p,message).replace("%player%",xBxTcore.getPlayerFileManager().loadPrefix(player.getUniqueId()) + Colorplayer +  player.getName()).replace("%killer%",xBxTcore.getPlayerFileManager().loadPrefix(killer.getUniqueId()) + Colorplayer + killer.getName()).replace("%item%", item)));
+                p.sendMessage(ChatColor.translateAlternateColorCodes( '&',MasterMessage(p,message).replace("%player%", prefixWorld + xBxTcore.getPlayerFileManager().loadPrefix(player.getUniqueId()) + Colorplayer +  player.getName()).replace("%killer%",xBxTcore.getPlayerFileManager().loadPrefix(killer.getUniqueId()) + Colorplayer + killer.getName()).replace("%item%", item)));
             }else{
-                p.sendMessage(ChatColor.translateAlternateColorCodes( '&',MasterMessage(p,message).replace("%player%",xBxTcore.getPlayerFileManager().loadPrefix(player.getUniqueId()) + Colorplayer +  player.getName()).replace("%item%", item)));
+                p.sendMessage(ChatColor.translateAlternateColorCodes( '&',MasterMessage(p,message).replace("%player%", prefixWorld + xBxTcore.getPlayerFileManager().loadPrefix(player.getUniqueId()) + Colorplayer +  player.getName()).replace("%item%", item)));
             }
 
         }
         if(killer == null){
-            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', esMessages.get(message.name())).replace("%player%",xBxTcore.getPlayerFileManager().loadPrefix(player.getUniqueId()) + Colorplayer +  player.getName()).replace("%item%", item));
+            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', esMessages.get(message.name())).replace("%player%",ChatColor.translateAlternateColorCodes('&',prefixWorld + xBxTcore.getPlayerFileManager().loadPrefix(player.getUniqueId()) + Colorplayer +  player.getName()).replace("%item%", item)));
         }else{
             Bukkit.getConsoleSender().sendMessage(xBxTcore.getPlayerFileManager().loadPrefix(player.getUniqueId()));
-            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', esMessages.get(message.name())).replace("%player%", xBxTcore.getPlayerFileManager().loadPrefix(player.getUniqueId()) + Colorplayer +  player.getName()).replace("%killer%",xBxTcore.getPlayerFileManager().loadPrefix(killer.getUniqueId()) + Colorplayer + killer.getName()).replace("%item%", item));
+            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', esMessages.get(message.name())).replace("%player%", ChatColor.translateAlternateColorCodes('&',prefixWorld + xBxTcore.getPlayerFileManager().loadPrefix(player.getUniqueId()) + Colorplayer +  player.getName()).replace("%killer%",xBxTcore.getPlayerFileManager().loadPrefix(killer.getUniqueId()) + Colorplayer + killer.getName()).replace("%item%", item)));
         }
     }
 
@@ -359,17 +367,17 @@ public class MessageManager {
 
     public void BroadcastMessagejoin(Player player){
         for(Player p : Bukkit.getOnlinePlayers()){
-            p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&a+&8]" + Colorplayer + player.getName() + " " + MasterMessage(p,Messages.join)));
+            p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&a+&8] " + Colorplayer + player.getName() + " " + MasterMessage(p,Messages.join)));
         }
-        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&a+&8]" + Colorplayer + player.getName() + " " + esMessages.get("join")));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&a+&8] " + Colorplayer + player.getName() + " " + esMessages.get("join")));
     }
 
     public void BroadcastMessageleave(Player player){
         for(Player p : Bukkit.getOnlinePlayers()){
-            p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&4-&8]" + Colorplayer + player.getName() + " " + MasterMessage(p,Messages.leave)));
+            p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&4-&8] " + Colorplayer + player.getName() + " " + MasterMessage(p,Messages.leave)));
 
         }
-        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&4-&8]" + Colorplayer + player.getName() + " " + esMessages.get("leave")));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&4-&8] " + Colorplayer + player.getName() + " " + esMessages.get("leave")));
     }
 
 

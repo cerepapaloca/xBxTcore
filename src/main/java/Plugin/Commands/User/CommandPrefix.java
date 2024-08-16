@@ -28,7 +28,7 @@ public class CommandPrefix implements CommandExecutor {
         if(commandSender instanceof Player player){
             if (player.hasPermission("xBxTpvp.vote")){
                 if (args.length == 1){
-                    String prefixName = ChatColor.translateAlternateColorCodes('&', "&r[&r" + args[0] + "&r]&r ");
+                    String prefixName = ChatColor.translateAlternateColorCodes('&', "&8[&r" + args[0] + "&8]&r ");
                     if (ChatColor.stripColor(prefixName).length() < 17){
                         String normalizedMessage = ChatColor.stripColor(prefixName).toLowerCase().replaceAll("\\s+", "");
                         for (String bannedWord : bannedWords) {
@@ -37,8 +37,8 @@ public class CommandPrefix implements CommandExecutor {
                                 return false;
                             }
                         }
-                        Objects.requireNonNull(xBxTcore.getTabAPI().getNameTagManager()).setPrefix(Objects.requireNonNull(xBxTcore.getTabAPI().getPlayer(player.getUniqueId())), prefixName);
-                        Objects.requireNonNull(xBxTcore.getTabAPI().getTabListFormatManager()).setPrefix(Objects.requireNonNull(xBxTcore.getTabAPI().getPlayer(player.getUniqueId())), prefixName);
+                        /*Objects.requireNonNull(xBxTcore.getTabAPI().getNameTagManager()).setPrefix(Objects.requireNonNull(xBxTcore.getTabAPI().getPlayer(player.getUniqueId())), prefixName);
+                        Objects.requireNonNull(xBxTcore.getTabAPI().getTabListFormatManager()).setPrefix(Objects.requireNonNull(xBxTcore.getTabAPI().getPlayer(player.getUniqueId())), prefixName);*/
                         xBxTcore.getPlayerFileManager().SavePrefix(player.getUniqueId(), prefixName);
                         player.sendMessage(xBxTcore.getMessageManager().MasterMessage(player, Messages.PrefixSuccess));
                         xBxTcore.getTools().AntiSpam(player, Messages.SpamCommand);
@@ -47,8 +47,8 @@ public class CommandPrefix implements CommandExecutor {
                         player.sendMessage(xBxTcore.getMessageManager().MasterMessage(player, Messages.TooLengthName));
                     }
                 }else if (args.length == 0){
-                    Objects.requireNonNull(xBxTcore.getTabAPI().getNameTagManager()).setPrefix(Objects.requireNonNull(xBxTcore.getTabAPI().getPlayer(player.getUniqueId())), "");
-                    Objects.requireNonNull(xBxTcore.getTabAPI().getTabListFormatManager()).setPrefix(Objects.requireNonNull(xBxTcore.getTabAPI().getPlayer(player.getUniqueId())), "");
+                    /*Objects.requireNonNull(xBxTcore.getTabAPI().getNameTagManager()).setPrefix(Objects.requireNonNull(xBxTcore.getTabAPI().getPlayer(player.getUniqueId())), "");
+                    Objects.requireNonNull(xBxTcore.getTabAPI().getTabListFormatManager()).setPrefix(Objects.requireNonNull(xBxTcore.getTabAPI().getPlayer(player.getUniqueId())), "");*/
                     xBxTcore.getPlayerFileManager().SavePrefix(player.getUniqueId(), "");
                     player.sendMessage(xBxTcore.getMessageManager().MasterMessage(player, Messages.PrefixClear));
                 }

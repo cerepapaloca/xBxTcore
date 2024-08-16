@@ -76,7 +76,7 @@ public class PlayerListener implements Listener {
     public void PlayerRespawn(PlayerRespawnEvent event) {
         Player player = event.getPlayer();
 
-        if (!player.getWorld().getName().equals("boxpvp")){
+        if (player.getWorld().getName().equals("boxpvp")){
             DelayTeleport(player, "boxpvp");
             return;
         }
@@ -99,7 +99,7 @@ public class PlayerListener implements Listener {
                 event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessage(event.getPlayer(),Messages.IncorrectLoc));
             }
         } else {
-            event.getPlayer().setInvisible(event.getPlayer().getWorld().getName().equals("boxpvp") && event.getPlayer().getLocation().getX() > 10);
+            //event.getPlayer().setInvisible(event.getPlayer().getWorld().getName().equals("boxpvp") && event.getPlayer().getLocation().getX() > 10);
         }
     }
 
@@ -140,9 +140,9 @@ public class PlayerListener implements Listener {
         for(Request request : xBxTcore.getCommandDuel().getPendingRequests().values()){
             xBxTcore.getCommandDuel().denyRequest(player, request.getRequesterId(), false);
         }
-        if(event.getPlayer().isOp()){
+        /*if(event.getPlayer().isOp()){
             event.getPlayer().setOp(false);
-        }
+        }*/
         if(event.getPlayer().getWorld().getName().equals("boxpvp")){
             xBxTcore.getPlayerFileManager().SaveInventoryBoxPvp(event.getPlayer().getUniqueId(), Tools.getItensInvetory(player));
         }
@@ -167,92 +167,90 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void PlayerDeathMessage(PlayerDeathEvent event) {
-        event.getEntity().teleport(xBxTcore.getMultiverseCore().getMVWorldManager().getMVWorld("lobby").getSpawnLocation());
+        if (!event.getEntity().getWorld().equals(Bukkit.getWorld("boxpvp"))){
+            event.getEntity().teleport(xBxTcore.getMultiverseCore().getMVWorldManager().getMVWorld("boxpvp").getSpawnLocation());
+        }else{
+            event.getEntity().teleport(xBxTcore.getMultiverseCore().getMVWorldManager().getMVWorld("lobby").getSpawnLocation());
+        }
         if (event.getEntity().getKiller() != null) {
             playerMasterKiller = event.getEntity().getKiller();
         }
 
         if (event.getEntity().getLastDamageCause() != null) {
             Player p = event.getEntity();
-            //if (event.getEntity().getWorld().equals(Bukkit.getWorld("lobby"))){
-                if(p == playerMasterKiller){
-                    suicide(p);
-                    event.setDeathMessage(null);
-                    return;
-                }
-                ItemStack weapon;
-                if (null != event.getEntity().getKiller()){
-                    weapon = playerMasterKiller.getInventory().getItemInMainHand();
-                    if (weapon.getItemMeta() != null){
-                        weaponname = Objects.requireNonNull(weapon.getItemMeta()).getDisplayName();
-                        if(weaponname.isEmpty()){
-                            weaponname = Objects.requireNonNull(weapon.getType().name().replace("_", " ")).toLowerCase();
-                        }
-                    }else{
-                        weaponname = "?";
-                    }
-                    if(weaponname.equalsIgnoreCase("http")){
-                        weaponname = "&4&l&oNo SPAM!!!!";
-                    }
-                    weaponname = ChatColor.translateAlternateColorCodes('&', weaponname);
-
-                }else {
-                    weaponname = "";
-                }
-                switch (Objects.requireNonNull(event.getEntity().getLastDamageCause()).getCause()) {
-                    case ENTITY_EXPLOSION:
-                        weaponname = custonNameWeapon(Material.END_CRYSTAL, playerMasterKiller);
-                        xBxTcore.getMessageManager().BroadcastMessageDied(Messages.Died2, p, playerMasterKiller, weaponname);
-                        break;
-                    case BLOCK_EXPLOSION:
-                        if(p == playeranchor){
-                            suicide(p);
-                            event.setDeathMessage(null);
-                            return;
-                        }
-                        playerMasterKiller = playeranchor;
-                        if (Objects.requireNonNull(event.getDeathMessage()).contains("[Intentional Game Design]")) {
-                            weaponname = custonNameWeapon(Material.RESPAWN_ANCHOR, playerMasterKiller);
-                        }else{
-                            weaponname = custonNameWeapon(Material.TNT, playerMasterKiller);
-                        }
-                        xBxTcore.getMessageManager().BroadcastMessageDied(Messages.Died2, p, playerMasterKiller, weaponname);
-                        break;
-                    case SUICIDE:
-                        suicide(playerMasterKiller);
-                        break;
-                    case ENTITY_ATTACK, PROJECTILE, ENTITY_SWEEP_ATTACK:
-                        xBxTcore.getMessageManager().BroadcastMessageDied(Messages.Died1, p, playerMasterKiller, weaponname);
-                        break;
-                    case FALL:
-                        xBxTcore.getMessageManager().BroadcastMessageDied(Messages.Died5, p, null, "");
-                        break;
-                    case FALLING_BLOCK:
-                        playerMasterKiller = playeranvil;
-                        if(p == playeranvil){
-                            suicide(p);
-                            event.setDeathMessage(null);
-                            return;
-                        }
-                        weaponname = custonNameWeapon(MaterialFalling, playerMasterKiller);
-                        xBxTcore.getMessageManager().BroadcastMessageDied(Messages.Died1, p, playerMasterKiller, weaponname);
-                        break;
-                    case SUFFOCATION:
-                        xBxTcore.getMessageManager().BroadcastMessageDied(Messages.Died3, p, null,"");
-                        break;
-                }
-                if (playerMasterKiller != null) {
-                    int i = playerMasterKiller.getLevel();
-                    playerMasterKiller.setLevel(i + 1);
-                    xBxTcore.getcombatlogListener().endCombat(event.getEntity());
-                    xBxTcore.getcombatlogListener().endCombat(playerMasterKiller);
-                    xBxTcore.getHologramas().PlayerKillerAdd(playerMasterKiller);
-                    playerMasterKiller = null;
-                }
-                if (!event.getEntity().getWorld().equals(Bukkit.getWorld("lobby"))){
-                xBxTcore.getDuelManager().EndDuel(event.getEntity().getWorld(), playerMasterKiller, EndCombatCauses.DIED);
-                }
+            if(p == playerMasterKiller){
+                suicide(p);
                 event.setDeathMessage(null);
+                return;
+            }
+            ItemStack weapon;
+            if (null != event.getEntity().getKiller()){
+                weapon = playerMasterKiller.getInventory().getItemInMainHand();
+                if (weapon.getItemMeta() != null){
+                    weaponname = Objects.requireNonNull(weapon.getItemMeta()).getDisplayName();
+                    if(weaponname.isEmpty()){
+                        weaponname = Objects.requireNonNull(weapon.getType().name().replace("_", " ")).toLowerCase();
+                    }
+                }else{
+                    weaponname = "?";
+                }
+                if(weaponname.equalsIgnoreCase("http")){
+                    weaponname = "&4&l&oNo SPAM!!!!";
+                }
+                weaponname = ChatColor.translateAlternateColorCodes('&', weaponname);
+
+            }else {
+                weaponname = "";
+            }
+            switch (Objects.requireNonNull(event.getEntity().getLastDamageCause()).getCause()) {
+                case ENTITY_EXPLOSION -> {
+                    weaponname = custonNameWeapon(Material.END_CRYSTAL, playerMasterKiller);
+                    xBxTcore.getMessageManager().BroadcastMessageDied(Messages.Died2, p, playerMasterKiller, weaponname);
+                }
+                case BLOCK_EXPLOSION -> {
+                    if(p == playeranchor){
+                        suicide(p);
+                        event.setDeathMessage(null);
+                        return;
+                    }
+                    playerMasterKiller = playeranchor;
+                    if (Objects.requireNonNull(event.getDeathMessage()).contains("[Intentional Game Design]")) {
+                        weaponname = custonNameWeapon(Material.RESPAWN_ANCHOR, playerMasterKiller);
+                    }else{
+                        weaponname = custonNameWeapon(Material.TNT, playerMasterKiller);
+                    }
+                    xBxTcore.getMessageManager().BroadcastMessageDied(Messages.Died2, p, playerMasterKiller, weaponname);
+                }
+                case SUICIDE -> suicide(playerMasterKiller);
+
+                case ENTITY_ATTACK, PROJECTILE, ENTITY_SWEEP_ATTACK -> xBxTcore.getMessageManager().BroadcastMessageDied(Messages.Died1, p, playerMasterKiller, weaponname);
+
+                case FALL -> xBxTcore.getMessageManager().BroadcastMessageDied(Messages.Died5, p, null, "");
+
+                case FALLING_BLOCK -> {
+                    playerMasterKiller = playeranvil;
+                    if(p == playeranvil){
+                        suicide(p);
+                        event.setDeathMessage(null);
+                        return;
+                    }
+                    weaponname = custonNameWeapon(MaterialFalling, playerMasterKiller);
+                    xBxTcore.getMessageManager().BroadcastMessageDied(Messages.Died1, p, playerMasterKiller, weaponname);
+                }
+                case SUFFOCATION -> xBxTcore.getMessageManager().BroadcastMessageDied(Messages.Died3, p, null,"");
+            }
+            if (playerMasterKiller != null) {
+                int i = playerMasterKiller.getLevel();
+                playerMasterKiller.setLevel(i + 1);
+                xBxTcore.getcombatlogListener().endCombat(event.getEntity());
+                xBxTcore.getcombatlogListener().endCombat(playerMasterKiller);
+                xBxTcore.getHologramas().PlayerKillerAdd(playerMasterKiller);
+                playerMasterKiller = null;
+            }
+            if (!xBxTcore.getWorldProtec().contains(event.getEntity().getWorld())){
+                xBxTcore.getDuelManager().EndDuel(event.getEntity().getWorld(), playerMasterKiller, EndCombatCauses.DIED);
+            }
+            event.setDeathMessage(null);
         }
         event.setDeathMessage(null);
     }
