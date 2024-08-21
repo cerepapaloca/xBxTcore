@@ -2,6 +2,7 @@ package Plugin.Model;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.entity.ArmorStand;
 
 public class MinaBoxPvp {
 
@@ -11,15 +12,22 @@ public class MinaBoxPvp {
     private final Location locationA;
     private final Location locationB;
     private final Location locationTimis;
+    private ArmorStand armorStand;
+    private Boolean isSafeZone;
     private int TimeLeft;
 
-    public MinaBoxPvp(String name, Material material, int timeReset, Location locationA, Location locationB, Location locationTimis) {
+    public MinaBoxPvp(String name, Material material, int timeReset, Location locationA, Location locationB, Location locationTimis, Boolean isSafeZone) {
         this.name = name;
         this.material = material;
         this.timeReset = timeReset;
         this.locationA = locationA;
         this.locationB = locationB;
         this.locationTimis = locationTimis;
+        this.isSafeZone = isSafeZone;
+    }
+
+    public ArmorStand getArmorStand() {
+        return armorStand;
     }
 
     public Location getLocationTimis() {
@@ -54,7 +62,16 @@ public class MinaBoxPvp {
         return TimeLeft;
     }
 
+    public Boolean isSafeZone() {
+        return isSafeZone;
+    }
+
     public void setTimeLeft(int timeLeft) {
         TimeLeft = timeLeft;
     }
+
+    public void setArmorStand(ArmorStand armorStand) {
+        this.armorStand = armorStand;
+    }
+
 }

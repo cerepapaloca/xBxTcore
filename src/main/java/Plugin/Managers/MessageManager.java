@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class MessageManager {
 
@@ -74,6 +75,7 @@ public class MessageManager {
        enMessages.put("FavoriteWaring",prefix + ColorWarning + "The kit being saved apparently does not exist but is saved successfully. Please note that it is case sensitive as well as minecraft color codes.");
        //Combate Log
        enMessages.put("OnCombat",prefix + ColorError + "It is not allowed to use in combat wait "+ "&b" + "%time%" + ColorError + " seconds to use it");
+       enMessages.put("InSafeZone","&4Leave Safe Zone In %time% Seconds");
        //Las Solisitudes del Duel
        enMessages.put("Inv",prefix + ColorSuccess + "Guest list saved successfully");
        enMessages.put("MissingPlayers",prefix + Colorinfo + "Missing players ");
@@ -212,6 +214,7 @@ public class MessageManager {
         esMessages.put("FavoriteWaring",prefix + ColorWarning + "El kit que se guardo aparentemente no existe pero se guardo exitosamente, Ten en cuenta que es sensible a mayúsculas y a los códigos de color de minecraft");
         //Combate Log
         esMessages.put("OnCombat",prefix + ColorError + "No esta permitido usar eso en combate, espera "+ "&b" + "%time%" + ColorError + " segundos para usarlo");
+        esMessages.put("InSafeZone","&4Sal De Zona Segura En %time% Segundos");
         //Las Solisitudes del Duel
         esMessages.put("Inv",prefix + ColorSuccess + "Se guardo exitosamente la lista de invitados");
         esMessages.put("MissingPlayers",prefix + Colorinfo + "Jugadores faltantes ");

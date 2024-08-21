@@ -199,4 +199,16 @@ public class Tools {
         }
         return null;
     }
+
+    public static Location getMidpoint(Location loc1, Location loc2) {
+        if (loc1.getWorld() != loc2.getWorld()) {
+            throw new IllegalArgumentException("Las dos ubicaciones deben estar en el mismo mundo.");
+        }
+
+        double midX = (loc1.getX() + loc2.getX()) / 2.0;
+        double midY = (loc1.getY() + loc2.getY()) / 2.0;
+        double midZ = (loc1.getZ() + loc2.getZ()) / 2.0;
+
+        return new Location(loc1.getWorld(), midX, midY, midZ);
+    }
 }

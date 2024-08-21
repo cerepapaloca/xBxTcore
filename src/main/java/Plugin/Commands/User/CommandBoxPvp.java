@@ -4,12 +4,13 @@ import Plugin.Enum.Messages;
 import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
-import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 public class CommandBoxPvp implements CommandExecutor {
 
@@ -31,7 +32,7 @@ public class CommandBoxPvp implements CommandExecutor {
                     player.getInventory().clear();
                     xBxTcore.getPlayerFileManager().loadInventoryBoxPvp(player);
                 }
-                player.teleport(new Location(Bukkit.getWorld("boxpvp"), 0 , 68, 0));
+                player.teleport(Objects.requireNonNull(Bukkit.getWorld("boxpvp")).getSpawnLocation());
                 player.setGameMode(GameMode.SURVIVAL);
             }else{
                 player.sendMessage(xBxTcore.getMessageManager().MasterMessage(player, Messages.InArea));

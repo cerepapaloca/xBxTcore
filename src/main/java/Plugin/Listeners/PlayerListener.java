@@ -77,7 +77,6 @@ public class PlayerListener implements Listener {
         Player player = event.getPlayer();
 
         if (player.getWorld().getName().equals("boxpvp")){
-            DelayTeleport(player, "boxpvp");
             return;
         }
 
@@ -99,7 +98,10 @@ public class PlayerListener implements Listener {
                 event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessage(event.getPlayer(),Messages.IncorrectLoc));
             }
         } else {
-            //event.getPlayer().setInvisible(event.getPlayer().getWorld().getName().equals("boxpvp") && event.getPlayer().getLocation().getX() > 10);
+            if (xBxTcore.getcombatlogListener().isInCombat(event.getPlayer()) && xBxTcore.getZoneSafeBoxPvp().isSafeZone(event.getPlayer().getLocation())){
+                PunishedBySafeZone(event.getPlayer());
+            }
+            event.getPlayer().setInvisible(event.getPlayer().getWorld().getName().equals("boxpvp") && event.getPlayer().getLocation().getY() > 115);
         }
     }
 
@@ -286,6 +288,44 @@ public class PlayerListener implements Listener {
                 cancel();
             }
         }.runTaskTimer(plugin, 4, 0);
+    }
+
+    private final ArrayList<UUID> playresInSafeZone = new ArrayList<>();
+
+    public void PunishedBySafeZone(Player player) {
+
+        if (playresInSafeZone.contains(player.getUniqueId())){
+            return;
+        }else {
+            playresInSafeZone.add(player.getUniqueId());
+        }
+
+        new BukkitRunnable() {
+            int time = 3;
+            public void run() {
+
+                if (xBxTcore.getZoneSafeBoxPvp().isSafeZone(player.getLocation()) || player.getHealth() <= 0){
+                    playresInSafeZone.remove(player.getUniqueId());
+                    cancel();
+                    return;
+                }
+
+                player.sendTitle("", xBxTcore.getMessageManager().MasterMessage(player, Messages.InSafeZone).replace("%time%", String.valueOf(time)), 5, 15, 5);
+                if (time <= 0) {
+                    cancel();
+                    new BukkitRunnable() {
+                        public void run() {
+                            if (xBxTcore.getZoneSafeBoxPvp().isSafeZone(player.getLocation()) || player.getHealth() <= 0){
+                                playresInSafeZone.remove(player.getUniqueId());
+                                cancel();
+                            }
+                            player.damage(5);
+                        }
+                    }.runTaskTimer(plugin, 5, 5);
+                }
+                time--;
+            }
+        }.runTaskTimer(plugin, 0, 20);
     }
 
     public void RestartStats(Player player) {

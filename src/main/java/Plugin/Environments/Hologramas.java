@@ -54,7 +54,7 @@ public class Hologramas{
         textholograms.clear();
         createUserBoard(new Location(Bukkit.getWorld("lobby"), 0, 70, -10));
         textholograms.clear();
-        createTimesBoard(new Location(Bukkit.getWorld("boxpvp"), 0, 64.5, 0));
+        createTimesBoard(new Location(Bukkit.getWorld("boxpvp"), 12, 129, 0));
         textholograms.clear();
     }
 
@@ -101,7 +101,7 @@ public class Hologramas{
         armorStand.setInvisible(true);
         armorStand.setGravity(false);
         armorStand.setMarker(true);
-        armorStandsTimes = createListArmorStand(textholograms, location, 10);
+        armorStandsTimes = createListArmorStand(textholograms, location, 16);
     }
 
     public void createkitsBord(Location location) {
@@ -199,8 +199,8 @@ public class Hologramas{
 
     public void updateHologramTimes(){
         int i = 0;
-        for (MinaBoxPvp mina : xBxTcore.getAutoFillsBox().minas){
-            ArmorStand armorStand = armorStandsTimes.get(i);
+        for (ArmorStand armorStand : armorStandsTimes){
+            MinaBoxPvp mina = xBxTcore.getAutoFillsBox().minas.get(i);
             armorStand.setCustomName(ChatColor.translateAlternateColorCodes('&',mina.getName() + Tools.SecondToMinutes(mina.getTimeLeft())));
             i++;
         }

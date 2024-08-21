@@ -1,14 +1,11 @@
 package Plugin.Listeners;
 
 import Plugin.Enum.Messages;
-import Plugin.Environments.ZoneSafeBoxPvp;
 import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
-import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -27,7 +24,7 @@ import static Plugin.Utils.Tools.additem;
 
 public class BlockerListener implements Listener {
     public final static ArrayList<Location> blockLocations = new ArrayList<>();
-    private final int ejey = 30;
+    public static final int ejey = 30;
     private final List<String> restrictedCommands = new ArrayList<>();
     private static final Set<Material> materials = EnumSet.of(
             Material.CHEST, Material.TRAPPED_CHEST, Material.ENDER_CHEST,
@@ -52,7 +49,9 @@ public class BlockerListener implements Listener {
             Material.BLACK_GLAZED_TERRACOTTA, Material.BROWN_GLAZED_TERRACOTTA, Material.GREEN_GLAZED_TERRACOTTA,
             Material.CYAN_GLAZED_TERRACOTTA, Material.LIGHT_BLUE_GLAZED_TERRACOTTA, Material.GRAY_GLAZED_TERRACOTTA,
             Material.LIME_GLAZED_TERRACOTTA, Material.ORANGE_GLAZED_TERRACOTTA, Material.PINK_GLAZED_TERRACOTTA, Material.RED_GLAZED_TERRACOTTA,
-            Material.MAGENTA_GLAZED_TERRACOTTA, Material.WHITE_GLAZED_TERRACOTTA, Material.LIGHT_GRAY_GLAZED_TERRACOTTA, Material.PURPLE_GLAZED_TERRACOTTA
+            Material.MAGENTA_GLAZED_TERRACOTTA, Material.WHITE_GLAZED_TERRACOTTA, Material.LIGHT_GRAY_GLAZED_TERRACOTTA, Material.PURPLE_GLAZED_TERRACOTTA,
+            Material.SLIME_BLOCK,Material.DEEPSLATE_COPPER_ORE,Material.DEEPSLATE_GOLD_ORE,Material.DEEPSLATE_IRON_ORE,Material.DEEPSLATE_EMERALD_ORE,
+            Material.IRON_BLOCK,Material.GOLD_BLOCK,Material.COPPER_BLOCK,Material.EMERALD_BLOCK,Material.PEARLESCENT_FROGLIGHT
             );
 
     private final xBxTcore plugin;
@@ -180,16 +179,12 @@ public class BlockerListener implements Listener {
         if (event.getCause() != EntityDamageEvent.DamageCause.KILL){
             if (ejey + 4 <= event.getEntity().getLocation().getBlockY() && (Bukkit.getWorld("lobby") == event.getEntity().getWorld()) || Bukkit.getWorld("creatorkits") == event.getEntity().getWorld()) {
                 event.setCancelled(true);
-                Bukkit.getConsoleSender().sendMessage("hola1");
+                return;
             }else if (Bukkit.getWorld("boxpvp") == event.getEntity().getWorld()){
-                if (ZoneSafeBoxPvp.chunksSafe.contains(event.getEntity().getLocation().getChunk())) {
-                    event.setCancelled(true);
-                    Bukkit.getConsoleSender().sendMessage("hola2");
-                }
+                event.setCancelled(xBxTcore.getZoneSafeBoxPvp().isSafeZone(event.getEntity().getLocation()));
             }
             if (event.getCause() == EntityDamageEvent.DamageCause.FALL && event.getDamage() > 30)  {
                 event.setCancelled(true);
-                Bukkit.getConsoleSender().sendMessage("hola3");
             }
         }
     }

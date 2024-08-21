@@ -38,6 +38,7 @@ public enum Messages {
     FavoriteWaring,
     //Combate Log
     OnCombat,
+    InSafeZone,
     //Las Solisitudes del Duel
     Inv,
     MissingPlayers,

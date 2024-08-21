@@ -8,12 +8,9 @@ import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class HologramasBoxPvp extends Hologramas {
-
-    private ArrayList<ArmorStand> armorStandsTimesMina = new ArrayList<>();
 
     public HologramasBoxPvp(xBxTcore plugin) {
         super(plugin);
@@ -27,17 +24,14 @@ public class HologramasBoxPvp extends Hologramas {
         armorStand.setInvisible(true);
         armorStand.setGravity(false);
         armorStand.setMarker(true);
-        armorStandsTimesMina = createListArmorStand(textholograms, location, 1);
+        minaBoxPvp.setArmorStand(createListArmorStand(textholograms, location, 1).get(0));
     }
 
     public void updateHologramTimesMina(){
-        int i = 0;
         for (MinaBoxPvp mina : xBxTcore.getAutoFillsBox().minas){
-            ArmorStand armorStand = armorStandsTimesMina.get(i);
+            ArmorStand armorStand = mina.getArmorStand();
             armorStand.setCustomName(ChatColor.translateAlternateColorCodes('&',"&e " + mina.getName() + Tools.SecondToMinutes(mina.getTimeLeft())));
-            i++;
         }
     }
-
 
 }

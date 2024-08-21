@@ -186,7 +186,7 @@ public class xBxTcore extends JavaPlugin {
         hologramas = new Hologramas(this);
         hologramasBoxPvp = new HologramasBoxPvp(this);
         autoFillsBox = new AutoFillsBox(this);
-        zoneSafeBoxPvp = new ZoneSafeBoxPvp(this);
+        zoneSafeBoxPvp = new ZoneSafeBoxPvp();
     }
 
     public void WorldProtec(){
@@ -272,6 +272,10 @@ public class xBxTcore extends JavaPlugin {
 
     public static HologramasBoxPvp getHologramasBoxPvp(){
         return hologramasBoxPvp;
+    }
+
+    public static ZoneSafeBoxPvp getZoneSafeBoxPvp(){
+        return zoneSafeBoxPvp;
     }
 
     BukkitTask task1minute;

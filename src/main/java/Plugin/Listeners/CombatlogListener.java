@@ -7,6 +7,7 @@ import me.neznamy.tab.api.TabPlayer;
 import me.neznamy.tab.api.bossbar.BarColor;
 import me.neznamy.tab.api.bossbar.BarStyle;
 import me.neznamy.tab.api.bossbar.BossBar;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,6 +17,8 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.*;
+
+import static Plugin.Listeners.BlockerListener.ejey;
 
 public class CombatlogListener implements Listener {
     private final HashMap<UUID, Long> combatCooldowns = new HashMap<>();
@@ -33,8 +36,17 @@ public class CombatlogListener implements Listener {
     }
 
     @EventHandler
-    public void onPlayerAttack(EntityDamageByEntityEvent event) {
+    public void DamagePlayres(EntityDamageByEntityEvent event) {
         if (event.getEntity() instanceof Player attacked && event.getDamager() instanceof Player attacker) {
+            if (ejey + 4 <= event.getEntity().getLocation().getBlockY() && (Bukkit.getWorld("lobby") == event.getEntity().getWorld()) || Bukkit.getWorld("creatorkits") == event.getEntity().getWorld()) {
+                event.setCancelled(true);
+                return;
+            }else if (Bukkit.getWorld("boxpvp") == event.getEntity().getWorld()){
+                if (xBxTcore.getZoneSafeBoxPvp().isSafeZone(event.getEntity().getLocation())){
+                    event.setCancelled(true);
+                    return;
+                }
+            }
             startCombat(attacked);
             startCombat(attacker);
         }
