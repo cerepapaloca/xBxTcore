@@ -1,7 +1,8 @@
 package Plugin.Environments;
 
 import Plugin.Model.MinaBoxPvp;
-import Plugin.Utils.Tools;
+import Plugin.Model.SafeArea;
+import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
 import org.bukkit.Location;
 
@@ -16,7 +17,7 @@ public class ZoneSafeBoxPvp {
         SafeArea mine1;
         for (MinaBoxPvp mine : xBxTcore.getAutoFillsBox().minas){
             if (mine.isSafeZone()){
-                location = Tools.getMidpoint(mine.getLocationA(), mine.getLocationB());
+                location = Utils.getMidpoint(mine.getLocationA(), mine.getLocationB());
                 mine1 = new SafeArea(location.clone().add(10, 4, 10), location.clone().add(-10, -4, -10));
                 safeAreas.add(mine1);
             }

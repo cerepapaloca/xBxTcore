@@ -1,7 +1,7 @@
 package Plugin.Commands.User;
 
 import Plugin.Enum.Messages;
-import Plugin.Utils.Tools;
+import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
 import org.bukkit.*;
 import org.bukkit.command.Command;
@@ -30,7 +30,7 @@ public class CommandSpectator implements CommandExecutor {
                             if(!Objects.requireNonNull(world).getPlayers().isEmpty()){
                                 Location loc = new Location(world,0,15,0);
                                 p.teleport(loc);
-                                Tools.ClickExecuteCommand("lobby", Messages.SpectatorSuccess, p);
+                                Utils.ClickExecuteCommand("lobby", Messages.SpectatorSuccess, p);
                                 new BukkitRunnable() {
                                     public void run() {
                                         p.setGameMode(GameMode.SPECTATOR);

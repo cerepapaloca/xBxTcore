@@ -1,7 +1,7 @@
 package Plugin.Commands.User;
 
 import Plugin.Enum.Messages;
-import Plugin.Utils.Tools;
+import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -29,7 +29,7 @@ public class CommandLobby implements CommandExecutor {
                     player.setExp(0);
                 }
                 if (player.getWorld().getName().equals("boxpvp")) {
-                    xBxTcore.getPlayerFileManager().SaveInventoryBoxPvp(player.getUniqueId(), Tools.getItensInvetory(player));
+                    xBxTcore.getPlayerFileManager().SaveInventoryBoxPvp(player.getUniqueId(), Utils.getItensInvetory(player));
                     player.getInventory().clear();
                 }
                 player.teleport(new Location(Bukkit.getWorld("lobby"), 0 , 68, 0));

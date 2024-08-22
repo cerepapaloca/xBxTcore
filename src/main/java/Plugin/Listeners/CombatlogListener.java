@@ -1,7 +1,7 @@
 package Plugin.Listeners;
 
 import Plugin.Enum.Messages;
-import Plugin.Utils.Tools;
+import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
 import me.neznamy.tab.api.TabPlayer;
 import me.neznamy.tab.api.bossbar.BarColor;
@@ -119,7 +119,7 @@ public class CombatlogListener implements Listener {
 
     private void updateBossBars(int timeLeft, Player player, int timemax) {
         String title;
-        title = "En combate " + Tools.SecondToMinutes(timeLeft);
+        title = "En combate " + Utils.SecondToMinutes(timeLeft);
         BarStyle barStyle = BarStyle.PROGRESS;
         BarColor barColor = BarColor.RED;
         BossBar bossBar = Objects.requireNonNull(xBxTcore.getTabAPI().getBossBarManager()).getBossBar("timerBossBarCombat");

@@ -1,4 +1,4 @@
-package Plugin.Environments;
+package Plugin.Model;
 
 import org.bukkit.Location;
 

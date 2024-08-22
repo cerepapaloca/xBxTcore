@@ -3,7 +3,7 @@ package Plugin.Environments;
 import Plugin.Managers.PlayerfileManager;
 import Plugin.Model.MinaBoxPvp;
 import Plugin.Model.Player.PlayerDataGLobal;
-import Plugin.Utils.Tools;
+import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -201,7 +201,7 @@ public class Hologramas{
         int i = 0;
         for (ArmorStand armorStand : armorStandsTimes){
             MinaBoxPvp mina = xBxTcore.getAutoFillsBox().minas.get(i);
-            armorStand.setCustomName(ChatColor.translateAlternateColorCodes('&',mina.getName() + Tools.SecondToMinutes(mina.getTimeLeft())));
+            armorStand.setCustomName(ChatColor.translateAlternateColorCodes('&',mina.getName() + Utils.SecondToMinutes(mina.getTimeLeft())));
             i++;
         }
     }

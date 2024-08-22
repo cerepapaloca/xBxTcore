@@ -14,13 +14,10 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.EntityPlaceEvent;
 import org.bukkit.event.player.*;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.*;
 import java.util.List;
-
-import static Plugin.Utils.Tools.additem;
 
 public class BlockerListener implements Listener {
     public final static ArrayList<Location> blockLocations = new ArrayList<>();
@@ -91,7 +88,7 @@ public class BlockerListener implements Listener {
         if (!event.getPlayer().isOp() && ejey <= event.getBlock().getLocation().getBlockY() && xBxTcore.getWorldProtec().contains(event.getPlayer().getWorld())) {
             if (materialsBoxPvp.contains(event.getBlock().getType())) {
                 event.setDropItems(false);
-                additem(event.getPlayer(), new ItemStack(event.getBlock().getType()));
+                xBxTcore.getItemManage().AddItemMine(event.getPlayer(), event.getBlock().getType());
                 return;
             }
             if (blockLocations.contains(event.getBlock().getLocation())) {

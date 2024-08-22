@@ -24,11 +24,11 @@ import static Plugin.Managers.MessageManager.*;
 import static Plugin.Managers.MessageManager.ColorLink;
 import static org.bukkit.Bukkit.getServer;
 
-public class Tools {
+public class Utils {
 
     private final xBxTcore plugin;
 
-    public Tools(xBxTcore plugin){
+    public Utils(xBxTcore plugin){
         this.plugin = plugin;
         Timealone();
     }
@@ -133,29 +133,6 @@ public class Tools {
         return items;
     }
 
-    public static String applyGradient(String input) {
-        String startTag = input.substring(input.indexOf("<#") + 2, input.indexOf(">"));
-        String endTag = input.substring(input.lastIndexOf("<#") + 2, input.lastIndexOf(">"));
-        String text = input.substring(input.indexOf(">") + 1, input.lastIndexOf("<"));
-
-        int startColor = Integer.parseInt(startTag, 16);
-        int endColor = Integer.parseInt(endTag, 16);
-
-        int length = text.length();
-        StringBuilder gradientText = new StringBuilder();
-
-        for (int i = 0; i < length; i++) {
-            float ratio = (float) i / (length - 1);
-            int red = (int) ((1 - ratio) * ((startColor >> 16) & 0xFF) + ratio * ((endColor >> 16) & 0xFF));
-            int green = (int) ((1 - ratio) * ((startColor >> 8) & 0xFF) + ratio * ((endColor >> 8) & 0xFF));
-            int blue = (int) ((1 - ratio) * (startColor & 0xFF) + ratio * (endColor & 0xFF));
-            String hexColor = String.format("#%02x%02x%02x", red, green, blue);
-            gradientText.append(ChatColor.of(hexColor)).append(text.charAt(i));
-        }
-
-        return gradientText.toString();
-    }
-
     public static String SecondToMinutes(int time){
         int minutes = time/60;
         int seconds = time%60;
@@ -211,4 +188,23 @@ public class Tools {
 
         return new Location(loc1.getWorld(), midX, midY, midZ);
     }
+
+    public static String arabicToRoman(int number) {
+        if (number < 1 || number > 3999) {
+            throw new IllegalArgumentException("El número debe estar entre 1 y 3999.");
+        }
+
+        String[] thousands = {"", "M", "MM", "MMM"};
+        String[] hundreds = {"", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"};
+        String[] tens = {"", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"};
+        String[] units = {"", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"};
+
+        String roman = thousands[number / 1000] +
+                hundreds[(number % 1000) / 100] +
+                tens[(number % 100) / 10] +
+                units[number % 10];
+
+        return roman;
+    }
+
 }

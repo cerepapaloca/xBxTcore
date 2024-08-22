@@ -1,7 +1,7 @@
 package Plugin.Commands.User;
 
 import Plugin.Enum.Messages;
-import Plugin.Utils.Tools;
+import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -12,7 +12,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 public class CommandPrefix implements CommandExecutor {
 
@@ -53,7 +52,7 @@ public class CommandPrefix implements CommandExecutor {
                     player.sendMessage(xBxTcore.getMessageManager().MasterMessage(player, Messages.PrefixClear));
                 }
             }else{
-                Tools.ClickExecuteCommand("vote", Messages.NotVote, player);
+                Utils.ClickExecuteCommand("vote", Messages.NotVote, player);
             }
         }else{
             plugin.messageOnlyPlayer();

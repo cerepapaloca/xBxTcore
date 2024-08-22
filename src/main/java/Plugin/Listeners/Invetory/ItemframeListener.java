@@ -1,4 +1,4 @@
-package Plugin.Listeners;
+package Plugin.Listeners.Invetory;
 
 import Plugin.xBxTcore;
 import org.bukkit.entity.Entity;

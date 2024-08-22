@@ -1,7 +1,7 @@
 package Plugin.Environments;
 
 import Plugin.Model.MinaBoxPvp;
-import Plugin.Utils.Tools;
+import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -30,7 +30,7 @@ public class HologramasBoxPvp extends Hologramas {
     public void updateHologramTimesMina(){
         for (MinaBoxPvp mina : xBxTcore.getAutoFillsBox().minas){
             ArmorStand armorStand = mina.getArmorStand();
-            armorStand.setCustomName(ChatColor.translateAlternateColorCodes('&',"&e " + mina.getName() + Tools.SecondToMinutes(mina.getTimeLeft())));
+            armorStand.setCustomName(ChatColor.translateAlternateColorCodes('&',"&e " + mina.getName() + Utils.SecondToMinutes(mina.getTimeLeft())));
         }
     }
 

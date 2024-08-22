@@ -1,4 +1,4 @@
-package Plugin.Listeners;
+package Plugin.Listeners.Invetory;
 
 import Plugin.Model.Player.InvetoryPlayer;
 import Plugin.xBxTcore;

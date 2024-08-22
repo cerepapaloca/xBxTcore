@@ -1,5 +1,6 @@
 package Plugin.Model;
 
+import Plugin.Utils.ColorUtils;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
@@ -60,6 +61,10 @@ public class MinaBoxPvp {
 
     public int getTimeLeft() {
         return TimeLeft;
+    }
+
+    public String getHexColor() {
+        return ColorUtils.blockToHex(material);
     }
 
     public Boolean isSafeZone() {

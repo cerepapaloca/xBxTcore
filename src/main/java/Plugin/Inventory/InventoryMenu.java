@@ -4,7 +4,7 @@ import Plugin.Managers.InventoryManager;
 import Plugin.Model.Player.InvetoryPlayer;
 import Plugin.Enum.InvetorySection;
 import Plugin.Enum.Messages;
-import Plugin.Utils.Tools;
+import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -12,6 +12,7 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
@@ -241,6 +242,7 @@ public class InventoryMenu extends InventoryManager {
             kitmeta.setDisplayName(ChatColor.translateAlternateColorCodes('&',nameskit));
             lore.add(ChatColor.translateAlternateColorCodes(' '," 8" + xBxTcore.getMessageManager().MasterMessage(player, Messages.lore) + nameskit));
             kitmeta.setLore(lore);
+            kitmeta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
             kitmeta.getPersistentDataContainer().set(new NamespacedKey(plugin, "kitName"), PersistentDataType.STRING, nameskit);
             kit.setItemMeta(kitmeta);
             inv.setItem(posicion, kit);
@@ -301,7 +303,7 @@ public class InventoryMenu extends InventoryManager {
                 lore.add(xBxTcore.getMessageManager().MasterMessage(player, Messages.DuelLoreInvPlayersEmpty));
             }
         }
-        Tools.NewitemInvetory(Messages.DuelInvPlayers, Material.WRITABLE_BOOK, 10, inv, player, lore);
+        Utils.NewitemInvetory(Messages.DuelInvPlayers, Material.WRITABLE_BOOK, 10, inv, player, lore);
         ///////////////////////////////////////////////////
         lore.clear();
 
@@ -310,9 +312,9 @@ public class InventoryMenu extends InventoryManager {
         }else{
             lore.add(xBxTcore.getMessageManager().MasterMessage(player, Messages.DuelLoreSelectKitEmpty));
         }
-        Tools.NewitemInvetory(Messages.DuelSelectKit, Material.CHEST_MINECART, 12, inv, player, lore);
+        Utils.NewitemInvetory(Messages.DuelSelectKit, Material.CHEST_MINECART, 12, inv, player, lore);
         ///////////////////////////////////////////////////
-        Tools.NewitemInvetory(Messages.DuelSendQuest, Material.BLAZE_POWDER, 22, inv, player);
+        Utils.NewitemInvetory(Messages.DuelSendQuest, Material.BLAZE_POWDER, 22, inv, player);
         ///////////////////////////////////////////////////
         lore.clear();
         if(xBxTcore.getPlayerDataUnique(player.getUniqueId()).getTimelimit()){
@@ -322,7 +324,7 @@ public class InventoryMenu extends InventoryManager {
             lore.add(xBxTcore.getMessageManager().MasterMessage(player, Messages.DuelLoreTimeLimitDisabled));
         }
 
-        Tools.NewitemInvetory(Messages.DuelTimeLimit, Material.CLOCK, 14, inv, player, lore);
+        Utils.NewitemInvetory(Messages.DuelTimeLimit, Material.CLOCK, 14, inv, player, lore);
         ///////////////////////////////////////////////////
         player.openInventory(inv);
         getInvetoryManager().addplayer(invetoryPlayer);
@@ -345,19 +347,19 @@ public class InventoryMenu extends InventoryManager {
             inv.setItem(i,PANEL_GLASS);
         }
         ///////////////////////////////////////////////////
-        Tools.NewitemInvetory(Messages.H1menos, Material.RED_STAINED_GLASS_PANE, 11, inv, player);
-        Tools.NewitemInvetory(Messages.S1menos, Material.RED_STAINED_GLASS_PANE, 12, inv, player);
+        Utils.NewitemInvetory(Messages.H1menos, Material.RED_STAINED_GLASS_PANE, 11, inv, player);
+        Utils.NewitemInvetory(Messages.S1menos, Material.RED_STAINED_GLASS_PANE, 12, inv, player);
         ///////////////////////////////////////////////////
-        Tools.NewitemInvetory(Messages.S1mas, Material.GREEN_STAINED_GLASS_PANE, 14, inv, player);
-        Tools.NewitemInvetory(Messages.H1mas, Material.GREEN_STAINED_GLASS_PANE, 15, inv, player);
+        Utils.NewitemInvetory(Messages.S1mas, Material.GREEN_STAINED_GLASS_PANE, 14, inv, player);
+        Utils.NewitemInvetory(Messages.H1mas, Material.GREEN_STAINED_GLASS_PANE, 15, inv, player);
         ///////////////////////////////////////////////////
-        Tools.NewitemInvetory(Messages.InvExit, Material.BARRIER, 22, inv, player);
+        Utils.NewitemInvetory(Messages.InvExit, Material.BARRIER, 22, inv, player);
 
 
         if (xBxTcore.getPlayerDataUnique(player.getUniqueId()).getTimelimit()){
-            Tools.NewitemInvetory(Messages.DuelTimeLimitOn, Material.ENDER_EYE, 13, inv, player, secondsToMinutesLore(player));
+            Utils.NewitemInvetory(Messages.DuelTimeLimitOn, Material.ENDER_EYE, 13, inv, player, secondsToMinutesLore(player));
         }else{
-            Tools.NewitemInvetory(Messages.DuelTimeLimitOff, Material.ENDER_PEARL, 13, inv, player, secondsToMinutesLore(player));
+            Utils.NewitemInvetory(Messages.DuelTimeLimitOff, Material.ENDER_PEARL, 13, inv, player, secondsToMinutesLore(player));
         }
         player.openInventory(inv);
         getInvetoryManager().addplayer(invetoryPlayer);
@@ -402,25 +404,25 @@ public class InventoryMenu extends InventoryManager {
                     return;
                 }
                 xBxTcore.getPlayerFileManager().loadTimesRewords(invetoryPlayer.getPlayer().getUniqueId());
-                lore.add(Tools.SecondToMinutes(getPlayerFileManager().daily - System.currentTimeMillis()));
+                lore.add(Utils.SecondToMinutes(getPlayerFileManager().daily - System.currentTimeMillis()));
                 if (getPlayerFileManager().daily <= System.currentTimeMillis()){
-                    Tools.NewitemInvetory(Messages.H1menos, Material.CHEST_MINECART, 20, inv, player);
+                    Utils.NewitemInvetory(Messages.H1menos, Material.CHEST_MINECART, 20, inv, player);
                 }else{
-                    Tools.NewitemInvetory(Messages.H1menos, Material.MINECART, 20, inv, player, lore);
+                    Utils.NewitemInvetory(Messages.H1menos, Material.MINECART, 20, inv, player, lore);
                 }
                 lore.clear();
-                lore.add(Tools.SecondToMinutes(getPlayerFileManager().weekly - System.currentTimeMillis()));
+                lore.add(Utils.SecondToMinutes(getPlayerFileManager().weekly - System.currentTimeMillis()));
                 if (getPlayerFileManager().weekly <= System.currentTimeMillis()){
-                    Tools.NewitemInvetory(Messages.H1menos, Material.CHEST_MINECART, 22, inv, player);
+                    Utils.NewitemInvetory(Messages.H1menos, Material.CHEST_MINECART, 22, inv, player);
                 }else{
-                    Tools.NewitemInvetory(Messages.H1menos, Material.MINECART, 22, inv, player, lore);
+                    Utils.NewitemInvetory(Messages.H1menos, Material.MINECART, 22, inv, player, lore);
                 }
                 lore.clear();
-                lore.add(Tools.SecondToMinutes(getPlayerFileManager().monthly - System.currentTimeMillis()));
+                lore.add(Utils.SecondToMinutes(getPlayerFileManager().monthly - System.currentTimeMillis()));
                 if (getPlayerFileManager().monthly <= System.currentTimeMillis()){
-                    Tools.NewitemInvetory(Messages.H1menos, Material.CHEST_MINECART, 24, inv, player);
+                    Utils.NewitemInvetory(Messages.H1menos, Material.CHEST_MINECART, 24, inv, player);
                 }else{
-                    Tools.NewitemInvetory(Messages.H1menos, Material.MINECART, 24, inv, player, lore);
+                    Utils.NewitemInvetory(Messages.H1menos, Material.MINECART, 24, inv, player, lore);
                 }
                 lore.clear();
             }
