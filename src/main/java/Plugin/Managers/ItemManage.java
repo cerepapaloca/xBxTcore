@@ -1,41 +1,64 @@
 package Plugin.Managers;
 
-import Plugin.Environments.AutoFillsBox;
 import Plugin.Model.MinaBoxPvp;
 import Plugin.Utils.ColorUtils;
 import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
+import org.bukkit.NamespacedKey;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static Plugin.Managers.MessageManager.Colorinfo;
+import static Plugin.Utils.ColorUtils.colorLeatherArmor;
 import static Plugin.Utils.Utils.additem;
 
 public class ItemManage {
 
+    private final xBxTcore plugin;
 
-    private static final ArrayList<ItemStack> coinNormal = new ArrayList<>();
-    private static final ArrayList<ItemStack> coinCompact = new ArrayList<>();
+    public static ArrayList<ItemStack> coinNormal = new ArrayList<>();
+    public static ArrayList<ItemStack> coinCompact = new ArrayList<>();
+
+    public static ArrayList<ItemStack> helmets = new ArrayList<>();
+    public static ArrayList<ItemStack> elytras = new ArrayList<>();
+    public static ArrayList<ItemStack> leggings = new ArrayList<>();
+    public static ArrayList<ItemStack> boots = new ArrayList<>();
 
 
 
-    public ItemManage() {
+    public ItemManage(xBxTcore plugin) {
+        this.plugin = plugin;
         ArrayList<String> lore = new ArrayList<>();
-        lore.add(Colorinfo + "Sirve para tradear con los aldeanos");
-        coinNormal.add(newItemBoxPVP(Material.SLIME_BALL,"<#5E7C16>Moneda Inicial<#80C71F>", lore));
-        coinCompact.add(newItemBoxPVP(Material.SLIME_BLOCK,"<#5E7C16>Moneda Inicial Compacta<#80C71F>", lore));
+        lore.add(ChatColor.translateAlternateColorCodes('&',Colorinfo + "Sirve para tradear con los aldeanos"));
+        coinNormal.add(newItemBoxPVP(Material.SLIME_BALL,"<#5E7C16>Moneda Inicial<#80C71F>", lore, 0,true));
+        coinCompact.add(newItemBoxPVP(Material.SLIME_BLOCK,"<#5E7C16>Moneda Inicial Compacta<#80C71F>", lore, 0,true));
+
+        helmets.add(newItemBoxPVP(Material.LEATHER_HELMET ,"<#5E7C16>Casco Inicial Compacta<#80C71F>", lore, 0,"5E7C16"));
+        elytras.add(newItemBoxPVP(Material.ELYTRA ,"<#5E7C16>Elytra Inicial Compacta<#80C71F>", lore, 0, true));
+        leggings.add(newItemBoxPVP(Material.LEATHER_HELMET ,"<#5E7C16>Pantalones Inicial Compacta<#80C71F>", lore, 0,"5E7C16"));
+        boots.add(newItemBoxPVP(Material.LEATHER_HELMET ,"<#5E7C16>Botas Inicial Compacta<#80C71F>", lore, 0,"5E7C16"));
+
         /////////
         int i = 0;
         for (MinaBoxPvp mina : xBxTcore.getAutoFillsBox().minas){
             i++;
-            coinNormal.add(newItemBoxPVP(mina.getMaterial(),"<#" + ColorUtils.blockToHex(mina.getMaterial()) + ">Moneda Tier " + Utils.arabicToRoman(i) + "<#" + ColorUtils.modifyColorHexWithHLS(ColorUtils.blockToHex(mina.getMaterial()), 0, 0, 0) + ">", lore));
-            coinCompact.add(newItemBoxPVP(mina.getMaterial(),"<#" + ColorUtils.blockToHex(mina.getMaterial()) + ">Moneda Compacta Tier " + Utils.arabicToRoman(i) + "<#" + ColorUtils.modifyColorHexWithHLS(ColorUtils.blockToHex(mina.getMaterial()), 0, 0, 0) + ">", lore));
+            if (i >= 17) return;
+            coinNormal.add(newItemBoxPVP(Utils.colorToMaterial(mina.getMaterial(), Material.BLACK_DYE),"<#" + ColorUtils.blockToHex(mina.getMaterial()) + ">Moneda Tier " + Utils.arabicToRoman(i) + "<#" + ColorUtils.modifyColorHexWithHLS(ColorUtils.blockToHex(mina.getMaterial()), 0.1f, 0.3f, -0.3f) + ">", lore, i, true));
+            coinCompact.add(newItemBoxPVP(mina.getMaterial(),"<#" + ColorUtils.blockToHex(mina.getMaterial()) + ">Moneda Compacta Tier " + Utils.arabicToRoman(i) + "<#" + ColorUtils.modifyColorHexWithHLS(ColorUtils.blockToHex(mina.getMaterial()), 0.1f, 0.3f, -0.3f) + ">", lore, i, true));
+
+            helmets.add(newItemBoxPVP(Material.LEATHER_HELMET ,"<#" + ColorUtils.blockToHex(mina.getMaterial()) + ">Casco Tier " + Utils.arabicToRoman(i) + "<#" + ColorUtils.modifyColorHexWithHLS(ColorUtils.blockToHex(mina.getMaterial()), 0.1f, 0.3f, -0.3f) + ">", lore, i, ColorUtils.blockToHex(mina.getMaterial())));
+            elytras.add(newItemBoxPVP(Material.ELYTRA ,"<#" + ColorUtils.blockToHex(mina.getMaterial()) + ">Elytra Tier " + Utils.arabicToRoman(i) + "<#" + ColorUtils.modifyColorHexWithHLS(ColorUtils.blockToHex(mina.getMaterial()), 0.1f, 0.3f, -0.3f) + ">", lore, i,true));
+            leggings.add(newItemBoxPVP(Material.LEATHER_LEGGINGS ,"<#" + ColorUtils.blockToHex(mina.getMaterial()) + ">Pantalones Tier " + Utils.arabicToRoman(i) + "<#" + ColorUtils.modifyColorHexWithHLS(ColorUtils.blockToHex(mina.getMaterial()), 0.1f, 0.3f, -0.3f) + ">", lore, i, ColorUtils.blockToHex(mina.getMaterial())));
+            boots.add(newItemBoxPVP(Material.LEATHER_BOOTS ,"<#" + ColorUtils.blockToHex(mina.getMaterial()) + ">Botas Tier " + Utils.arabicToRoman(i) + "<#" + ColorUtils.modifyColorHexWithHLS(ColorUtils.blockToHex(mina.getMaterial()), 0.1f, 0.3f, -0.3f) + ">", lore, i, ColorUtils.blockToHex(mina.getMaterial())));
         }
     }
 
@@ -94,7 +117,7 @@ public class ItemManage {
         }
     }
 
-    public static ItemStack newItemBoxPVP(Material material, String tile, ArrayList<String> lore){
+    public ItemStack newItemBoxPVP(Material material, String tile, ArrayList<String> lore, int tier, Boolean enchant){
         ItemStack item;
         item = new ItemStack(material);
         ItemMeta meta = item.getItemMeta();
@@ -103,7 +126,26 @@ public class ItemManage {
         meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        meta.getPersistentDataContainer().set(new NamespacedKey(plugin, "tier"), PersistentDataType.INTEGER, tier);
+        if (enchant){
+            meta.addEnchant(Enchantment.LUCK, 1, true);
+        }
         item.setItemMeta(meta);
         return item;
+    }
+
+    public ItemStack newItemBoxPVP(Material material, String tile, ArrayList<String> lore, int tier, String hexColor){
+        ItemStack item;
+        item = new ItemStack(material);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName(ColorUtils.applyGradient(tile));
+        meta.setLore(lore);
+        meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        meta.addItemFlags(ItemFlag.HIDE_DYE);
+        meta.getPersistentDataContainer().set(new NamespacedKey(plugin, "tier"), PersistentDataType.INTEGER, tier);
+        item.setItemMeta(meta);
+        return colorLeatherArmor(item, hexColor);
     }
 }

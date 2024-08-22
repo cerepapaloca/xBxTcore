@@ -141,28 +141,28 @@ public class AutoFillsBox {
             double i = Math.random();
             switch (material) {
                 case COPPER_BLOCK -> {
-                    if (i < 0.20) {
+                    if (i < 0.30) {
                         loc.getBlock().setType(Material.COPPER_BLOCK);
                     } else{
                         loc.getBlock().setType(Material.DEEPSLATE_COPPER_ORE);
                     }
                 }
                 case IRON_BLOCK -> {
-                    if (i < 0.20) {
+                    if (i < 0.30) {
                         loc.getBlock().setType(Material.IRON_BLOCK);
                     } else{
                         loc.getBlock().setType(Material.DEEPSLATE_IRON_ORE);
                     }
                 }
                 case GOLD_BLOCK -> {
-                    if (i < 0.20) {
+                    if (i < 0.30) {
                         loc.getBlock().setType(Material.GOLD_BLOCK);
                     } else {
                         loc.getBlock().setType(Material.DEEPSLATE_GOLD_ORE);
                     }
                 }
                 case EMERALD_BLOCK -> {
-                    if (i < 0.20) {
+                    if (i < 0.30) {
                         loc.getBlock().setType(Material.EMERALD_BLOCK);
                     } else {
                         loc.getBlock().setType(Material.DEEPSLATE_EMERALD_ORE);

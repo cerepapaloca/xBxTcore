@@ -22,6 +22,7 @@ import java.util.concurrent.TimeUnit;
 
 import static Plugin.Managers.MessageManager.*;
 import static Plugin.Managers.MessageManager.ColorLink;
+import static org.bukkit.Bukkit.createInventory;
 import static org.bukkit.Bukkit.getServer;
 
 public class Utils {
@@ -155,18 +156,13 @@ public class Utils {
     }
 
     public static void additem(Player player, ItemStack item){
-        int i = 0;
-        for (ItemStack stack : player.getInventory().getContents()) {
-            if (stack == null || stack.getType() == Material.AIR) {
-                i++;
-            }
+        player.playSound(player, Sound.ENTITY_ITEM_PICKUP, 1,1);
+        if (player.getInventory().addItem(item).isEmpty()) {
+            return;
         }
-        if(i >= 1){
-            player.playSound(player, Sound.ENTITY_ITEM_PICKUP, 1,1);
-            player.getInventory().addItem(item);
-        }else {
-            player.getWorld().dropItemNaturally(player.getLocation(),item);
-        }
+        Location location = player.getLocation();
+        World world = player.getWorld();
+        world.dropItemNaturally(location, item);
     }
 
     public static Chunk getChunkByCoordinates(String worldName, int chunkX, int chunkZ) {
@@ -205,6 +201,64 @@ public class Utils {
                 units[number % 10];
 
         return roman;
+    }
+
+    public static Material colorToMaterial(Material material, Material target) {
+        String nameColor = material.name();
+        String nameTarget = target.name();
+
+        if (nameColor.contains("BLACK")) {
+            nameColor = "BLACK_";
+        } else if (nameColor.contains("RED")) {
+            nameColor = "RED_";
+        } else if (nameColor.contains("GREEN")) {
+            nameColor = "GREEN_";
+        } else if (nameColor.contains("BROWN")) {
+            nameColor = "BROWN_";
+        } else if (nameColor.contains("BLUE")) {
+            nameColor = "BLUE_";
+        } else if (nameColor.contains("PURPLE")) {
+            nameColor = "PURPLE_";
+        } else if (nameColor.contains("CYAN")) {
+            nameColor = "CYAN_";
+        } else if (nameColor.contains("LIGHT_GRAY")) {
+            nameColor = "LIGHT_GRAY_";
+        } else if (nameColor.contains("GRAY")) {
+            nameColor = "GRAY_";
+        } else if (nameColor.contains("PINK")) {
+            nameColor = "PINK_";
+        } else if (nameColor.contains("LIME")) {
+            nameColor = "LIME_";
+        } else if (nameColor.contains("YELLOW")) {
+            nameColor = "YELLOW_";
+        } else if (nameColor.contains("LIGHT_BLUE")) {
+            nameColor = "LIGHT_BLUE_";
+        } else if (nameColor.contains("MAGENTA")) {
+            nameColor = "MAGENTA_";
+        } else if (nameColor.contains("ORANGE")) {
+            nameColor = "ORANGE_";
+        } else if (nameColor.contains("WHITE")) {
+            nameColor = "WHITE_";
+        }
+
+        if (nameTarget.contains("DYE")) {
+            nameTarget = "DYE";
+            return Material.getMaterial(nameColor + nameTarget);
+        } else if (nameTarget.contains("WOOL")){
+            nameTarget = "WOOL";
+            return Material.getMaterial(nameColor + nameTarget);
+        } else if (nameTarget.contains("CARPET")){
+            nameTarget = "CARPET";
+            return Material.getMaterial(nameColor + nameTarget);
+        } else if (nameTarget.contains("TERRACOTTA")){
+            nameTarget = "TERRACOTTA";
+            return Material.getMaterial(nameColor + nameTarget);
+        } else if (nameTarget.contains("STAINED_GLASS")){
+            nameTarget = "STAINED_GLASS";
+            return Material.getMaterial(nameColor + nameTarget);
+        }
+
+        return Material.STRUCTURE_VOID;
     }
 
 }

@@ -146,6 +146,7 @@ public class xBxTcore extends JavaPlugin {
         Objects.requireNonNull(this.getCommand("inv")).setExecutor(new CommandInv(this));
         Objects.requireNonNull(this.getCommand("boxpvp")).setExecutor(new CommandBoxPvp(this));
         Objects.requireNonNull(this.getCommand("ReloadDataPlayares")).setExecutor(new CommandReloadDataPlayares(this));
+        Objects.requireNonNull(this.getCommand("itemboxpvp")).setExecutor(new CommandItemBoxpvp(this));
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////
         Objects.requireNonNull(this.getCommand("sk")).setExecutor(new CommandSaveKit(this));
         Objects.requireNonNull(this.getCommand("dk")).setExecutor(new CommandDelKit(this));
@@ -159,6 +160,7 @@ public class xBxTcore extends JavaPlugin {
         Objects.requireNonNull(getCommand("duel")).setTabCompleter(new TabCompleterDuel());
         Objects.requireNonNull(getCommand("spectator")).setTabCompleter(new TabCompleterSpectator());
         Objects.requireNonNull(getCommand("debugkit")).setTabCompleter(new TabCompleterDebugKit());
+        Objects.requireNonNull(getCommand("itemboxpvp")).setTabCompleter(new TabItemBoxpvp());
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////
         Objects.requireNonNull(getCommand("sk")).setTabCompleter(new TabCompleterSaveKit());
         Objects.requireNonNull(getCommand("dk")).setTabCompleter(new TabCompleterDelKit());
@@ -196,7 +198,7 @@ public class xBxTcore extends JavaPlugin {
         hologramas = new Hologramas(this);
         hologramasBoxPvp = new HologramasBoxPvp(this);
         autoFillsBox = new AutoFillsBox(this);
-        itemManage = new ItemManage();
+        itemManage = new ItemManage(this);
         zoneSafeBoxPvp = new ZoneSafeBoxPvp();
     }
 

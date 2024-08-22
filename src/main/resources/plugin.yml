@@ -37,6 +37,7 @@ commands:
   inv:
   boxpvp:
   ReloadDataPlayares:
+  itemboxpvp:
 permissions:
   xBxTpvp.vote:
     description: vote

@@ -1,15 +1,23 @@
 package Plugin.Utils;
 
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.Color;
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
 
 public class ColorUtils {
 
     public static String modifyColorHexWithHLS(String hexColor, float hueDelta, float lightnessDelta, float saturationDelta) {
+        if(!hexColor.contains("#")){
+            hexColor = "#" + hexColor;
+        }
+
+
         // 1. Convert Hex to RGB
-        int r = Integer.valueOf(hexColor.substring(1, 2), 16);
-        int g = Integer.valueOf(hexColor.substring(3, 4), 16);
-        int b = Integer.valueOf(hexColor.substring(4, 6), 16);
+        int r = Integer.valueOf(hexColor.substring(1, 3), 16);
+        int g = Integer.valueOf(hexColor.substring(3, 5), 16);
+        int b = Integer.valueOf(hexColor.substring(5, 7), 16);
 
         // 2. Convert RGB to HLS
         float[] hls = rgbToHLS(r, g, b);
@@ -23,7 +31,7 @@ public class ColorUtils {
         int[] rgb = hlsToRGB(hls[0], hls[1], hls[2]);
 
         // 5. Convert RGB back to Hex
-        return String.format("#%02x%02x%02x", rgb[0], rgb[1], rgb[2]);
+        return String.format("%02x%02x%02x", rgb[0], rgb[1], rgb[2]).toUpperCase();
     }
 
     private static float[] rgbToHLS(int r, int g, int b) {
@@ -54,28 +62,32 @@ public class ColorUtils {
         return new float[]{h, l, s};
     }
 
-    public static int[] hlsToRGB(float h, float l, float s) {
-        int r, g, b;
+    private static int[] hlsToRGB(float h, float l, float s) {
+        double r, g, b;
 
         if (s == 0) {
-            r = g = b = Math.round(l * 255); // achromatic
+            r = g = b = l; // achromatic
         } else {
-            float q = l < 0.5 ? l * (1 + s) : (l + s) - (l * s);
+            float q = l < 0.5 ? l * (1 + s) : l + s - l * s;
             float p = 2 * l - q;
-            r = Math.round(255 * hueToRGB(p, q, h + 1.0f / 3));
-            g = Math.round(255 * hueToRGB(p, q, h));
-            b = Math.round(255 * hueToRGB(p, q, h - 1.0f / 3));
+            r = hueToRGB(p, q, h + 1.0f / 3);
+            g = hueToRGB(p, q, h);
+            b = hueToRGB(p, q, h - 1.0f / 3);
         }
 
-        return new int[]{r, g, b};
+        return new int[]{
+                (int) Math.round(r * 255),
+                (int) Math.round(g * 255),
+                (int) Math.round(b * 255)
+        };
     }
 
-    public static float hueToRGB(float p, float q, float t) {
+    private static double hueToRGB(float p, float q, float t) {
         if (t < 0) t += 1;
         if (t > 1) t -= 1;
         if (t < 1.0 / 6) return p + (q - p) * 6 * t;
         if (t < 1.0 / 2) return q;
-        if (t < 2.0 / 3) return (float) (p + (q - p) * (2.0 / 3 - t) * 6);
+        if (t < 2.0 / 3) return (p + (q - p) * (2.0 / 3 - t) * 6);
         return p;
     }
 
@@ -143,5 +155,35 @@ public class ColorUtils {
         }
 
         return gradientText.toString();
+    }
+
+    public static ItemStack colorLeatherArmor(ItemStack armor, String hexColor) {
+        // Asegurarse de que el ítem sea una pieza de armadura de cuero
+        if (armor.getType() != Material.LEATHER_HELMET &&
+                armor.getType() != Material.LEATHER_CHESTPLATE &&
+                armor.getType() != Material.LEATHER_LEGGINGS &&
+                armor.getType() != Material.LEATHER_BOOTS) {
+            throw new IllegalArgumentException("El ítem debe ser una pieza de armadura de cuero.");
+        }
+
+        // Convertir el color hexadecimal a un objeto Color de Bukkit
+        Color color = hexToColor(hexColor);
+
+        // Obtener el meta de la armadura y aplicar el color
+        LeatherArmorMeta meta = (LeatherArmorMeta) armor.getItemMeta();
+        meta.setColor(color);
+        armor.setItemMeta(meta);
+
+        return armor;
+    }
+
+    private static Color hexToColor(String hexColor) {
+        if(!hexColor.contains("#")){
+            hexColor = "#" + hexColor;
+        }
+        int r = Integer.valueOf(hexColor.substring(1, 3), 16);
+        int g = Integer.valueOf(hexColor.substring(3, 5), 16);
+        int b = Integer.valueOf(hexColor.substring(5, 7), 16);
+        return Color.fromRGB(r, g, b);
     }
 }
