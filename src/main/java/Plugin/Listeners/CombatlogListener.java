@@ -12,6 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -37,6 +38,9 @@ public class CombatlogListener implements Listener {
 
     @EventHandler
     public void DamagePlayres(EntityDamageByEntityEvent event) {
+        if (event.getCause().equals(EntityDamageEvent.DamageCause.ENTITY_EXPLOSION) && event.getEntity() instanceof Player attacked) {
+            startCombat(attacked);
+        }
         if (event.getEntity() instanceof Player attacked && event.getDamager() instanceof Player attacker) {
             if (ejey + 4 <= event.getEntity().getLocation().getBlockY() && (Bukkit.getWorld("lobby") == event.getEntity().getWorld()) || Bukkit.getWorld("creatorkits") == event.getEntity().getWorld()) {
                 event.setCancelled(true);

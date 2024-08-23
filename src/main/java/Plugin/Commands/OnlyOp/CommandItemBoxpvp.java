@@ -10,6 +10,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
@@ -43,6 +44,9 @@ public class CommandItemBoxpvp implements CommandExecutor {
                             addItems(ItemManage.boots);
                             addItems(ItemManage.moneyNormal);
                             addItems(ItemManage.moneyCompact);
+                            addItems(ItemManage.sword);
+                            addItems(ItemManage.pickaxe);
+                            addItems(ItemManage.especialItems);
                         }
                         case "coins" -> {
                             addItems(ItemManage.coinNormal);
@@ -54,10 +58,13 @@ public class CommandItemBoxpvp implements CommandExecutor {
                         case "elytra" -> addItems(ItemManage.elytras);
                         case "leggings" -> addItems(ItemManage.leggings);
                         case "boots" -> addItems(ItemManage.boots);
+                        case "sword" -> addItems(ItemManage.sword);
+                        case "pickaxe" -> addItems(ItemManage.pickaxe);
                         case "moneys" -> {
                             addItems(ItemManage.moneyCompact);
                             addItems(ItemManage.moneyNormal);
                         }
+                        case "especial_items" -> addItems(ItemManage.especialItems);
                         case "money_normal" -> addItems(ItemManage.moneyNormal);
                         case "money_compact" -> addItems(ItemManage.moneyCompact);
                     }
@@ -89,6 +96,16 @@ public class CommandItemBoxpvp implements CommandExecutor {
                     }
                     for (ItemStack item : ItemManage.boots){
                         if (String.valueOf(args[1]).equals(String.valueOf(Objects.requireNonNull(item.getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(plugin, "tier"), PersistentDataType.INTEGER)))){
+                            Utils.additem(p, item);
+                        }
+                    }
+                    for (ItemStack item : ItemManage.sword){
+                        if (String.valueOf(args[1]).equals(String.valueOf(Objects.requireNonNull(item.getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(plugin, "tier"), PersistentDataType.INTEGER)))){
+                            Utils.additem(p, item);
+                        }
+                    }
+                    for (ItemStack item : ItemManage.pickaxe) {
+                        if (String.valueOf(args[1]).equals(String.valueOf(Objects.requireNonNull(item.getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(plugin, "tier"), PersistentDataType.INTEGER)))) {
                             Utils.additem(p, item);
                         }
                     }

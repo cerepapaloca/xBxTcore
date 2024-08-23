@@ -33,6 +33,7 @@ public class CommandBoxPvp implements CommandExecutor {
                     xBxTcore.getPlayerFileManager().loadInventoryBoxPvp(player);
                 }
                 player.teleport(Objects.requireNonNull(Bukkit.getWorld("boxpvp")).getSpawnLocation());
+                xBxTcore.getArmorBonusListener().UpdateBonus(player);
                 player.setGameMode(GameMode.SURVIVAL);
             }else{
                 player.sendMessage(xBxTcore.getMessageManager().MasterMessage(player, Messages.InArea));

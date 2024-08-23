@@ -4,8 +4,7 @@ import Plugin.xBxTcore;
 import org.bukkit.*;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import static Plugin.Managers.MessageManager.ColorSuccess;
-import static Plugin.Managers.MessageManager.prefixConsole;
+import static Plugin.Managers.MessageManager.*;
 
 public class Cleaner {
 
@@ -25,8 +24,10 @@ public class Cleaner {
             startLocation = new Location(Bukkit.getWorld(worldname), -150, 0, -150);
             endLocation = new Location(Bukkit.getWorld(worldname), 150, 30, 150);
         }else if (worldname.equals("boxpvp")){
-            startLocation = new Location(Bukkit.getWorld(worldname), -150, 0, -150);
-            endLocation = new Location(Bukkit.getWorld(worldname), 150, 100, 150);
+            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorWarning + "NO LO HAGAS TONTO"));
+            return;
+            /*startLocation = new Location(Bukkit.getWorld(worldname), -150, 0, -150);
+            endLocation = new Location(Bukkit.getWorld(worldname), 150, 100, 150);*/
         }else{
             startLocation = new Location(Bukkit.getWorld(worldname), -40, 0, -40);
             endLocation = new Location(Bukkit.getWorld(worldname), 39, 50, 39);

@@ -41,7 +41,6 @@ public class Hologramas{
     }
 
     public void removeArmorStands() {
-        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "/minecraft:kill @e[type=minecraft:armor_stand] ");
         Objects.requireNonNull(Bukkit.getWorld("lobby")).getEntities().stream().filter(entity -> entity instanceof ArmorStand).forEach(Entity::remove);
         Objects.requireNonNull(Bukkit.getWorld("creatorkits")).getEntities().stream().filter(entity -> entity instanceof ArmorStand).forEach(Entity::remove);
         Objects.requireNonNull(Bukkit.getWorld("boxpvp")).getEntities().stream().filter(entity -> entity instanceof ArmorStand).forEach(Entity::remove);

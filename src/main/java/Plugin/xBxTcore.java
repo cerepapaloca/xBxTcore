@@ -5,7 +5,7 @@ import Plugin.Commands.Tab.*;
 import Plugin.Commands.User.*;
 import Plugin.Environments.*;
 import Plugin.Inventory.InventoryMenu;
-import Plugin.Listeners.Invetory.ArmorBonusListener;
+import Plugin.Listeners.Bonus.ArmorBonusListener;
 import Plugin.Listeners.Invetory.InventoryListener;
 import Plugin.Listeners.Invetory.ItemframeListener;
 import Plugin.Listeners.Invetory.ShulkerBoxInventoryListener;
@@ -56,6 +56,7 @@ public class xBxTcore extends JavaPlugin {
     private static ZoneSafeBoxPvp zoneSafeBoxPvp;
     private static Utils tools;
     private static ItemManage itemManage;
+    private static ArmorBonusListener armorBonusListener;
     public static Hologramas hologramas;
     public static PlayerDataGLobal playerDataGLobal;
     public static InventoryManager invetoryManager;
@@ -178,7 +179,7 @@ public class xBxTcore extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new RewardsListener(),this);
         getServer().getPluginManager().registerEvents(new MessageDiedListener(), this);
         getServer().getPluginManager().registerEvents(new ShulkerBoxInventoryListener(), this);
-        getServer().getPluginManager().registerEvents(new ArmorBonusListener(this), this);
+        getServer().getPluginManager().registerEvents(armorBonusListener = new ArmorBonusListener(this), this);
         getServer().getPluginManager().registerEvents(combatlogListener = new CombatlogListener(this),this);
     }
 
@@ -241,6 +242,10 @@ public class xBxTcore extends JavaPlugin {
 
     public static CombatlogListener getcombatlogListener(){
         return combatlogListener;
+    }
+
+    public static ArmorBonusListener getArmorBonusListener(){
+        return armorBonusListener;
     }
 
     public static DuelManager getDuelManager() {

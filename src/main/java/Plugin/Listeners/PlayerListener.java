@@ -7,6 +7,7 @@ import Plugin.Model.Request;
 import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
 import org.bukkit.*;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.*;
@@ -68,7 +69,7 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void PlayerRespawn(PlayerRespawnEvent event) {
         Player player = event.getPlayer();
-
+        RestartStats(player);
         if (player.getWorld().getName().equals("boxpvp")){
             return;
         }
@@ -195,6 +196,11 @@ public class PlayerListener implements Listener {
     }
 
     public void RestartStats(Player player) {
+        player.setSaturatedRegenRate(10);
+        player.setUnsaturatedRegenRate(80);
+        player.getAttribute(Attribute.GENERIC_ARMOR).setBaseValue(0);
+        player.getAttribute(Attribute.GENERIC_ARMOR_TOUGHNESS).setBaseValue(0);
+        player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(20);
         player.setLevel(0);
         player.setExp(0);
         player.setExpCooldown(0);
