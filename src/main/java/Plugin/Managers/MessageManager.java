@@ -360,7 +360,7 @@ public class MessageManager {
             Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', esMessages.get(message.name())).replace("%player%",ChatColor.translateAlternateColorCodes('&',prefixWorld + xBxTcore.getPlayerFileManager().loadPrefix(player.getUniqueId()) + Colorplayer +  player.getName()).replace("%item%", item)));
         }else{
             Bukkit.getConsoleSender().sendMessage(xBxTcore.getPlayerFileManager().loadPrefix(player.getUniqueId()));
-            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', esMessages.get(message.name())).replace("%player%", ChatColor.translateAlternateColorCodes('&',prefixWorld + xBxTcore.getPlayerFileManager().loadPrefix(player.getUniqueId()) + Colorplayer +  player.getName()).replace("%killer%",xBxTcore.getPlayerFileManager().loadPrefix(killer.getUniqueId()) + Colorplayer + killer.getName()).replace("%item%", item)));
+            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',ChatColor.translateAlternateColorCodes('&', esMessages.get(message.name())).replace("%player%", prefixWorld + xBxTcore.getPlayerFileManager().loadPrefix(player.getUniqueId()) + Colorplayer +  player.getName()).replace("%killer%",xBxTcore.getPlayerFileManager().loadPrefix(killer.getUniqueId()) + Colorplayer + killer.getName()).replace("%item%", item)));
         }
     }
 
@@ -382,6 +382,4 @@ public class MessageManager {
         }
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&4-&8] " + Colorplayer + player.getName() + " " + esMessages.get("leave")));
     }
-
-
 }

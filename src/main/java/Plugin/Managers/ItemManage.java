@@ -65,6 +65,8 @@ public class ItemManage {
         moneyCompact.add(newItemBoxPVP(Material.PEARLESCENT_FROGLIGHT ,"<#ff38f8>Moneda Compacta de Especial<#ffa1fc>", lore, 0,true));
 
         especialItems.add(newItemBoxPVP(Material.FERMENTED_SPIDER_EYE ,"<#ff38f8>Bonificado de daño<#ffa1fc>", lore, "DañoBonus",true));
+        especialItems.add(newItemBoxPVP(Material.CHARCOAL ,"<#ff38f8>Efecto de wither<#ffa1fc>", lore, "DañoPorWither",true));
+
 
 
 

@@ -40,6 +40,7 @@ public class CombatlogListener implements Listener {
     public void DamagePlayres(EntityDamageByEntityEvent event) {
         if (event.getCause().equals(EntityDamageEvent.DamageCause.ENTITY_EXPLOSION) && event.getEntity() instanceof Player attacked) {
             startCombat(attacked);
+            return;
         }
         if (event.getEntity() instanceof Player attacked && event.getDamager() instanceof Player attacker) {
             if (ejey + 4 <= event.getEntity().getLocation().getBlockY() && (Bukkit.getWorld("lobby") == event.getEntity().getWorld()) || Bukkit.getWorld("creatorkits") == event.getEntity().getWorld()) {

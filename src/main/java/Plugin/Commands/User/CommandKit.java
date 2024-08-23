@@ -21,7 +21,7 @@ public class CommandKit implements CommandExecutor {
     public boolean onCommand(@Nullable CommandSender commandSender,@Nullable Command command,@Nullable String s, String[] strings) {
         if(commandSender instanceof Player player){
             if(player.getLocation().getY() >= 30 && xBxTcore.getWorldProtec().contains(player.getWorld())){
-                xBxTcore.getInvetoryManager().invetorymenu().OpenMenuInvetory(new InvetoryPlayer(player));
+                xBxTcore.getInventoryMenu().OpenMenuInvetory(new InvetoryPlayer(player));
             }else{
                 player.sendMessage(xBxTcore.getMessageManager().MasterMessage(player, Messages.InArea));
             }

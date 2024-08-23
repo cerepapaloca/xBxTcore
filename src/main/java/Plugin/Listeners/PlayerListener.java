@@ -8,11 +8,16 @@ import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.damage.DamageSource;
+import org.bukkit.damage.DamageType;
+import org.bukkit.entity.Entity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.util.*;
 
@@ -70,6 +75,17 @@ public class PlayerListener implements Listener {
     public void PlayerRespawn(PlayerRespawnEvent event) {
         Player player = event.getPlayer();
         RestartStats(player);
+        if (punishedTiemer.containsKey(player.getUniqueId())){
+            punishedTiemer.get(player.getUniqueId()).cancel();
+            punishedTiemer.remove(player.getUniqueId());
+        }
+
+        if (playresInSafeZone.contains(player.getUniqueId())){
+            playresInSafeZone.remove(player.getUniqueId());
+        }
+
+
+        xBxTcore.getcombatlogListener().endCombat(player);
         if (player.getWorld().getName().equals("boxpvp")){
             return;
         }
@@ -158,6 +174,7 @@ public class PlayerListener implements Listener {
     }
 
     private final ArrayList<UUID> playresInSafeZone = new ArrayList<>();
+    private final static HashMap<UUID, BukkitTask> punishedTiemer = new HashMap<>();
 
     public void PunishedBySafeZone(Player player) {
 
@@ -166,12 +183,12 @@ public class PlayerListener implements Listener {
         }else {
             playresInSafeZone.add(player.getUniqueId());
         }
+        Bukkit.getConsoleSender().sendMessage( ChatColor.translateAlternateColorCodes('&',prefixConsole + Colorinfo + "El jugador " + Colorplayer + player.getName() + Colorinfo + " entro en zona segura en combate"));
 
         new BukkitRunnable() {
             int time = 3;
             public void run() {
-
-                if (xBxTcore.getZoneSafeBoxPvp().isSafeZone(player.getLocation()) || player.getHealth() <= 0){
+                if (!xBxTcore.getZoneSafeBoxPvp().isSafeZone(player.getLocation()) || player.getHealth() <= 0){
                     playresInSafeZone.remove(player.getUniqueId());
                     cancel();
                     return;
@@ -180,19 +197,22 @@ public class PlayerListener implements Listener {
                 player.sendTitle("", xBxTcore.getMessageManager().MasterMessage(player, Messages.InSafeZone).replace("%time%", String.valueOf(time)), 5, 15, 5);
                 if (time <= 0) {
                     cancel();
-                    new BukkitRunnable() {
+                    BukkitTask bukkitTask = new BukkitRunnable() {
                         public void run() {
-                            if (xBxTcore.getZoneSafeBoxPvp().isSafeZone(player.getLocation()) || player.getHealth() <= 0){
+                            if (!xBxTcore.getZoneSafeBoxPvp().isSafeZone(player.getLocation())){
                                 playresInSafeZone.remove(player.getUniqueId());
+                                punishedTiemer.remove(player.getUniqueId());
                                 cancel();
                             }
                             player.damage(5);
                         }
                     }.runTaskTimer(plugin, 5, 5);
+                    punishedTiemer.put(player.getUniqueId(), bukkitTask);
                 }
                 time--;
             }
         }.runTaskTimer(plugin, 0, 20);
+
     }
 
     public void RestartStats(Player player) {

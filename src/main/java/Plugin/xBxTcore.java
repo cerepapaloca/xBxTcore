@@ -6,6 +6,7 @@ import Plugin.Commands.User.*;
 import Plugin.Environments.*;
 import Plugin.Inventory.InventoryMenu;
 import Plugin.Listeners.Bonus.ArmorBonusListener;
+import Plugin.Listeners.Bonus.ItemBonusListener;
 import Plugin.Listeners.Invetory.InventoryListener;
 import Plugin.Listeners.Invetory.ItemframeListener;
 import Plugin.Listeners.Invetory.ShulkerBoxInventoryListener;
@@ -179,6 +180,7 @@ public class xBxTcore extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new RewardsListener(),this);
         getServer().getPluginManager().registerEvents(new MessageDiedListener(), this);
         getServer().getPluginManager().registerEvents(new ShulkerBoxInventoryListener(), this);
+        getServer().getPluginManager().registerEvents(new ItemBonusListener(this), this);
         getServer().getPluginManager().registerEvents(armorBonusListener = new ArmorBonusListener(this), this);
         getServer().getPluginManager().registerEvents(combatlogListener = new CombatlogListener(this),this);
     }
@@ -197,9 +199,7 @@ public class xBxTcore extends JavaPlugin {
         playerfileManager = new PlayerfileManager(this);
         duelManager = new DuelManager(this);
         messageManager = new MessageManager();
-        inventoryMenu = new InventoryMenu();
-        //invetoryManager = new InventoryManager(this);
-        //hologramas = new Hologramas(this);
+        inventoryMenu = new InventoryMenu(this);
         hologramasBoxPvp = new HologramasBoxPvp(this);
         autoFillsBox = new AutoFillsBox(this);
         itemManage = new ItemManage(this);

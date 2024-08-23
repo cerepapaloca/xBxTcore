@@ -22,18 +22,16 @@ import static Plugin.xBxTcore.getPlayerFileManager;
 public class InventoryManager {
 
     protected final ArrayList<InvetoryPlayer> players;
-    protected static xBxTcore plugin;
+    protected final xBxTcore plugin;
     /////////////////////////
     protected ItemStack ButtoPreviewOff;
     protected ItemStack ButtoPreviewOn;
-    private final InventoryMenu inventoryMenu;
     protected final ArrayList<String> nameMapsDuel = new ArrayList<>();
 
     public InventoryManager(xBxTcore plugin) {
         this.players = new ArrayList<>();
         xBxTcore.invetoryManager = this;
-        InventoryManager.plugin = plugin;
-        inventoryMenu = xBxTcore.getInventoryMenu();
+        this.plugin = plugin;
         staritems();
         for (MapsDuel map : MapsDuel.values()){
             nameMapsDuel.add(map.name());
@@ -41,7 +39,7 @@ public class InventoryManager {
     }
 
     public InventoryMenu invetorymenu() {
-        return this.inventoryMenu;
+        return xBxTcore.getInventoryMenu();
     }
 
 
@@ -175,17 +173,17 @@ public class InventoryManager {
                 if (slot >= 0 && slot <= max && item != null) {
 
                     if (invetoryPlayer.getPreviewMode()) {
-                        inventoryMenu.OpenPreviewKit(invetoryPlayer.getPlayer(), Objects.requireNonNull(item.getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(plugin, "kitName"), PersistentDataType.STRING), invetoryPlayer);
+                        invetorymenu().OpenPreviewKit(invetoryPlayer.getPlayer(), Objects.requireNonNull(item.getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(plugin, "kitName"), PersistentDataType.STRING), invetoryPlayer);
                         return;
                     }
 
                     if (click == ClickType.RIGHT) {
-                        inventoryMenu.OpenPreviewKit(invetoryPlayer.getPlayer(), Objects.requireNonNull(item.getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(plugin, "kitName"), PersistentDataType.STRING), invetoryPlayer);
+                        invetorymenu().OpenPreviewKit(invetoryPlayer.getPlayer(), Objects.requireNonNull(item.getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(plugin, "kitName"), PersistentDataType.STRING), invetoryPlayer);
                         return;
                     } else if (invetoryPlayer.getKitSelectMode()) {
                         xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).getKitData().setUuid(invetoryPlayer.getuuidkit());
                         xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).getKitData().setName(Objects.requireNonNull(item.getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(plugin, "kitName"), PersistentDataType.STRING));
-                        inventoryMenu.OpenDuel(invetoryPlayer);
+                        invetorymenu().OpenDuel(invetoryPlayer);
                         invetoryPlayer.setPreviewMode(false);
                         return;
                     } else {
@@ -218,7 +216,7 @@ public class InventoryManager {
                 } else if (invetoryPlayer.getKitSelectMode()) {
                     if (slot == mid + 1){
                         xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).clearKitdata();
-                        inventoryMenu.OpenDuel(invetoryPlayer);
+                        invetorymenu().OpenDuel(invetoryPlayer);
                         return;
                     }else if (slot == mid - 1){
                         if (item.getType() == Material.CHEST){
@@ -238,7 +236,6 @@ public class InventoryManager {
                 assert item != null;
                 if (item.getType() == Material.ENDER_EYE || item.getType() == Material.ENDER_PEARL){
                     togglePreview(item, invetoryPlayer);
-                    return;
                 }
             }
             case PREVIEWKITS -> {
@@ -306,7 +303,7 @@ public class InventoryManager {
                         xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).setTimeDuel(xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).getTimeDuel() + 60);
                         UpdateEnderPearl(invetoryPlayer.getPlayer(), secondsToMinutesLore(invetoryPlayer.getPlayer()));
                     }
-                    case 22 -> inventoryMenu.OpenDuel(invetoryPlayer);
+                    case 22 -> invetorymenu().OpenDuel(invetoryPlayer);
                 }
             }
             case REWARDTIMES -> {

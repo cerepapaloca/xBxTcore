@@ -5,7 +5,10 @@ import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.block.Block;
+import org.bukkit.damage.DamageType;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -14,7 +17,10 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.EntityPlaceEvent;
 import org.bukkit.event.player.*;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.util.List;
@@ -88,7 +94,20 @@ public class BlockerListener implements Listener {
         if (!event.getPlayer().isOp() && ejey <= event.getBlock().getLocation().getBlockY() && xBxTcore.getWorldProtec().contains(event.getPlayer().getWorld())) {
             if (materialsBoxPvp.contains(event.getBlock().getType())) {
                 event.setDropItems(false);
-                xBxTcore.getItemManage().AddItemMine(event.getPlayer(), event.getBlock().getType());
+                double i = Math.random();
+                double tier = 0;
+                ItemStack item = event.getPlayer().getInventory().getItemInMainHand();
+                if (item.getItemMeta() != null) {
+                    tier = (double) item.getItemMeta().getPersistentDataContainer().get(new NamespacedKey(plugin, "tier"), PersistentDataType.INTEGER);
+                    tier = (tier*3)/100;
+                }
+                if (i < tier) {
+                    xBxTcore.getItemManage().AddItemMine(event.getPlayer(), event.getBlock().getType());
+                    xBxTcore.getItemManage().AddItemMine(event.getPlayer(), event.getBlock().getType());
+                }else {
+                    xBxTcore.getItemManage().AddItemMine(event.getPlayer(), event.getBlock().getType());
+                }
+
                 return;
             }
             if (blockLocations.contains(event.getBlock().getLocation())) {
@@ -174,6 +193,11 @@ public class BlockerListener implements Listener {
     @EventHandler
     public void EntityDamage(EntityDamageEvent event) {
         if (event.getCause() != EntityDamageEvent.DamageCause.KILL){
+            if (event.getEntity() instanceof Player player){
+                if (xBxTcore.getcombatlogListener().isInCombat(player)){
+                    return;
+                }
+            }
             if (ejey + 4 <= event.getEntity().getLocation().getBlockY() && (Bukkit.getWorld("lobby") == event.getEntity().getWorld()) || Bukkit.getWorld("creatorkits") == event.getEntity().getWorld()) {
                 event.setCancelled(true);
                 return;
