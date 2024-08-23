@@ -22,6 +22,7 @@ import java.util.UUID;
 public class CommandItemBoxpvp implements CommandExecutor {
 
     private final xBxTcore plugin;
+    private Player player;
 
     public CommandItemBoxpvp(xBxTcore plugin) {
         this.plugin = plugin;
@@ -29,96 +30,65 @@ public class CommandItemBoxpvp implements CommandExecutor {
 
     public boolean onCommand(@Nullable CommandSender sender,@Nullable Command cmd,@Nullable String label, String[] args) {
         if(sender instanceof Player p){
+            player = p;
             if (p.isOp()){
                 if (args.length == 1){
                     switch (args[0]){
                         case "*" -> {
-                            for (ItemStack item : ItemManage.coinCompact){
-                                Utils.additem(p, item);
-                            }
-                            for (ItemStack item : ItemManage.coinNormal){
-                                Utils.additem(p, item);
-                            }
-                            for (ItemStack item : ItemManage.helmets){
-                                Utils.additem(p, item);
-                            }
-                            for (ItemStack item : ItemManage.elytras){
-                                Utils.additem(p, item);
-                            }
-                            for (ItemStack item : ItemManage.leggings){
-                                Utils.additem(p, item);
-                            }
-                            for (ItemStack item : ItemManage.boots){
-                                Utils.additem(p, item);
-                            }
+                            addItems(ItemManage.coinNormal);
+                            addItems(ItemManage.coinCompact);
+                            addItems(ItemManage.helmets);
+                            addItems(ItemManage.elytras);
+                            addItems(ItemManage.leggings);
+                            addItems(ItemManage.boots);
+                            addItems(ItemManage.moneyNormal);
+                            addItems(ItemManage.moneyCompact);
                         }
                         case "coins" -> {
-                            for (ItemStack item : ItemManage.coinCompact){
-                                Utils.additem(p, item);
-                            }
-                            for (ItemStack item : ItemManage.coinNormal){
-                                Utils.additem(p, item);
-                            }
+                            addItems(ItemManage.coinNormal);
+                            addItems(ItemManage.coinCompact);
                         }
-                        case "coins_normal" -> {
-                            for (ItemStack item : ItemManage.coinNormal){
-                                Utils.additem(p, item);
-                            }
+                        case "coins_normal" -> addItems(ItemManage.coinNormal);
+                        case "coin_compact" -> addItems(ItemManage.coinCompact);
+                        case "helmets" -> addItems(ItemManage.helmets);
+                        case "elytra" -> addItems(ItemManage.elytras);
+                        case "leggings" -> addItems(ItemManage.leggings);
+                        case "boots" -> addItems(ItemManage.boots);
+                        case "moneys" -> {
+                            addItems(ItemManage.moneyCompact);
+                            addItems(ItemManage.moneyNormal);
                         }
-                        case "coin_compact" -> {
-                            for (ItemStack item : ItemManage.coinCompact){
-                                Utils.additem(p, item);
-                            }
-                        }
-                        case "helmets" -> {
-                            for (ItemStack item : ItemManage.helmets){
-                                Utils.additem(p, item);
-                            }
-                        }
-                        case "elytra" -> {
-                            for (ItemStack item : ItemManage.elytras){
-                                Utils.additem(p, item);
-                            }
-                        }
-                        case "leggings" -> {
-                            for (ItemStack item : ItemManage.leggings){
-                                Utils.additem(p, item);
-                            }
-                        }
-                        case "boots" -> {
-                            for (ItemStack item : ItemManage.boots){
-                                Utils.additem(p, item);
-                            }
-                        }
+                        case "money_normal" -> addItems(ItemManage.moneyNormal);
+                        case "money_compact" -> addItems(ItemManage.moneyCompact);
                     }
                 } else if (args.length == 2 && args[0].equals("tier")){
                     for (ItemStack item : ItemManage.coinCompact){
-                        if (String.valueOf(args[1]).equals(Objects.requireNonNull(item.getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(plugin, "tier"), PersistentDataType.STRING))){
+                        if (String.valueOf(args[1]).equals(String.valueOf(Objects.requireNonNull(item.getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(plugin, "tier"), PersistentDataType.INTEGER)))){
                             Utils.additem(p, item);
                         }
                     }
                     for (ItemStack item : ItemManage.coinNormal){
-                        if (String.valueOf(args[1]).equals(Objects.requireNonNull(item.getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(plugin, "tier"), PersistentDataType.STRING))){
+                        if (String.valueOf(args[1]).equals(String.valueOf(Objects.requireNonNull(item.getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(plugin, "tier"), PersistentDataType.INTEGER)))){
                             Utils.additem(p, item);
                         }
                     }
                     for (ItemStack item : ItemManage.helmets){
-                        if (String.valueOf(args[1]).equals(Objects.requireNonNull(item.getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(plugin, "tier"), PersistentDataType.STRING))){
+                        if (String.valueOf(args[1]).equals(String.valueOf(Objects.requireNonNull(item.getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(plugin, "tier"), PersistentDataType.INTEGER)))){
                             Utils.additem(p, item);
                         }
                     }
                     for (ItemStack item : ItemManage.elytras){
-                        if (String.valueOf(args[1]).equals(Objects.requireNonNull(item.getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(plugin, "tier"), PersistentDataType.STRING))){
+                        if (String.valueOf(args[1]).equals(String.valueOf(Objects.requireNonNull(item.getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(plugin, "tier"), PersistentDataType.INTEGER)))){
                             Utils.additem(p, item);
                         }
                     }
                     for (ItemStack item : ItemManage.leggings){
-                        if (String.valueOf(args[1]).equals(Objects.requireNonNull(item.getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(plugin, "tier"), PersistentDataType.STRING))){
+                        if (String.valueOf(args[1]).equals(String.valueOf(Objects.requireNonNull(item.getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(plugin, "tier"), PersistentDataType.INTEGER)))){
                             Utils.additem(p, item);
                         }
                     }
                     for (ItemStack item : ItemManage.boots){
-                        if (String.valueOf(args[1]).equals(Objects.requireNonNull(item.getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(plugin, "tier"), PersistentDataType.STRING))){
+                        if (String.valueOf(args[1]).equals(String.valueOf(Objects.requireNonNull(item.getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(plugin, "tier"), PersistentDataType.INTEGER)))){
                             Utils.additem(p, item);
                         }
                     }
@@ -129,5 +99,11 @@ public class CommandItemBoxpvp implements CommandExecutor {
         }
 
         return false;
+    }
+
+    public void addItems(ArrayList<ItemStack> itemStacks){
+        for (ItemStack item : itemStacks){
+            Utils.additem(player, item);
+        }
     }
 }

@@ -17,12 +17,12 @@ import org.bukkit.persistence.PersistentDataType;
 
 import java.util.*;
 
-import static Plugin.xBxTcore.*;
+import static Plugin.xBxTcore.getPlayerFileManager;
 
 public class InventoryManager {
 
     protected final ArrayList<InvetoryPlayer> players;
-    protected final xBxTcore plugin;
+    protected static xBxTcore plugin;
     /////////////////////////
     protected ItemStack ButtoPreviewOff;
     protected ItemStack ButtoPreviewOn;
@@ -31,7 +31,8 @@ public class InventoryManager {
 
     public InventoryManager(xBxTcore plugin) {
         this.players = new ArrayList<>();
-        this.plugin = plugin;
+        xBxTcore.invetoryManager = this;
+        InventoryManager.plugin = plugin;
         inventoryMenu = xBxTcore.getInventoryMenu();
         staritems();
         for (MapsDuel map : MapsDuel.values()){
@@ -130,7 +131,7 @@ public class InventoryManager {
         int mid;
         int max;
 
-        if (invetoryPlayer.getPlayer().getName().contains(bedrockPrefix)){
+        if (invetoryPlayer.getPlayer().getName().contains(xBxTcore.bedrockPrefix)){
             mid = 48;
             back = 45;
             next = 53;
@@ -189,7 +190,7 @@ public class InventoryManager {
                         return;
                     } else {
                         invetoryPlayer.getPlayer().closeInventory();
-                        xBxTcore.getPlayerFileManager().loadKit(invetoryPlayer.getuuidkit(), Objects.requireNonNull(item.getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(plugin, "kitName"), PersistentDataType.STRING), null,invetoryPlayer.getPlayer());
+                        getPlayerFileManager().loadKit(invetoryPlayer.getuuidkit(), Objects.requireNonNull(item.getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(plugin, "kitName"), PersistentDataType.STRING), null,invetoryPlayer.getPlayer());
                         return;
                     }
                 } else if (slot == back) {
@@ -247,7 +248,7 @@ public class InventoryManager {
                         break;
                     case 45:
                         invetoryPlayer.getPlayer().closeInventory();
-                        xBxTcore.getPlayerFileManager().loadKit(invetoryPlayer.getuuidkit(), Objects.requireNonNull(item.getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(plugin, "kitName"), PersistentDataType.STRING),null, invetoryPlayer.getPlayer());
+                        getPlayerFileManager().loadKit(invetoryPlayer.getuuidkit(), Objects.requireNonNull(item.getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(plugin, "kitName"), PersistentDataType.STRING),null, invetoryPlayer.getPlayer());
                         break;
                 }
             }
@@ -311,30 +312,30 @@ public class InventoryManager {
             case REWARDTIMES -> {
                 switch (slot) {
                     case 20 -> {
-                        xBxTcore.getPlayerFileManager().loadTimesRewords(invetoryPlayer.getPlayer().getUniqueId());
+                        getPlayerFileManager().loadTimesRewords(invetoryPlayer.getPlayer().getUniqueId());
                         if (getPlayerFileManager().daily <= System.currentTimeMillis()){
                             Utils.additem(invetoryPlayer.getPlayer(), new ItemStack(Material.CHEST));
-                            xBxTcore.getPlayerFileManager().SaveTimesRewords(invetoryPlayer.getPlayer().getUniqueId(),System.currentTimeMillis() + 1000*10, getPlayerFileManager().weekly, getPlayerFileManager().monthly);
+                            getPlayerFileManager().SaveTimesRewords(invetoryPlayer.getPlayer().getUniqueId(),System.currentTimeMillis() + 1000*10, getPlayerFileManager().weekly, getPlayerFileManager().monthly);
                             Utils.NewitemInvetory(Messages.H1menos, Material.MINECART, 20, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer());
                         }else{
                             invetoryPlayer.getPlayer().sendMessage("No puede tomar la recompensa aún");
                         }
                     }
                     case 22 -> {
-                        xBxTcore.getPlayerFileManager().loadTimesRewords(invetoryPlayer.getPlayer().getUniqueId());
+                        getPlayerFileManager().loadTimesRewords(invetoryPlayer.getPlayer().getUniqueId());
                         if (getPlayerFileManager().weekly <= System.currentTimeMillis()){
                             Utils.additem(invetoryPlayer.getPlayer(), new ItemStack(Material.ANVIL));
-                            xBxTcore.getPlayerFileManager().SaveTimesRewords(invetoryPlayer.getPlayer().getUniqueId(), getPlayerFileManager().daily, System.currentTimeMillis() + 1000*2, getPlayerFileManager().monthly);
+                            getPlayerFileManager().SaveTimesRewords(invetoryPlayer.getPlayer().getUniqueId(), getPlayerFileManager().daily, System.currentTimeMillis() + 1000*2, getPlayerFileManager().monthly);
                             Utils.NewitemInvetory(Messages.H1menos, Material.MINECART, 22, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer());
                         }else{
                             invetoryPlayer.getPlayer().sendMessage("No puede tomar la recompensa aún");
                         }
                     }
                     case 24 -> {
-                        xBxTcore.getPlayerFileManager().loadTimesRewords(invetoryPlayer.getPlayer().getUniqueId());
+                        getPlayerFileManager().loadTimesRewords(invetoryPlayer.getPlayer().getUniqueId());
                         if (getPlayerFileManager().monthly <= System.currentTimeMillis()){
                             Utils.additem(invetoryPlayer.getPlayer(), new ItemStack(Material.COBWEB));
-                            xBxTcore.getPlayerFileManager().SaveTimesRewords(invetoryPlayer.getPlayer().getUniqueId(), getPlayerFileManager().daily, getPlayerFileManager().weekly, System.currentTimeMillis() + 1000*60*2);
+                            getPlayerFileManager().SaveTimesRewords(invetoryPlayer.getPlayer().getUniqueId(), getPlayerFileManager().daily, getPlayerFileManager().weekly, System.currentTimeMillis() + 1000*60*2);
                             Utils.NewitemInvetory(Messages.H1menos, Material.MINECART, 24, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer());
                         }else{
                             invetoryPlayer.getPlayer().sendMessage("No puede tomar la recompensa aún");

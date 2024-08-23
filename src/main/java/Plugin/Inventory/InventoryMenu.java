@@ -26,7 +26,7 @@ import static Plugin.xBxTcore.*;
 
 public class InventoryMenu extends InventoryManager {
 
-    public InventoryMenu(xBxTcore plugin) {
+    public InventoryMenu() {
         super(plugin);
     }
 

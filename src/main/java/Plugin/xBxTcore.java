@@ -5,6 +5,7 @@ import Plugin.Commands.Tab.*;
 import Plugin.Commands.User.*;
 import Plugin.Environments.*;
 import Plugin.Inventory.InventoryMenu;
+import Plugin.Listeners.Invetory.ArmorBonusListener;
 import Plugin.Listeners.Invetory.InventoryListener;
 import Plugin.Listeners.Invetory.ItemframeListener;
 import Plugin.Listeners.Invetory.ShulkerBoxInventoryListener;
@@ -39,14 +40,12 @@ import static Plugin.Managers.MessageManager.*;
 
 public class xBxTcore extends JavaPlugin {
 
-    private static InventoryManager invetoryManager;
     private static PlayerfileManager playerfileManager;
     private static Cleaner cleaner;
     private static MultiverseCore multiverseCore;
     private static TabAPI tabAPI;
     private static NuVotifierBukkit nuVotifier;
     private static LuckPerms luckPerms;
-    private static Hologramas hologramas;
     private static CombatlogListener combatlogListener;
     private static DuelManager duelManager;
     private static CommandDuel commandDuel;
@@ -54,10 +53,13 @@ public class xBxTcore extends JavaPlugin {
     private static AutoFillsBox autoFillsBox;
     private static InventoryMenu inventoryMenu;
     private static HologramasBoxPvp hologramasBoxPvp;
-    public static PlayerDataGLobal playerDataGLobal;
     private static ZoneSafeBoxPvp zoneSafeBoxPvp;
     private static Utils tools;
     private static ItemManage itemManage;
+    public static Hologramas hologramas;
+    public static PlayerDataGLobal playerDataGLobal;
+    public static InventoryManager invetoryManager;
+
 
     public static String bedrockPrefix = ".";
 
@@ -176,6 +178,7 @@ public class xBxTcore extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new RewardsListener(),this);
         getServer().getPluginManager().registerEvents(new MessageDiedListener(), this);
         getServer().getPluginManager().registerEvents(new ShulkerBoxInventoryListener(), this);
+        getServer().getPluginManager().registerEvents(new ArmorBonusListener(this), this);
         getServer().getPluginManager().registerEvents(combatlogListener = new CombatlogListener(this),this);
     }
 
@@ -193,9 +196,9 @@ public class xBxTcore extends JavaPlugin {
         playerfileManager = new PlayerfileManager(this);
         duelManager = new DuelManager(this);
         messageManager = new MessageManager();
-        inventoryMenu = new InventoryMenu(this);
-        invetoryManager = new InventoryManager(this);
-        hologramas = new Hologramas(this);
+        inventoryMenu = new InventoryMenu();
+        //invetoryManager = new InventoryManager(this);
+        //hologramas = new Hologramas(this);
         hologramasBoxPvp = new HologramasBoxPvp(this);
         autoFillsBox = new AutoFillsBox(this);
         itemManage = new ItemManage(this);

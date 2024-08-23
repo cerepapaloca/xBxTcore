@@ -15,7 +15,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import static Plugin.Managers.MessageManager.Colorinfo;
 import static Plugin.Utils.ColorUtils.colorLeatherArmor;
@@ -33,19 +32,35 @@ public class ItemManage {
     public static ArrayList<ItemStack> leggings = new ArrayList<>();
     public static ArrayList<ItemStack> boots = new ArrayList<>();
 
+    public static ArrayList<ItemStack> moneyNormal = new ArrayList<>();
+    public static ArrayList<ItemStack> moneyCompact = new ArrayList<>();
+
 
 
     public ItemManage(xBxTcore plugin) {
         this.plugin = plugin;
         ArrayList<String> lore = new ArrayList<>();
-        lore.add(ChatColor.translateAlternateColorCodes('&',Colorinfo + "Sirve para tradear con los aldeanos"));
+        lore.add(ChatColor.translateAlternateColorCodes('&',Colorinfo + "Revisa la wiki para saber su función en tu idioma"));
         coinNormal.add(newItemBoxPVP(Material.SLIME_BALL,"<#5E7C16>Moneda Inicial<#80C71F>", lore, 0,true));
         coinCompact.add(newItemBoxPVP(Material.SLIME_BLOCK,"<#5E7C16>Moneda Inicial Compacta<#80C71F>", lore, 0,true));
 
-        helmets.add(newItemBoxPVP(Material.LEATHER_HELMET ,"<#5E7C16>Casco Inicial Compacta<#80C71F>", lore, 0,"5E7C16"));
-        elytras.add(newItemBoxPVP(Material.ELYTRA ,"<#5E7C16>Elytra Inicial Compacta<#80C71F>", lore, 0, true));
-        leggings.add(newItemBoxPVP(Material.LEATHER_HELMET ,"<#5E7C16>Pantalones Inicial Compacta<#80C71F>", lore, 0,"5E7C16"));
-        boots.add(newItemBoxPVP(Material.LEATHER_HELMET ,"<#5E7C16>Botas Inicial Compacta<#80C71F>", lore, 0,"5E7C16"));
+        helmets.add(newItemBoxPVP(Material.LEATHER_HELMET ,"<#5E7C16>Casco Inicial<#80C71F>", lore, 0,"5E7C16"));
+        elytras.add(newItemBoxPVP(Material.ELYTRA ,"<#5E7C16>Elytra Inicial<#80C71F>", lore, 0, true));
+        leggings.add(newItemBoxPVP(Material.LEATHER_LEGGINGS ,"<#5E7C16>Pantalones Inicial<#80C71F>", lore, 0,"5E7C16"));
+        boots.add(newItemBoxPVP(Material.LEATHER_BOOTS ,"<#5E7C16>Botas Inicial<#80C71F>", lore, 0,"5E7C16"));
+
+        moneyNormal.add(newItemBoxPVP(Material.COPPER_INGOT ,"<#D07131>Moneda de Cobre<#e6a87e>", lore, 0,true));
+        moneyNormal.add(newItemBoxPVP(Material.IRON_INGOT ,"<#e3e3e3>Moneda de Hierro<#8f8f8f>", lore, 0,true));
+        moneyNormal.add(newItemBoxPVP(Material.GOLD_INGOT ,"<#d9aa02>Moneda de Oro<#ffd952>", lore, 0,true));
+        moneyNormal.add(newItemBoxPVP(Material.EMERALD ,"<#24ff24>Moneda de Esmeralda<#a8ffa8>", lore, 0,true));
+        moneyNormal.add(newItemBoxPVP(Material.PEARLESCENT_FROGLIGHT ,"<#ff38f8>Moneda de Especial<#ffa1fc>", lore, 0,true));
+
+        moneyCompact.add(newItemBoxPVP(Material.COPPER_BLOCK ,"<#D07131>Moneda Compacta de Cobre<#e6a87e>", lore, 0,true));
+        moneyCompact.add(newItemBoxPVP(Material.IRON_BLOCK ,"<#e3e3e3>Moneda Compacta de Hierro<#8f8f8f>", lore, 0,true));
+        moneyCompact.add(newItemBoxPVP(Material.GOLD_BLOCK ,"<#d9aa02>Moneda Compacta de Oro<#ffd952>", lore, 0,true));
+        moneyCompact.add(newItemBoxPVP(Material.EMERALD_BLOCK ,"<#24ff24>Moneda Compacta de Esmeralda<#a8ffa8>", lore, 0,true));
+        moneyCompact.add(newItemBoxPVP(Material.PEARLESCENT_FROGLIGHT ,"<#ff38f8>Moneda Compacta de Especial<#ffa1fc>", lore, 0,true));
+
 
         /////////
         int i = 0;
@@ -64,20 +79,20 @@ public class ItemManage {
 
     public void AddItemMine(Player player, Material material){
         switch(material){
-            case PEARLESCENT_FROGLIGHT -> additem(player, new ItemStack(Material.PEARLESCENT_FROGLIGHT));
             //////
-            case DEEPSLATE_COPPER_ORE -> additem(player, new ItemStack(Material.DEEPSLATE_COPPER_ORE));
-            case COPPER_BLOCK -> additem(player, new ItemStack(Material.COPPER_BLOCK));
+            case DEEPSLATE_COPPER_ORE -> additem(player, moneyNormal.get(0));
+            case COPPER_BLOCK -> additem(player, moneyCompact.get(0));
             //////
-            case DEEPSLATE_IRON_ORE -> additem(player, new ItemStack(Material.DEEPSLATE_IRON_ORE));
-            case IRON_BLOCK -> additem(player, new ItemStack(Material.IRON_BLOCK));
+            case DEEPSLATE_IRON_ORE -> additem(player, moneyNormal.get(1));
+            case IRON_BLOCK -> additem(player, moneyCompact.get(1));
             //////
-            case DEEPSLATE_GOLD_ORE -> additem(player, new ItemStack(Material.DEEPSLATE_GOLD_ORE));
-            case GOLD_BLOCK -> additem(player, new ItemStack(Material.GOLD_BLOCK));
+            case DEEPSLATE_GOLD_ORE -> additem(player, moneyNormal.get(2));
+            case GOLD_BLOCK -> additem(player, moneyCompact.get(2));
             //////
-            case DEEPSLATE_EMERALD_ORE -> additem(player, new ItemStack(Material.DEEPSLATE_EMERALD_ORE));
-            case EMERALD_BLOCK -> additem(player, new ItemStack(Material.EMERALD_BLOCK));
+            case DEEPSLATE_EMERALD_ORE -> additem(player, moneyNormal.get(3));
+            case EMERALD_BLOCK -> additem(player, moneyCompact.get(3));
             //////
+            case PEARLESCENT_FROGLIGHT -> additem(player, moneyNormal.get(4));
             //////
             //////
             case SLIME_BLOCK -> additem(player, coinNormal.get(0));

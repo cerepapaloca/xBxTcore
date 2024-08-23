@@ -1,9 +1,10 @@
 package Plugin.Model;
 
-import Plugin.Utils.ColorUtils;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
+
+import java.util.ArrayList;
 
 public class MinaBoxPvp {
 
@@ -16,6 +17,7 @@ public class MinaBoxPvp {
     private ArmorStand armorStand;
     private Boolean isSafeZone;
     private int TimeLeft;
+    private ArrayList<String> hexColor = new ArrayList<>();
 
     public MinaBoxPvp(String name, Material material, int timeReset, Location locationA, Location locationB, Location locationTimis, Boolean isSafeZone) {
         this.name = name;
@@ -63,8 +65,8 @@ public class MinaBoxPvp {
         return TimeLeft;
     }
 
-    public String getHexColor() {
-        return ColorUtils.blockToHex(material);
+    public ArrayList<String> getHexColor() {
+        return hexColor;
     }
 
     public Boolean isSafeZone() {

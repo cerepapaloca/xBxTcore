@@ -3,6 +3,7 @@ package Plugin.Environments;
 import Plugin.Managers.PlayerfileManager;
 import Plugin.Model.MinaBoxPvp;
 import Plugin.Model.Player.PlayerDataGLobal;
+import Plugin.Utils.ColorUtils;
 import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
@@ -13,7 +14,9 @@ import org.bukkit.entity.*;
 
 import java.util.*;
 
+import static Plugin.Managers.MessageManager.Colorinfo;
 import static Plugin.Managers.MessageManager.Colorplayer;
+import static Plugin.Utils.ColorUtils.applyGradient;
 
 
 public class Hologramas{
@@ -24,19 +27,21 @@ public class Hologramas{
     private ArrayList<ArmorStand> armorStandsTimes;
     private final PlayerDataGLobal playerDataGLobal;
     private final HashMap<UUID, Long> playerLogoutTimes = new HashMap<>();
-    private final xBxTcore plugin;
+    protected static xBxTcore plugin;
 
     public Hologramas(xBxTcore plugin)  {
         this.armorStandsKills = new ArrayList<>();
         this.armorStandsUser = new ArrayList<>();
         this.playerDataGLobal = xBxTcore.getPlayerDataGlobal();
-        this.plugin = plugin;
+        Hologramas.plugin = plugin;
         textholograms = new ArrayList<>();
         removeArmorStands();
         Bukkit.getScheduler().runTaskTimer(plugin, this::updateHologramkills, 100L, 100L);
+        xBxTcore.hologramas = this;
     }
 
     public void removeArmorStands() {
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "/minecraft:kill @e[type=minecraft:armor_stand] ");
         Objects.requireNonNull(Bukkit.getWorld("lobby")).getEntities().stream().filter(entity -> entity instanceof ArmorStand).forEach(Entity::remove);
         Objects.requireNonNull(Bukkit.getWorld("creatorkits")).getEntities().stream().filter(entity -> entity instanceof ArmorStand).forEach(Entity::remove);
         Objects.requireNonNull(Bukkit.getWorld("boxpvp")).getEntities().stream().filter(entity -> entity instanceof ArmorStand).forEach(Entity::remove);
@@ -96,7 +101,7 @@ public class Hologramas{
 
     public void createTimesBoard(Location location) {
         ArmorStand armorStand = (ArmorStand) Objects.requireNonNull(location.getWorld()).spawnEntity(location, EntityType.ARMOR_STAND);
-        armorStand.setCustomName(ChatColor.translateAlternateColorCodes('&', "&b<--&c&lTiempos&r&b-->"));
+        armorStand.setCustomName(ChatColor.translateAlternateColorCodes('&', Colorinfo + "<---" + Colorplayer + "Tiempos" + Colorinfo + "--->"));
         armorStand.setCustomNameVisible(true);
         armorStand.setInvisible(true);
         armorStand.setGravity(false);
@@ -201,7 +206,9 @@ public class Hologramas{
         int i = 0;
         for (ArmorStand armorStand : armorStandsTimes){
             MinaBoxPvp mina = xBxTcore.getAutoFillsBox().minas.get(i);
-            armorStand.setCustomName(ChatColor.translateAlternateColorCodes('&',mina.getName() + Utils.SecondToMinutes(mina.getTimeLeft())));
+            armorStand.setCustomName(applyGradient("<#" + ColorUtils.blockToHex(mina.getMaterial()) + ">" + mina.getName() + "<#" +
+                    ColorUtils.modifyColorHexWithHLS(ColorUtils.blockToHex(mina.getMaterial()), 0.1f, 0.3f, -0.3f) +
+                    "> ") + ChatColor.translateAlternateColorCodes('&', " " + Colorplayer + Utils.SecondToMinutes(mina.getTimeLeft())));
             i++;
         }
     }

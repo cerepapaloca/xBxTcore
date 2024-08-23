@@ -3,11 +3,9 @@ package Plugin.Environments;
 import Plugin.Model.MinaBoxPvp;
 import Plugin.xBxTcore;
 import org.bukkit.*;
-import org.bukkit.block.data.type.Switch;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class AutoFillsBox {
 
@@ -86,27 +84,46 @@ public class AutoFillsBox {
         minas.add(createMinaBoxPvp("Blanco", Material.WHITE_GLAZED_TERRACOTTA, location1, location2, 10, false));
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        MinaBoxPvp minaBoxPvp;
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        location1 = new Location(Bukkit.getWorld("boxpvp"), 60, 122, 3);
+        location2 = new Location(Bukkit.getWorld("boxpvp"), 52, 126, -5);
+        minas.add(new MinaBoxPvp("Mina Inicial",Material.SLIME_BLOCK,10, location1, location2, new Location(Bukkit.getWorld("boxpvp"),48, 123, -0.5), false));
+
         location1 = new Location(Bukkit.getWorld("boxpvp"), 5, 35, -52);
         location2 = new Location(Bukkit.getWorld("boxpvp"), -6, 39, -63);
-        minas.add(new MinaBoxPvp("Dinero 1",Material.COPPER_BLOCK,10, location1, location2, new Location(Bukkit.getWorld("boxpvp"),0,41, -58), false));
+        minaBoxPvp = new MinaBoxPvp("Mina de Cobre",Material.COPPER_BLOCK,10, location1, location2, new Location(Bukkit.getWorld("boxpvp"),0,41, -58), false);
+        minaBoxPvp.getHexColor().add(0, "D07131");
+        minaBoxPvp.getHexColor().add(1, "e6a87e");
+        minas.add(minaBoxPvp);
         location1 = new Location(Bukkit.getWorld("boxpvp"), 52, 35, 5);
         location2 = new Location(Bukkit.getWorld("boxpvp"), 63, 39, -6);
-        minas.add(new MinaBoxPvp("Dinero 1",Material.IRON_BLOCK,10, location1, location2, new Location(Bukkit.getWorld("boxpvp"),58, 41, 0), false));
+        minaBoxPvp = new MinaBoxPvp("Mina de Hierro",Material.IRON_BLOCK,10, location1, location2, new Location(Bukkit.getWorld("boxpvp"),58, 41, 0), false);
+        minaBoxPvp.getHexColor().add(0, "e3e3e3");
+        minaBoxPvp.getHexColor().add(1, "8f8f8f");
+        minas.add(minaBoxPvp);
         location1 = new Location(Bukkit.getWorld("boxpvp"), -6, 35, 52);
         location2 = new Location(Bukkit.getWorld("boxpvp"), 5, 39, 63);
-        minas.add(new MinaBoxPvp("Dinero 1",Material.GOLD_BLOCK,10, location1, location2, new Location(Bukkit.getWorld("boxpvp"),0, 41, 58), false));
+        minaBoxPvp = new MinaBoxPvp("12345678901234567890",Material.GOLD_BLOCK,10, location1, location2, new Location(Bukkit.getWorld("boxpvp"),0, 41, 58), false);
+        minaBoxPvp.getHexColor().add(0,"d9aa02");
+        minaBoxPvp.getHexColor().add(1 ,"ffd952");
+        minas.add(minaBoxPvp);
         location1 = new Location(Bukkit.getWorld("boxpvp"), -52, 35, -6);
         location2 = new Location(Bukkit.getWorld("boxpvp"), -63, 39, 5);
-        minas.add(new MinaBoxPvp("Dinero 1",Material.EMERALD_BLOCK,10, location1, location2, new Location(Bukkit.getWorld("boxpvp"),-58, 41, 0), false));
+        minaBoxPvp = new MinaBoxPvp("Mina deEsmeraldas",Material.EMERALD_BLOCK,10, location1, location2, new Location(Bukkit.getWorld("boxpvp"),-58, 41, 0), false);
+        minaBoxPvp.getHexColor().add(0,"24ff24");
+        minaBoxPvp.getHexColor().add(1,"a8ffa8");
+        minas.add(minaBoxPvp);
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         location1 = new Location(Bukkit.getWorld("boxpvp"), -3, 36, -3);
         location2 = new Location(Bukkit.getWorld("boxpvp"), 2, 39, 2);
-        minas.add(new MinaBoxPvp("Bloque magico",Material.PEARLESCENT_FROGLIGHT,10, location1, location2, new Location(Bukkit.getWorld("boxpvp"),0, 42, 0), false));
-        location1 = new Location(Bukkit.getWorld("boxpvp"), 60, 122, 3);
-        location2 = new Location(Bukkit.getWorld("boxpvp"), 52, 126, -5);
-        minas.add(new MinaBoxPvp("Mina inicial",Material.SLIME_BLOCK,10, location1, location2, new Location(Bukkit.getWorld("boxpvp"),48, 123, -0.5), false));
-        for (MinaBoxPvp minaBoxPvp : minas){
-            xBxTcore.getHologramasBoxPvp().createTimesMina(minaBoxPvp);
+        minaBoxPvp = new MinaBoxPvp("Mina de Especial",Material.PEARLESCENT_FROGLIGHT,10, location1, location2, new Location(Bukkit.getWorld("boxpvp"),0, 42, 0), false);
+        minaBoxPvp.getHexColor().add(0,"ff38f8");
+        minaBoxPvp.getHexColor().add(1, "ffa1fc");
+        minas.add(minaBoxPvp);
+        for (MinaBoxPvp minaboxPvp : minas){
+            xBxTcore.getHologramasBoxPvp().createTimesMina(minaboxPvp);
         }
         new BukkitRunnable() {
             public void run() {

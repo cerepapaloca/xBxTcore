@@ -137,8 +137,15 @@ public class Utils {
     public static String SecondToMinutes(int time){
         int minutes = time/60;
         int seconds = time%60;
+
+        String timeString = "";
+
+        if (minutes < 10){
+            timeString = "0" + minutes;
+        }
+
         if (seconds < 10){
-            return minutes + ":0" + seconds;
+            return timeString + ":0" + seconds;
         }else{
             return minutes + ":" + seconds;
         }
