@@ -62,6 +62,8 @@ public class xBxTcore extends JavaPlugin {
     public static PlayerDataGLobal playerDataGLobal;
     public static InventoryManager invetoryManager;
 
+    public static final String worldBoxPvp = "boxpvp";
+
 
     public static String bedrockPrefix = ".";
 

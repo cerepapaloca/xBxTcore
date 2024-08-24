@@ -11,6 +11,8 @@ import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import static Plugin.xBxTcore.worldBoxPvp;
+
 public class ItemBonusListener implements Listener {
 
     private final xBxTcore plugin;
@@ -23,7 +25,7 @@ public class ItemBonusListener implements Listener {
     public void damage(EntityDamageByEntityEvent event) {
         if(event.getEntity() instanceof Player attacked && event.getDamager() instanceof Player attacker){
 
-            if (!attacked.getWorld().getName().equals("Boxpvp")){
+            if (!attacked.getWorld().getName().equals(worldBoxPvp)){
                 return;
             }
 

@@ -30,7 +30,7 @@ public class PlayerfileManager {
     public String namekitfavorite;
     public static PlayersFiles playesfiles;
     public HashMap<UUID, String> listPrefix;
-    public static ArrayList<String> namesPlayres;
+    public ArrayList<String> namesPlayres;
 
     public long daily;
     public long weekly;

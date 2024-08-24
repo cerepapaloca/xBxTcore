@@ -1,6 +1,7 @@
 package Plugin.Listeners;
 
 import Plugin.Managers.PlayerfileManager;
+import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
@@ -28,7 +29,7 @@ public class AntiBotListener implements Listener {
     @EventHandler
     public void PlayerPreLoginEvent(AsyncPlayerPreLoginEvent event) {
 
-        if (PlayerfileManager.namesPlayres.contains(event.getName())) {
+        if (xBxTcore.getPlayerFileManager().namesPlayres.contains(event.getName())) {
             if (!listAntiBot.containsKey(event.getName())) {
                 return;
             }

@@ -47,6 +47,7 @@ public class CommandItemBoxpvp implements CommandExecutor {
                             addItems(ItemManage.sword);
                             addItems(ItemManage.pickaxe);
                             addItems(ItemManage.especialItems);
+                            addItems(ItemManage.moneyPrincipal);
                         }
                         case "coins" -> {
                             addItems(ItemManage.coinNormal);
@@ -60,9 +61,11 @@ public class CommandItemBoxpvp implements CommandExecutor {
                         case "boots" -> addItems(ItemManage.boots);
                         case "sword" -> addItems(ItemManage.sword);
                         case "pickaxe" -> addItems(ItemManage.pickaxe);
+                        case "money_principal" -> addItems(ItemManage.moneyPrincipal);
                         case "moneys" -> {
                             addItems(ItemManage.moneyCompact);
                             addItems(ItemManage.moneyNormal);
+                            addItems(ItemManage.moneyPrincipal);
                         }
                         case "especial_items" -> addItems(ItemManage.especialItems);
                         case "money_normal" -> addItems(ItemManage.moneyNormal);

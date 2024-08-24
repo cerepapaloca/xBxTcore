@@ -80,6 +80,10 @@ public enum Messages {
     NotCombatWorld,
     NotFoundWorld,
     SpectatorSuccess,
+    //Recompensas
+    Daily,
+    Weekly,
+    Monthly,
     //Invetarios
     InvGlobal,
     InvCustom,

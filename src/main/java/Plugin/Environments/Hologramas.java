@@ -203,11 +203,15 @@ public class Hologramas{
 
     public void updateHologramTimes(){
         int i = 0;
+        String nombre;
         for (ArmorStand armorStand : armorStandsTimes){
             MinaBoxPvp mina = xBxTcore.getAutoFillsBox().minas.get(i);
-            armorStand.setCustomName(applyGradient("<#" + ColorUtils.blockToHex(mina.getMaterial()) + ">" + mina.getName() + "<#" +
+            nombre = applyGradient("<#" + ColorUtils.blockToHex(mina.getMaterial()) + ">" + Utils.arabicToRoman(i + 1) + " " + mina.getName() + "<#" +
                     ColorUtils.modifyColorHexWithHLS(ColorUtils.blockToHex(mina.getMaterial()), 0.1f, 0.3f, -0.3f) +
-                    "> ") + ChatColor.translateAlternateColorCodes('&', " " + Colorplayer + Utils.SecondToMinutes(mina.getTimeLeft())));
+                    ">");
+
+            armorStand.setCustomName(ChatColor.translateAlternateColorCodes('&', "&l" + nombre + " " +
+                    Colorplayer + Utils.SecondToMinutes(mina.getTimeLeft())));
             i++;
         }
     }

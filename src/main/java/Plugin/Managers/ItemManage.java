@@ -38,6 +38,8 @@ public class ItemManage {
     public static ArrayList<ItemStack> moneyNormal = new ArrayList<>();
     public static ArrayList<ItemStack> moneyCompact = new ArrayList<>();
 
+    public static ArrayList<ItemStack> moneyPrincipal = new ArrayList<>();
+
     public static ArrayList<ItemStack> especialItems = new ArrayList<>();
 
     public ItemManage(xBxTcore plugin) {
@@ -63,6 +65,10 @@ public class ItemManage {
         moneyCompact.add(newItemBoxPVP(Material.GOLD_BLOCK ,"<#d9aa02>Moneda Compacta de Oro<#ffd952>", lore, 0,true));
         moneyCompact.add(newItemBoxPVP(Material.EMERALD_BLOCK ,"<#24ff24>Moneda Compacta de Esmeralda<#a8ffa8>", lore, 0,true));
         moneyCompact.add(newItemBoxPVP(Material.PEARLESCENT_FROGLIGHT ,"<#ff38f8>Moneda Compacta de Especial<#ffa1fc>", lore, 0,true));
+
+        moneyPrincipal.add(newItemBoxPVP(Material.AMETHYST_SHARD ,"<##d5a2fa>Fragmento Moneda Principal<#9f5ad1>", lore, 0,true));
+        moneyPrincipal.add(newItemBoxPVP(Material.AMETHYST_CLUSTER ,"<##d5a2fa>Moneda Principal<#9f5ad1>", lore, 0,true));
+        moneyPrincipal.add(newItemBoxPVP(Material.AMETHYST_BLOCK ,"<##d5a2fa>Moneda Principal Compacta<#9f5ad1>", lore, 0,true));
 
         especialItems.add(newItemBoxPVP(Material.FERMENTED_SPIDER_EYE ,"<#ff38f8>Bonificado de daño<#ffa1fc>", lore, "DañoBonus",true));
         especialItems.add(newItemBoxPVP(Material.CHARCOAL ,"<#ff38f8>Efecto de wither<#ffa1fc>", lore, "DañoPorWither",true));
@@ -163,6 +169,9 @@ public class ItemManage {
         meta.getPersistentDataContainer().set(new NamespacedKey(plugin, "tier"), PersistentDataType.INTEGER, tier);
         if (enchant){
             meta.addEnchant(Enchantment.LUCK, 1, true);
+            if (item.getType() == Material.NETHERITE_PICKAXE){
+                meta.addEnchant(Enchantment.DIG_SPEED, 6, true);
+            }
         }
         item.setItemMeta(meta);
         return item;

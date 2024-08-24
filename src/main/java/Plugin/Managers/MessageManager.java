@@ -117,6 +117,10 @@ public class MessageManager {
        enMessages.put("NotCombatWorld",prefix + ColorError + "There is no combat in that world");
        enMessages.put("NotFoundWorld",prefix + ColorError + "The world does not exist");
        enMessages.put("SpectatorSuccess",Colorinfo + "To be in survival game mode use: ");
+        //Recompensa
+       enMessages.put("Daily", Coloritem + "Daily reward");
+       enMessages.put("Weekly", Coloritem + "Weekly Reward");
+       enMessages.put("Monthly", Coloritem + "Monthly Reward");
        //Invetarios
        enMessages.put("InvGlobal","&a&lGlobal Kits");
        enMessages.put("InvCustom","&e&lCustom Kits");
@@ -256,6 +260,10 @@ public class MessageManager {
         esMessages.put("NotCombatWorld",prefix + ColorError + "No hay combate en ese mundo");
         esMessages.put("NotFoundWorld",prefix + ColorError + "El mundo no existe");
         esMessages.put("SpectatorSuccess",Colorinfo + "Para estar en el modo de juego de supervivencia, usa: ");
+        //Recompensa
+        esMessages.put("Daily", Coloritem + "Recompensa Diaria");
+        esMessages.put("Weekly", Coloritem + "Recompensa Semanal");
+        esMessages.put("Monthly", Coloritem + "Recompensa Mensual");
         //Invetarios
         esMessages.put("InvGlobal","&a&lKits Globales");
         esMessages.put("InvCustom","&e&lKits Personalizado");

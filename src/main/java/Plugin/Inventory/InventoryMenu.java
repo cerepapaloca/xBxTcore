@@ -406,23 +406,23 @@ public class InventoryMenu extends InventoryManager {
                 xBxTcore.getPlayerFileManager().loadTimesRewords(invetoryPlayer.getPlayer().getUniqueId());
                 lore.add(Utils.SecondToMinutes(getPlayerFileManager().daily - System.currentTimeMillis()));
                 if (getPlayerFileManager().daily <= System.currentTimeMillis()){
-                    Utils.NewitemInvetory(Messages.H1menos, Material.CHEST_MINECART, 20, inv, player);
+                    Utils.NewitemInvetory(Messages.Daily, Material.CHEST_MINECART, 20, inv, player);
                 }else{
-                    Utils.NewitemInvetory(Messages.H1menos, Material.MINECART, 20, inv, player, lore);
+                    Utils.NewitemInvetory(Messages.Daily, Material.MINECART, 20, inv, player, lore);
                 }
                 lore.clear();
                 lore.add(Utils.SecondToMinutes(getPlayerFileManager().weekly - System.currentTimeMillis()));
                 if (getPlayerFileManager().weekly <= System.currentTimeMillis()){
-                    Utils.NewitemInvetory(Messages.H1menos, Material.CHEST_MINECART, 22, inv, player);
+                    Utils.NewitemInvetory(Messages.Weekly, Material.CHEST_MINECART, 22, inv, player);
                 }else{
-                    Utils.NewitemInvetory(Messages.H1menos, Material.MINECART, 22, inv, player, lore);
+                    Utils.NewitemInvetory(Messages.Weekly, Material.MINECART, 22, inv, player, lore);
                 }
                 lore.clear();
                 lore.add(Utils.SecondToMinutes(getPlayerFileManager().monthly - System.currentTimeMillis()));
                 if (getPlayerFileManager().monthly <= System.currentTimeMillis()){
-                    Utils.NewitemInvetory(Messages.H1menos, Material.CHEST_MINECART, 24, inv, player);
+                    Utils.NewitemInvetory(Messages.Monthly, Material.CHEST_MINECART, 24, inv, player);
                 }else{
-                    Utils.NewitemInvetory(Messages.H1menos, Material.MINECART, 24, inv, player, lore);
+                    Utils.NewitemInvetory(Messages.Monthly, Material.MINECART, 24, inv, player, lore);
                 }
                 lore.clear();
             }

@@ -7,7 +7,6 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.Block;
-import org.bukkit.damage.DamageType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -20,10 +19,11 @@ import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.util.List;
+
+import static Plugin.xBxTcore.worldBoxPvp;
 
 public class BlockerListener implements Listener {
     public final static ArrayList<Location> blockLocations = new ArrayList<>();
@@ -121,7 +121,7 @@ public class BlockerListener implements Listener {
 
     @EventHandler
     public void onItemDamage(PlayerItemDamageEvent event) {
-        if (event.getPlayer().getWorld().equals(Bukkit.getWorld("boxpvp"))) {
+        if (event.getPlayer().getWorld().equals(Bukkit.getWorld(worldBoxPvp))) {
             event.setCancelled(true);
         }
     }
@@ -129,7 +129,7 @@ public class BlockerListener implements Listener {
     @EventHandler
     public void BlockPlace(BlockPlaceEvent event) {
         if (!event.getPlayer().isOp() && ejey <= event.getBlock().getLocation().getBlockY() && xBxTcore.getWorldProtec().contains(event.getPlayer().getWorld())) {
-            if (event.getPlayer().getWorld().equals(Bukkit.getWorld("boxpvp")) && (event.getBlock().getType().equals(Material.OBSIDIAN)) || event.getBlock().getType().equals(Material.COBWEB)){
+            if (event.getPlayer().getWorld().equals(Bukkit.getWorld(worldBoxPvp)) && (event.getBlock().getType().equals(Material.OBSIDIAN)) || event.getBlock().getType().equals(Material.COBWEB)){
                 temporalBlock(event.getBlock().getLocation());
                 blockLocations.add(event.getBlock().getLocation());
                 return;
@@ -153,7 +153,7 @@ public class BlockerListener implements Listener {
             Block block = event.getClickedBlock();
             if (null != block){
                 if (materials.contains(block.getType()) && xBxTcore.getWorldProtec().contains(event.getPlayer().getWorld())) {
-                    if (!event.getPlayer().getWorld().equals(Bukkit.getWorld("boxpvp")) && !block.getType().equals(Material.YELLOW_SHULKER_BOX)) {
+                    if (!event.getPlayer().getWorld().equals(Bukkit.getWorld(worldBoxPvp)) && !block.getType().equals(Material.YELLOW_SHULKER_BOX)) {
                         event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessage(event.getPlayer(), Messages.NotAllowed));
                         event.setCancelled(true);
                     }
@@ -201,7 +201,7 @@ public class BlockerListener implements Listener {
             if (ejey + 4 <= event.getEntity().getLocation().getBlockY() && (Bukkit.getWorld("lobby") == event.getEntity().getWorld()) || Bukkit.getWorld("creatorkits") == event.getEntity().getWorld()) {
                 event.setCancelled(true);
                 return;
-            }else if (Bukkit.getWorld("boxpvp") == event.getEntity().getWorld()){
+            }else if (Bukkit.getWorld(worldBoxPvp) == event.getEntity().getWorld()){
                 event.setCancelled(xBxTcore.getZoneSafeBoxPvp().isSafeZone(event.getEntity().getLocation()));
             }
             if (event.getCause() == EntityDamageEvent.DamageCause.FALL && event.getDamage() > 30)  {
