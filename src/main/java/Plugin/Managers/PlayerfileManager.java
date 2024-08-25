@@ -54,7 +54,7 @@ public class PlayerfileManager {
     public void loadKit(UUID uuid, String namekit, Inventory inv, Player player) {
         int i = 0;
         if(!Objects.requireNonNull(getfile(uuid).getPlayerDataFile().getConfigurationSection("Kits")).getKeys(false).contains(namekit)){
-           player.sendMessage(xBxTcore.getMessageManager().MasterMessage(player,Messages.KitNotExist));
+           player.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(player,Messages.KitNotExist));
            return;
         }
         List<?> rawList = getfile(uuid).getPlayerDataFile().getList("Kits." + namekit + ".inventory", null);
@@ -66,13 +66,13 @@ public class PlayerfileManager {
                 }else if (obj instanceof ItemStack) {
                     itemStacks.add((ItemStack) obj);
                 } else {
-                    Objects.requireNonNull(player.getPlayer()).sendMessage(xBxTcore.getMessageManager().MasterMessage(player, Messages.LoadWaring).replace("%item%", String.valueOf(obj)));
+                    Objects.requireNonNull(player.getPlayer()).sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(player, Messages.LoadWaring).replace("%item%", String.valueOf(obj)));
                     Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorWarning + "El Kit&r " + namekit
                             + ColorWarning + " contiene un objeto no válido: " + obj));
                 }
             }
         }else{
-            Objects.requireNonNull(player.getPlayer()).sendMessage(xBxTcore.getMessageManager().MasterMessage(player, Messages.LoadError).replace("%namekit%", ChatColor.translateAlternateColorCodes('&', namekit)));
+            Objects.requireNonNull(player.getPlayer()).sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(player, Messages.LoadError).replace("%namekit%", ChatColor.translateAlternateColorCodes('&', namekit)));
         }
         if (inv != null){
             for(ItemStack item : itemStacks) {
@@ -105,14 +105,14 @@ public class PlayerfileManager {
             ItemStack Exit = new ItemStack(Material.BARRIER);
             ItemMeta exitItemMeta = Exit.getItemMeta();
             assert exitItemMeta != null;
-            exitItemMeta.setDisplayName(xBxTcore.getMessageManager().MasterMessage(player, Messages.InvExit));
+            exitItemMeta.setDisplayName(xBxTcore.getMessageManager().MasterMessageLocated(player, Messages.InvExit));
             Exit.setItemMeta(exitItemMeta);
             inv.setItem(53,Exit);
             ///////////////////////////////////////////////////////
             List<String> lore = new ArrayList<>();
             ItemStack selec = new ItemStack(Material.BLAZE_POWDER);
             ItemMeta selecitemmeta = Exit.getItemMeta();
-            selecitemmeta.setDisplayName(xBxTcore.getMessageManager().MasterMessage(player, Messages.InvLoad));
+            selecitemmeta.setDisplayName(xBxTcore.getMessageManager().MasterMessageLocated(player, Messages.InvLoad));
             lore.add(ChatColor.translateAlternateColorCodes('&', namekit));
             selecitemmeta.setLore(lore);
             selecitemmeta.getPersistentDataContainer().set(new NamespacedKey(plugin, "kitName"), PersistentDataType.STRING, namekit);
@@ -129,7 +129,7 @@ public class PlayerfileManager {
             }
             Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorSuccess + "El Kit&r " + namekit
                     + "&r" + ColorSuccess + " Fue Cargado Corretamente Del jugador " + Colorplayer + player.getName()));
-            Objects.requireNonNull(player.getPlayer()).sendMessage(xBxTcore.getMessageManager().MasterMessage(player, Messages.Load).replace("%namekit%", ChatColor.translateAlternateColorCodes('&', namekit)));
+            Objects.requireNonNull(player.getPlayer()).sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(player, Messages.Load).replace("%namekit%", ChatColor.translateAlternateColorCodes('&', namekit)));
         }
         namekitfavorite = null;
     }
@@ -165,9 +165,9 @@ public class PlayerfileManager {
                 xBxTcore.getPlayerFileManager().loadKit(UUID.fromString("00000000-0000-0000-0000-000000000000"), target, null, player);
                 return;
             }
-            player.sendMessage(xBxTcore.getMessageManager().MasterMessage(player,Messages.KitNotExist));
+            player.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(player,Messages.KitNotExist));
         }else{
-            player.sendMessage(xBxTcore.getMessageManager().MasterMessage(player,Messages.KitNotExist));
+            player.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(player,Messages.KitNotExist));
         }
     }
 
@@ -211,7 +211,7 @@ public class PlayerfileManager {
                 }
             }
         }else{
-            Objects.requireNonNull(player.getPlayer()).sendMessage(xBxTcore.getMessageManager().MasterMessage(player, Messages.LoadError));
+            Objects.requireNonNull(player.getPlayer()).sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(player, Messages.LoadError));
         }
         int i = 0;
         for(ItemStack item : itemStacks) {
@@ -243,7 +243,7 @@ public class PlayerfileManager {
         if(uuid.equals(UUID.fromString("00000000-0000-0000-0000-000000000000"))){
             return;
         }
-        Objects.requireNonNull(Bukkit.getPlayer(uuid)).sendMessage(xBxTcore.getMessageManager().MasterMessage(Objects.requireNonNull(Bukkit.getPlayer(uuid))
+        Objects.requireNonNull(Bukkit.getPlayer(uuid)).sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(Objects.requireNonNull(Bukkit.getPlayer(uuid))
                 ,Messages.Save).replace("%namekit%", ChatColor.translateAlternateColorCodes('&', namekit)));
         itemstacks.clear();
     }
@@ -264,9 +264,9 @@ public class PlayerfileManager {
         getPlayerFileManager().reloadCustomConfig(uuid);
         loadNameKitfavorite(uuid);
         if(nameskitsboth.contains(namekitfavorite)){
-            Objects.requireNonNull(Bukkit.getPlayer(uuid)).sendMessage(getMessageManager().MasterMessage(Objects.requireNonNull(Bukkit.getPlayer(uuid)),Messages.Favorite));
+            Objects.requireNonNull(Bukkit.getPlayer(uuid)).sendMessage(getMessageManager().MasterMessageLocated(Objects.requireNonNull(Bukkit.getPlayer(uuid)),Messages.Favorite));
         }else{
-            Objects.requireNonNull(Bukkit.getPlayer(uuid)).sendMessage(getMessageManager().MasterMessage(Objects.requireNonNull(Bukkit.getPlayer(uuid)),Messages.FavoriteWaring));
+            Objects.requireNonNull(Bukkit.getPlayer(uuid)).sendMessage(getMessageManager().MasterMessageLocated(Objects.requireNonNull(Bukkit.getPlayer(uuid)),Messages.FavoriteWaring));
         }
     }
 
@@ -281,7 +281,7 @@ public class PlayerfileManager {
             getfile(uuid).saveConfig();
             getPlayerFileManager().reloadCustomConfig(uuid);
             loadNamesPlayers();
-            Objects.requireNonNull(Bukkit.getPlayer(uuid)).sendMessage(xBxTcore.getMessageManager().MasterMessage(Objects.requireNonNull(Bukkit.getPlayer(uuid)),Messages.NewPlayer));
+            Objects.requireNonNull(Bukkit.getPlayer(uuid)).sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(Objects.requireNonNull(Bukkit.getPlayer(uuid)),Messages.NewPlayer));
         }
     }
 
@@ -295,7 +295,7 @@ public class PlayerfileManager {
 
     public void DeleteKitConfig(UUID uuid, String namekit){
         if (null == getfile(uuid).getPlayerDataFile().get("Kits." + namekit, null)){
-            Objects.requireNonNull(Bukkit.getPlayer(uuid)).sendMessage(xBxTcore.getMessageManager().MasterMessage(Objects.requireNonNull(Bukkit.getPlayer(uuid)),
+            Objects.requireNonNull(Bukkit.getPlayer(uuid)).sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(Objects.requireNonNull(Bukkit.getPlayer(uuid)),
                     Messages.RemovedWaring));
         }
         getfile(uuid).getPlayerDataFile().set("Kits." + namekit, null);
@@ -306,7 +306,7 @@ public class PlayerfileManager {
         if(uuid.equals(UUID.fromString("00000000-0000-0000-0000-000000000000"))){
             return;
         }
-        Objects.requireNonNull(Bukkit.getPlayer(uuid)).sendMessage(xBxTcore.getMessageManager().MasterMessage(Objects.requireNonNull(Bukkit.getPlayer(uuid)),
+        Objects.requireNonNull(Bukkit.getPlayer(uuid)).sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(Objects.requireNonNull(Bukkit.getPlayer(uuid)),
                 Messages.Removed).replace("%namekit%", ChatColor.translateAlternateColorCodes('&', namekit)));
     }
 

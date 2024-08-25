@@ -4,13 +4,10 @@ import Plugin.Enum.Messages;
 import Plugin.Managers.ItemManage;
 import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
@@ -18,7 +15,6 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.UUID;
 
 public class CommandItemBoxpvp implements CommandExecutor {
 
@@ -44,10 +40,12 @@ public class CommandItemBoxpvp implements CommandExecutor {
                             addItems(ItemManage.boots);
                             addItems(ItemManage.moneyNormal);
                             addItems(ItemManage.moneyCompact);
-                            addItems(ItemManage.sword);
-                            addItems(ItemManage.pickaxe);
+                            addItems(ItemManage.swords);
+                            addItems(ItemManage.pickaxes);
                             addItems(ItemManage.especialItems);
                             addItems(ItemManage.moneyPrincipal);
+                            addItems(ItemManage.shurkerBoxs);
+
                         }
                         case "coins" -> {
                             addItems(ItemManage.coinNormal);
@@ -59,9 +57,10 @@ public class CommandItemBoxpvp implements CommandExecutor {
                         case "elytra" -> addItems(ItemManage.elytras);
                         case "leggings" -> addItems(ItemManage.leggings);
                         case "boots" -> addItems(ItemManage.boots);
-                        case "sword" -> addItems(ItemManage.sword);
-                        case "pickaxe" -> addItems(ItemManage.pickaxe);
+                        case "sword" -> addItems(ItemManage.swords);
+                        case "pickaxe" -> addItems(ItemManage.pickaxes);
                         case "money_principal" -> addItems(ItemManage.moneyPrincipal);
+                        case "kits" -> addItems(ItemManage.shurkerBoxs);
                         case "moneys" -> {
                             addItems(ItemManage.moneyCompact);
                             addItems(ItemManage.moneyNormal);
@@ -102,19 +101,19 @@ public class CommandItemBoxpvp implements CommandExecutor {
                             Utils.additem(p, item);
                         }
                     }
-                    for (ItemStack item : ItemManage.sword){
+                    for (ItemStack item : ItemManage.swords){
                         if (String.valueOf(args[1]).equals(String.valueOf(Objects.requireNonNull(item.getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(plugin, "tier"), PersistentDataType.INTEGER)))){
                             Utils.additem(p, item);
                         }
                     }
-                    for (ItemStack item : ItemManage.pickaxe) {
+                    for (ItemStack item : ItemManage.pickaxes) {
                         if (String.valueOf(args[1]).equals(String.valueOf(Objects.requireNonNull(item.getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(plugin, "tier"), PersistentDataType.INTEGER)))) {
                             Utils.additem(p, item);
                         }
                     }
                 }
             }else {
-                p.sendMessage(xBxTcore.getMessageManager().MasterMessage(p, Messages.NotOp));
+                p.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(p, Messages.NotOp));
             }
         }
 

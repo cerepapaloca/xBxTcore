@@ -17,6 +17,8 @@ import Plugin.Model.Player.PlayerDataGLobal;
 import Plugin.Model.Player.PlayerDataUnique;
 import Plugin.Utils.ColorUtils;
 import Plugin.Utils.Utils;
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.ProtocolManager;
 import com.onarandombox.MultiverseCore.MultiverseCore;
 import com.vexsoftware.votifier.NuVotifierBukkit;
 import me.neznamy.tab.api.TabAPI;
@@ -58,6 +60,8 @@ public class xBxTcore extends JavaPlugin {
     private static Utils tools;
     private static ItemManage itemManage;
     private static ArmorBonusListener armorBonusListener;
+    private static ProtocolManager protocolManager;
+    private static MessageTranslatorManager messageTranslatorManager;
     public static Hologramas hologramas;
     public static PlayerDataGLobal playerDataGLobal;
     public static InventoryManager invetoryManager;
@@ -167,6 +171,7 @@ public class xBxTcore extends JavaPlugin {
         Objects.requireNonNull(getCommand("spectator")).setTabCompleter(new TabCompleterSpectator());
         Objects.requireNonNull(getCommand("debugkit")).setTabCompleter(new TabCompleterDebugKit());
         Objects.requireNonNull(getCommand("itemboxpvp")).setTabCompleter(new TabItemBoxpvp());
+        Objects.requireNonNull(getCommand("addvip")).setTabCompleter(new TabItemBoxpvp());
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////
         Objects.requireNonNull(getCommand("sk")).setTabCompleter(new TabCompleterSaveKit());
         Objects.requireNonNull(getCommand("dk")).setTabCompleter(new TabCompleterDelKit());
@@ -188,6 +193,7 @@ public class xBxTcore extends JavaPlugin {
     }
 
     public void APIs(){
+        protocolManager = ProtocolLibrary.getProtocolManager();
         multiverseCore = (MultiverseCore) Bukkit.getServer().getPluginManager().getPlugin("Multiverse-Core");
         tabAPI = TabAPI.getInstance();
         nuVotifier = (NuVotifierBukkit) Bukkit.getServer().getPluginManager().getPlugin("Votifier");
@@ -198,6 +204,7 @@ public class xBxTcore extends JavaPlugin {
     }
 
     public void ManagersRegister(){
+        messageTranslatorManager = new MessageTranslatorManager(this);
         playerfileManager = new PlayerfileManager(this);
         duelManager = new DuelManager(this);
         messageManager = new MessageManager();
@@ -308,6 +315,10 @@ public class xBxTcore extends JavaPlugin {
 
     public static ItemManage getItemManage(){
         return itemManage;
+    }
+
+    public static ProtocolManager getProtocolManager(){
+        return protocolManager;
     }
 
     BukkitTask task1minute;

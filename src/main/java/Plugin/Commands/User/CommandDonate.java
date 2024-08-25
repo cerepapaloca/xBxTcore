@@ -19,7 +19,7 @@ public class CommandDonate implements CommandExecutor {
     @Override
     public boolean onCommand(@Nullable CommandSender commandSender,@Nullable Command command,@Nullable String s, String[] strings) {
         if(commandSender instanceof Player player){
-            player.sendMessage(xBxTcore.getMessageManager().MasterMessage(player, Messages.Donate));
+            player.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(player, Messages.Donate));
         }else{
             plugin.messageOnlyPlayer();
         }

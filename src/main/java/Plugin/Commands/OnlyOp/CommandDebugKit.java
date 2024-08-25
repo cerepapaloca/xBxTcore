@@ -42,7 +42,7 @@ public class CommandDebugKit implements CommandExecutor {
                     }
                 }
             }else{
-                p.sendMessage(xBxTcore.getMessageManager().MasterMessage(p, Messages.NotOp));
+                p.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(p, Messages.NotOp));
             }
         }
 

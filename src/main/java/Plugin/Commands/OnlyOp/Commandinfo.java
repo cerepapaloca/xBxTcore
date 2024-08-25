@@ -20,7 +20,7 @@ public class Commandinfo implements CommandExecutor {
             if(p.isOp()){
                 plugin.info();
             }else{
-                p.sendMessage(xBxTcore.getMessageManager().MasterMessage(p, Messages.NotOp));
+                p.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(p, Messages.NotOp));
             }
         }else{
             plugin.info();

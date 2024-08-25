@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="xBxTpvp:jar">
-    <output-path>$USER_HOME$/Desktop/Servidores/Server Paper/plugins</output-path>
+    <output-path>$USER_HOME$/Desktop/Servidores/xBxTpvp.xyz/plugins</output-path>
     <root id="archive" name="xBxTpvp.jar">
       <element id="module-output" name="xBxTpvp" />
     </root>

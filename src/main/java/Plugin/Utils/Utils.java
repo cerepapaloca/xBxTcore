@@ -14,6 +14,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.checkerframework.checker.units.qual.Prefix;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,7 +23,6 @@ import java.util.concurrent.TimeUnit;
 
 import static Plugin.Managers.MessageManager.*;
 import static Plugin.Managers.MessageManager.ColorLink;
-import static org.bukkit.Bukkit.createInventory;
 import static org.bukkit.Bukkit.getServer;
 
 public class Utils {
@@ -31,14 +31,14 @@ public class Utils {
 
     public Utils(xBxTcore plugin){
         this.plugin = plugin;
-        Timealone();
+        TimeAlone();
     }
 
-    private void Timealone() {
+    private void TimeAlone() {
         Bukkit.getScheduler().runTaskTimer(plugin, () -> {
             if(getServer().getOnlinePlayers().size() == 1){
                 for (Player p :getServer().getOnlinePlayers()){
-                    p.sendMessage(xBxTcore.getMessageManager().MasterMessage(p, Messages.Alone));
+                    p.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(p, Messages.Alone));
                 }
             }
         }, 2 * 20,40 * 20);
@@ -93,10 +93,10 @@ public class Utils {
     public static void ClickExecuteCommand(String command, Messages messages, Player p) {
         p.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix));
         TextComponent execute = new TextComponent();
-        TextComponent executefinal = new TextComponent(xBxTcore.getMessageManager().MasterMessage(p, messages));
+        TextComponent executefinal = new TextComponent(xBxTcore.getMessageManager().MasterMessageLocated(p, messages));
         execute.setText(ChatColor.translateAlternateColorCodes('&', ColorLink + "/" + command));
         execute.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/" + command));
-        execute.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(xBxTcore.getMessageManager().MasterMessage(p,Messages.HoverExecute)).create()));
+        execute.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(xBxTcore.getMessageManager().MasterMessageLocated(p,Messages.HoverExecute)).create()));
         executefinal.addExtra(execute);
         p.spigot().sendMessage(executefinal);
     }
@@ -105,7 +105,7 @@ public class Utils {
         ItemStack itemStack = new ItemStack(ma);
         ItemMeta itemMeta = itemStack.getItemMeta();
         assert itemMeta != null;
-        itemMeta.setDisplayName(xBxTcore.getMessageManager().MasterMessage(p, m));
+        itemMeta.setDisplayName(xBxTcore.getMessageManager().MasterMessageLocated(p, m));
         itemStack.setItemMeta(itemMeta);
         i.setItem(slot, itemStack);
     }
@@ -119,7 +119,7 @@ public class Utils {
             colorlore.add(ChatColor.translateAlternateColorCodes('&',  s));
         }
         itemMeta.setLore(colorlore);
-        itemMeta.setDisplayName(xBxTcore.getMessageManager().MasterMessage(p, m));
+        itemMeta.setDisplayName(xBxTcore.getMessageManager().MasterMessageLocated(p, m));
         itemStack.setItemMeta(itemMeta);
         i.setItem(slot, itemStack);
     }
@@ -222,7 +222,7 @@ public class Utils {
             nameColor = "GREEN_";
         } else if (nameColor.contains("BROWN")) {
             nameColor = "BROWN_";
-        } else if (nameColor.contains("BLUE")) {
+        } else if (nameColor.contains("LIGHT_BLUE")) {
             nameColor = "BLUE_";
         } else if (nameColor.contains("PURPLE")) {
             nameColor = "PURPLE_";
@@ -238,7 +238,7 @@ public class Utils {
             nameColor = "LIME_";
         } else if (nameColor.contains("YELLOW")) {
             nameColor = "YELLOW_";
-        } else if (nameColor.contains("LIGHT_BLUE")) {
+        } else if (nameColor.contains("BLUE")) {
             nameColor = "LIGHT_BLUE_";
         } else if (nameColor.contains("MAGENTA")) {
             nameColor = "MAGENTA_";
@@ -262,6 +262,9 @@ public class Utils {
             return Material.getMaterial(nameColor + nameTarget);
         } else if (nameTarget.contains("STAINED_GLASS")){
             nameTarget = "STAINED_GLASS";
+            return Material.getMaterial(nameColor + nameTarget);
+        } else if (nameTarget.contains("SHULKER_BOX")){
+            nameTarget = "SHULKER_BOX";
             return Material.getMaterial(nameColor + nameTarget);
         }
 

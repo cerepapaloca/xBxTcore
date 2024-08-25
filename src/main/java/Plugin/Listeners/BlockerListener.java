@@ -115,7 +115,7 @@ public class BlockerListener implements Listener {
                 return;
             }
             event.setCancelled(true);
-            event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessage(event.getPlayer(), Messages.NotAllowed));
+            event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(event.getPlayer(), Messages.NotAllowed));
         }
     }
 
@@ -134,7 +134,7 @@ public class BlockerListener implements Listener {
                 blockLocations.add(event.getBlock().getLocation());
                 return;
             }
-            event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessage(event.getPlayer(), Messages.NotAllowed));
+            event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(event.getPlayer(), Messages.NotAllowed));
             event.setCancelled(true);
         }
     }
@@ -142,7 +142,7 @@ public class BlockerListener implements Listener {
     @EventHandler
     public void PlaceBlockfluit(PlayerBucketEmptyEvent event) {
         if (!event.getPlayer().isOp() && ejey <= event.getBlock().getLocation().getBlockY() && xBxTcore.getWorldProtec().contains(event.getPlayer().getWorld())) {
-            event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessage(event.getPlayer(), Messages.NotAllowed));
+            event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(event.getPlayer(), Messages.NotAllowed));
             event.setCancelled(true);
         }
     }
@@ -154,7 +154,7 @@ public class BlockerListener implements Listener {
             if (null != block){
                 if (materials.contains(block.getType()) && xBxTcore.getWorldProtec().contains(event.getPlayer().getWorld())) {
                     if (!event.getPlayer().getWorld().equals(Bukkit.getWorld(worldBoxPvp)) && !block.getType().equals(Material.YELLOW_SHULKER_BOX)) {
-                        event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessage(event.getPlayer(), Messages.NotAllowed));
+                        event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(event.getPlayer(), Messages.NotAllowed));
                         event.setCancelled(true);
                     }
                 }
@@ -168,7 +168,7 @@ public class BlockerListener implements Listener {
             String command = event.getMessage().split(" ")[0].substring(1).toLowerCase();
             if(!restrictedCommands.contains(command)){
                 event.setCancelled(true);
-                event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessage(event.getPlayer(), Messages.NotAllowed));
+                event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(event.getPlayer(), Messages.NotAllowed));
             }
         }
     }
@@ -177,7 +177,7 @@ public class BlockerListener implements Listener {
     public void EntityPlace(EntityPlaceEvent event) {
         if (!Objects.requireNonNull(event.getPlayer()).isOp() && ejey + 1 <= event.getEntity().getLocation().getBlockY())  {
             if (xBxTcore.getWorldProtec().contains(event.getEntity().getWorld())){
-                event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessage(event.getPlayer(), Messages.NotAllowed));
+                event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(event.getPlayer(), Messages.NotAllowed));
                 event.setCancelled(true);
             }
         }

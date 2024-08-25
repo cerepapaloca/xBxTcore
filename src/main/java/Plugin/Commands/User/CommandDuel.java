@@ -77,10 +77,10 @@ public class CommandDuel implements CommandExecutor {
                                 players.add(target);
                                 sendRequest(players, "bedrock", (playareSender).getUniqueId());
                             }else{
-                                playareSender.sendMessage(xBxTcore.getMessageManager().MasterMessage(playareSender, Messages.SendSelf));
+                                playareSender.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(playareSender, Messages.SendSelf));
                             }
                         }else{
-                            playareSender.sendMessage(xBxTcore.getMessageManager().MasterMessage(playareSender, Messages.PlayerOffTarget));
+                            playareSender.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(playareSender, Messages.PlayerOffTarget));
                         }
                         return true;
                     case 2:
@@ -101,17 +101,17 @@ public class CommandDuel implements CommandExecutor {
                                     sendRequest(players, args[1].toLowerCase(), (playareSender).getUniqueId());
 
                                 }else{
-                                    playareSender.sendMessage(xBxTcore.getMessageManager().MasterMessage(playareSender, Messages.WorldType));
+                                    playareSender.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(playareSender, Messages.WorldType));
                                 }
                             }else{
-                                playareSender.sendMessage(xBxTcore.getMessageManager().MasterMessage(playareSender, Messages.SendSelf));
+                                playareSender.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(playareSender, Messages.SendSelf));
                             }
                         }else{
-                            playareSender.sendMessage(xBxTcore.getMessageManager().MasterMessage(playareSender, Messages.PlayerOffTarget));
+                            playareSender.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(playareSender, Messages.PlayerOffTarget));
                         }
                 }
             }else{
-                playareSender.sendMessage(xBxTcore.getMessageManager().MasterMessage(playareSender, Messages.OnDuel));
+                playareSender.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(playareSender, Messages.OnDuel));
             }
 
         } else {
@@ -126,37 +126,37 @@ public class CommandDuel implements CommandExecutor {
         players1.remove(requester);
 
         if(players1.isEmpty()){
-            requester.sendMessage(xBxTcore.getMessageManager().MasterMessage(requester, Messages.ListPlayersEmpty));
+            requester.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(requester, Messages.ListPlayersEmpty));
             return;
         }
 
         pendingRequests.put(requesterId, requestlast);
         for (Player player : players1){
             TextComponent finalMessage = new TextComponent();
-            String message1 = xBxTcore.getMessageManager().MasterMessage(player, Messages.SendRequest1);
-            String message2 = xBxTcore.getMessageManager().MasterMessage(player, Messages.SendRequest2);
-            yes.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(xBxTcore.getMessageManager().MasterMessage(player,Messages.HoverYes)).create()));
-            deny.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(xBxTcore.getMessageManager().MasterMessage(player,Messages.HoverDeny)).create()));
+            String message1 = xBxTcore.getMessageManager().MasterMessageLocated(player, Messages.SendRequest1);
+            String message2 = xBxTcore.getMessageManager().MasterMessageLocated(player, Messages.SendRequest2);
+            yes.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(xBxTcore.getMessageManager().MasterMessageLocated(player,Messages.HoverYes)).create()));
+            deny.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(xBxTcore.getMessageManager().MasterMessageLocated(player,Messages.HoverDeny)).create()));
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + Colorinfo + "&l⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊>"));
             if (xBxTcore.getPlayerDataUnique(requesterId).getTimelimit()){
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', "-" + InventoryManager.secondsToMinutesLore(requester).get(0)));
             }else {
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "-" + xBxTcore.getMessageManager().MasterMessage(player,Messages.TimeLimit) + Colorplayer + "No"));
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "-" + xBxTcore.getMessageManager().MasterMessageLocated(player,Messages.TimeLimit) + Colorplayer + "No"));
             }
 
             if (xBxTcore.getPlayerDataUnique(requesterId).getKitData().getName() != null){
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "-" + xBxTcore.getMessageManager().MasterMessage(player,Messages.KitSelect) + xBxTcore.getPlayerDataUnique(requesterId).getKitData().getName()));
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "-" + xBxTcore.getMessageManager().MasterMessageLocated(player,Messages.KitSelect) + xBxTcore.getPlayerDataUnique(requesterId).getKitData().getName()));
             }else {
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "-" + xBxTcore.getMessageManager().MasterMessage(player,Messages.KitSelect) + xBxTcore.getMessageManager().MasterMessage(player,Messages.KitFavorite)));
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "-" + xBxTcore.getMessageManager().MasterMessageLocated(player,Messages.KitSelect) + xBxTcore.getMessageManager().MasterMessageLocated(player,Messages.KitFavorite)));
             }
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "-" + xBxTcore.getMessageManager().MasterMessage(player,Messages.ArenaDuel) + worldType));
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "-" + xBxTcore.getMessageManager().MasterMessage(player,Messages.SenderPlayer) + requester.getName()));
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "-" + xBxTcore.getMessageManager().MasterMessageLocated(player,Messages.ArenaDuel) + worldType));
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "-" + xBxTcore.getMessageManager().MasterMessageLocated(player,Messages.SenderPlayer) + requester.getName()));
             finalMessage.addExtra(message1);
             finalMessage.addExtra(yes);
             finalMessage.addExtra(message2);
             finalMessage.addExtra(deny);
             player.spigot().sendMessage(finalMessage);
-            requester.sendMessage(xBxTcore.getMessageManager().MasterMessage(requester, Messages.SendRequest).replace("%player%", player.getName()));
+            requester.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(requester, Messages.SendRequest).replace("%player%", player.getName()));
         }
         xBxTcore.getTools().AntiSpam(requester, Messages.SpamCommand);
     }
@@ -168,27 +168,27 @@ public class CommandDuel implements CommandExecutor {
                 Player requester = Bukkit.getPlayer(request.getRequesterId());
                 if (requester != null) {
                     if (requestlast.getPlayers().contains(accepter)) {
-                        accepter.sendMessage(xBxTcore.getMessageManager().MasterMessage(accepter, Messages.AcceptedRequest));
-                        requester.sendMessage(xBxTcore.getMessageManager().MasterMessage(requester, Messages.AcceptedYourRequest));
+                        accepter.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(accepter, Messages.AcceptedRequest));
+                        requester.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(requester, Messages.AcceptedYourRequest));
                         if (accepter.getWorld().equals(Bukkit.getWorld("lobby")) || accepter.getWorld().equals(Bukkit.getWorld("creatorkits"))) {
                             request.getAcceptPlayers().add(accepter);
                             teleportDuel(request);
 
                         } else {
-                            accepter.sendMessage(xBxTcore.getMessageManager().MasterMessage(accepter, Messages.OnDuel));
+                            accepter.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(accepter, Messages.OnDuel));
                         }
                     } else {
-                        accepter.sendMessage(xBxTcore.getMessageManager().MasterMessage(accepter, Messages.SelfAccepted));
+                        accepter.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(accepter, Messages.SelfAccepted));
                     }
                 } else {
-                    accepter.sendMessage(xBxTcore.getMessageManager().MasterMessage(accepter, Messages.PlayerOffSender));
+                    accepter.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(accepter, Messages.PlayerOffSender));
                 }
             } else {
-                accepter.sendMessage(xBxTcore.getMessageManager().MasterMessage(accepter, Messages.RequestExpired));
+                accepter.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(accepter, Messages.RequestExpired));
                 pendingRequests.remove(uuidResquest);
             }
         } else {
-            accepter.sendMessage(xBxTcore.getMessageManager().MasterMessage(accepter, Messages.NotRequests));
+            accepter.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(accepter, Messages.NotRequests));
         }
     }
 
@@ -206,16 +206,16 @@ public class CommandDuel implements CommandExecutor {
                     teleportDuel(request);
                 }
                 if(messges){
-                    denier.sendMessage(xBxTcore.getMessageManager().MasterMessage(denier, Messages.DenyYou).replace("%player%", requester.getName()));
-                    requester.sendMessage(xBxTcore.getMessageManager().MasterMessage(requester, Messages.DenyYour).replace("%player%", denier.getName()));
+                    denier.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(denier, Messages.DenyYou).replace("%player%", requester.getName()));
+                    requester.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(requester, Messages.DenyYour).replace("%player%", denier.getName()));
                 }
             } else {
-                denier.sendMessage(xBxTcore.getMessageManager().MasterMessage(denier, Messages.PlayerOffSender));
+                denier.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(denier, Messages.PlayerOffSender));
                 pendingRequests.remove(uuidResquest);
             }
 
         } else {
-            denier.sendMessage(xBxTcore.getMessageManager().MasterMessage(denier, Messages.NotRequests));
+            denier.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(denier, Messages.NotRequests));
         }
     }
 
@@ -255,13 +255,13 @@ public class CommandDuel implements CommandExecutor {
             }
         }
         for (Player player : request.getPlayers()) {
-            player.sendMessage(xBxTcore.getMessageManager().MasterMessage(player, Messages.FullSites));
+            player.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(player, Messages.FullSites));
         }
     }
 
     public void Broadcast(Request request){
         for (Player player : request.getPlayers()) {
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&',xBxTcore.getMessageManager().MasterMessage(player, Messages.MissingPlayers) + "(" + Colorplayer + request.getPlayers().size() + Colorinfo + "/" + Colorplayer + request.getAcceptPlayers().size() + Colorinfo + ")"));
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&',xBxTcore.getMessageManager().MasterMessageLocated(player, Messages.MissingPlayers) + "(" + Colorplayer + request.getPlayers().size() + Colorinfo + "/" + Colorplayer + request.getAcceptPlayers().size() + Colorinfo + ")"));
         }
     }
 

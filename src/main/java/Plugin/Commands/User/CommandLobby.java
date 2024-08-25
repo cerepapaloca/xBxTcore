@@ -35,7 +35,7 @@ public class CommandLobby implements CommandExecutor {
                 player.teleport(new Location(Bukkit.getWorld("lobby"), 0 , 68, 0));
                 player.setGameMode(GameMode.SURVIVAL);
             }else{
-                player.sendMessage(xBxTcore.getMessageManager().MasterMessage(player, Messages.InArea));
+                player.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(player, Messages.InArea));
             }
 
         }else{

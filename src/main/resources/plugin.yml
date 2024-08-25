@@ -38,6 +38,7 @@ commands:
   boxpvp:
   ReloadDataPlayares:
   itemboxpvp:
+  addvip:
 permissions:
-  xBxTpvp.vote:
-    description: vote
+  xBxTcore.vote:
+    description: la persona a votado

@@ -8,12 +8,8 @@ import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
-import org.bukkit.damage.DamageSource;
-import org.bukkit.damage.DamageType;
-import org.bukkit.entity.Entity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -105,7 +101,7 @@ public class PlayerListener implements Listener {
                 }else{
                     event.getPlayer().teleport(new Location(event.getPlayer().getWorld(), 0, 10, 0));
                 }
-                event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessage(event.getPlayer(),Messages.IncorrectLoc));
+                event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(event.getPlayer(),Messages.IncorrectLoc));
             }
         } else {
             if (xBxTcore.getcombatlogListener().isInCombat(event.getPlayer()) && xBxTcore.getZoneSafeBoxPvp().isSafeZone(event.getPlayer().getLocation())){
@@ -194,7 +190,7 @@ public class PlayerListener implements Listener {
                     return;
                 }
 
-                player.sendTitle("", xBxTcore.getMessageManager().MasterMessage(player, Messages.InSafeZone).replace("%time%", String.valueOf(time)), 5, 15, 5);
+                player.sendTitle("", xBxTcore.getMessageManager().MasterMessageLocated(player, Messages.InSafeZone).replace("%time%", String.valueOf(time)), 5, 15, 5);
                 if (time <= 0) {
                     cancel();
                     BukkitTask bukkitTask = new BukkitRunnable() {

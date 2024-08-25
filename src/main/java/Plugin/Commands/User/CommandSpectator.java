@@ -37,19 +37,19 @@ public class CommandSpectator implements CommandExecutor {
                                     }
                                 }.runTaskLater(plugin, 2);
                             }else{
-                                p.sendMessage(xBxTcore.getMessageManager().MasterMessage(p, Messages.NotCombatWorld));
+                                p.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(p, Messages.NotCombatWorld));
                             }
                         }else{
-                            p.sendMessage(xBxTcore.getMessageManager().MasterMessage(p, Messages.NotAllowed));
+                            p.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(p, Messages.NotAllowed));
                         }
                     }else{
-                        p.sendMessage(xBxTcore.getMessageManager().MasterMessage(p, Messages.NotFoundWorld));
+                        p.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(p, Messages.NotFoundWorld));
                     }
                 }else{
-                    p.sendMessage(xBxTcore.getMessageManager().MasterMessage(p, Messages.SpectatorError));
+                    p.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(p, Messages.SpectatorError));
                 }
             }else{
-                p.sendMessage(xBxTcore.getMessageManager().MasterMessage(p, Messages.InArea));
+                p.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(p, Messages.InArea));
             }
         }else{
             plugin.messageOnlyPlayer();

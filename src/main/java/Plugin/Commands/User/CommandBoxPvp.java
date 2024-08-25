@@ -36,7 +36,7 @@ public class CommandBoxPvp implements CommandExecutor {
                 xBxTcore.getArmorBonusListener().UpdateBonus(player);
                 player.setGameMode(GameMode.SURVIVAL);
             }else{
-                player.sendMessage(xBxTcore.getMessageManager().MasterMessage(player, Messages.InArea));
+                player.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(player, Messages.InArea));
             }
 
         }else{

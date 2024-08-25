@@ -84,6 +84,7 @@ public enum Messages {
     Daily,
     Weekly,
     Monthly,
+    RewardNotYet,
     //Invetarios
     InvGlobal,
     InvCustom,

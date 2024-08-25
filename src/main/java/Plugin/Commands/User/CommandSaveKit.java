@@ -37,7 +37,7 @@ public class CommandSaveKit implements CommandExecutor {
                 namekit = args[0];
                 GetItemInvetort(player);
             } else if (args.length == 0) {
-                player.sendMessage(xBxTcore.getMessageManager().MasterMessage(player, Messages.SaveError));
+                player.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(player, Messages.SaveError));
             }
         }else{
             plugin.messageOnlyPlayer();
@@ -48,7 +48,7 @@ public class CommandSaveKit implements CommandExecutor {
     public void GetItemInvetort(Player player){
         items.clear();
         if (namekit.contains(".")) {
-            player.sendMessage(xBxTcore.getMessageManager().MasterMessage(player, Messages.SaveErrorPunto));
+            player.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(player, Messages.SaveErrorPunto));
             return;
         }
 

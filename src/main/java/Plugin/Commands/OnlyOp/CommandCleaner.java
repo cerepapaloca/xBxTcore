@@ -16,7 +16,7 @@ public class CommandCleaner implements CommandExecutor {
                 xBxTcore.getCleaner().clearArea(p.getWorld().getName());
                 xBxTcore.getMessageManager().BroadcastMessage(Messages.CleanerExecuted);
             }else{
-                p.sendMessage(xBxTcore.getMessageManager().MasterMessage(p, Messages.NotOp));
+                p.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(p, Messages.NotOp));
             }
         }else{
             xBxTcore.getCleaner().clearArea("lobby");

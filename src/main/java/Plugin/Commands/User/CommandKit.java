@@ -23,7 +23,7 @@ public class CommandKit implements CommandExecutor {
             if(player.getLocation().getY() >= 30 && xBxTcore.getWorldProtec().contains(player.getWorld())){
                 xBxTcore.getInventoryMenu().OpenMenuInvetory(new InvetoryPlayer(player));
             }else{
-                player.sendMessage(xBxTcore.getMessageManager().MasterMessage(player, Messages.InArea));
+                player.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(player, Messages.InArea));
             }
         }else{
             plugin.messageOnlyPlayer();

@@ -36,7 +36,7 @@ public class PlayerDataUnique {
             }else if (messgas){
                 Player p = Bukkit.getPlayer(playerUUID);
                 if (p != null) {
-                    p.sendMessage(xBxTcore.getMessageManager().MasterMessage(p, Messages.WarningGetGuestPlayers));
+                    p.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(p, Messages.WarningGetGuestPlayers));
                 }
                 Bukkit.getConsoleSender().sendMessage(ColorWarning + "Hubo un error al obtener el jugador: " + uuid);
             } else {

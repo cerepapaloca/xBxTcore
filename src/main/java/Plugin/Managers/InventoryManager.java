@@ -79,14 +79,14 @@ public class InventoryManager {
             invetoryPlayer.setPreviewMode(true);
             ItemMeta Meta = ButtoPreviewOn.getItemMeta();
             assert Meta != null;
-            Meta.setDisplayName(xBxTcore.getMessageManager().MasterMessage(invetoryPlayer.getPlayer(), Messages.PreviewOn));
+            Meta.setDisplayName(xBxTcore.getMessageManager().MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.PreviewOn));
             ButtoPreviewOn.setItemMeta(Meta);
             invetoryPlayer.getPlayer().getOpenInventory().setItem(slot,ButtoPreviewOn);
         } else if (item.getType() == Material.ENDER_EYE) {
             invetoryPlayer.setPreviewMode(false);
             ItemMeta Meta = ButtoPreviewOff.getItemMeta();
             assert Meta != null;
-            Meta.setDisplayName(xBxTcore.getMessageManager().MasterMessage(invetoryPlayer.getPlayer(),Messages.PreviewOff));
+            Meta.setDisplayName(xBxTcore.getMessageManager().MasterMessageLocated(invetoryPlayer.getPlayer(),Messages.PreviewOff));
             ButtoPreviewOff.setItemMeta(Meta);
             invetoryPlayer.getPlayer().getOpenInventory().setItem(slot,ButtoPreviewOff);
         }
@@ -103,14 +103,14 @@ public class InventoryManager {
         for(String s : nameMapsDuel){
             lore.add(ChatColor.translateAlternateColorCodes('&',"&7" + s));
         }
-        lore.set(xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).getIndexMap(),xBxTcore.getMessageManager().MasterMessage(invetoryPlayer.getPlayer(), Messages.DuelLoreSelectWorld) + lore.get(xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).getIndexMap()));
+        lore.set(xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).getIndexMap(),xBxTcore.getMessageManager().MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.DuelLoreSelectWorld) + lore.get(xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).getIndexMap()));
         Utils.NewitemInvetory(Messages.DuelSelectWorld, Material.FILLED_MAP, 16, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer(), lore);
     }
 
     public static ArrayList<String> secondsToMinutesLore(Player player){
         int time = xBxTcore.getPlayerDataUnique(player.getUniqueId()).getTimeDuel();
         ArrayList<String> lore = new ArrayList<>();
-        lore.add(xBxTcore.getMessageManager().MasterMessage(player, Messages.DuelTimeLore) + Utils.SecondToMinutes(time));
+        lore.add(xBxTcore.getMessageManager().MasterMessageLocated(player, Messages.DuelTimeLore) + Utils.SecondToMinutes(time));
         return lore;
     }
 
@@ -253,7 +253,7 @@ public class InventoryManager {
             case MENUDUEL -> {
                 switch (slot) {
                     case 10 -> {
-                        invetoryPlayer.getPlayer().sendTitle(xBxTcore.getMessageManager().MasterMessage(invetoryPlayer.getPlayer(), Messages.IvnPlayers1), xBxTcore.getMessageManager().MasterMessage(invetoryPlayer.getPlayer(), Messages.IvnPlayers2), 10, 70, 20);
+                        invetoryPlayer.getPlayer().sendTitle(xBxTcore.getMessageManager().MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.IvnPlayers1), xBxTcore.getMessageManager().MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.IvnPlayers2), 10, 70, 20);
                         invetoryPlayer.getPlayer().closeInventory();
                     }
                     case 12 -> {
@@ -313,9 +313,9 @@ public class InventoryManager {
                         if (getPlayerFileManager().daily <= System.currentTimeMillis()){
                             Utils.additem(invetoryPlayer.getPlayer(), new ItemStack(Material.CHEST));
                             getPlayerFileManager().SaveTimesRewords(invetoryPlayer.getPlayer().getUniqueId(),System.currentTimeMillis() + 1000*10, getPlayerFileManager().weekly, getPlayerFileManager().monthly);
-                            Utils.NewitemInvetory(Messages.H1menos, Material.MINECART, 20, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer());
+                            Utils.NewitemInvetory(Messages.Daily, Material.MINECART, 20, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer());
                         }else{
-                            invetoryPlayer.getPlayer().sendMessage("No puede tomar la recompensa aún");
+                            invetoryPlayer.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.RewardNotYet));
                         }
                     }
                     case 22 -> {
@@ -323,9 +323,9 @@ public class InventoryManager {
                         if (getPlayerFileManager().weekly <= System.currentTimeMillis()){
                             Utils.additem(invetoryPlayer.getPlayer(), new ItemStack(Material.ANVIL));
                             getPlayerFileManager().SaveTimesRewords(invetoryPlayer.getPlayer().getUniqueId(), getPlayerFileManager().daily, System.currentTimeMillis() + 1000*2, getPlayerFileManager().monthly);
-                            Utils.NewitemInvetory(Messages.H1menos, Material.MINECART, 22, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer());
+                            Utils.NewitemInvetory(Messages.Weekly, Material.MINECART, 22, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer());
                         }else{
-                            invetoryPlayer.getPlayer().sendMessage("No puede tomar la recompensa aún");
+                            invetoryPlayer.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.RewardNotYet));
                         }
                     }
                     case 24 -> {
@@ -333,9 +333,9 @@ public class InventoryManager {
                         if (getPlayerFileManager().monthly <= System.currentTimeMillis()){
                             Utils.additem(invetoryPlayer.getPlayer(), new ItemStack(Material.COBWEB));
                             getPlayerFileManager().SaveTimesRewords(invetoryPlayer.getPlayer().getUniqueId(), getPlayerFileManager().daily, getPlayerFileManager().weekly, System.currentTimeMillis() + 1000*60*2);
-                            Utils.NewitemInvetory(Messages.H1menos, Material.MINECART, 24, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer());
+                            Utils.NewitemInvetory(Messages.Monthly, Material.MINECART, 24, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer());
                         }else{
-                            invetoryPlayer.getPlayer().sendMessage("No puede tomar la recompensa aún");
+                            invetoryPlayer.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.RewardNotYet));
                         }
                     }
                 }
