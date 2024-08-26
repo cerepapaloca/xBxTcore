@@ -1,5 +1,6 @@
 package Plugin.Managers;
 
+import Plugin.Enum.PlayerFileTimes;
 import Plugin.File.PlayerFile;
 import Plugin.File.PlayersFiles;
 import Plugin.Enum.Messages;
@@ -14,6 +15,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
+import java.io.File;
 import java.util.*;
 
 import static Plugin.Managers.MessageManager.*;
@@ -210,8 +212,6 @@ public class PlayerfileManager {
                     Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorWarning + "Contiene un objeto no válido: " + obj));
                 }
             }
-        }else{
-            Objects.requireNonNull(player.getPlayer()).sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(player, Messages.LoadError));
         }
         int i = 0;
         for(ItemStack item : itemStacks) {
@@ -222,13 +222,21 @@ public class PlayerfileManager {
         }
     }
 
-    public void SaveTimesRewords(UUID uuid, long daily, long weekly, long monthly) {
-        getfile(uuid).getPlayerDataFile().set("metadataplayer.rewardsTimes.daily", null);
-        getfile(uuid).getPlayerDataFile().set("metadataplayer.rewardsTimes.weekly", null);
-        getfile(uuid).getPlayerDataFile().set("metadataplayer.rewardsTimes.monthly", null);
-        getfile(uuid).getPlayerDataFile().set("metadataplayer.rewardsTimes.daily", daily);
-        getfile(uuid).getPlayerDataFile().set("metadataplayer.rewardsTimes.weekly", weekly);
-        getfile(uuid).getPlayerDataFile().set("metadataplayer.rewardsTimes.monthly", monthly);
+    public void SaveTimesRewords(UUID uuid, PlayerFileTimes playerFileTimes, long time) {
+        switch (playerFileTimes){
+            case daily -> {
+                getfile(uuid).getPlayerDataFile().set("metadataplayer.rewardsTimes.daily", null);
+                getfile(uuid).getPlayerDataFile().set("metadataplayer.rewardsTimes.daily", time);
+            }
+            case weekly -> {
+                getfile(uuid).getPlayerDataFile().set("metadataplayer.rewardsTimes.weekly", null);
+                getfile(uuid).getPlayerDataFile().set("metadataplayer.rewardsTimes.weekly", time);
+            }
+            case monthly -> {
+                getfile(uuid).getPlayerDataFile().set("metadataplayer.rewardsTimes.monthly", null);
+                getfile(uuid).getPlayerDataFile().set("metadataplayer.rewardsTimes.monthly", time);
+            }
+        }
         getfile(uuid).saveConfig();
     }
 
@@ -255,7 +263,9 @@ public class PlayerfileManager {
         getPlayerFileManager().reloadCustomConfig(uuid);
         //Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorSuccess
                 //+ "Fue guardado correctamente el inventario&r " + namekit + ColorSuccess + " hacia el jugador " + Colorplayer + Bukkit.getOfflinePlayer(uuid).getName()));
-        itemstacks.clear();
+        if (itemstacks != null){
+            itemstacks.clear();
+        }
     }
 
     public void SaveNameKitFavorite(UUID uuid, String namekitfavorite){
@@ -276,7 +286,9 @@ public class PlayerfileManager {
             getfile(uuid).getPlayerDataFile().set("metadataplayer.Name", Objects.requireNonNull(Bukkit.getPlayer(uuid)).getName());
             getfile(uuid).getPlayerDataFile().set("Kits.test", "null");
             getfile(uuid).getPlayerDataFile().set("Kits.test", null);
-            SaveTimesRewords(uuid, 1,1,1);
+            SaveTimesRewords(uuid, PlayerFileTimes.daily,1);
+            SaveTimesRewords(uuid, PlayerFileTimes.weekly,System.currentTimeMillis() + 1000 * 60 * 60 * 24);
+            SaveTimesRewords(uuid, PlayerFileTimes.monthly,System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 5);
             SaveInventoryBoxPvp(uuid,null);
             getfile(uuid).saveConfig();
             getPlayerFileManager().reloadCustomConfig(uuid);

@@ -39,6 +39,9 @@ commands:
   ReloadDataPlayares:
   itemboxpvp:
   addvip:
+  timerewardskip:
 permissions:
-  xBxTcore.vote:
+  xbxtcore.vote:
     description: la persona a votado
+  xbxtcore.vip:
+    description: tener mejores recompensa

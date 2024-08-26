@@ -58,8 +58,9 @@ public class Hologramas{
         textholograms.clear();
         createUserBoard(new Location(Bukkit.getWorld("lobby"), 0, 70, -10));
         textholograms.clear();
-        createTimesBoard(new Location(Bukkit.getWorld("boxpvp"), 12, 129, 0));
+        createTimesBoard(new Location(Bukkit.getWorld("boxpvp"), 12, 128, 0));
         textholograms.clear();
+        createRewardsTimesBoard(new Location(Bukkit.getWorld("boxpvp"), 35.5, 125.5, -5.5));
     }
 
     public void createPvPBoard(Location location) {
@@ -91,10 +92,15 @@ public class Hologramas{
     }
 
     public void createDonationBoard(Location location) {
-        textholograms.add(ChatColor.translateAlternateColorCodes('&', "&b<--&c&lDonation&r&b-->"));
+        textholograms.add(ChatColor.translateAlternateColorCodes('&', "&b<--&c&lDonaciones&r&b-->"));
         textholograms.add(ChatColor.translateAlternateColorCodes('&', "&ehttps://paypal.me/xBxTpvp"));
         textholograms.add(ChatColor.translateAlternateColorCodes('&', "&b<--&c&lDiscord&b-->"));
         textholograms.add(ChatColor.translateAlternateColorCodes('&', "&ehttps://discord.gg/QYBwEFvnsG"));
+        createListArmorStand(textholograms, location ,textholograms.size());
+    }
+
+    public void createRewardsTimesBoard(Location location) {
+        textholograms.add(ChatColor.translateAlternateColorCodes('&', Colorinfo + "<---" + Colorplayer + "Recompensas Gratis!!" + Colorinfo + "--->"));
         createListArmorStand(textholograms, location ,textholograms.size());
     }
 

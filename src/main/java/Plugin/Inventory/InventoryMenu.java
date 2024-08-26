@@ -21,14 +21,89 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.ArrayList;
 import java.util.List;
 
-import static Plugin.Managers.MessageManager.Colorinfo;
-import static Plugin.Managers.MessageManager.Colorplayer;
+import static Plugin.Managers.MessageManager.*;
 import static Plugin.xBxTcore.*;
 
 public class InventoryMenu extends InventoryManager {
 
+
+    public static ArrayList<String> eslore1 = new ArrayList<>();
+    public static ArrayList<String> eslore2 = new ArrayList<>();
+    public static ArrayList<String> eslore3 = new ArrayList<>();
+
+    public static ArrayList<String> enlore1 = new ArrayList<>();
+    public static ArrayList<String> enlore2 = new ArrayList<>();
+    public static ArrayList<String> enlore3 = new ArrayList<>();
+
     public InventoryMenu(xBxTcore plugin) {
         super(plugin);
+        eslore1.add("");
+        eslore1.add(ChatColor.translateAlternateColorCodes('&',Coloritem + "&lRecompensas"));
+        eslore1.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorinfo + "Llave Basica x5"));
+        eslore1.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorinfo + "Llave Especial x2"));
+        eslore1.add(ChatColor.translateAlternateColorCodes('&',Coloritem + "&lRecompensas para " + Colorplayer + "VIP"));
+        eslore1.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorplayer + "+ " + Colorinfo + "Llave Basical x10"));
+        eslore1.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorplayer + "+ " + Colorinfo + "Llave Especial x10"));
+        eslore1.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorplayer + "+ " + Colorinfo + "Llave VIP x3"));
+
+        eslore2.add("");
+        eslore2.add(ChatColor.translateAlternateColorCodes('&',Coloritem + "&lRecompensas"));
+        eslore2.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorinfo + "Llave Basica x25"));
+        eslore2.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorinfo + "Llave Especial x10"));
+        eslore2.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorinfo + "Llave Epica x5"));
+        eslore2.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorinfo + "Llave VIP x2"));
+        eslore2.add(ChatColor.translateAlternateColorCodes('&',Coloritem + "&lRecompensas para " + Colorplayer + "VIP"));
+        eslore2.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorplayer + "+ " + Colorinfo + "Llave Basica x30"));
+        eslore2.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorplayer + "+ " + Colorinfo + "Llave Especial x25"));
+        eslore2.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorplayer + "+ " + Colorinfo + "Llave Epica x20"));
+        eslore2.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorplayer + "+ " + Colorinfo + "Llave VIP x10"));
+
+        eslore3.add("");
+        eslore3.add(ChatColor.translateAlternateColorCodes('&',Coloritem + "&lRecompensas"));
+        eslore3.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorinfo + "Llave Basica x150"));
+        eslore3.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorinfo + "Llave Especial x100"));
+        eslore3.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorinfo + "Llave Epica x90"));
+        eslore3.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorinfo + "Llave VIP x70"));
+        eslore3.add(ChatColor.translateAlternateColorCodes('&',Coloritem + "&lRecompensas para " + Colorplayer + "VIP"));
+        eslore3.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorplayer + "+ " + Colorinfo + "Llave Basica x140"));
+        eslore3.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorplayer + "+ " + Colorinfo + "Llave Especial x100"));
+        eslore3.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorplayer + "+ " + Colorinfo + "Llave Epica x200"));
+        eslore3.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorplayer + "+ " + Colorinfo + "Llave VIP x10"));
+
+        ///////////////////
+
+        enlore1.add("");
+        enlore1.add(ChatColor.translateAlternateColorCodes('&',Coloritem + "&lRewards"));
+        enlore1.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorinfo + "Basic Key x5"));
+        enlore1.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorinfo + "special Key x2"));
+        enlore1.add(ChatColor.translateAlternateColorCodes('&',Coloritem + "&lReward for " + Colorplayer + "VIP"));
+        enlore1.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorplayer + "+ " + Colorinfo + "Basic Key x10"));
+        enlore1.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorplayer + "+ " + Colorinfo + "special Key x10"));
+        enlore1.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorplayer + "+ " + Colorinfo + "VIP Key x3"));
+
+        enlore2.add("");
+        enlore2.add(ChatColor.translateAlternateColorCodes('&',Coloritem + "&lRewards"));
+        enlore2.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorinfo + "Basic Key x25"));
+        enlore2.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorinfo + "special Key x10"));
+        enlore2.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorinfo + "Epic Key x5"));
+        enlore2.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorinfo + "VIP Key x2"));
+        enlore2.add(ChatColor.translateAlternateColorCodes('&',Coloritem + "&lReward for " + Colorplayer + "VIP"));
+        enlore2.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorplayer + "+ " + Colorinfo + "Basic Keyx30"));
+        enlore2.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorplayer + "+ " + Colorinfo + "special Key x25"));
+        enlore2.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorplayer + "+ " + Colorinfo + "Epic Key x20"));
+        enlore2.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorplayer + "+ " + Colorinfo + "VIP Key x10"));
+
+        enlore3.add("");
+        enlore3.add(ChatColor.translateAlternateColorCodes('&',Coloritem + "&lRewards"));
+        enlore3.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorinfo + "Basic Key x150"));
+        enlore3.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorinfo + "Special Key x100"));
+        enlore3.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorinfo + "Epic Key x90"));
+        enlore3.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorinfo + "VIP Key x70"));
+        enlore3.add(ChatColor.translateAlternateColorCodes('&',Coloritem + "&lReward for " + Colorplayer + "VIP"));
+        enlore3.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorplayer + "+ " + Colorinfo + "Basic Key x140"));
+        enlore3.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorplayer + "+ " + Colorinfo + "Special Key x100"));
+        enlore3.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorplayer + "+ " + Colorinfo + "Epic Key x200"));
+        enlore3.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorplayer + "+ " + Colorinfo + "VIP Key x10"));
     }
 
     public void OpenMenuInvetory(InvetoryPlayer invetoryplayer) {
@@ -371,9 +446,9 @@ public class InventoryMenu extends InventoryManager {
         invetoryPlayer.setSection(InvetorySection.REWARDTIMES);
         Inventory inv;
         if (invetoryPlayer.getPlayer().getName().contains(bedrockPrefix)) {
-            inv = Bukkit.createInventory(null, 54, xBxTcore.getMessageManager().MasterMessageLocated(player, Messages.KitListBedrock));
+            inv = Bukkit.createInventory(null, 54, " ");
         }else{
-            inv = Bukkit.createInventory(null, 45, xBxTcore.getMessageManager().MasterMessageLocated(player, Messages.KitList));
+            inv = Bukkit.createInventory(null, 45, " ");
             ///////////////////////////////////////////////////
             ItemStack PANEL_GLASS = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
             ItemMeta PanelMeta = PANEL_GLASS.getItemMeta();
@@ -404,24 +479,59 @@ public class InventoryMenu extends InventoryManager {
                     cancel();
                     return;
                 }
+
                 xBxTcore.getPlayerFileManager().loadTimesRewords(invetoryPlayer.getPlayer().getUniqueId());
-                lore.add(Utils.SecondToMinutes(getPlayerFileManager().daily - System.currentTimeMillis()));
+                lore.clear();
+                lore.add(ChatColor.translateAlternateColorCodes('&',Colorinfo + "Puedes reclamarlo en: " + Utils.SecondToMinutes(getPlayerFileManager().daily - System.currentTimeMillis())));
+                if (player.getLocale().contains("es")){
+                    lore.addAll(eslore1);
+                }else {
+                    lore.addAll(enlore1);
+                }
+
                 if (getPlayerFileManager().daily <= System.currentTimeMillis()){
-                    Utils.NewitemInvetory(Messages.Daily, Material.CHEST_MINECART, 20, inv, player);
+                    if (player.getLocale().contains("es")){
+                        Utils.NewitemInvetory(Messages.Daily, Material.CHEST_MINECART, 20, inv, player, eslore1);
+                    }else {
+                        Utils.NewitemInvetory(Messages.Daily, Material.CHEST_MINECART, 20, inv, player, enlore1);
+                    }
+
                 }else{
                     Utils.NewitemInvetory(Messages.Daily, Material.MINECART, 20, inv, player, lore);
                 }
                 lore.clear();
-                lore.add(ChatColor.translateAlternateColorCodes('&',Colorinfo + Utils.SecondToMinutes(getPlayerFileManager().weekly - System.currentTimeMillis())));
+                lore.add(ChatColor.translateAlternateColorCodes('&',Colorinfo + "Puedes reclamarlo en: "+ Utils.SecondToMinutes(getPlayerFileManager().weekly - System.currentTimeMillis())));
+                if (player.getLocale().contains("es")){
+                    lore.addAll(eslore2);
+                }else {
+                    lore.addAll(enlore2);
+                }
+
                 if (getPlayerFileManager().weekly <= System.currentTimeMillis()){
-                    Utils.NewitemInvetory(Messages.Weekly, Material.CHEST_MINECART, 22, inv, player);
+                    if (player.getLocale().contains("es")){
+                        Utils.NewitemInvetory(Messages.Weekly, Material.CHEST_MINECART, 22, inv, player, eslore2);
+                    }else {
+                        Utils.NewitemInvetory(Messages.Weekly, Material.CHEST_MINECART, 22, inv, player, enlore2);
+                    }
+
                 }else{
                     Utils.NewitemInvetory(Messages.Weekly, Material.MINECART, 22, inv, player, lore);
                 }
                 lore.clear();
-                lore.add(ChatColor.translateAlternateColorCodes('&',Colorinfo + Utils.SecondToMinutes(getPlayerFileManager().monthly - System.currentTimeMillis())));
+                lore.add(ChatColor.translateAlternateColorCodes('&',Colorinfo + "Puedes reclamarlo en: "+ Utils.SecondToMinutes(getPlayerFileManager().monthly - System.currentTimeMillis())));
+
+                if (player.getLocale().contains("es")){
+                    lore.addAll(eslore3);
+                }else {
+                    lore.addAll(enlore3);
+                }
+
                 if (getPlayerFileManager().monthly <= System.currentTimeMillis()){
-                    Utils.NewitemInvetory(Messages.Monthly, Material.CHEST_MINECART, 24, inv, player);
+                    if (player.getLocale().contains("es")){
+                        Utils.NewitemInvetory(Messages.Monthly, Material.CHEST_MINECART, 24, inv, player, eslore3);
+                    }else {
+                        Utils.NewitemInvetory(Messages.Monthly, Material.CHEST_MINECART, 24, inv, player, enlore3);
+                    }
                 }else{
                     Utils.NewitemInvetory(Messages.Monthly, Material.MINECART, 24, inv, player, lore);
                 }

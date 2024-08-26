@@ -1,6 +1,7 @@
 package Plugin.Managers;
 
 import Plugin.Enum.Messages;
+import Plugin.Utils.ColorUtils;
 import Plugin.xBxTcore;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
@@ -23,6 +24,7 @@ public class MessageManager {
             ChatColor.of("#FE8F22") + "&lr" + ChatColor.of("#FF7302") + "&le" + "&6]&r ";
     public static String prefixDuel = "&8[&4⚔&8] ";
     public static String prefixDied = "&8[&4☠&8] ";
+    public static String prefixCrate = "&6[&l" + ColorUtils.applyGradient("<#3FFF21><b>Crate</b><#85FFF5>") + "&6]&r ";
 
     public static String ColorError = "&c";
     public static String ColorSuccess = "&a";
@@ -123,6 +125,11 @@ public class MessageManager {
        enMessages.put(Weekly, Coloritem + "Weekly Reward");
        enMessages.put(Monthly, Coloritem + "Monthly Reward");
        enMessages.put(RewardNotYet,prefix + ColorError + "You can't take the reward yet");
+       enMessages.put(GiveDaily, prefix + Colorinfo + "You have claimed the daily reward");
+       enMessages.put(GiveWeekly, prefix + Colorinfo + "You have claimed the weekly reward");
+       enMessages.put(GiveMonthly, prefix + Colorinfo +  "You have claimed the monthly reward");
+       enMessages.put(CrateNotPermission, prefix + prefixCrate + ColorError + "You are not vip you can get it here" + ColorLink + "Mi tienda");
+       enMessages.put(ClaimReward, prefix + prefixCrate + ColorSuccess + "You have claimed a reward");
        //Invetarios
        enMessages.put(InvGlobal,"&a&lGlobal Kits");
        enMessages.put(InvCustom,"&e&lCustom Kits");
@@ -267,6 +274,11 @@ public class MessageManager {
         esMessages.put(Weekly, Coloritem + "Recompensa Semanal");
         esMessages.put(Monthly, Coloritem + "Recompensa Mensual");
         esMessages.put(RewardNotYet,prefix + ColorError + "No puede tomar la recompensa aún");
+        esMessages.put(GiveDaily, prefix + Colorinfo + "Haz reclamado la recompensa diaria");
+        esMessages.put(GiveWeekly, prefix + Colorinfo + "Haz reclamado la recompensa semanal");
+        esMessages.put(GiveMonthly, prefix + Colorinfo + "Haz reclamado la recompensa mensual");
+        esMessages.put(CrateNotPermission, prefix + ColorError + "No eres vip lo puede conseguir aqui" + ColorLink + "Mi tienda");
+        enMessages.put(ClaimReward, prefix + ColorSuccess + "Haz reclamado una recompensa");
         //Invetarios
         esMessages.put(InvGlobal,"&a&lKits Globales");
         esMessages.put(InvCustom,"&e&lKits Personalizado");

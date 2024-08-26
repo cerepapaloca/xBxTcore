@@ -44,14 +44,14 @@ public class CommandItemBoxpvp implements CommandExecutor {
                             addItems(ItemManage.pickaxes);
                             addItems(ItemManage.especialItems);
                             addItems(ItemManage.moneyPrincipal);
-                            addItems(ItemManage.shurkerBoxs);
+                            addItems(ItemManage.shurlkerBoxs);
 
                         }
                         case "coins" -> {
                             addItems(ItemManage.coinNormal);
                             addItems(ItemManage.coinCompact);
                         }
-                        case "coins_normal" -> addItems(ItemManage.coinNormal);
+                        case "coin_normal" -> addItems(ItemManage.coinNormal);
                         case "coin_compact" -> addItems(ItemManage.coinCompact);
                         case "helmets" -> addItems(ItemManage.helmets);
                         case "elytra" -> addItems(ItemManage.elytras);
@@ -60,12 +60,14 @@ public class CommandItemBoxpvp implements CommandExecutor {
                         case "sword" -> addItems(ItemManage.swords);
                         case "pickaxe" -> addItems(ItemManage.pickaxes);
                         case "money_principal" -> addItems(ItemManage.moneyPrincipal);
-                        case "kits" -> addItems(ItemManage.shurkerBoxs);
+                        case "kits" -> addItems(ItemManage.shurlkerBoxs);
                         case "moneys" -> {
                             addItems(ItemManage.moneyCompact);
                             addItems(ItemManage.moneyNormal);
                             addItems(ItemManage.moneyPrincipal);
                         }
+                        case "shurlker_Boxs_Personal" -> addItems(ItemManage.shurlkerBoxsPersonal);
+                        case "keys" -> addItems(ItemManage.keys);
                         case "especial_items" -> addItems(ItemManage.especialItems);
                         case "money_normal" -> addItems(ItemManage.moneyNormal);
                         case "money_compact" -> addItems(ItemManage.moneyCompact);

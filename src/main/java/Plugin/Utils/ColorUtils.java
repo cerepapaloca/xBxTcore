@@ -6,6 +6,8 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 
+import static Plugin.Utils.Utils.processFormattingTags;
+
 public class ColorUtils {
 
     public static String modifyColorHexWithHLS(String hexColor, float hueDelta, float lightnessDelta, float saturationDelta) {
@@ -134,11 +136,14 @@ public class ColorUtils {
     }
 
     public static String applyGradient(String input) {
-        input = org.bukkit.ChatColor.translateAlternateColorCodes('&', input);
-        String startTag = input.substring(input.indexOf("<#") + 2, input.indexOf(">")).replace("#", "");
-        String endTag = input.substring(input.lastIndexOf("<#") + 2, input.lastIndexOf(">")).replace("#", "");
+        // Procesar etiquetas de formato (negrita, cursiva)
+        String formattedText = processFormattingTags(input);
 
-        String text = input.substring(input.indexOf(">") + 1, input.lastIndexOf("<"));
+        // Extraer colores de degradado y texto
+        String startTag = formattedText.substring(formattedText.indexOf("<#") + 2, formattedText.indexOf(">")).replace("#", "");
+        String endTag = formattedText.substring(formattedText.lastIndexOf("<#") + 2, formattedText.lastIndexOf(">")).replace("#", "");
+        String text = formattedText.substring(formattedText.indexOf(">") + 1, formattedText.lastIndexOf("<"));
+
         int startColor = Integer.parseInt(startTag, 16);
         int endColor = Integer.parseInt(endTag, 16);
 
@@ -151,14 +156,16 @@ public class ColorUtils {
             int green = (int) ((1 - ratio) * ((startColor >> 8) & 0xFF) + ratio * ((endColor >> 8) & 0xFF));
             int blue = (int) ((1 - ratio) * (startColor & 0xFF) + ratio * (endColor & 0xFF));
             String hexColor = String.format("#%02x%02x%02x", red, green, blue);
+
             gradientText.append(ChatColor.of(hexColor)).append(text.charAt(i));
         }
 
         return gradientText.toString();
     }
 
+
+
     public static ItemStack colorLeatherArmor(ItemStack armor, String hexColor) {
-        // Asegurarse de que el ítem sea una pieza de armadura de cuero
         if (armor.getType() != Material.LEATHER_HELMET &&
                 armor.getType() != Material.LEATHER_CHESTPLATE &&
                 armor.getType() != Material.LEATHER_LEGGINGS &&

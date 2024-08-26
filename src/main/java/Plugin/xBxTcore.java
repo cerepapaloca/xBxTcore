@@ -73,36 +73,37 @@ public class xBxTcore extends JavaPlugin {
 
 
     private long serverStartTime;
-    private long timeStaring;
 
     public static ArrayList<World> worlds;
     public static ArrayList<String> playersOffline;
 
     @Override
     public void onEnable() {
-        timeStaring = System.currentTimeMillis();
+        long timeStaringtotal = System.currentTimeMillis();
+        long timeStaring = System.currentTimeMillis();
         playerDataGLobal = new PlayerDataGLobal();
         cleaner = new Cleaner(this);
         worlds = new ArrayList<>();
         playersOffline = new ArrayList<>();
         UtilsRegister();
-        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + Colorinfo + "Utils Cargado " + Colorplayer + (System.currentTimeMillis() - timeStaring) + "ms"));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', Colorinfo + "┌Utils Cargado " + Colorplayer + (System.currentTimeMillis() - timeStaring) + "ms"));
         timeStaring = System.currentTimeMillis();
         APIs();
-        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + Colorinfo + "Apis Cargado " + Colorplayer + (System.currentTimeMillis() - timeStaring) + "ms"));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', Colorinfo + "├Apis Cargado " + Colorplayer + (System.currentTimeMillis() - timeStaring) + "ms"));
         timeStaring = System.currentTimeMillis();
         ManagersRegister();
-        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + Colorinfo + "Managers Cargado " + Colorplayer + (System.currentTimeMillis() - timeStaring) + "ms"));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', Colorinfo + "├Managers Cargado " + Colorplayer + (System.currentTimeMillis() - timeStaring) + "ms"));
         timeStaring = System.currentTimeMillis();
         CommandRegister();
-        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + Colorinfo + "Comandos Cargado " + Colorplayer + (System.currentTimeMillis() - timeStaring)+ "ms"));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', Colorinfo + "├Comandos Cargado " + Colorplayer + (System.currentTimeMillis() - timeStaring)+ "ms"));
         timeStaring = System.currentTimeMillis();
         ListenersRegister();
-        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + Colorinfo + "Listener Cargado " + Colorplayer + (System.currentTimeMillis() - timeStaring) + "ms"));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', Colorinfo + "├Listener Cargado " + Colorplayer + (System.currentTimeMillis() - timeStaring) + "ms"));
         timeStaring = System.currentTimeMillis();
         startAutoCleaner();
         Timeinfo();
         WorldProtec();
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', ColorSuccess + "xBxTcore Cargado " + Colorplayer + (System.currentTimeMillis() - timeStaringtotal) + "ms"));
         MessageON();
         serverStartTime = System.currentTimeMillis();
     }
@@ -147,21 +148,23 @@ public class xBxTcore extends JavaPlugin {
         Objects.requireNonNull(this.getCommand("duel")).setExecutor(commandDuel = new CommandDuel(this));
         Objects.requireNonNull(this.getCommand("discord")).setExecutor(new CommandDiscord(this));
         Objects.requireNonNull(this.getCommand("spectator")).setExecutor(new CommandSpectator(this));
-        Objects.requireNonNull(this.getCommand("ping")).setExecutor(new CommandPing());
-        Objects.requireNonNull(this.getCommand("debugkit")).setExecutor(new CommandDebugKit());
-        Objects.requireNonNull(this.getCommand("rank")).setExecutor(new CommandRank(this));
-        Objects.requireNonNull(this.getCommand("vote")).setExecutor(new CommandVote(this));
-        Objects.requireNonNull(this.getCommand("donate")).setExecutor(new CommandDonate(this));
-        Objects.requireNonNull(this.getCommand("prefix")).setExecutor(new CommandPrefix(this));
-        Objects.requireNonNull(this.getCommand("inv")).setExecutor(new CommandInv(this));
-        Objects.requireNonNull(this.getCommand("boxpvp")).setExecutor(new CommandBoxPvp(this));
-        Objects.requireNonNull(this.getCommand("ReloadDataPlayares")).setExecutor(new CommandReloadDataPlayares(this));
-        Objects.requireNonNull(this.getCommand("itemboxpvp")).setExecutor(new CommandItemBoxpvp(this));
+        Objects.requireNonNull(getCommand("ping")).setExecutor(new CommandPing());
+        Objects.requireNonNull(getCommand("debugkit")).setExecutor(new CommandDebugKit());
+        Objects.requireNonNull(getCommand("rank")).setExecutor(new CommandRank(this));
+        Objects.requireNonNull(getCommand("vote")).setExecutor(new CommandVote(this));
+        Objects.requireNonNull(getCommand("donate")).setExecutor(new CommandDonate(this));
+        Objects.requireNonNull(getCommand("prefix")).setExecutor(new CommandPrefix(this));
+        Objects.requireNonNull(getCommand("inv")).setExecutor(new CommandInv(this));
+        Objects.requireNonNull(getCommand("boxpvp")).setExecutor(new CommandBoxPvp(this));
+        Objects.requireNonNull(getCommand("ReloadDataPlayares")).setExecutor(new CommandReloadDataPlayares(this));
+        Objects.requireNonNull(getCommand("itemboxpvp")).setExecutor(new CommandItemBoxpvp(this));
+        Objects.requireNonNull(getCommand("timerewardskip")).setExecutor(new CommandTimeRewardSkip());
+        Objects.requireNonNull(getCommand("addvip")).setExecutor(new CommandAddVip());
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-        Objects.requireNonNull(this.getCommand("sk")).setExecutor(new CommandSaveKit(this));
-        Objects.requireNonNull(this.getCommand("dk")).setExecutor(new CommandDelKit(this));
-        Objects.requireNonNull(this.getCommand("kf")).setExecutor(new CommandKitFavorite(this));
-        Objects.requireNonNull(this.getCommand("spawn")).setExecutor(new CommandLobby(this));
+        Objects.requireNonNull(getCommand("sk")).setExecutor(new CommandSaveKit(this));
+        Objects.requireNonNull(getCommand("dk")).setExecutor(new CommandDelKit(this));
+        Objects.requireNonNull(getCommand("kf")).setExecutor(new CommandKitFavorite(this));
+        Objects.requireNonNull(getCommand("spawn")).setExecutor(new CommandLobby(this));
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////
         Objects.requireNonNull(getCommand("savekit")).setTabCompleter(new TabCompleterSaveKit());
@@ -171,7 +174,6 @@ public class xBxTcore extends JavaPlugin {
         Objects.requireNonNull(getCommand("spectator")).setTabCompleter(new TabCompleterSpectator());
         Objects.requireNonNull(getCommand("debugkit")).setTabCompleter(new TabCompleterDebugKit());
         Objects.requireNonNull(getCommand("itemboxpvp")).setTabCompleter(new TabItemBoxpvp());
-        Objects.requireNonNull(getCommand("addvip")).setTabCompleter(new TabItemBoxpvp());
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////
         Objects.requireNonNull(getCommand("sk")).setTabCompleter(new TabCompleterSaveKit());
         Objects.requireNonNull(getCommand("dk")).setTabCompleter(new TabCompleterDelKit());
@@ -204,14 +206,24 @@ public class xBxTcore extends JavaPlugin {
     }
 
     public void ManagersRegister(){
+
         messageTranslatorManager = new MessageTranslatorManager(this);
         playerfileManager = new PlayerfileManager(this);
         duelManager = new DuelManager(this);
+        long timeStaring = System.currentTimeMillis();
         messageManager = new MessageManager();
+        Bukkit.getConsoleSender().sendMessage(org.bukkit.ChatColor.translateAlternateColorCodes('&', Colorinfo + "│ ┌Messages manager Cargado " + Colorplayer + (System.currentTimeMillis() - timeStaring) + "ms"));
         inventoryMenu = new InventoryMenu(this);
+        timeStaring = System.currentTimeMillis();
         hologramasBoxPvp = new HologramasBoxPvp(this);
+        Bukkit.getConsoleSender().sendMessage(org.bukkit.ChatColor.translateAlternateColorCodes('&', Colorinfo + "│ ├hologramas manager Cargado " + Colorplayer + (System.currentTimeMillis() - timeStaring) + "ms"));
+        timeStaring = System.currentTimeMillis();
         autoFillsBox = new AutoFillsBox(this);
+        Bukkit.getConsoleSender().sendMessage(org.bukkit.ChatColor.translateAlternateColorCodes('&', Colorinfo + "│ ├Auto Fills manager Cargado " + Colorplayer + (System.currentTimeMillis() - timeStaring) + "ms"));
+        //////////////
+        timeStaring = System.currentTimeMillis();
         itemManage = new ItemManage(this);
+        Bukkit.getConsoleSender().sendMessage(org.bukkit.ChatColor.translateAlternateColorCodes('&', Colorinfo + "│ ├item manager Cargado " + Colorplayer + (System.currentTimeMillis() - timeStaring) + "ms"));
         zoneSafeBoxPvp = new ZoneSafeBoxPvp();
     }
 

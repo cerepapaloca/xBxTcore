@@ -172,6 +172,33 @@ public class Utils {
         world.dropItemNaturally(location, item);
     }
 
+    public static void additem(Player player, ItemStack item, int cantidad){
+        player.playSound(player, Sound.ENTITY_ITEM_PICKUP, 1,1);
+        for (int i = 0; i < cantidad; i++){
+            if (player.getInventory().addItem(item).isEmpty()) {
+                return;
+            }
+            Location location = player.getLocation();
+            World world = player.getWorld();
+            world.dropItemNaturally(location, item);
+        }
+    }
+
+    public static String processFormattingTags(String input) {
+        // Reemplazar etiquetas de negrita y cursiva
+        String result = input;
+
+        // Negrita
+        result = result.replaceAll("<b>", ChatColor.BOLD.toString());
+        result = result.replaceAll("</b>", ChatColor.RESET.toString());
+
+        // Cursiva
+        result = result.replaceAll("<i>", ChatColor.ITALIC.toString());
+        result = result.replaceAll("</i>", ChatColor.RESET.toString());
+
+        return result;
+    }
+
     public static Chunk getChunkByCoordinates(String worldName, int chunkX, int chunkZ) {
         World world = Bukkit.getWorld(worldName);
         if (world != null) {

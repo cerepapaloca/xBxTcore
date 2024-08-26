@@ -4,24 +4,22 @@ import Plugin.Model.MinaBoxPvp;
 import Plugin.Utils.ColorUtils;
 import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.block.ShulkerBox;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.BlockStateMeta;
+import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.util.ArrayList;
 
 import static Plugin.Managers.MessageManager.*;
-import static Plugin.Utils.ColorUtils.applyGradient;
-import static Plugin.Utils.ColorUtils.colorLeatherArmor;
+import static Plugin.Utils.ColorUtils.*;
 import static Plugin.Utils.Utils.additem;
 
 public class ItemManage {
@@ -46,12 +44,18 @@ public class ItemManage {
 
     public static ArrayList<ItemStack> especialItems = new ArrayList<>();
 
-    public static ArrayList<ItemStack> shurkerBoxs = new ArrayList<>();
+    public static ArrayList<ItemStack> shurlkerBoxs = new ArrayList<>();
+    public static ArrayList<ItemStack> shurlkerBoxsPersonal = new ArrayList<>();
+
+    public static ArrayList<ItemStack> keys = new ArrayList<>();
+
+    public static ArrayList<ItemStack> wikis = new ArrayList<>();
 
     public ItemManage(xBxTcore plugin) {
-
-        long timeStaring = System.currentTimeMillis();
         this.plugin = plugin;
+
+        wikis.add(wiki());
+
         //////////////
         //////////////
         ArrayList<String> lore = new ArrayList<>();
@@ -155,12 +159,23 @@ public class ItemManage {
         lore.add(ChatColor.translateAlternateColorCodes('&',Coloritem + " "));
         lore.add(ChatColor.translateAlternateColorCodes('&',"&8" + "Mas información con " + ColorLink + "/help"));
 
-        especialItems.add(newItemBoxPVP(Material.FERMENTED_SPIDER_EYE ,"<#ff38f8>Bonificado de daño<#ffa1fc>", lore, "DañoBonus",true));
-        especialItems.add(newItemBoxPVP(Material.CHARCOAL ,"<#ff38f8>Efecto de wither<#ffa1fc>", lore, "DañoPorWither",true));
+        especialItems.add(newItemBoxPVP(Material.FERMENTED_SPIDER_EYE ,"<#FF2121>Desgarre de daño<#FF8585>", lore, "DañoBonus",true));
+        especialItems.add(newItemBoxPVP(Material.CHARCOAL ,"<##4A4A4A>Bendición de wither<#282828>", lore, "DañoPorWither",true));
 
+        //////////////
+        //////////////
 
+        lore.clear();
+        lore.add(ChatColor.translateAlternateColorCodes('&',Coloritem + " "));
+        lore.add(applyGradient("<#19fbff>Con esta llave puedes<#2a7c7d>"));
+        lore.add(applyGradient("<#19fbff>abrir una caja<#2a7c7d>"));
+        lore.add(ChatColor.translateAlternateColorCodes('&',Coloritem + " "));
+        lore.add(ChatColor.translateAlternateColorCodes('&',"&8" + "Mas información con " + ColorLink + "/help"));
 
-
+        keys.add(newItemBoxPVP(Material.TRIPWIRE_HOOK ,"<#D6D6D6>Llave Basica<#919191>", lore,0,true));
+        keys.add(newItemBoxPVP(Material.TRIPWIRE_HOOK ,"<#66FFF3>Llave Especial<#307D96>", lore, 1,true));
+        keys.add(newItemBoxPVP(Material.TRIPWIRE_HOOK ,"<#CB66FF>Llave Epica<#5F3096>", lore, 2,true));
+        keys.add(newItemBoxPVP(Material.TRIPWIRE_HOOK ,"<#F58100>Llave VIP<#F1B674>", lore, 3,true));
         /////////
         int i = 0;
         ItemStack itemStack;
@@ -172,7 +187,7 @@ public class ItemManage {
             lore.clear();
             lore.add(ChatColor.translateAlternateColorCodes('&',Coloritem + " "));
             lore.add(applyGradient("<#19fbff>Usalo para tradear con<#2a7c7d>"));
-            lore.add(ChatColor.translateAlternateColorCodes('&',Coloritem + "los aldeano de las minas"));
+            lore.add(applyGradient("<#19fbff>los aldeano de las minas<#2a7c7d>"));
             lore.add(ChatColor.translateAlternateColorCodes('&',Coloritem + " "));
             lore.add(ChatColor.translateAlternateColorCodes('&',"&8" + "Mas información con " + ColorLink + "/help"));
 
@@ -229,24 +244,10 @@ public class ItemManage {
             swords.add(itemStack);
 
             lore.clear();
-            shurkerBoxs.add(newItemBoxPVP(Utils.colorToMaterial(mina.getMaterial(), Material.BLACK_SHULKER_BOX) ,"<#" + ColorUtils.blockToHex(mina.getMaterial()) + ">Kit Tier " + Utils.arabicToRoman(i) + "<#" + ColorUtils.modifyColorHexWithHLS(ColorUtils.blockToHex(mina.getMaterial()), 0.1f, 0.3f, -0.3f) + ">", lore, i, true));
+            shurlkerBoxsPersonal.add(newItemBoxPVP(Utils.colorToMaterial(mina.getMaterial(), Material.BLACK_SHULKER_BOX) ,"<#" + ColorUtils.blockToHex(mina.getMaterial()) + ">Shurlker Box Personal<#" + ColorUtils.modifyColorHexWithHLS(ColorUtils.blockToHex(mina.getMaterial()), 0.1f, 0.3f, -0.3f) + ">", lore, i, true));
+
+            shurlkerBoxs.add(newItemBoxPVP(Utils.colorToMaterial(mina.getMaterial(), Material.BLACK_SHULKER_BOX) ,"<#" + ColorUtils.blockToHex(mina.getMaterial()) + ">Kit Tier " + Utils.arabicToRoman(i) + "<#" + ColorUtils.modifyColorHexWithHLS(ColorUtils.blockToHex(mina.getMaterial()), 0.1f, 0.3f, -0.3f) + ">", lore, i, true));
         }
-
-        for (int y = 0; y < shurkerBoxs.size(); y++) {
-            BlockStateMeta blockStateMeta = (BlockStateMeta) shurkerBoxs.get(y).getItemMeta();
-            ShulkerBox shulkerBoxState = (ShulkerBox) blockStateMeta.getBlockState();
-            shulkerBoxState.getInventory().addItem().put(y, helmets.get(y));
-            shulkerBoxState.getInventory().addItem().put(y, elytras.get(y));
-            shulkerBoxState.getInventory().addItem().put(y, leggings.get(y));
-            shulkerBoxState.getInventory().addItem().put(y, boots.get(y));
-            shulkerBoxState.getInventory().addItem().put(y, pickaxes.get(y));
-            shulkerBoxState.getInventory().addItem().put(y, swords.get(y));
-            blockStateMeta.setBlockState(shulkerBoxState);
-            shurkerBoxs.get(y).setItemMeta(blockStateMeta);
-        }
-
-        Bukkit.getConsoleSender().sendMessage(net.md_5.bungee.api.ChatColor.translateAlternateColorCodes('&', prefixConsole + Colorinfo + " item manager Cargado " + Colorplayer + (System.currentTimeMillis() - timeStaring) + "ms"));
-
     }
 
     public void AddItemMine(Player player, Material material){
@@ -365,5 +366,29 @@ public class ItemManage {
 
 
         return colorLeatherArmor(item, hexColor);
+    }
+
+    public ItemStack wiki(){
+        ItemStack item = new ItemStack(Material.WRITTEN_BOOK);
+        BookMeta meta = (BookMeta) item.getItemMeta();
+        assert meta != null;
+        meta.setAuthor("Ceres");
+        meta.setTitle("xbxt wiki");
+        meta.addPage(ChatColor.translateAlternateColorCodes('&', "Commandos\n\nMessages\n\nItems De BoxPvp\n\nDuelos"));
+        meta.addPage(ChatColor.translateAlternateColorCodes('&',"&lCommandos\n" + Colorplayer + " /savekit o /sk &r\nEste Comando guarda tu inventario en un kit para" +
+                "usarse primero tiene que poner el nombre de del kit SIN ESPACIOS por ejemplo '/sk mejor_kit' puede usar códigos de color de minecraft y también " +
+                "puedes ponele un icono."));
+
+        meta.addPage(ChatColor.translateAlternateColorCodes('&',"&lCommandos\n" + Colorplayer + "/kitfavorite o /kf&r\nGuardas un kit " +
+                "como favorito para cuando mueras reaparezca con el kit seleccionaste para usarlo tienes que poner " +
+                "El nombre del CON LOS CÓDIGOS DE COLOR y si escribes el comando solo carga el kit que tenias guardado."));
+
+        meta.addPage(ChatColor.translateAlternateColorCodes('&',"&lCommandos\n" + Colorplayer + "/delkit o /dk\n&r" + "Elimina el kit " +
+                "seleccionado para usarse tienes que poner el nombre de tu kit.\n" +
+                Colorplayer + "/lobby o /spawn\n&rte lleva al mundo principal.\n" +
+                Colorplayer + "/rank\n&rVes el top kills y rachas de los jugadores en linea"));
+
+        item.setItemMeta(meta);
+        return item;
     }
 }

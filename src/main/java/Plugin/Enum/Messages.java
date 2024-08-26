@@ -85,6 +85,11 @@ public enum Messages {
     Weekly,
     Monthly,
     RewardNotYet,
+    GiveDaily,
+    GiveWeekly,
+    GiveMonthly,
+    ClaimReward,
+    CrateNotPermission,
     //Invetarios
     InvGlobal,
     InvCustom,

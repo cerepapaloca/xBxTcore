@@ -25,7 +25,7 @@ public class CommandPrefix implements CommandExecutor {
     @Override
     public boolean onCommand(@Nullable CommandSender commandSender,@Nullable Command command,@Nullable String s, String[] args) {
         if(commandSender instanceof Player player){
-            if (player.hasPermission("xBxTcore.vote")){
+            if (player.hasPermission("xbxtcore.vote")){
                 if (args.length == 1){
                     String prefixName = ChatColor.translateAlternateColorCodes('&', "&8[&r" + args[0] + "&8]&r ");
                     if (ChatColor.stripColor(prefixName).length() < 17){

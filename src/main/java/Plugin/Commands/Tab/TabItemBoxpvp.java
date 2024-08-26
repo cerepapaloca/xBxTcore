@@ -32,6 +32,9 @@ public class TabItemBoxpvp implements TabCompleter {
         nameworlds.add("money_compact");
         nameworlds.add("moneys");
         nameworlds.add("especial_items");
+        nameworlds.add("kits");
+        nameworlds.add("shurlker_Boxs_Personal");
+        nameworlds.add("keys");
 
         if (args.length == 1) {
             String currentArg = args[0].toLowerCase();
