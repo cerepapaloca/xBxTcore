@@ -105,7 +105,7 @@ public class AutoFillsBox {
         minas.add(minaBoxPvp);
         location1 = new Location(Bukkit.getWorld("boxpvp"), -6, 35, 52);
         location2 = new Location(Bukkit.getWorld("boxpvp"), 5, 39, 63);
-        minaBoxPvp = new MinaBoxPvp("12345678901234567890",Material.GOLD_BLOCK,600, location1, location2, new Location(Bukkit.getWorld("boxpvp"),0, 41, 58), false);
+        minaBoxPvp = new MinaBoxPvp("Mina de Oro",Material.GOLD_BLOCK,600, location1, location2, new Location(Bukkit.getWorld("boxpvp"),0, 41, 58), false);
         minaBoxPvp.getHexColor().add(0,"d9aa02");
         minaBoxPvp.getHexColor().add(1 ,"ffd952");
         minas.add(minaBoxPvp);
@@ -139,7 +139,7 @@ public class AutoFillsBox {
                 xBxTcore.getHologramasBoxPvp().updateHologramTimes();
                 xBxTcore.getHologramasBoxPvp().updateHologramTimesMina();
             }
-        }.runTaskTimer(plugin, 20, 20);
+        }.runTaskTimer(plugin, 40, 20);
     }
 
     public void FillArea(Location location1, Location location2, Material material) {

@@ -388,6 +388,12 @@ public class ItemManage {
                 Colorplayer + "/lobby o /spawn\n&rte lleva al mundo principal.\n" +
                 Colorplayer + "/rank\n&rVes el top kills y rachas de los jugadores en linea"));
 
+        meta.addPage(ChatColor.translateAlternateColorCodes('&',"&lCommandos\n" + Colorplayer + "/spectator" + "Entras a una arena de duelo " +
+                "para usar tienes que poner el nombre de la arena o puedes hacer sobre el anuncio del duelo\n" +
+                Colorplayer + "/boxpvp\n&rte lleva al boxpvp.\n" +
+                Colorplayer + "/vote\n&rte da el link de la pagina para votar\n"));
+
+
         item.setItemMeta(meta);
         return item;
     }

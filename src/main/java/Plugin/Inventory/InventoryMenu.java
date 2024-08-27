@@ -62,13 +62,13 @@ public class InventoryMenu extends InventoryManager {
         eslore3.add(ChatColor.translateAlternateColorCodes('&',Coloritem + "&lRecompensas"));
         eslore3.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorinfo + "Llave Basica x150"));
         eslore3.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorinfo + "Llave Especial x100"));
-        eslore3.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorinfo + "Llave Epica x90"));
-        eslore3.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorinfo + "Llave VIP x70"));
+        eslore3.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorinfo + "Llave Epica x80"));
+        eslore3.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorinfo + "Llave VIP x50"));
         eslore3.add(ChatColor.translateAlternateColorCodes('&',Coloritem + "&lRecompensas para " + Colorplayer + "VIP"));
         eslore3.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorplayer + "+ " + Colorinfo + "Llave Basica x140"));
-        eslore3.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorplayer + "+ " + Colorinfo + "Llave Especial x100"));
-        eslore3.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorplayer + "+ " + Colorinfo + "Llave Epica x200"));
-        eslore3.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorplayer + "+ " + Colorinfo + "Llave VIP x10"));
+        eslore3.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorplayer + "+ " + Colorinfo + "Llave Especial x120"));
+        eslore3.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorplayer + "+ " + Colorinfo + "Llave Epica x100"));
+        eslore3.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorplayer + "+ " + Colorinfo + "Llave VIP x70"));
 
         ///////////////////
 
@@ -97,13 +97,13 @@ public class InventoryMenu extends InventoryManager {
         enlore3.add(ChatColor.translateAlternateColorCodes('&',Coloritem + "&lRewards"));
         enlore3.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorinfo + "Basic Key x150"));
         enlore3.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorinfo + "Special Key x100"));
-        enlore3.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorinfo + "Epic Key x90"));
-        enlore3.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorinfo + "VIP Key x70"));
+        enlore3.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorinfo + "Epic Key x80"));
+        enlore3.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorinfo + "VIP Key x50"));
         enlore3.add(ChatColor.translateAlternateColorCodes('&',Coloritem + "&lReward for " + Colorplayer + "VIP"));
         enlore3.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorplayer + "+ " + Colorinfo + "Basic Key x140"));
-        enlore3.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorplayer + "+ " + Colorinfo + "Special Key x100"));
-        enlore3.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorplayer + "+ " + Colorinfo + "Epic Key x200"));
-        enlore3.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorplayer + "+ " + Colorinfo + "VIP Key x10"));
+        enlore3.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorplayer + "+ " + Colorinfo + "Special Key x120"));
+        enlore3.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorplayer + "+ " + Colorinfo + "Epic Key x100"));
+        enlore3.add(ChatColor.translateAlternateColorCodes('&',"&f- " + Colorplayer + "+ " + Colorinfo + "VIP Key x70"));
     }
 
     public void OpenMenuInvetory(InvetoryPlayer invetoryplayer) {

@@ -163,6 +163,15 @@ public class BlockerListener implements Listener {
     }
 
     @EventHandler
+    public void PlayerInteractEnderChest(PlayerInteractEvent event) {
+        if (event.getClickedBlock() != null){
+            if (event.getClickedBlock().getType().equals(Material.ENDER_CHEST) && !event.getPlayer().getWorld().equals(Bukkit.getWorld(worldBoxPvp))){
+                event.setCancelled(true);
+            }
+        }
+    }
+
+    @EventHandler
     public void PlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
         if(!event.getPlayer().isOp()){
             String command = event.getMessage().split(" ")[0].substring(1).toLowerCase();

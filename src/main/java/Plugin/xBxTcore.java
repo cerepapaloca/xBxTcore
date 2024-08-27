@@ -159,7 +159,7 @@ public class xBxTcore extends JavaPlugin {
         Objects.requireNonNull(getCommand("ReloadDataPlayares")).setExecutor(new CommandReloadDataPlayares(this));
         Objects.requireNonNull(getCommand("itemboxpvp")).setExecutor(new CommandItemBoxpvp(this));
         Objects.requireNonNull(getCommand("timerewardskip")).setExecutor(new CommandTimeRewardSkip());
-        Objects.requireNonNull(getCommand("addvip")).setExecutor(new CommandAddVip());
+        Objects.requireNonNull(getCommand("vip")).setExecutor(new CommandVip());
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////
         Objects.requireNonNull(getCommand("sk")).setExecutor(new CommandSaveKit(this));
         Objects.requireNonNull(getCommand("dk")).setExecutor(new CommandDelKit(this));

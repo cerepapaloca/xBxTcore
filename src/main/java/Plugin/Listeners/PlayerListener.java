@@ -6,6 +6,7 @@ import Plugin.Model.Player.PlayerDataGLobal;
 import Plugin.Model.Request;
 import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
+import com.onarandombox.MultiverseCore.listeners.ChatEvent;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.event.EventHandler;
@@ -118,7 +119,7 @@ public class PlayerListener implements Listener {
         ///////////////////////////////////////////////////
         xBxTcore.getMessageManager().BroadcastMessagejoin(event.getPlayer());
         xBxTcore.getPlayerFileManager().SaveUUIDplayer(event.getPlayer().getUniqueId());
-        player.teleport(new Location(Bukkit.getWorld("lobby"), 0 ,69 ,0));
+        //player.teleport(new Location(Bukkit.getWorld("lobby"), 0 ,69 ,0));
         event.setJoinMessage(null);
         ///////////////////////////////////////////////////
         xBxTcore.getHologramas().ResetKills(player.getUniqueId());
@@ -157,7 +158,6 @@ public class PlayerListener implements Listener {
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + Colorinfo
          + "EL ping del jugador es: " + Colorplayer + event.getPlayer().getPing()));
     }
-
 
     private void DelayTeleport(Player player, String worldName) {
         new BukkitRunnable() {

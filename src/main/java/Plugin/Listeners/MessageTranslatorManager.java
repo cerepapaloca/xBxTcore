@@ -12,7 +12,10 @@ import com.comphenix.protocol.wrappers.WrappedChatComponent;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.vexsoftware.votifier.model.VotifierEvent;
 import org.bukkit.Bukkit;
+
+import java.security.cert.CertPathValidatorException;
 
 public class MessageTranslatorManager {
 
@@ -30,28 +33,101 @@ public class MessageTranslatorManager {
         ) {
             @Override
             public void onPacketSending(PacketEvent event) {
+                String message;
                 try {
                     PacketContainer packet = event.getPacket();
                     WrappedChatComponent chatComponent = packet.getChatComponents().read(0);
-                    String message = normalizeChatMessage(chatComponent.getJson());
+                    message = normalizeChatMessage(chatComponent.getJson());
                     //Bukkit.getConsoleSender().sendMessage(message);
-                    switch (message){
-                        case "Crates » givekey" -> event.setCancelled(true);
-                        case "Crates » reward" -> {
-                            event.setCancelled(true);
-                            event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(event.getPlayer(), Messages.ClaimReward));
-                        }
-                        case "Crates » You don't have permissions to do that!" -> {
-                            event.setCancelled(true);
-                            event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(event.getPlayer(), Messages.CrateNotPermission));
-                        }
-                    }
-                }catch (Exception ignored){
 
+                }catch (Exception exception){
+                    message = event.getPacket().getChatComponents().read(0).getJson().replace("\"","");
                 }
+                replaceMessages(message, event);
             }
         });
     }
+
+    public void replaceMessages(String message, PacketEvent event){
+        switch (message){
+            case "Crates » givekey" -> event.setCancelled(true);
+            case "reward" -> {
+                event.setCancelled(true);
+                event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(event.getPlayer(), Messages.ClaimReward));
+            }
+            case "Crates » You don't have permissions to do that!" -> {
+                event.setCancelled(true);
+                event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(event.getPlayer(), Messages.CrateNotPermission));
+            }
+
+            case "%PendingLogin" ->{
+                event.setCancelled(true);
+                event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(event.getPlayer(), Messages.PendingLogin));
+            }
+            case "%PendingRegister" -> {
+                event.setCancelled(true);
+                event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(event.getPlayer(), Messages.PendingRegister));
+            }
+            case "%SuccessLogin" -> {
+                event.setCancelled(true);
+                event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(event.getPlayer(), Messages.SuccessLogin));
+            }
+            case "%SuccessRegister" -> {
+                event.setCancelled(true);
+                event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(event.getPlayer(), Messages.SuccessRegister));
+            }
+            case "%SuccessSession" -> {
+                event.setCancelled(true);
+                event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(event.getPlayer(), Messages.SuccessSession));
+            }
+            case "%SuccessPremium" -> {
+                event.setCancelled(true);
+                event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(event.getPlayer(), Messages.SuccessPremium));
+            }
+            case "%ErrorNotRegistered" -> {
+                event.setCancelled(true);
+                event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(event.getPlayer(), Messages.ErrorNotRegistered));
+            }
+            case "%ErrorOffline" -> {
+                event.setCancelled(true);
+                event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(event.getPlayer(), Messages.ErrorOffline));
+            }
+            case "%ErrorAddressLimit" -> {
+                event.setCancelled(true);
+                event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(event.getPlayer(), Messages.ErrorAddressLimit));
+            }
+            case "%AlreadyLogin" -> {
+                event.setCancelled(true);
+                event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(event.getPlayer(), Messages.AlreadyLogin));
+            }
+            case "%AlreadyLoginOther" -> {
+                event.setCancelled(true);
+                event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(event.getPlayer(), Messages.AlreadyLoginOther));
+            }
+            case "%AlreadyRegistered" -> {
+                event.setCancelled(true);
+                event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(event.getPlayer(), Messages.AlreadyRegistered));
+            }
+            case "%AlreadyPremium" -> {
+                event.setCancelled(true);
+                event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(event.getPlayer(), Messages.AlreadyPremium));
+            }
+            case "%PasswordSameAsCurrent" -> {
+                event.setCancelled(true);
+                event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(event.getPlayer(), Messages.PasswordSameAsCurrent));
+            }
+            case "%PasswordRequireConfirmation" -> {
+                event.setCancelled(true);
+                event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(event.getPlayer(), Messages.PasswordRequireConfirmation));
+            }
+            case "%PasswordIncorrect" -> {
+                event.setCancelled(true);
+                event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(event.getPlayer(), Messages.PasswordIncorrect));
+            }
+        }
+    }
+
+
     public static String normalizeChatMessage(String jsonMessage) {
         JsonObject jsonObject = JsonParser.parseString(jsonMessage).getAsJsonObject();
         return extractText(jsonObject);

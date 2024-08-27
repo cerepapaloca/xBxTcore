@@ -26,8 +26,6 @@ public class Cleaner {
         }else if (worldname.equals("boxpvp")){
             Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorWarning + "NO LO HAGAS TONTO"));
             return;
-            /*startLocation = new Location(Bukkit.getWorld(worldname), -150, 0, -150);
-            endLocation = new Location(Bukkit.getWorld(worldname), 150, 100, 150);*/
         }else{
             startLocation = new Location(Bukkit.getWorld(worldname), -40, 0, -40);
             endLocation = new Location(Bukkit.getWorld(worldname), 39, 50, 39);

@@ -9,13 +9,14 @@ import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.entity.*;
+import org.bukkit.scheduler.BukkitRunnable;
 
 
 import java.util.*;
 
-import static Plugin.Managers.MessageManager.Colorinfo;
-import static Plugin.Managers.MessageManager.Colorplayer;
+import static Plugin.Managers.MessageManager.*;
 import static Plugin.Utils.ColorUtils.applyGradient;
 
 
@@ -41,26 +42,36 @@ public class Hologramas{
     }
 
     public void removeArmorStands() {
-        Objects.requireNonNull(Bukkit.getWorld("lobby")).getEntities().stream().filter(entity -> entity instanceof ArmorStand).forEach(Entity::remove);
-        Objects.requireNonNull(Bukkit.getWorld("creatorkits")).getEntities().stream().filter(entity -> entity instanceof ArmorStand).forEach(Entity::remove);
-        Objects.requireNonNull(Bukkit.getWorld("boxpvp")).getEntities().stream().filter(entity -> entity instanceof ArmorStand).forEach(Entity::remove);
-        createPvPBoard(new Location(Bukkit.getWorld("lobby"), 0, 70, 5.5));
-        textholograms.clear();
-        createCommandsBoardEN(new Location(Bukkit.getWorld("lobby"), -6, 70.9, 6));
-        textholograms.clear();
-        createCommandsBoardES(new Location(Bukkit.getWorld("lobby"), 6, 70.9, 6));
-        textholograms.clear();
-        createDonationBoard(new Location(Bukkit.getWorld("lobby"), -10, 70, 0));
-        textholograms.clear();
-        createKillBoard(new Location(Bukkit.getWorld("lobby"), 10, 71, 0));
-        textholograms.clear();
-        createkitsBord(new Location(Bukkit.getWorld("creatorkits"), 0, 64.5, 0));
-        textholograms.clear();
-        createUserBoard(new Location(Bukkit.getWorld("lobby"), 0, 70, -10));
-        textholograms.clear();
-        createTimesBoard(new Location(Bukkit.getWorld("boxpvp"), 12, 128, 0));
-        textholograms.clear();
-        createRewardsTimesBoard(new Location(Bukkit.getWorld("boxpvp"), 35.5, 125.5, -5.5));
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                long time = System.currentTimeMillis();
+                for (World world : Bukkit.getWorlds()) {
+
+                    for (ArmorStand armorStand : world.getEntitiesByClass(ArmorStand.class)) {
+                        armorStand.remove();
+                    }
+                }
+                createPvPBoard(new Location(Bukkit.getWorld("lobby"), 0, 70, 5.5));
+                textholograms.clear();
+                createCommandsBoardEN(new Location(Bukkit.getWorld("lobby"), -6, 70.9, 6));
+                textholograms.clear();
+                createCommandsBoardES(new Location(Bukkit.getWorld("lobby"), 6, 70.9, 6));
+                textholograms.clear();
+                createDonationBoard(new Location(Bukkit.getWorld("lobby"), -10, 70, 0));
+                textholograms.clear();
+                createKillBoard(new Location(Bukkit.getWorld("lobby"), 10, 71, 0));
+                textholograms.clear();
+                createkitsBord(new Location(Bukkit.getWorld("creatorkits"), 0, 64.5, 0));
+                textholograms.clear();
+                createUserBoard(new Location(Bukkit.getWorld("lobby"), 0, 70, -10));
+                textholograms.clear();
+                createTimesBoard(new Location(Bukkit.getWorld("boxpvp"), 12, 128, 0));
+                textholograms.clear();
+                createRewardsTimesBoard(new Location(Bukkit.getWorld("boxpvp"), 35.5, 125.5, -5.5));
+                Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + Colorinfo + "Hologramas Creados En " + Colorplayer + (System.currentTimeMillis() - time) + "ms"));
+            }
+        }.runTaskLater(plugin, 40);
     }
 
     public void createPvPBoard(Location location) {
@@ -209,15 +220,21 @@ public class Hologramas{
 
     public void updateHologramTimes(){
         int i = 0;
-        String nombre;
+        String name;
+        String iconSafeZone;
         for (ArmorStand armorStand : armorStandsTimes){
             MinaBoxPvp mina = xBxTcore.getAutoFillsBox().minas.get(i);
-            nombre = applyGradient("<#" + ColorUtils.blockToHex(mina.getMaterial()) + ">" + Utils.arabicToRoman(i + 1) + " " + mina.getName() + "<#" +
+            if (mina.isSafeZone()){
+                iconSafeZone = ChatColor.translateAlternateColorCodes('&', " &6[&2☮&6]");
+            } else {
+                iconSafeZone = ChatColor.translateAlternateColorCodes('&', " &6[&c⚔&6]");
+            }
+            name = applyGradient("<#" + ColorUtils.blockToHex(mina.getMaterial()) + ">" + Utils.arabicToRoman(i + 1) + " " + mina.getName() + "<#" +
                     ColorUtils.modifyColorHexWithHLS(ColorUtils.blockToHex(mina.getMaterial()), 0.1f, 0.3f, -0.3f) +
                     ">");
 
-            armorStand.setCustomName(ChatColor.translateAlternateColorCodes('&', "&l" + nombre + " " +
-                    Colorplayer + Utils.SecondToMinutes(mina.getTimeLeft())));
+            armorStand.setCustomName(ChatColor.translateAlternateColorCodes('&', "&l" + name + " " +
+                    Colorplayer + Utils.SecondToMinutes(mina.getTimeLeft()) + iconSafeZone));
             i++;
         }
     }

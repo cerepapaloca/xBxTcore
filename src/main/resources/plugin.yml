@@ -38,7 +38,7 @@ commands:
   boxpvp:
   ReloadDataPlayares:
   itemboxpvp:
-  addvip:
+  vip:
   timerewardskip:
 permissions:
   xbxtcore.vote:

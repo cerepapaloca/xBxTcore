@@ -1,6 +1,5 @@
 package Plugin.File;
 
-import Plugin.Listeners.PlayerListener;
 import Plugin.xBxTcore;
 
 import java.io.File;

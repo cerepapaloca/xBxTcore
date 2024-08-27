@@ -14,6 +14,10 @@ public class VoteListener implements Listener {
         Utils.RewardVote(event.getVote().getUsername(), true);
         Player player = Bukkit.getPlayer(event.getVote().getUsername());
         if (player != null){
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key0 10".replace("%player%", player.getName()));
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key1 5".replace("%player%", player.getName()));
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key1 2".replace("%player%", player.getName()));
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key3 2".replace("%player%", player.getName()));
             Utils.ClickExecuteCommand("prefix", Messages.Voted, player);
         }
     }

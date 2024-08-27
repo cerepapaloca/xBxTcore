@@ -125,39 +125,39 @@ public class InventoryManager {
     }
 
     private void rewardDaly(Player player){
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key0 5".replace("%player%", player.getName()));
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key1 2".replace("%player%", player.getName()));
         if(player.hasPermission("xbxtcore.vip")){
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key0 10".replace("%player%", player.getName()));
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key1 10".replace("%player%", player.getName()));
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key3 3".replace("%player%", player.getName()));
         }
-        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key0 5".replace("%player%", player.getName()));
-        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key1 2".replace("%player%", player.getName()));
     }
 
     private void rewardWeekly(Player player){
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key0 25".replace("%player%", player.getName()));
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key1 10".replace("%player%", player.getName()));
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key2 5".replace("%player%", player.getName()));
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key2 2".replace("%player%", player.getName()));
         if(player.hasPermission("xbxtcore.vip")){
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key0 30".replace("%player%", player.getName()));
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key1 25".replace("%player%", player.getName()));
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key2 20".replace("%player%", player.getName()));
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key3 10".replace("%player%", player.getName()));
         }
-        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key0 25".replace("%player%", player.getName()));
-        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key1 10".replace("%player%", player.getName()));
-        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key2 5".replace("%player%", player.getName()));
-        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key2 2".replace("%player%", player.getName()));
     }
 
     private void rewardMonthly(Player player){
-        if(player.hasPermission("xbxtcore.vip")){
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key0 140".replace("%player%", player.getName()));
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key1 100".replace("%player%", player.getName()));
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key2 90".replace("%player%", player.getName()));
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key3 70".replace("%player%", player.getName()));
-        }
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key0 150".replace("%player%", player.getName()));
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key1 100".replace("%player%", player.getName()));
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key2 80".replace("%player%", player.getName()));
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key2 50".replace("%player%", player.getName()));
+        if(player.hasPermission("xbxtcore.vip")){
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key0 140".replace("%player%", player.getName()));
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key1 120".replace("%player%", player.getName()));
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key2 100".replace("%player%", player.getName()));
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key3 70".replace("%player%", player.getName()));
+        }
     }
 
     public void onClickInv(InvetoryPlayer invetoryPlayer, int slot, ItemStack item, ClickType click) {
