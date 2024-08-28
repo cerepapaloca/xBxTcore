@@ -1,6 +1,6 @@
 package Plugin.Commands.User;
 
-import Plugin.Enum.Messages;
+import Plugin.Messages.Enum.Messages;
 import Plugin.xBxTcore;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -9,7 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
 
-import static Plugin.Managers.MessageManager.ColorLink;
+import static Plugin.Messages.MessageManager.ColorLink;
 
 public class CommandVote implements CommandExecutor {
 

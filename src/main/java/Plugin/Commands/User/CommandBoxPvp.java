@@ -1,6 +1,6 @@
 package Plugin.Commands.User;
 
-import Plugin.Enum.Messages;
+import Plugin.Messages.Enum.Messages;
 import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;

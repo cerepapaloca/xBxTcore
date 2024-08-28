@@ -1,9 +1,9 @@
 package Plugin.Commands.User;
 
-import Plugin.Managers.InventoryManager;
-import Plugin.Model.Player.InvetoryPlayer;
-import Plugin.Enum.Messages;
-import Plugin.Model.Request;
+import Plugin.Inventory.InventoryManager;
+import Plugin.Inventory.Models.InvetoryPlayer;
+import Plugin.Messages.Enum.Messages;
+import Plugin.Duel.Model.Request;
 import Plugin.xBxTcore;
 import com.onarandombox.MultiverseCore.api.MultiverseWorld;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -20,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
-import static Plugin.Managers.MessageManager.*;
+import static Plugin.Messages.MessageManager.*;
 
 public class CommandDuel implements CommandExecutor {
 

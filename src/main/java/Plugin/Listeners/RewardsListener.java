@@ -1,6 +1,6 @@
 package Plugin.Listeners;
 
-import Plugin.Model.Player.InvetoryPlayer;
+import Plugin.Inventory.Models.InvetoryPlayer;
 import Plugin.xBxTcore;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

@@ -1,6 +1,6 @@
 package Plugin.Commands.User;
 
-import Plugin.Enum.Messages;
+import Plugin.Messages.Enum.Messages;
 import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
@@ -10,7 +10,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 

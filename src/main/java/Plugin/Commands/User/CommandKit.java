@@ -1,7 +1,7 @@
 package Plugin.Commands.User;
 
-import Plugin.Model.Player.InvetoryPlayer;
-import Plugin.Enum.Messages;
+import Plugin.Inventory.Models.InvetoryPlayer;
+import Plugin.Messages.Enum.Messages;
 import Plugin.xBxTcore;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

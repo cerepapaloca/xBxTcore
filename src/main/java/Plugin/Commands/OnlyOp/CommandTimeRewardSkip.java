@@ -1,7 +1,7 @@
 package Plugin.Commands.OnlyOp;
 
-import Plugin.Enum.Messages;
-import Plugin.Enum.PlayerFileTimes;
+import Plugin.Messages.Enum.Messages;
+import Plugin.Inventory.Enum.PlayerFileTimes;
 import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;

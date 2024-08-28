@@ -1,6 +1,6 @@
 package Plugin.Commands.Tab;
 
-import Plugin.Enum.MapsDuel;
+import Plugin.Duel.Enum.MapsDuel;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

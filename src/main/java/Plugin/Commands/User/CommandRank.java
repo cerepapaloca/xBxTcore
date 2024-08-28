@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-import static Plugin.Managers.MessageManager.*;
+import static Plugin.Messages.MessageManager.*;
 
 public class CommandRank implements CommandExecutor {
 

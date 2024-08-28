@@ -1,12 +1,11 @@
 package Plugin.Listeners;
 
-import Plugin.Enum.EndCombatCauses;
-import Plugin.Enum.Messages;
+import Plugin.Duel.Enum.EndCombatCauses;
+import Plugin.Messages.Enum.Messages;
 import Plugin.Model.Player.PlayerDataGLobal;
-import Plugin.Model.Request;
+import Plugin.Duel.Model.Request;
 import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
-import com.onarandombox.MultiverseCore.listeners.ChatEvent;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.event.EventHandler;
@@ -20,7 +19,7 @@ import org.bukkit.scheduler.BukkitTask;
 
 import java.util.*;
 
-import static Plugin.Managers.MessageManager.*;
+import static Plugin.Messages.MessageManager.*;
 
 
 public class PlayerListener implements Listener {

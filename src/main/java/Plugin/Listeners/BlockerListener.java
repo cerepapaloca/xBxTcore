@@ -1,6 +1,6 @@
 package Plugin.Listeners;
 
-import Plugin.Enum.Messages;
+import Plugin.Messages.Enum.Messages;
 import Plugin.xBxTcore;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -20,8 +20,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.*;
 import java.util.List;
 
-import static Plugin.Managers.MessageManager.ColorWarning;
-import static Plugin.Managers.MessageManager.prefixConsole;
 import static Plugin.xBxTcore.worldBoxPvp;
 
 public class BlockerListener implements Listener {

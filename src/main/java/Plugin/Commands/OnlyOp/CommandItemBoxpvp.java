@@ -1,7 +1,7 @@
 package Plugin.Commands.OnlyOp;
 
-import Plugin.Enum.Messages;
-import Plugin.Managers.ItemManage;
+import Plugin.Messages.Enum.Messages;
+import Plugin.BoxPvp.ItemsBoxPvp.ItemManage;
 import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
 import org.bukkit.Bukkit;

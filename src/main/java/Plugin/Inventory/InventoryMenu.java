@@ -1,9 +1,8 @@
 package Plugin.Inventory;
 
-import Plugin.Managers.InventoryManager;
-import Plugin.Model.Player.InvetoryPlayer;
-import Plugin.Enum.InvetorySection;
-import Plugin.Enum.Messages;
+import Plugin.Inventory.Models.InvetoryPlayer;
+import Plugin.Inventory.Enum.InvetorySection;
+import Plugin.Messages.Enum.Messages;
 import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
@@ -21,7 +20,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.ArrayList;
 import java.util.List;
 
-import static Plugin.Managers.MessageManager.*;
+import static Plugin.Messages.MessageManager.*;
 import static Plugin.xBxTcore.*;
 
 public class InventoryMenu extends InventoryManager {

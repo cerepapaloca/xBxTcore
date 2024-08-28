@@ -1,6 +1,6 @@
 package Plugin.Commands.OnlyOp;
 
-import Plugin.Managers.MessageManager;
+import Plugin.Messages.MessageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;

@@ -1,6 +1,6 @@
 package Plugin.Commands.User;
 
-import Plugin.Enum.Messages;
+import Plugin.Messages.Enum.Messages;
 import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
-import static Plugin.Managers.MessageManager.*;
+import static Plugin.Messages.MessageManager.*;
 
 public class CommandInv implements CommandExecutor {
 

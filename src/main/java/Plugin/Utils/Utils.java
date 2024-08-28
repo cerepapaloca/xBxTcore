@@ -1,6 +1,6 @@
 package Plugin.Utils;
 
-import Plugin.Enum.Messages;
+import Plugin.Messages.Enum.Messages;
 import Plugin.xBxTcore;
 import net.luckperms.api.node.types.InheritanceNode;
 import net.md_5.bungee.api.ChatColor;
@@ -14,15 +14,14 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.checkerframework.checker.units.qual.Prefix;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-import static Plugin.Managers.MessageManager.*;
-import static Plugin.Managers.MessageManager.ColorLink;
+import static Plugin.Messages.MessageManager.*;
+import static Plugin.Messages.MessageManager.ColorLink;
 import static org.bukkit.Bukkit.getServer;
 
 public class Utils {

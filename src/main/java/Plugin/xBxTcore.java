@@ -1,21 +1,32 @@
 package Plugin;
 
+import Plugin.BoxPvp.AutoFillsBox;
+import Plugin.BoxPvp.ItemsBoxPvp.ItemManage;
+import Plugin.BoxPvp.ZoneSafeBoxPvp;
+import Plugin.CombatLog.CombatlogListener;
 import Plugin.Commands.OnlyOp.*;
 import Plugin.Commands.Tab.*;
 import Plugin.Commands.User.*;
-import Plugin.Enum.EndCombatCauses;
+import Plugin.Duel.DuelManager;
 import Plugin.Environments.*;
+import Plugin.Environments.Hologrmas.Hologramas;
+import Plugin.Environments.Hologrmas.HologramasBoxPvp;
+import Plugin.File.PlayerfileManager;
 import Plugin.Inventory.InventoryMenu;
-import Plugin.Listeners.Bonus.ArmorBonusListener;
-import Plugin.Listeners.Bonus.ItemBonusListener;
-import Plugin.Listeners.Invetory.InventoryListener;
-import Plugin.Listeners.Invetory.ItemframeListener;
-import Plugin.Listeners.Invetory.ShulkerBoxInventoryListener;
+import Plugin.BoxPvp.ItemsBoxPvp.Listener.ArmorBonusListener;
+import Plugin.BoxPvp.ItemsBoxPvp.Listener.ItemBonusListener;
+import Plugin.Inventory.InventoryClick;
+import Plugin.Inventory.Listener.InventoryListener;
+import Plugin.Inventory.Listener.ItemframeListener;
+import Plugin.Inventory.Listener.ShulkerBoxInventoryListener;
 import Plugin.Listeners.*;
-import Plugin.Managers.*;
-import Plugin.Enum.Messages;
+import Plugin.Messages.Enum.Messages;
+import Plugin.Inventory.InventoryManager;
+import Plugin.Messages.Listener.MessageDiedListener;
+import Plugin.Messages.MessageManager;
+import Plugin.Messages.MessageTranslatorManager;
 import Plugin.Model.Player.PlayerDataGLobal;
-import Plugin.Model.Player.PlayerDataUnique;
+import Plugin.Duel.Model.PlayerDataUnique;
 import Plugin.Placeholder.HealthPlaceholder;
 import Plugin.Utils.ColorUtils;
 import Plugin.Utils.Utils;
@@ -35,13 +46,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import net.md_5.bungee.api.ChatColor;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-import static Plugin.Managers.MessageManager.*;
-import static org.bukkit.Bukkit.getServer;
+import static Plugin.Messages.MessageManager.*;
 
 public class xBxTcore extends JavaPlugin {
 
@@ -64,6 +73,7 @@ public class xBxTcore extends JavaPlugin {
     private static ArmorBonusListener armorBonusListener;
     private static ProtocolManager protocolManager;
     private static HealthPlaceholder healthPlaceholder;
+    private static InventoryClick inventoryClick;
     public static Hologramas hologramas;
     public static PlayerDataGLobal playerDataGLobal;
     public static InventoryManager invetoryManager;
@@ -207,7 +217,7 @@ public class xBxTcore extends JavaPlugin {
     }
 
     public void ManagersRegister(){
-
+        inventoryClick = new InventoryClick(this);
         new MessageTranslatorManager(this);
         playerfileManager = new PlayerfileManager(this);
         duelManager = new DuelManager(this);
@@ -248,10 +258,14 @@ public class xBxTcore extends JavaPlugin {
         worlds.add(Bukkit.getWorld("lobby"));
         worlds.add(Bukkit.getWorld("creatorkits"));
         worlds.add(Bukkit.getWorld("boxpvp"));
+
     }
 
     ///////////////////////////////////////////////////
     ///////////////////////////////////////////////////
+    public static InventoryClick getInventoryClick(){
+        return inventoryClick;
+    }
 
     public static Cleaner getCleaner() {
         return cleaner;

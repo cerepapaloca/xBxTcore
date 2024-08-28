@@ -1,6 +1,6 @@
 package Plugin.Commands.OnlyOp;
 
-import Plugin.Enum.Messages;
+import Plugin.Messages.Enum.Messages;
 import Plugin.xBxTcore;
 import net.luckperms.api.node.types.InheritanceNode;
 import org.bukkit.Bukkit;

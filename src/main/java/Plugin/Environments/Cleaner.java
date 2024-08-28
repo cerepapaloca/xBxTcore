@@ -4,7 +4,7 @@ import Plugin.xBxTcore;
 import org.bukkit.*;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import static Plugin.Managers.MessageManager.*;
+import static Plugin.Messages.MessageManager.*;
 
 public class Cleaner {
 
