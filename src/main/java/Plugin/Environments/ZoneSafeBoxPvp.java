@@ -18,7 +18,7 @@ public class ZoneSafeBoxPvp {
         for (MinaBoxPvp mine : xBxTcore.getAutoFillsBox().minas){
             if (mine.isSafeZone()){
                 location = Utils.getMidpoint(mine.getLocationA(), mine.getLocationB());
-                mine1 = new SafeArea(location.clone().add(10, 4, 10), location.clone().add(-10, -4, -10));
+                mine1 = new SafeArea(location.clone().add(10, 6, 10), location.clone().add(-10, -10, -10));
                 safeAreas.add(mine1);
             }
         }

@@ -3,6 +3,7 @@ package Plugin;
 import Plugin.Commands.OnlyOp.*;
 import Plugin.Commands.Tab.*;
 import Plugin.Commands.User.*;
+import Plugin.Enum.EndCombatCauses;
 import Plugin.Environments.*;
 import Plugin.Inventory.InventoryMenu;
 import Plugin.Listeners.Bonus.ArmorBonusListener;
@@ -15,6 +16,7 @@ import Plugin.Managers.*;
 import Plugin.Enum.Messages;
 import Plugin.Model.Player.PlayerDataGLobal;
 import Plugin.Model.Player.PlayerDataUnique;
+import Plugin.Placeholder.HealthPlaceholder;
 import Plugin.Utils.ColorUtils;
 import Plugin.Utils.Utils;
 import com.comphenix.protocol.ProtocolLibrary;
@@ -30,16 +32,16 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import net.md_5.bungee.api.ChatColor;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 import static Plugin.Managers.MessageManager.*;
+import static org.bukkit.Bukkit.getServer;
 
 public class xBxTcore extends JavaPlugin {
 
@@ -61,7 +63,7 @@ public class xBxTcore extends JavaPlugin {
     private static ItemManage itemManage;
     private static ArmorBonusListener armorBonusListener;
     private static ProtocolManager protocolManager;
-    private static MessageTranslatorManager messageTranslatorManager;
+    private static HealthPlaceholder healthPlaceholder;
     public static Hologramas hologramas;
     public static PlayerDataGLobal playerDataGLobal;
     public static InventoryManager invetoryManager;
@@ -80,11 +82,8 @@ public class xBxTcore extends JavaPlugin {
     @Override
     public void onEnable() {
         long timeStaringtotal = System.currentTimeMillis();
+        OtherRegister();
         long timeStaring = System.currentTimeMillis();
-        playerDataGLobal = new PlayerDataGLobal();
-        cleaner = new Cleaner(this);
-        worlds = new ArrayList<>();
-        playersOffline = new ArrayList<>();
         UtilsRegister();
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', Colorinfo + "┌Utils Cargado " + Colorplayer + (System.currentTimeMillis() - timeStaring) + "ms"));
         timeStaring = System.currentTimeMillis();
@@ -99,10 +98,6 @@ public class xBxTcore extends JavaPlugin {
         timeStaring = System.currentTimeMillis();
         ListenersRegister();
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', Colorinfo + "├Listener Cargado " + Colorplayer + (System.currentTimeMillis() - timeStaring) + "ms"));
-        timeStaring = System.currentTimeMillis();
-        startAutoCleaner();
-        Timeinfo();
-        WorldProtec();
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', ColorSuccess + "xBxTcore Cargado " + Colorplayer + (System.currentTimeMillis() - timeStaringtotal) + "ms"));
         MessageON();
         serverStartTime = System.currentTimeMillis();
@@ -113,7 +108,7 @@ public class xBxTcore extends JavaPlugin {
             loc.getBlock().setType(Material.AIR);
         }
 
-        for (Player p : Objects.requireNonNull(Bukkit.getWorld("boxpvp")).getPlayers()) {
+        for (Player p : Objects.requireNonNull(Bukkit.getWorld(worldBoxPvp)).getPlayers()) {
             xBxTcore.getPlayerFileManager().SaveInventoryBoxPvp(p.getUniqueId(), Utils.getItensInvetory(p));
         }
         MessageOFF();
@@ -136,18 +131,18 @@ public class xBxTcore extends JavaPlugin {
     }
 
     public void CommandRegister(){
-        Objects.requireNonNull(this.getCommand("kit")).setExecutor(new CommandKit(this));
-        Objects.requireNonNull(this.getCommand("savekit")).setExecutor(new CommandSaveKit(this));
-        Objects.requireNonNull(this.getCommand("delkit")).setExecutor(new CommandDelKit(this));
-        Objects.requireNonNull(this.getCommand("kitfavorite")).setExecutor(new CommandKitFavorite(this));
-        Objects.requireNonNull(this.getCommand("Cleaner")).setExecutor(new CommandCleaner());
-        Objects.requireNonNull(this.getCommand("info")).setExecutor(new Commandinfo(this));
-        Objects.requireNonNull(this.getCommand("lobby")).setExecutor(new CommandLobby(this));
-        Objects.requireNonNull(this.getCommand("help")).setExecutor(new CommandHelp(this));
-        Objects.requireNonNull(this.getCommand("kill")).setExecutor(new CommandKill(this));
-        Objects.requireNonNull(this.getCommand("duel")).setExecutor(commandDuel = new CommandDuel(this));
-        Objects.requireNonNull(this.getCommand("discord")).setExecutor(new CommandDiscord(this));
-        Objects.requireNonNull(this.getCommand("spectator")).setExecutor(new CommandSpectator(this));
+        Objects.requireNonNull(getCommand("kit")).setExecutor(new CommandKit(this));
+        Objects.requireNonNull(getCommand("savekit")).setExecutor(new CommandSaveKit(this));
+        Objects.requireNonNull(getCommand("delkit")).setExecutor(new CommandDelKit(this));
+        Objects.requireNonNull(getCommand("kitfavorite")).setExecutor(new CommandKitFavorite(this));
+        Objects.requireNonNull(getCommand("Cleaner")).setExecutor(new CommandCleaner());
+        Objects.requireNonNull(getCommand("info")).setExecutor(new Commandinfo(this));
+        Objects.requireNonNull(getCommand("lobby")).setExecutor(new CommandLobby(this));
+        Objects.requireNonNull(getCommand("help")).setExecutor(new CommandHelp(this));
+        Objects.requireNonNull(getCommand("kill")).setExecutor(new CommandKill(this));
+        Objects.requireNonNull(getCommand("duel")).setExecutor(commandDuel = new CommandDuel(this));
+        Objects.requireNonNull(getCommand("discord")).setExecutor(new CommandDiscord(this));
+        Objects.requireNonNull(getCommand("spectator")).setExecutor(new CommandSpectator(this));
         Objects.requireNonNull(getCommand("ping")).setExecutor(new CommandPing());
         Objects.requireNonNull(getCommand("debugkit")).setExecutor(new CommandDebugKit());
         Objects.requireNonNull(getCommand("rank")).setExecutor(new CommandRank(this));
@@ -160,6 +155,7 @@ public class xBxTcore extends JavaPlugin {
         Objects.requireNonNull(getCommand("itemboxpvp")).setExecutor(new CommandItemBoxpvp(this));
         Objects.requireNonNull(getCommand("timerewardskip")).setExecutor(new CommandTimeRewardSkip());
         Objects.requireNonNull(getCommand("vip")).setExecutor(new CommandVip());
+        Objects.requireNonNull(getCommand("shop")).setExecutor(new CommandShop(this));
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////
         Objects.requireNonNull(getCommand("sk")).setExecutor(new CommandSaveKit(this));
         Objects.requireNonNull(getCommand("dk")).setExecutor(new CommandDelKit(this));
@@ -203,11 +199,16 @@ public class xBxTcore extends JavaPlugin {
         if (provider != null) {
             luckPerms = provider.getProvider();
         }
+        if (getServer().getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            new HealthPlaceholder(this).register();
+        } else {
+            getLogger().warning("PlaceholderAPI no está instalado. El plugin no funcionará correctamente.");
+        }
     }
 
     public void ManagersRegister(){
 
-        messageTranslatorManager = new MessageTranslatorManager(this);
+        new MessageTranslatorManager(this);
         playerfileManager = new PlayerfileManager(this);
         duelManager = new DuelManager(this);
         long timeStaring = System.currentTimeMillis();
@@ -225,6 +226,17 @@ public class xBxTcore extends JavaPlugin {
         itemManage = new ItemManage(this);
         Bukkit.getConsoleSender().sendMessage(org.bukkit.ChatColor.translateAlternateColorCodes('&', Colorinfo + "│ ├item manager Cargado " + Colorplayer + (System.currentTimeMillis() - timeStaring) + "ms"));
         zoneSafeBoxPvp = new ZoneSafeBoxPvp();
+    }
+
+    private void OtherRegister(){
+        playerDataGLobal = new PlayerDataGLobal();
+        cleaner = new Cleaner(this);
+        worlds = new ArrayList<>();
+        playersOffline = new ArrayList<>();
+        WorldProtec();
+        Timeinfo();
+        startAutoCleaner();
+        TimeAutoSafeInventory();
     }
 
     public void UtilsRegister(){
@@ -297,16 +309,8 @@ public class xBxTcore extends JavaPlugin {
         return tools;
     }
 
-    public String getVercion(){
-        return getDescription().getVersion();
-    }
-
     public static InventoryMenu getInventoryMenu(){
         return inventoryMenu;
-    }
-
-    public static NuVotifierBukkit getNuVotifierBukkit(){
-        return nuVotifier;
     }
 
     public static AutoFillsBox getAutoFillsBox(){
@@ -421,11 +425,33 @@ public class xBxTcore extends JavaPlugin {
         return playerDataUnique.get(uuid);
     }
 
-    public static void deletePlayerDataUnique(UUID uuid){
-        playerDataUnique.remove(uuid);
-    }
-
     private void Timeinfo() {
         Bukkit.getScheduler().runTaskTimer(this, this::info, 40 * 20,10 * 60 * 20);
+    }
+
+    private List<Player> players = new ArrayList<>();
+
+    private void TimeAutoSafeInventory (){
+        Bukkit.getScheduler().runTaskTimer(this, () -> {
+
+            players = Objects.requireNonNull(Bukkit.getWorld(worldBoxPvp)).getPlayers();
+            if (players.isEmpty()){
+                return;
+            }
+            new BukkitRunnable() {
+                int i = 0;
+                public void run() {
+                    if (players.size() <= i){
+                        cancel();
+                        return;
+                    }
+                    Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorSuccess + "Auto save gurda exitosamente a " +
+                            Colorplayer + players.get(i).getName()));
+                    xBxTcore.getPlayerFileManager().SaveInventoryBoxPvp(players.get(i).getUniqueId(), Utils.getItensInvetory(players.get(i)));
+                    i++;
+                }
+            }.runTaskTimer(this, 0, 2);
+        }, 2 * 20,60 * 20 * 5);
+
     }
 }

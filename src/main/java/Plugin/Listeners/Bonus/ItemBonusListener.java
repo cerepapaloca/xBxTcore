@@ -11,7 +11,10 @@ import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import java.util.Objects;
+
 import static Plugin.xBxTcore.worldBoxPvp;
+import static java.util.Objects.requireNonNull;
 
 public class ItemBonusListener implements Listener {
 
@@ -31,9 +34,9 @@ public class ItemBonusListener implements Listener {
 
             ItemStack item = attacker.getInventory().getItemInOffHand();
             if (item.getItemMeta() == null) return;
-            PotionEffect Wither = new PotionEffect(PotionEffectType.WITHER, 20*10, 2);
+            PotionEffect Wither = new PotionEffect(PotionEffectType.WITHER, 20*10, 3);
 
-            switch (item.getItemMeta().getPersistentDataContainer().get(new NamespacedKey(plugin, "keyEspacial"), PersistentDataType.STRING)){
+            switch (requireNonNull(item.getItemMeta().getPersistentDataContainer().get(new NamespacedKey(plugin, "keyEspacial"), PersistentDataType.STRING))){
                 case "DañoBonus" -> {
                     event.setDamage(event.getDamage()*2);
                     attacker.setFoodLevel(attacker.getFoodLevel() - 1);
@@ -41,6 +44,13 @@ public class ItemBonusListener implements Listener {
                 case "DañoPorWither" -> {
                     if (attacker.getHealth() <= 16){
                         attacked.addPotionEffect(Wither);
+                    }
+                }
+                case "DañoBonusPorAbsorción" -> {
+                    if (attacked.hasPotionEffect(PotionEffectType.ABSORPTION)){
+                        event.setDamage(event.getDamage()*3);
+                    }else{
+                        event.setDamage(event.getDamage()*0.75);
                     }
                 }
             }

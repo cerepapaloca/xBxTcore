@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class AutoFillsBox {
 
     public final xBxTcore plugin;
-    public final ArrayList<MinaBoxPvp> minas = new ArrayList<>();
+    public static ArrayList<MinaBoxPvp> minas = new ArrayList<>();
 
     public AutoFillsBox(xBxTcore plugin) {
         this.plugin = plugin;
@@ -93,38 +93,35 @@ public class AutoFillsBox {
 
         location1 = new Location(Bukkit.getWorld("boxpvp"), 5, 35, -52);
         location2 = new Location(Bukkit.getWorld("boxpvp"), -6, 39, -63);
-        minaBoxPvp = new MinaBoxPvp("Mina de Cobre",Material.COPPER_BLOCK,600, location1, location2, new Location(Bukkit.getWorld("boxpvp"),0,41, -58), false);
+        minaBoxPvp = new MinaBoxPvp("Mina de Cobre",Material.COPPER_BLOCK,1200, location1, location2, new Location(Bukkit.getWorld("boxpvp"),0,41, -58), false);
         minaBoxPvp.getHexColor().add(0, "D07131");
         minaBoxPvp.getHexColor().add(1, "e6a87e");
         minas.add(minaBoxPvp);
         location1 = new Location(Bukkit.getWorld("boxpvp"), 52, 35, 5);
         location2 = new Location(Bukkit.getWorld("boxpvp"), 63, 39, -6);
-        minaBoxPvp = new MinaBoxPvp("Mina de Hierro",Material.IRON_BLOCK,600, location1, location2, new Location(Bukkit.getWorld("boxpvp"),58, 41, 0), false);
+        minaBoxPvp = new MinaBoxPvp("Mina de Hierro",Material.IRON_BLOCK,1200, location1, location2, new Location(Bukkit.getWorld("boxpvp"),58, 41, 0), false);
         minaBoxPvp.getHexColor().add(0, "e3e3e3");
         minaBoxPvp.getHexColor().add(1, "8f8f8f");
         minas.add(minaBoxPvp);
         location1 = new Location(Bukkit.getWorld("boxpvp"), -6, 35, 52);
         location2 = new Location(Bukkit.getWorld("boxpvp"), 5, 39, 63);
-        minaBoxPvp = new MinaBoxPvp("Mina de Oro",Material.GOLD_BLOCK,600, location1, location2, new Location(Bukkit.getWorld("boxpvp"),0, 41, 58), false);
+        minaBoxPvp = new MinaBoxPvp("Mina de Oro",Material.GOLD_BLOCK,1200, location1, location2, new Location(Bukkit.getWorld("boxpvp"),0, 41, 58), false);
         minaBoxPvp.getHexColor().add(0,"d9aa02");
         minaBoxPvp.getHexColor().add(1 ,"ffd952");
         minas.add(minaBoxPvp);
         location1 = new Location(Bukkit.getWorld("boxpvp"), -52, 35, -6);
         location2 = new Location(Bukkit.getWorld("boxpvp"), -63, 39, 5);
-        minaBoxPvp = new MinaBoxPvp("Mina deEsmeraldas",Material.EMERALD_BLOCK,600, location1, location2, new Location(Bukkit.getWorld("boxpvp"),-58, 41, 0), false);
+        minaBoxPvp = new MinaBoxPvp("Mina deEsmeraldas",Material.EMERALD_BLOCK,1200, location1, location2, new Location(Bukkit.getWorld("boxpvp"),-58, 41, 0), false);
         minaBoxPvp.getHexColor().add(0,"24ff24");
         minaBoxPvp.getHexColor().add(1,"a8ffa8");
         minas.add(minaBoxPvp);
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         location1 = new Location(Bukkit.getWorld("boxpvp"), -3, 36, -3);
         location2 = new Location(Bukkit.getWorld("boxpvp"), 2, 39, 2);
-        minaBoxPvp = new MinaBoxPvp("Mina de Especial",Material.PEARLESCENT_FROGLIGHT,3600, location1, location2, new Location(Bukkit.getWorld("boxpvp"),0, 42, 0), false);
+        minaBoxPvp = new MinaBoxPvp("Mina de Especial",Material.PEARLESCENT_FROGLIGHT,7200, location1, location2, new Location(Bukkit.getWorld("boxpvp"),0, 42, 0), false);
         minaBoxPvp.getHexColor().add(0,"ff38f8");
         minaBoxPvp.getHexColor().add(1, "ffa1fc");
         minas.add(minaBoxPvp);
-        for (MinaBoxPvp minaboxPvp : minas){
-            xBxTcore.getHologramasBoxPvp().createTimesMina(minaboxPvp);
-        }
         new BukkitRunnable() {
             public void run() {
 
@@ -139,7 +136,7 @@ public class AutoFillsBox {
                 xBxTcore.getHologramasBoxPvp().updateHologramTimes();
                 xBxTcore.getHologramasBoxPvp().updateHologramTimesMina();
             }
-        }.runTaskTimer(plugin, 40, 20);
+        }.runTaskTimer(plugin, 80, 20);
     }
 
     public void FillArea(Location location1, Location location2, Material material) {

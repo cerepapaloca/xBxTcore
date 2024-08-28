@@ -16,6 +16,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.*;
 
+import static Plugin.Environments.AutoFillsBox.minas;
 import static Plugin.Managers.MessageManager.*;
 import static Plugin.Utils.ColorUtils.applyGradient;
 
@@ -52,11 +53,11 @@ public class Hologramas{
                         armorStand.remove();
                     }
                 }
+                for (MinaBoxPvp minaboxPvp : minas){
+                    xBxTcore.getHologramasBoxPvp().createTimesMina(minaboxPvp);
+                }
+                textholograms.clear();
                 createPvPBoard(new Location(Bukkit.getWorld("lobby"), 0, 70, 5.5));
-                textholograms.clear();
-                createCommandsBoardEN(new Location(Bukkit.getWorld("lobby"), -6, 70.9, 6));
-                textholograms.clear();
-                createCommandsBoardES(new Location(Bukkit.getWorld("lobby"), 6, 70.9, 6));
                 textholograms.clear();
                 createDonationBoard(new Location(Bukkit.getWorld("lobby"), -10, 70, 0));
                 textholograms.clear();
@@ -69,42 +70,20 @@ public class Hologramas{
                 createTimesBoard(new Location(Bukkit.getWorld("boxpvp"), 12, 128, 0));
                 textholograms.clear();
                 createRewardsTimesBoard(new Location(Bukkit.getWorld("boxpvp"), 35.5, 125.5, -5.5));
+                textholograms.clear();
+                createBoxPvp(new Location(Bukkit.getWorld("lobby"), 0.5, 69, 14.5));
                 Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + Colorinfo + "Hologramas Creados En " + Colorplayer + (System.currentTimeMillis() - time) + "ms"));
             }
         }.runTaskLater(plugin, 40);
     }
 
     public void createPvPBoard(Location location) {
-        textholograms.add(ChatColor.translateAlternateColorCodes('&', "&b<--&c&lPVP is here!!&r&b-->"));
-        textholograms.add(ChatColor.translateAlternateColorCodes('&', "&b<--&l&c ↓     ↓     ↓&r&b -->"));
-        createListArmorStand(textholograms, location, textholograms.size());
-    }
-
-    public void createCommandsBoardEN(Location location) {
-        textholograms.add(ChatColor.translateAlternateColorCodes('&', "&b<--&c&lCommands&r&b-->&cEN"));
-        textholograms.add(ChatColor.translateAlternateColorCodes('&', "&c/kit&e Open List Kit"));
-        textholograms.add(ChatColor.translateAlternateColorCodes('&', "&c/kitfavorite&e Load your kit favorite when respawn or save your kit"));
-        textholograms.add(ChatColor.translateAlternateColorCodes('&', "&c/savekit&e save all your inventory in a kit"));
-        textholograms.add(ChatColor.translateAlternateColorCodes('&', "&c/delkit&e Delete kit selected"));
-        textholograms.add(ChatColor.translateAlternateColorCodes('&',"&c/lobby&e Teleports you to the lobby"));
-        textholograms.add(ChatColor.translateAlternateColorCodes('&',"&c/duel &e You can create a duel with a player and select world type"));
-        createListArmorStand(textholograms, location, textholograms.size());
-    }
-
-    public void createCommandsBoardES(Location location){
-        textholograms.add(ChatColor.translateAlternateColorCodes('&',"&b<--&c&lComandos&b--> &cES"));
-        textholograms.add(ChatColor.translateAlternateColorCodes('&',"&c/kit&e Abres La lista de Kits"));
-        textholograms.add(ChatColor.translateAlternateColorCodes('&',"&c/kitfavorite&e Carga el kit favorito o guarda tu kit favorito"));
-        textholograms.add(ChatColor.translateAlternateColorCodes('&',"&c/savekit&e Guarda todo tu invetario en un kit"));
-        textholograms.add(ChatColor.translateAlternateColorCodes('&',"&c/delkit&e Elimina el kit selecionado"));
-        textholograms.add(ChatColor.translateAlternateColorCodes('&',"&c/lobby&e Te teletrasporta al lobby"));
-        textholograms.add(ChatColor.translateAlternateColorCodes('&',"&c/duel&e Creas un duelo con otro jugador y seleciona el tipo de mundo"));
+        textholograms.add(ChatColor.translateAlternateColorCodes('&', Colorinfo + "<---" + Colorplayer + "El PvP Es Aquí!!" + Colorinfo + "--->"));
+        textholograms.add(ChatColor.translateAlternateColorCodes('&', Colorinfo + "<---" + Colorplayer + " ↓   ↓   ↓ " + Colorinfo + "--->"));
         createListArmorStand(textholograms, location, textholograms.size());
     }
 
     public void createDonationBoard(Location location) {
-        textholograms.add(ChatColor.translateAlternateColorCodes('&', "&b<--&c&lDonaciones&r&b-->"));
-        textholograms.add(ChatColor.translateAlternateColorCodes('&', "&ehttps://paypal.me/xBxTpvp"));
         textholograms.add(ChatColor.translateAlternateColorCodes('&', "&b<--&c&lDiscord&b-->"));
         textholograms.add(ChatColor.translateAlternateColorCodes('&', "&ehttps://discord.gg/QYBwEFvnsG"));
         createListArmorStand(textholograms, location ,textholograms.size());
@@ -112,6 +91,12 @@ public class Hologramas{
 
     public void createRewardsTimesBoard(Location location) {
         textholograms.add(ChatColor.translateAlternateColorCodes('&', Colorinfo + "<---" + Colorplayer + "Recompensas Gratis!!" + Colorinfo + "--->"));
+        createListArmorStand(textholograms, location ,textholograms.size());
+    }
+
+    public void createBoxPvp(Location location) {
+        textholograms.add(ChatColor.translateAlternateColorCodes('&', Colorinfo + "<---" + Colorplayer + "El BOXPvP Es Aquí!!" + Colorinfo + "--->"));
+        textholograms.add(ChatColor.translateAlternateColorCodes('&', Colorinfo + "<---" + Colorplayer + " ↓   ↓   ↓ " + Colorinfo + "--->"));
         createListArmorStand(textholograms, location ,textholograms.size());
     }
 
@@ -151,12 +136,12 @@ public class Hologramas{
 
     public void createUserBoard(Location location) {
         ArmorStand armorStand = (ArmorStand) Objects.requireNonNull(location.getWorld()).spawnEntity(location, EntityType.ARMOR_STAND);
-        armorStand.setCustomName(ChatColor.translateAlternateColorCodes('&', "&b<--&c&lWelcome&r&b-->"));
+        armorStand.setCustomName(ChatColor.translateAlternateColorCodes('&', "&b<--&c&lBienvenido&r&b-->"));
         armorStand.setCustomNameVisible(true);
         armorStand.setInvisible(true);
         armorStand.setGravity(false);
         armorStand.setMarker(true);
-        textholograms.add(ChatColor.translateAlternateColorCodes('&',"&exBxTCore version:&b " + plugin.getVercion()));
+        textholograms.add(ChatColor.translateAlternateColorCodes('&',"&exBxTCore version:&b " + plugin.getDescription().getVersion()));
         armorStandsUser = createListArmorStand(textholograms, location, 2);
     }
 

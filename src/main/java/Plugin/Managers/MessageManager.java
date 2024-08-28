@@ -24,7 +24,6 @@ public class MessageManager {
             ChatColor.of("#FE8F22") + "&lr" + ChatColor.of("#FF7302") + "&le" + "&6]&r ";
     public static String prefixDuel = "&8[&4⚔&8] ";
     public static String prefixDied = "&8[&4☠&8] ";
-    public static String prefixCrate = "&6[&l" + ColorUtils.applyGradient("<#3FFF21><b>Crate</b><#85FFF5>") + "&6]&r ";
 
     public static String ColorError = "&c";
     public static String ColorSuccess = "&a";
@@ -128,13 +127,12 @@ public class MessageManager {
        enMessages.put(GiveDaily, prefix + ColorSuccess + "You have claimed the daily reward");
        enMessages.put(GiveWeekly, prefix + ColorSuccess + "You have claimed the weekly reward");
        enMessages.put(GiveMonthly, prefix + ColorSuccess +  "You have claimed the monthly reward");
-       enMessages.put(CrateNotPermission, prefix + prefixCrate + ColorError + "You are not vip you can get it here" + ColorLink + "Mi tienda");
-       enMessages.put(ClaimReward, prefix + prefixCrate + ColorSuccess + "You have claimed a reward");
        //tienda
+       esMessages.put(StoreLink, prefix + Colorinfo + "You can buy here!!");
        enMessages.put(BuysTitel,ColorSuccess + "Thanks for the purchase!!");
        enMessages.put(BuysTitelLower,ColorSuccess + "I hope you enjoy it: " + Colorplayer + "%compra%");
        enMessages.put(BuyGeneric,prefix + "\n" + " \n" + Colorplayer + "%player% " + Colorinfo + "has Buying " + Colorplayer + "%compra%\n \n"
-                + Colorinfo + "You can also buy!!\n" + "In the store: " + ColorLink + "aa\n&r" + " \n");
+                + Colorinfo + "You can also buy!!\n" + "In the store: " + ColorLink + "aún en revision\n&r" + " \n");
        //login
        enMessages.put(PendingLogin, prefix + Colorinfo + "Use the command " + ColorLink + "/login <password>");
        enMessages.put(PendingRegister, prefix + Colorinfo + "Use the command " + ColorLink + "/register <password> <password>&e.");
@@ -308,10 +306,11 @@ public class MessageManager {
         esMessages.put(CrateNotPermission, prefix + ColorError + "No eres vip lo puede conseguir aqui" + ColorLink + "Mi tienda");
         esMessages.put(ClaimReward, prefix + ColorSuccess + "Haz reclamado una recompensa");
         //tienda
+        esMessages.put(StoreLink, prefix + Colorinfo + "Puedes comprar Aquí!!");
         esMessages.put(BuysTitel,ColorSuccess + "Gracias por comprar!!!");
         esMessages.put(BuysTitelLower,ColorSuccess + "Espero que lo disfrutes: " + Colorplayer + "%compra%");
         esMessages.put(BuyGeneric,prefix + "\n \n" + Coloritem + Colorplayer + "%player% " + Colorinfo + "ha comprado " + Colorplayer + "%compra%\n \n"
-                + Colorinfo + "También puedes comprarlo!!\n" + "En Tienda: " + ColorLink + "aa\n&r" + " \n");
+                + Colorinfo + "También puedes comprarlo!!\n" + "En Tienda: " + ColorLink + "aún en revision\n&r" + " \n");
         //login
         esMessages.put(PendingLogin, prefix + Colorinfo + "Utilice el comando " + ColorLink + "/login <contraseña>");
         esMessages.put(PendingRegister, prefix + Colorinfo + "Utilice el comando " + ColorLink + "/register <contraseña> <contraseña>&e.");

@@ -91,6 +91,7 @@ public enum Messages {
     ClaimReward,
     CrateNotPermission,
     //tienda
+    StoreLink,
     BuyGeneric,
     BuysTitel,
     BuysTitelLower,

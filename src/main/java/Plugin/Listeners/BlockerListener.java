@@ -2,10 +2,7 @@ package Plugin.Listeners;
 
 import Plugin.Enum.Messages;
 import Plugin.xBxTcore;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -23,12 +20,15 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.*;
 import java.util.List;
 
+import static Plugin.Managers.MessageManager.ColorWarning;
+import static Plugin.Managers.MessageManager.prefixConsole;
 import static Plugin.xBxTcore.worldBoxPvp;
 
 public class BlockerListener implements Listener {
     public final static ArrayList<Location> blockLocations = new ArrayList<>();
     public static final int ejey = 30;
     private final List<String> restrictedCommands = new ArrayList<>();
+    private final HashMap<String, String> restrictedCommandsWithPermissions = new HashMap<>();
     private static final Set<Material> materials = EnumSet.of(
             Material.CHEST, Material.TRAPPED_CHEST, Material.ENDER_CHEST,
             Material.FURNACE, Material.BLAST_FURNACE, Material.SMOKER,
@@ -86,6 +86,11 @@ public class BlockerListener implements Listener {
         restrictedCommands.add("plugins");
         restrictedCommands.add("inv");
         restrictedCommands.add("boxpvp");
+        restrictedCommands.add("shop");
+        restrictedCommands.add("login");
+        restrictedCommands.add("log");
+        restrictedCommands.add("register");
+        restrictedCommandsWithPermissions.put("skin", "xbxtcore.vip");
         //////////////////////////////////////
     }
 
@@ -130,6 +135,10 @@ public class BlockerListener implements Listener {
     public void BlockPlace(BlockPlaceEvent event) {
         if (!event.getPlayer().isOp() && ejey <= event.getBlock().getLocation().getBlockY() && xBxTcore.getWorldProtec().contains(event.getPlayer().getWorld())) {
             if (event.getPlayer().getWorld().equals(Bukkit.getWorld(worldBoxPvp)) && (event.getBlock().getType().equals(Material.OBSIDIAN)) || event.getBlock().getType().equals(Material.COBWEB)){
+                if(120 <= event.getBlock().getLocation().getBlockY()) {
+                    event.setCancelled(true);
+                    return;
+                }
                 temporalBlock(event.getBlock().getLocation());
                 blockLocations.add(event.getBlock().getLocation());
                 return;
@@ -175,6 +184,13 @@ public class BlockerListener implements Listener {
     public void PlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
         if(!event.getPlayer().isOp()){
             String command = event.getMessage().split(" ")[0].substring(1).toLowerCase();
+            //try {
+                if(restrictedCommandsWithPermissions.containsKey(command)){
+                    if (event.getPlayer().hasPermission(restrictedCommandsWithPermissions.get(command)))return;
+                }
+            /*}catch (Exception e){
+               Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorWarning + "Hubo un problema con el comando: " + command));
+            }*/
             if(!restrictedCommands.contains(command)){
                 event.setCancelled(true);
                 event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(event.getPlayer(), Messages.NotAllowed));
@@ -213,6 +229,10 @@ public class BlockerListener implements Listener {
             }else if (Bukkit.getWorld(worldBoxPvp) == event.getEntity().getWorld()){
                 event.setCancelled(xBxTcore.getZoneSafeBoxPvp().isSafeZone(event.getEntity().getLocation()));
             }
+            if (event.getCause() == EntityDamageEvent.DamageCause.FALL && event.getEntity().getWorld().equals(Bukkit.getWorld(worldBoxPvp)))  {
+                event.setCancelled(true);
+                return;
+            }
             if (event.getCause() == EntityDamageEvent.DamageCause.FALL && event.getDamage() > 30)  {
                 event.setCancelled(true);
             }
@@ -230,6 +250,6 @@ public class BlockerListener implements Listener {
                 location.getBlock().setType(Material.AIR);
                 blockLocations.remove(location);
             }
-        }.runTaskLater(plugin, 20 * 3);
+        }.runTaskLater(plugin, 20 * 60);
     }
 }

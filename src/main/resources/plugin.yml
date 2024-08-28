@@ -2,7 +2,7 @@ main: Plugin.xBxTcore
 name: xBxTcore
 author: Ceres
 description: Las Bases Del servidor
-version: 1.6.2
+version: 2.0.0
 api-version: 1.20
 depend: [Multiverse-Core, TAB, Votifier]
 
@@ -40,6 +40,7 @@ commands:
   itemboxpvp:
   vip:
   timerewardskip:
+  shop:
 permissions:
   xbxtcore.vote:
     description: la persona a votado

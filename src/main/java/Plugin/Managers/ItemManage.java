@@ -54,7 +54,7 @@ public class ItemManage {
     public ItemManage(xBxTcore plugin) {
         this.plugin = plugin;
 
-        wikis.add(wiki());
+        wikis.addAll(wiki());
 
         //////////////
         //////////////
@@ -155,12 +155,14 @@ public class ItemManage {
         lore.clear();
         lore.add(ChatColor.translateAlternateColorCodes('&',Coloritem + " "));
         lore.add(applyGradient("<#19fbff>Este item da una mejora<#2a7c7d>"));
-        lore.add(applyGradient("<#19fbff>en el combate<#2a7c7d>"));
+        lore.add(applyGradient("<#19fbff>en el combate y para usarse se tiene<#2a7c7d>"));
+        lore.add(applyGradient("<#19fbff>que poner en la mano segundaria<#2a7c7d>"));
         lore.add(ChatColor.translateAlternateColorCodes('&',Coloritem + " "));
         lore.add(ChatColor.translateAlternateColorCodes('&',"&8" + "Mas información con " + ColorLink + "/help"));
 
         especialItems.add(newItemBoxPVP(Material.FERMENTED_SPIDER_EYE ,"<#FF2121>Desgarre de daño<#FF8585>", lore, "DañoBonus",true));
         especialItems.add(newItemBoxPVP(Material.CHARCOAL ,"<##4A4A4A>Bendición de wither<#282828>", lore, "DañoPorWither",true));
+        especialItems.add(newItemBoxPVP(Material.SCUTE ,"<#29FB08>Consumidor de Absorción<#3B6600>", lore, "DañoBonusPorAbsorción",true));
 
         //////////////
         //////////////
@@ -368,13 +370,62 @@ public class ItemManage {
         return colorLeatherArmor(item, hexColor);
     }
 
-    public ItemStack wiki(){
+    public ArrayList<ItemStack> wiki(){
+        ArrayList<ItemStack> wikis = new ArrayList<>();
         ItemStack item = new ItemStack(Material.WRITTEN_BOOK);
         BookMeta meta = (BookMeta) item.getItemMeta();
         assert meta != null;
         meta.setAuthor("Ceres");
-        meta.setTitle("xbxt wiki");
-        meta.addPage(ChatColor.translateAlternateColorCodes('&', "Commandos\n\nMessages\n\nItems De BoxPvp\n\nDuelos"));
+        meta.setTitle(ChatColor.translateAlternateColorCodes('&', "&8&lxB&f&lxT &eWiki&6"));
+
+        meta.addPage(ChatColor.translateAlternateColorCodes('&', "&lCommandos\n\nBoxPvpItems&r\n\n" + "here you can see most of the server commands and the pvp box items"));
+        meta.addPage(ChatColor.translateAlternateColorCodes('&',"&lCommandos\n" + Colorplayer + " /savekit or /sk &r\nThis command saves your inventory in a kit to" +
+                "use it first you have to put the name of the kit WITHOUT SPACES for example '/sk best_kit' can use minecraft color codes and also " +
+                "you can put an icon."));
+
+        meta.addPage(ChatColor.translateAlternateColorCodes('&',"&lCommandos\n" + Colorplayer + "/kitfavorite or /kf&r\nYou save a kit " +
+                "as a favorite so that when you die it respawns with the kit you selected to use it. You have to put " +
+                "The name of the kit WITH THE COLOR CODES and if you write the command it only loads the kit you had saved."));
+
+        meta.addPage(ChatColor.translateAlternateColorCodes('&',"&lCommandos\n" + Colorplayer + "/delkit or /dk\n&r" + "Delete the kit " +
+                "selected to use you have to put the name of your kit.\n" +
+                Colorplayer + "/lobby or /spawn\n&takes you to the main world.\n" +
+                Colorplayer + "/rank\n&rYou see the top kills and streaks of the players online"));
+
+        meta.addPage(ChatColor.translateAlternateColorCodes('&',"&lCommandos\n" + Colorplayer + "/spectator&r" + "You enter a duel arena" +
+                "To use it you have to put the name of the arena or you can do it on the duel announcement\n" +
+                Colorplayer + "/boxpvp\n&rtakes you to the boxpvp.\n" +
+                Colorplayer + "/vote\n&rgives you the link to the page to vote\n"));
+
+        meta.addPage(ChatColor.translateAlternateColorCodes('&',"&lBoxPvPItem\n" + Colorplayer + "Coins From The Material Mines&r\n" +
+                "This currency is used to improve your equipment by trading with the villager below and with the villager above the coin is compacted\n"));
+
+        meta.addPage(ChatColor.translateAlternateColorCodes('&',"&lItem Del BoxPvP\n" + Colorplayer + "Coins From The Material Mines&r\n" + "This is used to exchange it with the aliens on the surface to have the main currency " +
+                "and thus be able to buy things"));
+
+        meta.addPage(ChatColor.translateAlternateColorCodes('&',"&lItem Del BoxPvP\n" + Colorplayer + "Helmet&r\n" +
+                "The helmet increases your regeneration for each tier you regenerate one tick faster with a minimum of 2 ticks for 1 life point\n" +
+                Colorplayer + "Elytras&r\n" + "Increases your maximum life, one heart per tier"));
+
+        meta.addPage(ChatColor.translateAlternateColorCodes('&', "&lBoxPvPItem\n" + Colorplayer + "Pants&r\n" + "Increases your protection to general damage for each tier increases 1 level of the enchantment\n" +
+                Colorplayer + "Boots&r\n" + "Increases your protection to explosion damage for each tier increases 2 levels of the enchantment"));
+
+        meta.addPage(ChatColor.translateAlternateColorCodes('&', "&lBoxPvPItem\n" +Colorplayer + "Damage Tear&r\n" + "Increases your damage 2x but for each " +
+                "hit but lowers your hunger bar significantly\n" +
+                Colorplayer + "Wither Blessing&r\n" + "If you are less than 8 hearts when attacking damage you give wither 3 for 20 seconds\n"));
+
+        meta.addPage(ChatColor.translateAlternateColorCodes('&', "&lItem Del BoxPvP\n" +Colorplayer + "Absorption Consumer&r\n" + "If the enemy has the absorption effect you take 3x damage but if they don't have it your damage is reduced" +
+                " by 25%"));
+        item.setItemMeta(meta);
+        wikis.add(item);
+
+        item = new ItemStack(Material.WRITTEN_BOOK);
+        meta = (BookMeta) item.getItemMeta();
+        assert meta != null;
+        meta.setAuthor("Ceres");
+        meta.setTitle(ChatColor.translateAlternateColorCodes('&', "&8&lxB&f&lxT &eWiki&6"));
+
+        meta.addPage(ChatColor.translateAlternateColorCodes('&', "&lCommandos\n\nItems De BoxPvp&r\n\n" + "aqui puedes ver la mayorias de comandos del servidor y los items del box pvp"));
         meta.addPage(ChatColor.translateAlternateColorCodes('&',"&lCommandos\n" + Colorplayer + " /savekit o /sk &r\nEste Comando guarda tu inventario en un kit para" +
                 "usarse primero tiene que poner el nombre de del kit SIN ESPACIOS por ejemplo '/sk mejor_kit' puede usar códigos de color de minecraft y también " +
                 "puedes ponele un icono."));
@@ -388,13 +439,32 @@ public class ItemManage {
                 Colorplayer + "/lobby o /spawn\n&rte lleva al mundo principal.\n" +
                 Colorplayer + "/rank\n&rVes el top kills y rachas de los jugadores en linea"));
 
-        meta.addPage(ChatColor.translateAlternateColorCodes('&',"&lCommandos\n" + Colorplayer + "/spectator" + "Entras a una arena de duelo " +
+        meta.addPage(ChatColor.translateAlternateColorCodes('&',"&lCommandos\n" + Colorplayer + "/spectator&r" + "Entras a una arena de duelo " +
                 "para usar tienes que poner el nombre de la arena o puedes hacer sobre el anuncio del duelo\n" +
                 Colorplayer + "/boxpvp\n&rte lleva al boxpvp.\n" +
                 Colorplayer + "/vote\n&rte da el link de la pagina para votar\n"));
 
+        meta.addPage(ChatColor.translateAlternateColorCodes('&',"&lItem Del BoxPvP\n" + Colorplayer + "Monedas De las Minas De Materiales&r\n" +
+                "Esta moneda se usa para mejorar tu equipamiento tradiando con el aldeano de abajo y con el aldeano de arriba se compacta la moneda\n"));
 
-        item.setItemMeta(meta);
-        return item;
+        meta.addPage(ChatColor.translateAlternateColorCodes('&',"&lItem Del BoxPvP\n" + Colorplayer + "Monedas De las Minas De Materiales&r\n" + "este se usa para intercambiar lo con el alenos de la superficie para tener la moneda " +
+                "principal y así poder comprar cosas"));
+
+        meta.addPage(ChatColor.translateAlternateColorCodes('&',"&lItem Del BoxPvP\n" + Colorplayer + "Casco&r\n" +
+                "El casco aumenta tu regeneración por cada tier te regeneras un tick más rápido com un mínimo 2 tick por 1 punto de vida\n" +
+                Colorplayer + "Elytras&r\n" + "Aumenta tu vida maxima, un corazon por tier"));
+
+        meta.addPage(ChatColor.translateAlternateColorCodes('&', "&lItem Del BoxPvP\n" + Colorplayer + "Pantalones&r\n" + "Aumenta tu protección a daño general por cada tier aumenta 1 de nivel el encantamiento\n" +
+                Colorplayer + "Botas&r\n" + "Aumenta tu protección a daño de explosiones por cada tier aumenta 2 niveles el encantamiento"));
+
+        meta.addPage(ChatColor.translateAlternateColorCodes('&', "&lItem Del BoxPvP\n" +Colorplayer + "Desgarre de daño&r\n" + "Aumenta tu daño 2x pero por cada " +
+                "golpe pero te baja tu barra de hambre significativamente\n" +
+                Colorplayer + "Bendición de wither&r\n" + "Si estas menos de 8 corazones al atacar daño le das wither 3 por 20 segundos\n"));
+
+        meta.addPage(ChatColor.translateAlternateColorCodes('&', "&lItem Del BoxPvP\n" +Colorplayer + "Consumidor de Absorción&r\n" + "Si el enemigo tiene el efecto de absorción le sacas un 3x de daño pero sino lo tiene tu daño es reducido" +
+                " un 25%"));
+
+        wikis.add(item);
+        return wikis;
     }
 }

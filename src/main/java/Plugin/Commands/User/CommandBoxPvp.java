@@ -8,6 +8,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -32,6 +34,7 @@ public class CommandBoxPvp implements CommandExecutor {
                     player.getInventory().clear();
                     xBxTcore.getPlayerFileManager().loadInventoryBoxPvp(player);
                 }
+                player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 999999, 1));
                 player.teleport(Objects.requireNonNull(Bukkit.getWorld("boxpvp")).getSpawnLocation());
                 xBxTcore.getArmorBonusListener().UpdateBonus(player);
                 player.setGameMode(GameMode.SURVIVAL);

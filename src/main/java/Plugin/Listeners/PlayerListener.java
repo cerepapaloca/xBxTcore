@@ -13,6 +13,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.*;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -83,11 +85,11 @@ public class PlayerListener implements Listener {
 
 
         xBxTcore.getcombatlogListener().endCombat(player);
-        if (player.getWorld().getName().equals("boxpvp")){
+        if (player.getWorld().getName().equals(xBxTcore.worldBoxPvp)){
             return;
         }
 
-        if(!player.getWorld().equals(Bukkit.getWorld("lobby")) && !player.getWorld().equals(Bukkit.getWorld("boxpvp"))){
+        if(!player.getWorld().equals(Bukkit.getWorld("lobby")) && !player.getWorld().equals(Bukkit.getWorld(xBxTcore.worldBoxPvp))){
             xBxTcore.getPlayerFileManager().loadkitfavorite(player);
             DelayTeleport(player, "lobby");
         }
@@ -95,20 +97,29 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void PlayerMove(PlayerMoveEvent event) {
-        if (!xBxTcore.getWorldProtec().contains(event.getPlayer().getWorld()) && !Objects.equals(Bukkit.getWorld("boxpvp"), event.getPlayer().getWorld())){
-            if (50 <= event.getPlayer().getLocation().getY() && event.getPlayer().getGameMode().equals(GameMode.SURVIVAL)) {
-                if (event.getPlayer().getWorld().getName().contains("stone")){
-                    event.getPlayer().teleport(new Location(event.getPlayer().getWorld(), 0, 21, 0));
+        Player player = event.getPlayer();
+        if (!xBxTcore.getWorldProtec().contains(player.getWorld()) && !Objects.equals(Bukkit.getWorld(xBxTcore.worldBoxPvp), player.getWorld())){
+            if (50 <= player.getLocation().getY() && event.getPlayer().getGameMode().equals(GameMode.SURVIVAL)) {
+                if (player.getWorld().getName().contains("stone")){
+                    player.teleport(new Location(event.getPlayer().getWorld(), 0, 21, 0));
                 }else{
-                    event.getPlayer().teleport(new Location(event.getPlayer().getWorld(), 0, 10, 0));
+                    player.teleport(new Location(event.getPlayer().getWorld(), 0, 10, 0));
                 }
-                event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(event.getPlayer(),Messages.IncorrectLoc));
+                player.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(event.getPlayer(),Messages.IncorrectLoc));
             }
         } else {
-            if (xBxTcore.getcombatlogListener().isInCombat(event.getPlayer()) && xBxTcore.getZoneSafeBoxPvp().isSafeZone(event.getPlayer().getLocation())){
-                PunishedBySafeZone(event.getPlayer());
+            if (xBxTcore.getcombatlogListener().isInCombat(player) && xBxTcore.getZoneSafeBoxPvp().isSafeZone(player.getLocation())){
+                PunishedBySafeZone(player);
             }
-            event.getPlayer().setInvisible(event.getPlayer().getWorld().getName().equals("boxpvp") && event.getPlayer().getLocation().getY() > 115);
+            event.getPlayer().setInvisible(event.getPlayer().getWorld().getName().equals(xBxTcore.worldBoxPvp) && event.getPlayer().getLocation().getY() > 115);
+        }
+        if (player.getLocation().getBlock().getType().equals(Material.END_PORTAL)) {
+            player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 999999, 1));
+            player.playSound(player, Sound.BLOCK_PORTAL_TRAVEL, 1, 1);
+            xBxTcore.getPlayerFileManager().loadInventoryBoxPvp(player);
+            player.teleport(Objects.requireNonNull(Bukkit.getWorld(xBxTcore.worldBoxPvp)).getSpawnLocation());
+            xBxTcore.getArmorBonusListener().UpdateBonus(player);
+            player.setGameMode(GameMode.SURVIVAL);
         }
     }
 
@@ -119,13 +130,12 @@ public class PlayerListener implements Listener {
         ///////////////////////////////////////////////////
         xBxTcore.getMessageManager().BroadcastMessagejoin(event.getPlayer());
         xBxTcore.getPlayerFileManager().SaveUUIDplayer(event.getPlayer().getUniqueId());
-        //player.teleport(new Location(Bukkit.getWorld("lobby"), 0 ,69 ,0));
         event.setJoinMessage(null);
         ///////////////////////////////////////////////////
         xBxTcore.getHologramas().ResetKills(player.getUniqueId());
         xBxTcore.getHologramas().updateHologramUser();
         ///////////////////////////////////////////////////
-        if(!event.getPlayer().getWorld().getName().equals("boxpvp")){
+        if(!event.getPlayer().getWorld().getName().equals(xBxTcore.worldBoxPvp)){
             player.getInventory().clear();
         }
         ///////////////////////////////////////////////////
@@ -149,9 +159,9 @@ public class PlayerListener implements Listener {
         for(Request request : xBxTcore.getCommandDuel().getPendingRequests().values()){
             xBxTcore.getCommandDuel().denyRequest(player, request.getRequesterId(), false);
         }
-        /*if(event.getPlayer().isOp()){
+        if(event.getPlayer().isOp()){
             event.getPlayer().setOp(false);
-        }*/
+        }
         if(event.getPlayer().getWorld().getName().equals("boxpvp")){
             xBxTcore.getPlayerFileManager().SaveInventoryBoxPvp(event.getPlayer().getUniqueId(), Utils.getItensInvetory(player));
         }

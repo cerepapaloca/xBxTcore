@@ -21,7 +21,12 @@ public class CommandHelp implements CommandExecutor {
     }
     public boolean onCommand(@NotNull CommandSender sender,@NotNull Command cmd,@NotNull String label, String[] args) {
         if(sender instanceof Player p){
-            Utils.additem(p, ItemManage.wikis.get(0));
+            if (p.getLocale().contains("es")){
+                Utils.additem(p, ItemManage.wikis.get(1));
+            } else{
+                Utils.additem(p, ItemManage.wikis.get(0));
+            }
+
         }else{
             plugin.messageOnlyPlayer();
         }
