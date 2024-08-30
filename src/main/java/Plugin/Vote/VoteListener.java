@@ -1,4 +1,4 @@
-package Plugin.Listeners;
+package Plugin.Vote;
 
 import Plugin.Messages.Enum.Messages;
 import Plugin.Utils.Utils;

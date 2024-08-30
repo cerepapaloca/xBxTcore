@@ -1,4 +1,4 @@
-package Plugin.File;
+package Plugin.File.PlayerData;
 
 import Plugin.xBxTcore;
 import org.bukkit.configuration.InvalidConfigurationException;

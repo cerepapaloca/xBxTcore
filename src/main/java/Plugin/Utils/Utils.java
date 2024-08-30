@@ -14,6 +14,9 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,19 +40,19 @@ public class Utils {
         Bukkit.getScheduler().runTaskTimer(plugin, () -> {
             if(getServer().getOnlinePlayers().size() == 1){
                 for (Player p :getServer().getOnlinePlayers()){
-                    p.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(p, Messages.Alone));
+                    p.sendMessage(MasterMessageLocated(p, Messages.Alone));
                 }
             }
         }, 2 * 20,40 * 20);
     }
 
-    private final HashMap<UUID, Integer> playersExecute = new HashMap<>();
+    private static final HashMap<UUID, Integer> playersExecute = new HashMap<>();
 
-    public void AntiSpam(Player p, Messages messages) {
+    public static void AntiSpam(@NotNull Player p, @NotNull Messages messages, xBxTcore plugin) {
         UUID uuid = p.getUniqueId();
         playersExecute.put(uuid, playersExecute.getOrDefault(uuid, 0) + 1);
         if (playersExecute.get(uuid) > 3) {
-            xBxTcore.getMessageManager().KickMessage(p, messages);
+            KickMessage(p, messages);
             playersExecute.remove(uuid);
         }
         new BukkitRunnable() {
@@ -59,7 +62,7 @@ public class Utils {
         }.runTaskLater(plugin, 200);
     }
 
-    public static void RewardVote(String name, Boolean force) {
+    public static void RewardVote(String name, @NotNull Boolean force) {
         Player player = Bukkit.getPlayer(name);
         if (force){
             if(player == null) {
@@ -89,27 +92,27 @@ public class Utils {
         }
     }
 
-    public static void ClickExecuteCommand(String command, Messages messages, Player p) {
+    public static void ClickExecuteCommand(String command,@NotNull Messages messages,@NotNull Player p) {
         p.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix));
         TextComponent execute = new TextComponent();
-        TextComponent executefinal = new TextComponent(xBxTcore.getMessageManager().MasterMessageLocated(p, messages));
+        TextComponent executefinal = new TextComponent(MasterMessageLocated(p, messages));
         execute.setText(ChatColor.translateAlternateColorCodes('&', ColorLink + "/" + command));
         execute.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/" + command));
-        execute.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(xBxTcore.getMessageManager().MasterMessageLocated(p,Messages.HoverExecute)).create()));
+        execute.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(MasterMessageLocated(p,Messages.HoverExecute)).create()));
         executefinal.addExtra(execute);
         p.spigot().sendMessage(executefinal);
     }
 
-    public static void NewitemInvetory(Messages m, Material ma, int slot, Inventory i, Player p){
+    public static void NewitemInvetory(Messages m, Material ma, int slot, @NotNull Inventory i, Player p){
         ItemStack itemStack = new ItemStack(ma);
         ItemMeta itemMeta = itemStack.getItemMeta();
         assert itemMeta != null;
-        itemMeta.setDisplayName(xBxTcore.getMessageManager().MasterMessageLocated(p, m));
+        itemMeta.setDisplayName(MasterMessageLocated(p, m));
         itemStack.setItemMeta(itemMeta);
         i.setItem(slot, itemStack);
     }
 
-    public static void NewitemInvetory(Messages m, Material ma, int slot, Inventory i, Player p, ArrayList<String> lore){
+    public static void NewitemInvetory(@NotNull Messages m, Material ma, int slot, Inventory i, @NotNull Player p, @NotNull ArrayList<String> lore){
         ItemStack itemStack = new ItemStack(ma);
         ItemMeta itemMeta = itemStack.getItemMeta();
         assert itemMeta != null;
@@ -118,12 +121,12 @@ public class Utils {
             colorlore.add(ChatColor.translateAlternateColorCodes('&',  s));
         }
         itemMeta.setLore(colorlore);
-        itemMeta.setDisplayName(xBxTcore.getMessageManager().MasterMessageLocated(p, m));
+        itemMeta.setDisplayName(MasterMessageLocated(p, m));
         itemStack.setItemMeta(itemMeta);
         i.setItem(slot, itemStack);
     }
 
-    public static ArrayList<ItemStack> getItensInvetory(Player player){
+    public static @NotNull ArrayList<ItemStack> getItensInvetory(Player player){
         ArrayList<ItemStack> items = new ArrayList<>();
         for(int i = 0; i<player.getInventory().getContents().length;){
             ItemStack itemstack = player.getInventory().getItem(i);
@@ -133,7 +136,8 @@ public class Utils {
         return items;
     }
 
-    public static String SecondToMinutes(int time){
+    @Contract(pure = true)
+    public static @NotNull String SecondToMinutes(int time){
         int minutes = time/60;
         int seconds = time%60;
 
@@ -150,7 +154,8 @@ public class Utils {
         }
     }
 
-    public static String SecondToMinutes(long time){
+    @Contract(pure = true)
+    public static @NotNull String SecondToMinutes(long time){
         long days = TimeUnit.MILLISECONDS.toDays(time);
         time -= TimeUnit.DAYS.toMillis(days);
         long hours = TimeUnit.MILLISECONDS.toHours(time);
@@ -161,7 +166,7 @@ public class Utils {
         return days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
     }
 
-    public static void additem(Player player, ItemStack item){
+    public static void additem(@NotNull Player player, ItemStack item){
         player.playSound(player, Sound.ENTITY_ITEM_PICKUP, 1,1);
         if (player.getInventory().addItem(item).isEmpty()) {
             return;
@@ -171,7 +176,7 @@ public class Utils {
         world.dropItemNaturally(location, item);
     }
 
-    public static void additem(Player player, ItemStack item, int cantidad){
+    public static void additem(@NotNull Player player, ItemStack item, int cantidad){
         player.playSound(player, Sound.ENTITY_ITEM_PICKUP, 1,1);
         for (int i = 0; i < cantidad; i++){
             if (player.getInventory().addItem(item).isEmpty()) {
@@ -183,7 +188,7 @@ public class Utils {
         }
     }
 
-    public static String processFormattingTags(String input) {
+    public static @NotNull String processFormattingTags(String input) {
         // Reemplazar etiquetas de negrita y cursiva
         String result = input;
 
@@ -198,7 +203,7 @@ public class Utils {
         return result;
     }
 
-    public static Chunk getChunkByCoordinates(String worldName, int chunkX, int chunkZ) {
+    public static @Nullable Chunk getChunkByCoordinates(String worldName, int chunkX, int chunkZ) {
         World world = Bukkit.getWorld(worldName);
         if (world != null) {
             return world.getChunkAt(chunkX, chunkZ);
@@ -206,7 +211,8 @@ public class Utils {
         return null;
     }
 
-    public static Location getMidpoint(Location loc1, Location loc2) {
+    @Contract("_, _ -> new")
+    public static @NotNull Location getMidpoint(@NotNull Location loc1, @NotNull Location loc2) {
         if (loc1.getWorld() != loc2.getWorld()) {
             throw new IllegalArgumentException("Las dos ubicaciones deben estar en el mismo mundo.");
         }
@@ -218,7 +224,8 @@ public class Utils {
         return new Location(loc1.getWorld(), midX, midY, midZ);
     }
 
-    public static String arabicToRoman(int number) {
+    @Contract(pure = true)
+    public static @NotNull String arabicToRoman(int number) {
         if (number < 1 || number > 3999) {
             throw new IllegalArgumentException("El número debe estar entre 1 y 3999.");
         }
@@ -236,7 +243,7 @@ public class Utils {
         return roman;
     }
 
-    public static Material colorToMaterial(Material material, Material target) {
+    public static Material colorToMaterial(@NotNull Material material, @NotNull Material target) {
         String nameColor = material.name();
         String nameTarget = target.name();
 

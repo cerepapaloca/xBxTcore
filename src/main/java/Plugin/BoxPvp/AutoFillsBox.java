@@ -1,6 +1,7 @@
 package Plugin.BoxPvp;
 
 import Plugin.BoxPvp.Model.MinaBoxPvp;
+import Plugin.Environments.EnvironmentsSection;
 import Plugin.xBxTcore;
 import org.bukkit.*;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -132,8 +133,8 @@ public record AutoFillsBox(xBxTcore plugin) {
                     minaBoxPvp.setTimeLeft(minaBoxPvp.getTimeLeft() - 1);
                 }
 
-                xBxTcore.getHologramasBoxPvp().updateHologramTimes();
-                xBxTcore.getHologramasBoxPvp().updateHologramTimesMina();
+                EnvironmentsSection.getHologramasBoxPvp().updateHologramTimes();
+                EnvironmentsSection.getHologramasBoxPvp().updateHologramTimesMina();
             }
         }.runTaskTimer(plugin, 80, 20);
     }

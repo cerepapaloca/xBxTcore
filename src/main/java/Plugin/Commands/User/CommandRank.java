@@ -1,6 +1,8 @@
 package Plugin.Commands.User;
 
-import Plugin.Model.Player.PlayerDataGLobal;
+import Plugin.Environments.EnvironmentsSection;
+import Plugin.PlayerManager.Model.PlayerDataGLobal;
+import Plugin.PlayerManager.PlayerManagerSection;
 import Plugin.xBxTcore;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -20,13 +22,13 @@ public class CommandRank implements CommandExecutor {
 
     public CommandRank(xBxTcore plugin){
         this.plugin = plugin;
-        playerDataGLobal = xBxTcore.getPlayerDataGlobal();
+        playerDataGLobal = PlayerManagerSection.getPlayerDataGLobal();
     }
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
         if(sender instanceof Player p){
             int top;
             p.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + Colorinfo + "Top Kills -------------->"));
-            List<Player> sortedPlayers = xBxTcore.getHologramas().sortPlayersByKill(playerDataGLobal.getPlayerKills());
+            List<Player> sortedPlayers = EnvironmentsSection.getHologramas().sortPlayersByKill(playerDataGLobal.getPlayerKills());
 
             for (int i = 0; i < 10; i++) {
                 Player player = null;

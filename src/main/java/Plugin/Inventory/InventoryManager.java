@@ -13,6 +13,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.*;
 
+import static Plugin.Messages.MessageManager.MasterMessageLocated;
+
 public class InventoryManager {
 
     protected final ArrayList<InvetoryPlayer> players;
@@ -24,7 +26,7 @@ public class InventoryManager {
 
     public InventoryManager(xBxTcore plugin) {
         this.players = new ArrayList<>();
-        xBxTcore.invetoryManager = this;
+        InventorySection.inventoryManager = this;
         this.plugin = plugin;
         staritems();
         for (MapsDuel map : MapsDuel.values()){
@@ -33,10 +35,10 @@ public class InventoryManager {
     }
 
     public InventoryMenu invetorymenu() {
-        return xBxTcore.getInventoryMenu();
+        return InventorySection.getInventoryMenu();
     }
     public InventoryClick inventoryClick() {
-        return xBxTcore.getInventoryClick();
+        return InventorySection.getInventoryClick();
     }
 
 
@@ -76,14 +78,14 @@ public class InventoryManager {
             invetoryPlayer.setPreviewMode(true);
             ItemMeta Meta = ButtoPreviewOn.getItemMeta();
             assert Meta != null;
-            Meta.setDisplayName(xBxTcore.getMessageManager().MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.PreviewOn));
+            Meta.setDisplayName(MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.PreviewOn));
             ButtoPreviewOn.setItemMeta(Meta);
             invetoryPlayer.getPlayer().getOpenInventory().setItem(slot,ButtoPreviewOn);
         } else if (item.getType() == Material.ENDER_EYE) {
             invetoryPlayer.setPreviewMode(false);
             ItemMeta Meta = ButtoPreviewOff.getItemMeta();
             assert Meta != null;
-            Meta.setDisplayName(xBxTcore.getMessageManager().MasterMessageLocated(invetoryPlayer.getPlayer(),Messages.PreviewOff));
+            Meta.setDisplayName(MasterMessageLocated(invetoryPlayer.getPlayer(),Messages.PreviewOff));
             ButtoPreviewOff.setItemMeta(Meta);
             invetoryPlayer.getPlayer().getOpenInventory().setItem(slot,ButtoPreviewOff);
         }
@@ -100,14 +102,14 @@ public class InventoryManager {
         for(String s : nameMapsDuel){
             lore.add(ChatColor.translateAlternateColorCodes('&',"&7" + s));
         }
-        lore.set(xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).getIndexMap(),xBxTcore.getMessageManager().MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.DuelLoreSelectWorld) + lore.get(xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).getIndexMap()));
+        lore.set(xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).getIndexMap(),MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.DuelLoreSelectWorld) + lore.get(xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).getIndexMap()));
         Utils.NewitemInvetory(Messages.DuelSelectWorld, Material.FILLED_MAP, 16, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer(), lore);
     }
 
     public static ArrayList<String> secondsToMinutesLore(Player player){
         int time = xBxTcore.getPlayerDataUnique(player.getUniqueId()).getTimeDuel();
         ArrayList<String> lore = new ArrayList<>();
-        lore.add(xBxTcore.getMessageManager().MasterMessageLocated(player, Messages.DuelTimeLore) + Utils.SecondToMinutes(time));
+        lore.add(MasterMessageLocated(player, Messages.DuelTimeLore) + Utils.SecondToMinutes(time));
         return lore;
     }
 
@@ -123,7 +125,7 @@ public class InventoryManager {
     protected void rewardDaly(Player player){
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key0 5".replace("%player%", player.getName()));
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key1 2".replace("%player%", player.getName()));
-        if(player.hasPermission("xbxtcore.vip")){
+        if(player.hasPermission("Commandxbxtcore.vip")){
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key0 10".replace("%player%", player.getName()));
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key1 10".replace("%player%", player.getName()));
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key3 3".replace("%player%", player.getName()));
@@ -135,7 +137,7 @@ public class InventoryManager {
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key1 10".replace("%player%", player.getName()));
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key2 5".replace("%player%", player.getName()));
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key2 2".replace("%player%", player.getName()));
-        if(player.hasPermission("xbxtcore.vip")){
+        if(player.hasPermission("Commandxbxtcore.vip")){
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key0 30".replace("%player%", player.getName()));
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key1 25".replace("%player%", player.getName()));
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key2 20".replace("%player%", player.getName()));
@@ -148,7 +150,7 @@ public class InventoryManager {
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key1 100".replace("%player%", player.getName()));
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key2 80".replace("%player%", player.getName()));
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key2 50".replace("%player%", player.getName()));
-        if(player.hasPermission("xbxtcore.vip")){
+        if(player.hasPermission("Commandxbxtcore.vip")){
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key0 140".replace("%player%", player.getName()));
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key1 120".replace("%player%", player.getName()));
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key2 100".replace("%player%", player.getName()));

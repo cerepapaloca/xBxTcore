@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
 
 import static Plugin.Messages.MessageManager.ColorLink;
+import static Plugin.Messages.MessageManager.MasterMessageLocated;
 
 public class CommandVote implements CommandExecutor {
 
@@ -22,7 +23,7 @@ public class CommandVote implements CommandExecutor {
     @Override
     public boolean onCommand(@Nullable CommandSender commandSender,@Nullable Command command,@Nullable String s, String[] strings) {
         if(commandSender instanceof Player player){
-            player.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(player, Messages.Vote));
+            player.sendMessage(MasterMessageLocated(player, Messages.Vote));
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', ColorLink + "https://minecraft-mp.com/server-s334744"));
             //player.sendMessage(ChatColor.translateAlternateColorCodes('&', ColorLink + "https://best-minecraft-servers.co/server-xbxtpvp.24633"));
         }else{

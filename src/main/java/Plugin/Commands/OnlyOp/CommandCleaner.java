@@ -1,25 +1,28 @@
 package Plugin.Commands.OnlyOp;
 
+import Plugin.Environments.EnvironmentsSection;
 import Plugin.Messages.Enum.Messages;
-import Plugin.xBxTcore;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
+import static Plugin.Messages.MessageManager.BroadcastMessage;
+import static Plugin.Messages.MessageManager.MasterMessageLocated;
+
 public class CommandCleaner implements CommandExecutor {
 
     public boolean onCommand(@Nullable CommandSender sender,@Nullable Command cmd,@Nullable String label, String[] args) {
         if(sender instanceof Player p){
             if(p.isOp()){
-                xBxTcore.getCleaner().clearArea(p.getWorld().getName());
-                xBxTcore.getMessageManager().BroadcastMessage(Messages.CleanerExecuted);
+                EnvironmentsSection.getCleaner().clearArea(p.getWorld().getName());
+                BroadcastMessage(Messages.CleanerExecuted);
             }else{
-                p.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(p, Messages.NotOp));
+                p.sendMessage(MasterMessageLocated(p, Messages.NotOp));
             }
         }else{
-            xBxTcore.getCleaner().clearArea("lobby");
+            EnvironmentsSection.getCleaner().clearArea("lobby");
         }
 
         return false;

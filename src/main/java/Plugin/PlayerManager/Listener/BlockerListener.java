@@ -1,5 +1,7 @@
-package Plugin.Listeners;
+package Plugin.PlayerManager.Listener;
 
+import Plugin.BoxPvp.BoxPvpSection;
+import Plugin.CombatLog.CombatSection;
 import Plugin.Messages.Enum.Messages;
 import Plugin.xBxTcore;
 import org.bukkit.*;
@@ -16,10 +18,12 @@ import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.util.List;
 
+import static Plugin.Messages.MessageManager.MasterMessageLocated;
 import static Plugin.xBxTcore.worldBoxPvp;
 
 public class BlockerListener implements Listener {
@@ -93,7 +97,7 @@ public class BlockerListener implements Listener {
     }
 
     @EventHandler
-    public void BlockBreak(BlockBreakEvent event) {
+    public void BlockBreak(@NotNull BlockBreakEvent event) {
         if (!event.getPlayer().isOp() && ejey <= event.getBlock().getLocation().getBlockY() && xBxTcore.getWorldProtec().contains(event.getPlayer().getWorld())) {
             if (materialsBoxPvp.contains(event.getBlock().getType())) {
                 event.setDropItems(false);
@@ -104,11 +108,9 @@ public class BlockerListener implements Listener {
                     tier = (double) item.getItemMeta().getPersistentDataContainer().get(new NamespacedKey(plugin, "tier"), PersistentDataType.INTEGER);
                     tier = (tier*3)/100;
                 }
+                BoxPvpSection.getItemManage().AddItemMine(event.getPlayer(), event.getBlock().getType());
                 if (i < tier) {
-                    xBxTcore.getItemManage().AddItemMine(event.getPlayer(), event.getBlock().getType());
-                    xBxTcore.getItemManage().AddItemMine(event.getPlayer(), event.getBlock().getType());
-                }else {
-                    xBxTcore.getItemManage().AddItemMine(event.getPlayer(), event.getBlock().getType());
+                    BoxPvpSection.getItemManage().AddItemMine(event.getPlayer(), event.getBlock().getType());
                 }
 
                 return;
@@ -118,19 +120,19 @@ public class BlockerListener implements Listener {
                 return;
             }
             event.setCancelled(true);
-            event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(event.getPlayer(), Messages.NotAllowed));
+            event.getPlayer().sendMessage(MasterMessageLocated(event.getPlayer(), Messages.NotAllowed));
         }
     }
 
     @EventHandler
-    public void onItemDamage(PlayerItemDamageEvent event) {
+    public void onItemDamage(@NotNull PlayerItemDamageEvent event) {
         if (event.getPlayer().getWorld().equals(Bukkit.getWorld(worldBoxPvp))) {
             event.setCancelled(true);
         }
     }
 
     @EventHandler
-    public void BlockPlace(BlockPlaceEvent event) {
+    public void BlockPlace(@NotNull BlockPlaceEvent event) {
         if (!event.getPlayer().isOp() && ejey <= event.getBlock().getLocation().getBlockY() && xBxTcore.getWorldProtec().contains(event.getPlayer().getWorld())) {
             if (event.getPlayer().getWorld().equals(Bukkit.getWorld(worldBoxPvp)) && (event.getBlock().getType().equals(Material.OBSIDIAN)) || event.getBlock().getType().equals(Material.COBWEB)){
                 if(120 <= event.getBlock().getLocation().getBlockY()) {
@@ -141,27 +143,27 @@ public class BlockerListener implements Listener {
                 blockLocations.add(event.getBlock().getLocation());
                 return;
             }
-            event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(event.getPlayer(), Messages.NotAllowed));
+            event.getPlayer().sendMessage(MasterMessageLocated(event.getPlayer(), Messages.NotAllowed));
             event.setCancelled(true);
         }
     }
 
     @EventHandler
-    public void PlaceBlockfluit(PlayerBucketEmptyEvent event) {
+    public void PlaceBlockfluit(@NotNull PlayerBucketEmptyEvent event) {
         if (!event.getPlayer().isOp() && ejey <= event.getBlock().getLocation().getBlockY() && xBxTcore.getWorldProtec().contains(event.getPlayer().getWorld())) {
-            event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(event.getPlayer(), Messages.NotAllowed));
+            event.getPlayer().sendMessage(MasterMessageLocated(event.getPlayer(), Messages.NotAllowed));
             event.setCancelled(true);
         }
     }
 
     @EventHandler
-    public void PlayerInteract(PlayerInteractEvent event) {
+    public void PlayerInteract(@NotNull PlayerInteractEvent event) {
         if (!event.getPlayer().isOp() && ejey <= event.getPlayer().getLocation().getBlockY()) {
             Block block = event.getClickedBlock();
             if (null != block){
                 if (materials.contains(block.getType()) && xBxTcore.getWorldProtec().contains(event.getPlayer().getWorld())) {
                     if (!event.getPlayer().getWorld().equals(Bukkit.getWorld(worldBoxPvp)) && !block.getType().equals(Material.YELLOW_SHULKER_BOX)) {
-                        event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(event.getPlayer(), Messages.NotAllowed));
+                        event.getPlayer().sendMessage(MasterMessageLocated(event.getPlayer(), Messages.NotAllowed));
                         event.setCancelled(true);
                     }
                 }
@@ -170,7 +172,7 @@ public class BlockerListener implements Listener {
     }
 
     @EventHandler
-    public void PlayerInteractEnderChest(PlayerInteractEvent event) {
+    public void PlayerInteractEnderChest(@NotNull PlayerInteractEvent event) {
         if (event.getClickedBlock() != null){
             if (event.getClickedBlock().getType().equals(Material.ENDER_CHEST) && !event.getPlayer().getWorld().equals(Bukkit.getWorld(worldBoxPvp))){
                 event.setCancelled(true);
@@ -179,45 +181,43 @@ public class BlockerListener implements Listener {
     }
 
     @EventHandler
-    public void PlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
+    public void PlayerCommandPreprocess(@NotNull PlayerCommandPreprocessEvent event) {
         if(!event.getPlayer().isOp()){
             String command = event.getMessage().split(" ")[0].substring(1).toLowerCase();
-            //try {
-                if(restrictedCommandsWithPermissions.containsKey(command)){
-                    if (event.getPlayer().hasPermission(restrictedCommandsWithPermissions.get(command)))return;
-                }
-            /*}catch (Exception e){
-               Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorWarning + "Hubo un problema con el comando: " + command));
-            }*/
+
+            if(restrictedCommandsWithPermissions.containsKey(command)){
+                if (event.getPlayer().hasPermission(restrictedCommandsWithPermissions.get(command)))return;
+            }
+
             if(!restrictedCommands.contains(command)){
                 event.setCancelled(true);
-                event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(event.getPlayer(), Messages.NotAllowed));
+                event.getPlayer().sendMessage(MasterMessageLocated(event.getPlayer(), Messages.NotAllowed));
             }
         }
     }
 
     @EventHandler
-    public void EntityPlace(EntityPlaceEvent event) {
+    public void EntityPlace(@NotNull EntityPlaceEvent event) {
         if (!Objects.requireNonNull(event.getPlayer()).isOp() && ejey + 1 <= event.getEntity().getLocation().getBlockY())  {
             if (xBxTcore.getWorldProtec().contains(event.getEntity().getWorld())){
-                event.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(event.getPlayer(), Messages.NotAllowed));
+                event.getPlayer().sendMessage(MasterMessageLocated(event.getPlayer(), Messages.NotAllowed));
                 event.setCancelled(true);
             }
         }
     }
 
     @EventHandler
-    public void ExplosionPrime(EntityExplodeEvent event) {
+    public void ExplosionPrime(@NotNull EntityExplodeEvent event) {
         if(ejey <= event.getEntity().getLocation().getBlockY()){
             event.blockList().clear();
         }
     }
 
     @EventHandler
-    public void EntityDamage(EntityDamageEvent event) {
+    public void EntityDamage(@NotNull EntityDamageEvent event) {
         if (event.getCause() != EntityDamageEvent.DamageCause.KILL){
             if (event.getEntity() instanceof Player player){
-                if (xBxTcore.getcombatlogListener().isInCombat(player)){
+                if (CombatSection.getCombatlogManager().isInCombat(player)){
                     return;
                 }
             }
@@ -225,7 +225,7 @@ public class BlockerListener implements Listener {
                 event.setCancelled(true);
                 return;
             }else if (Bukkit.getWorld(worldBoxPvp) == event.getEntity().getWorld()){
-                event.setCancelled(xBxTcore.getZoneSafeBoxPvp().isSafeZone(event.getEntity().getLocation()));
+                event.setCancelled(BoxPvpSection.getZoneSafeBoxPvp().isSafeZone(event.getEntity().getLocation()));
             }
             if (event.getCause() == EntityDamageEvent.DamageCause.FALL && event.getEntity().getWorld().equals(Bukkit.getWorld(worldBoxPvp)))  {
                 event.setCancelled(true);
@@ -238,7 +238,7 @@ public class BlockerListener implements Listener {
     }
 
     @EventHandler
-    public void Exp(PlayerExpChangeEvent event) {
+    public void Exp(@NotNull PlayerExpChangeEvent event) {
         event.setAmount(0);
     }
 

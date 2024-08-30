@@ -1,5 +1,6 @@
 package Plugin.Commands.OnlyOp;
 
+import Plugin.File.FileManagerSection;
 import Plugin.Messages.Enum.Messages;
 import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
@@ -14,6 +15,8 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.UUID;
+
+import static Plugin.Messages.MessageManager.MasterMessageLocated;
 
 public class CommandDebugKit implements CommandExecutor {
 
@@ -32,17 +35,17 @@ public class CommandDebugKit implements CommandExecutor {
                 if(args.length == 3){
                     if(args[0].equalsIgnoreCase("view")){
                         UUID uuid = Objects.requireNonNull(Bukkit.getPlayer(args[1])).getUniqueId();
-                        xBxTcore.getPlayerFileManager().loadKit(uuid, args[2], null, p);
+                        FileManagerSection.getPlayerFileManager().loadKit(uuid, args[2], null, p);
                     }else{
                         if (args[2].equalsIgnoreCase("add")){
                             run(args, p);
                         }else if(args[2].equalsIgnoreCase("remove")){
-                            xBxTcore.getPlayerFileManager().DeleteKitConfig(UUID.fromString("00000000-0000-0000-0000-000000000000"), namekit);
+                            FileManagerSection.getPlayerFileManager().DeleteKitConfig(UUID.fromString("00000000-0000-0000-0000-000000000000"), namekit);
                         }
                     }
                 }
             }else{
-                p.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(p, Messages.NotOp));
+                p.sendMessage(MasterMessageLocated(p, Messages.NotOp));
             }
         }
 
@@ -57,11 +60,11 @@ public class CommandDebugKit implements CommandExecutor {
             i++;
         }
         if (material != null){
-            xBxTcore.getPlayerFileManager().SaveKit(UUID.fromString("00000000-0000-0000-0000-000000000000"), namekit, material, items);
+            FileManagerSection.getPlayerFileManager().SaveKit(UUID.fromString("00000000-0000-0000-0000-000000000000"), namekit, material, items);
             items.clear();
             material = null;
         }else{
-            xBxTcore.getPlayerFileManager().SaveKit(UUID.fromString("00000000-0000-0000-0000-000000000000"), namekit, Material.WHITE_SHULKER_BOX, items);
+            FileManagerSection.getPlayerFileManager().SaveKit(UUID.fromString("00000000-0000-0000-0000-000000000000"), namekit, Material.WHITE_SHULKER_BOX, items);
             items.clear();
             material = null;
         }

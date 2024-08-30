@@ -1,5 +1,6 @@
 package Plugin.Commands.Tab;
 
+import Plugin.File.FileManagerSection;
 import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -33,8 +34,8 @@ public class TabCompleterDebugKit implements TabCompleter {
                     List<String> namekits;
                     Player player = Bukkit.getPlayer(args[1]);
                     assert player != null;
-                    xBxTcore.getPlayerFileManager().loadNameKit(player.getUniqueId());
-                    namekits = xBxTcore.getPlayerFileManager().nameskits;
+                    FileManagerSection.getPlayerFileManager().loadNameKit(player.getUniqueId());
+                    namekits = FileManagerSection.getPlayerFileManager().nameskits;
                     String currentArg = args[2].toLowerCase();
                     return namekits.stream()
                             .filter(name -> name.startsWith(currentArg))
@@ -53,8 +54,8 @@ public class TabCompleterDebugKit implements TabCompleter {
                             .collect(Collectors.toList());
                 }else if (args.length == 1){
                 List<String> namekits;
-                xBxTcore.getPlayerFileManager().loadNameKit(UUID.fromString("00000000-0000-0000-0000-000000000000"));
-                namekits = xBxTcore.getPlayerFileManager().nameskits;
+                FileManagerSection.getPlayerFileManager().loadNameKit(UUID.fromString("00000000-0000-0000-0000-000000000000"));
+                namekits = FileManagerSection.getPlayerFileManager().nameskits;
                 String currentArg = args[0].toLowerCase();
                 return namekits.stream()
                         .filter(name -> name.startsWith(currentArg))

@@ -1,5 +1,6 @@
 package Plugin.Inventory;
 
+import Plugin.Commands.CommandSection;
 import Plugin.Messages.Enum.Messages;
 import Plugin.Inventory.Enum.PlayerFileTimes;
 import Plugin.Inventory.Models.InvetoryPlayer;
@@ -16,7 +17,8 @@ import org.bukkit.persistence.PersistentDataType;
 import java.util.Objects;
 import java.util.UUID;
 
-import static Plugin.xBxTcore.getPlayerFileManager;
+import static Plugin.File.FileManagerSection.getPlayerFileManager;
+import static Plugin.Messages.MessageManager.MasterMessageLocated;
 
 public class InventoryClick extends InventoryManager {
 
@@ -95,10 +97,10 @@ public class InventoryClick extends InventoryManager {
                 } else if (slot == back) {
                     if(invetoryPlayer.getPage() == 0){
                         if(invetoryPlayer.getKitSelectMode()){
-                            xBxTcore.getInvetoryManager().invetorymenu().OpenDuel(invetoryPlayer);
+                            invetorymenu().OpenDuel(invetoryPlayer);
                             return;
                         }else{
-                            xBxTcore.getInvetoryManager().invetorymenu().OpenMenuInvetory(invetoryPlayer);
+                            invetorymenu().OpenMenuInvetory(invetoryPlayer);
                             return;
                         }
                     }else{
@@ -154,7 +156,7 @@ public class InventoryClick extends InventoryManager {
             case MENUDUEL -> {
                 switch (slot) {
                     case 10 -> {
-                        invetoryPlayer.getPlayer().sendTitle(xBxTcore.getMessageManager().MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.IvnPlayers1), xBxTcore.getMessageManager().MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.IvnPlayers2), 10, 70, 20);
+                        invetoryPlayer.getPlayer().sendTitle(MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.IvnPlayers1), MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.IvnPlayers2), 10, 70, 20);
                         invetoryPlayer.getPlayer().closeInventory();
                     }
                     case 12 -> {
@@ -167,7 +169,7 @@ public class InventoryClick extends InventoryManager {
                     case 16 -> SelectMapDuel(invetoryPlayer, true);
 
                     case 22 -> {
-                        xBxTcore.getCommandDuel().sendRequest(xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).getGuestPlayers(false), xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).getNameWolrd(), invetoryPlayer.getPlayer().getUniqueId());
+                        CommandSection.getCommandDuel().sendRequest(xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).getGuestPlayers(false), xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).getNameWolrd(), invetoryPlayer.getPlayer().getUniqueId());
                         invetoryPlayer.getPlayer().closeInventory();
                     }
                 }
@@ -215,9 +217,9 @@ public class InventoryClick extends InventoryManager {
                             rewardDaly(invetoryPlayer.getPlayer());
                             getPlayerFileManager().SaveTimesRewords(invetoryPlayer.getPlayer().getUniqueId(), PlayerFileTimes.daily, System.currentTimeMillis() + 1000L*60*60*24);
                             Utils.NewitemInvetory(Messages.Daily, Material.MINECART, 20, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer());
-                            invetoryPlayer.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.GiveDaily));
+                            invetoryPlayer.getPlayer().sendMessage(MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.GiveDaily));
                         }else{
-                            invetoryPlayer.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.RewardNotYet));
+                            invetoryPlayer.getPlayer().sendMessage(MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.RewardNotYet));
                         }
                     }
                     case 22 -> {
@@ -226,9 +228,9 @@ public class InventoryClick extends InventoryManager {
                             rewardWeekly(invetoryPlayer.getPlayer());
                             getPlayerFileManager().SaveTimesRewords(invetoryPlayer.getPlayer().getUniqueId(), PlayerFileTimes.weekly, System.currentTimeMillis() + 1000L*60*60*24*7);
                             Utils.NewitemInvetory(Messages.Weekly, Material.MINECART, 22, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer());
-                            invetoryPlayer.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.GiveWeekly));
+                            invetoryPlayer.getPlayer().sendMessage(MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.GiveWeekly));
                         }else{
-                            invetoryPlayer.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.RewardNotYet));
+                            invetoryPlayer.getPlayer().sendMessage(MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.RewardNotYet));
                         }
                     }
                     case 24 -> {
@@ -237,9 +239,9 @@ public class InventoryClick extends InventoryManager {
                             rewardMonthly(invetoryPlayer.getPlayer());
                             getPlayerFileManager().SaveTimesRewords(invetoryPlayer.getPlayer().getUniqueId(), PlayerFileTimes.monthly, System.currentTimeMillis() + 1000L*60*60*24*30);
                             Utils.NewitemInvetory(Messages.Monthly, Material.MINECART, 24, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer());
-                            invetoryPlayer.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.GiveMonthly));
+                            invetoryPlayer.getPlayer().sendMessage(MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.GiveMonthly));
                         }else{
-                            invetoryPlayer.getPlayer().sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.RewardNotYet));
+                            invetoryPlayer.getPlayer().sendMessage(MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.RewardNotYet));
                         }
                     }
                 }

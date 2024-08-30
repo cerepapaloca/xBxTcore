@@ -12,6 +12,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 import static Plugin.Messages.MessageManager.ColorWarning;
+import static Plugin.Messages.MessageManager.MasterMessageLocated;
 
 public class PlayerDataUnique {
 
@@ -36,7 +37,7 @@ public class PlayerDataUnique {
             }else if (messgas){
                 Player p = Bukkit.getPlayer(playerUUID);
                 if (p != null) {
-                    p.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(p, Messages.WarningGetGuestPlayers));
+                    p.sendMessage(MasterMessageLocated(p, Messages.WarningGetGuestPlayers));
                 }
                 Bukkit.getConsoleSender().sendMessage(ColorWarning + "Hubo un error al obtener el jugador: " + uuid);
             } else {

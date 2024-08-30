@@ -20,7 +20,7 @@ import java.util.Objects;
 
 public class ArmorBonusListener implements Listener {
 
-    private final xBxTcore plugin;
+    private static xBxTcore plugin;
 
     public ArmorBonusListener(xBxTcore plugin) {
         this.plugin = plugin;
@@ -49,7 +49,7 @@ public class ArmorBonusListener implements Listener {
         }
     }
 
-    public void UpdateBonus(Player player) {
+    public static void UpdateBonus(Player player) {
         ItemStack item;
         item = player.getInventory().getItem(EquipmentSlot.HEAD);
         if (item.getType() == Material.LEATHER_HELMET){

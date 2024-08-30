@@ -1,5 +1,6 @@
 package Plugin.Commands.Tab;
 
+import Plugin.File.FileManagerSection;
 import Plugin.xBxTcore;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -18,8 +19,8 @@ public class TabCompleterKitFavorite implements TabCompleter {
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, String[] args) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
-            xBxTcore.getPlayerFileManager().loadNameKit(player.getUniqueId());
-            List<String> namekitsall = new ArrayList<>(xBxTcore.getPlayerFileManager().nameskitsboth);
+            FileManagerSection.getPlayerFileManager().loadNameKit(player.getUniqueId());
+            List<String> namekitsall = new ArrayList<>(FileManagerSection.getPlayerFileManager().nameskitsboth);
             if (args.length == 1) {
                 String currentArg = args[0].toLowerCase();
                 return namekitsall.stream()

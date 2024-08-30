@@ -13,6 +13,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
+import static Plugin.Messages.MessageManager.MasterMessageLocated;
+
 public class CommandSpectator implements CommandExecutor {
 
     private final xBxTcore plugin;
@@ -37,19 +39,19 @@ public class CommandSpectator implements CommandExecutor {
                                     }
                                 }.runTaskLater(plugin, 2);
                             }else{
-                                p.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(p, Messages.NotCombatWorld));
+                                p.sendMessage(MasterMessageLocated(p, Messages.NotCombatWorld));
                             }
                         }else{
-                            p.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(p, Messages.NotAllowed));
+                            p.sendMessage(MasterMessageLocated(p, Messages.NotAllowed));
                         }
                     }else{
-                        p.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(p, Messages.NotFoundWorld));
+                        p.sendMessage(MasterMessageLocated(p, Messages.NotFoundWorld));
                     }
                 }else{
-                    p.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(p, Messages.SpectatorError));
+                    p.sendMessage(MasterMessageLocated(p, Messages.SpectatorError));
                 }
             }else{
-                p.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(p, Messages.InArea));
+                p.sendMessage(MasterMessageLocated(p, Messages.InArea));
             }
         }else{
             plugin.messageOnlyPlayer();

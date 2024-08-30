@@ -1,6 +1,8 @@
 package Plugin.Commands.User;
 
 import Plugin.Messages.Enum.Messages;
+import Plugin.Utils.Utils;
+import Plugin.Utils.UtilsMain;
 import Plugin.xBxTcore;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -12,6 +14,10 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Objects;
+
+import static Plugin.File.FileManagerSection.getPlayerFileManager;
+import static Plugin.Messages.MessageManager.MasterMessageLocated;
+import static Plugin.Utils.Utils.AntiSpam;
 
 public class CommandSaveKit implements CommandExecutor {
 
@@ -37,7 +43,7 @@ public class CommandSaveKit implements CommandExecutor {
                 namekit = args[0];
                 GetItemInvetort(player);
             } else if (args.length == 0) {
-                player.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(player, Messages.SaveError));
+                player.sendMessage(MasterMessageLocated(player, Messages.SaveError));
             }
         }else{
             plugin.messageOnlyPlayer();
@@ -48,7 +54,7 @@ public class CommandSaveKit implements CommandExecutor {
     public void GetItemInvetort(Player player){
         items.clear();
         if (namekit.contains(".")) {
-            player.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(player, Messages.SaveErrorPunto));
+            player.sendMessage(MasterMessageLocated(player, Messages.SaveErrorPunto));
             return;
         }
 
@@ -57,9 +63,9 @@ public class CommandSaveKit implements CommandExecutor {
             items.add(itemstack);
             i++;
         }
-        xBxTcore.getPlayerFileManager().SaveKit(player.getUniqueId(), namekit, Objects.requireNonNullElse(material, Material.WHITE_SHULKER_BOX), items);
+        getPlayerFileManager().SaveKit(player.getUniqueId(), namekit, Objects.requireNonNullElse(material, Material.WHITE_SHULKER_BOX), items);
         items.clear();
         material = null;
-        xBxTcore.getTools().AntiSpam(player, Messages.SpamCommand);
+        AntiSpam(player, Messages.SpamCommand, plugin);
     }
 }

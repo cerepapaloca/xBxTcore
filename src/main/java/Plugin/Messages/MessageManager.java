@@ -9,12 +9,13 @@ import org.bukkit.entity.Player;
 import java.util.HashMap;
 import java.util.Map;
 
+import static Plugin.File.FileManagerSection.getPlayerFileManager;
 import static Plugin.Messages.Enum.Messages.*;
 
 public class MessageManager {
 
-    private final Map<Messages, String> esMessages = new HashMap<>();
-    private final Map<Messages, String> enMessages = new HashMap<>();
+    private static final Map<Messages, String> esMessages = new HashMap<>();
+    private static final Map<Messages, String> enMessages = new HashMap<>();
 
     public static String prefixKick = "&6[&8&lxB&f&lxT &e&lPvP&6]&r \n";
     public static String prefixConsole = "&6[&8&lxB&f&lxT &eConsoler&6]&r ";
@@ -126,35 +127,40 @@ public class MessageManager {
        enMessages.put(GiveDaily, prefix + ColorSuccess + "You have claimed the daily reward");
        enMessages.put(GiveWeekly, prefix + ColorSuccess + "You have claimed the weekly reward");
        enMessages.put(GiveMonthly, prefix + ColorSuccess +  "You have claimed the monthly reward");
+       enMessages.put(CrateNotPermission, prefix + ColorError + "You are not VIP you can get it here " + ColorLink + "Under review");
+       enMessages.put(ClaimReward, prefix + ColorSuccess + "I have claimed a reward");
        //tienda
-       esMessages.put(StoreLink, prefix + Colorinfo + "You can buy here!!");
+       enMessages.put(StoreLink, prefix + Colorinfo + "You can buy here!!");
        enMessages.put(BuysTitel,ColorSuccess + "Thanks for the purchase!!");
        enMessages.put(BuysTitelLower,ColorSuccess + "I hope you enjoy it: " + Colorplayer + "%compra%");
        enMessages.put(BuyGeneric,prefix + "\n" + " \n" + Colorplayer + "%player% " + Colorinfo + "has Buying " + Colorplayer + "%compra%\n \n"
                 + Colorinfo + "You can also buy!!\n" + "In the store: " + ColorLink + "aún en revision\n&r" + " \n");
        //login
-       enMessages.put(PendingLogin, prefix + Colorinfo + "Use the command " + ColorLink + "/login <password>");
-       enMessages.put(PendingRegister, prefix + Colorinfo + "Use the command " + ColorLink + "/register <password> <password>&e.");
-       enMessages.put(SuccessLogin, prefix + ColorSuccess + "You have successfully logged.");
-       enMessages.put(SuccessRegister, prefix + ColorSuccess +  "You have successfully registered.");
-       enMessages.put(SuccessSession, prefix + ColorSuccess + "Your login session has been continued.");
-       enMessages.put(SuccessPremium, prefix + ColorSuccess + "You are automatically logged in as you are using an unique account.");
-       enMessages.put(ErrorNotRegistered, prefix + ColorError + "This nickname has not yet been registered.");
-       enMessages.put(ErrorOffline, prefix + ColorError + "The desired player is offline.");
-       enMessages.put(ErrorAddressLimit, prefix + ColorError + "You have exhausted the account limits per IP.");
-       enMessages.put(AlreadyLogin, prefix + ColorWarning + "You are already logged in.");
-       enMessages.put(AlreadyLoginOther, prefix + ColorWarning + "This player is already logged in.");
-       enMessages.put(AlreadyRegistered,prefix + ColorWarning + "This nickname has already been registered.");
-       enMessages.put(AlreadyPremium, prefix + ColorWarning + "Your account is already marked as premium.");
-       enMessages.put(PasswordSameAsCurrent, prefix + ColorError + "The password entered is the same as the current.");
-       enMessages.put(PasswordTooLarge, prefix + ColorError + "The password entered is too large.");
-       enMessages.put(PasswordTooSmall, prefix + ColorError + "The password entered is too small.");
-       enMessages.put(PasswordNotSecure, prefix + ColorError + "The password provided does not meet the security requirements. Please include a number, upper and lower case letters and a special symbol.");
-       enMessages.put(PasswordDoNotMatch, prefix + ColorError + "Passwords are not the same.");
-       enMessages.put(PasswordRequireConfirmation, prefix + ColorError + "You must confirm your password.");
-       enMessages.put(PasswordIncorrect, prefix + ColorError + "Incorrect password. Please, try again.");
-       enMessages.put(kickAlreadyOnline, prefix + ColorError + "You entered the incorrect password.");
-       enMessages.put(kickInvalidNickname, prefix + ColorError + "Your nickname is invalid, remove spaces, symbols, and invalid characters from your name.");
+       enMessages.put(Registration_RegisterRequest, prefix + Colorinfo + "Please, register to the server with the command: /register <password> <ConfirmPassword>");
+       enMessages.put(Registration_CommandUsage, prefix + Colorinfo + "Usage: /register <password> <ConfirmPassword>");
+       enMessages.put(Registration_Success, prefix + ColorSuccess + "Successfully registered!");
+       enMessages.put(Registration_disabled, prefix + Colorinfo + "In-game registration is disabled!");
+       enMessages.put(Registration_NameTaken, prefix + ColorError + "You already have registered this username!");
+       enMessages.put(Password_MatchError, prefix + ColorError + "Passwords didn''t match, check them again!");
+       enMessages.put(Password_NameInPassword, prefix + ColorWarning + "You can''t use your name as password, please choose another one...");
+       enMessages.put(Password_UnsafePassword, prefix + ColorWarning + "The chosen password isn''t safe, please choose another one...");
+       enMessages.put(Password_OrbiddenCharactfers, prefix + ColorError + "Your password contains illegal characters.");
+       enMessages.put(Password_WrongLength, prefix + ColorError + "Your password is too short or too long! Please try with another one!");
+       enMessages.put(Login_CommandUsage, prefix + Colorinfo + "Usage: /login <password>");
+       enMessages.put(Login_Success, prefix + ColorSuccess + "Successfully logged in!");
+       enMessages.put(Login_LoginRequest, prefix + Colorinfo + "Please, login with the command: /login <password>");
+       enMessages.put(Login_TimeoutError, prefix + ColorError + "Login timeout exceeded, you have been kicked from the server, please try again!");
+       enMessages.put(Error_UnregisteredUser, prefix + ColorError + "This user isn''t registered!");
+       enMessages.put(Error_DeniedCommand, prefix + ColorError + "In order to use this command you must be authenticated!");
+       enMessages.put(Error_DeniedChat, prefix + ColorError + "In order to chat you must be authenticated!");
+       enMessages.put(Error_NotLoggedIn, prefix + ColorError + "You''re not logged in!");
+       enMessages.put(Error_TempbanMaxLogins, prefix + ColorError + "You have been temporarily banned for failing to log in too many times.");
+       enMessages.put(Error_MaxRegistration, prefix + ColorError + "You have exceeded the maximum number of registrations");
+       enMessages.put(Error_NoRermission, prefix + ColorError + "You don''t have the permission to perform this action!");
+       enMessages.put(Error_UnexpectedError, prefix + ColorError + "An unexpected error occurred, please contact an administrator!");
+       enMessages.put(Error_ErrorKickForVip, prefix + ColorError + "A VIP player has joined the server when it was full!");
+       enMessages.put(Error_LoggedIn, prefix + ColorError + "You''re already logged in!");
+       enMessages.put(Error_KickUnresolvedHostname, prefix + ColorError + "An error occurred: unresolved player hostname!");
        //Invetarios
        enMessages.put(InvGlobal,"&a&lGlobal Kits");
        enMessages.put(InvCustom,"&e&lCustom Kits");
@@ -211,7 +217,7 @@ public class MessageManager {
                 ChatColor.of("#FE8F22") + "&ly" + ChatColor.of("#FF7302") + "&lz" + Colorinfo + "\nJoin our discord:" + ColorLink + "https://discord.gg/QYBwEFvnsG");
        //Kick
        enMessages.put(SpamCommand,prefixKick + Colorinfo + "Kicked out for command spam");
-
+       enMessages.put(AlreadyConnected,prefixKick  + Colorinfo + "This user is already logged in");
 
         //ES//
 
@@ -302,7 +308,7 @@ public class MessageManager {
         esMessages.put(GiveDaily, prefix + ColorSuccess + "Haz reclamado la recompensa diaria");
         esMessages.put(GiveWeekly, prefix + ColorSuccess + "Haz reclamado la recompensa semanal");
         esMessages.put(GiveMonthly, prefix + ColorSuccess + "Haz reclamado la recompensa mensual");
-        esMessages.put(CrateNotPermission, prefix + ColorError + "No eres vip lo puede conseguir aqui" + ColorLink + "Mi tienda");
+        esMessages.put(CrateNotPermission, prefix + ColorError + "No eres vip lo puede conseguir aquí " + ColorLink + "En revision");
         esMessages.put(ClaimReward, prefix + ColorSuccess + "Haz reclamado una recompensa");
         //tienda
         esMessages.put(StoreLink, prefix + Colorinfo + "Puedes comprar Aquí!!");
@@ -311,28 +317,31 @@ public class MessageManager {
         esMessages.put(BuyGeneric,prefix + "\n \n" + Coloritem + Colorplayer + "%player% " + Colorinfo + "ha comprado " + Colorplayer + "%compra%\n \n"
                 + Colorinfo + "También puedes comprarlo!!\n" + "En Tienda: " + ColorLink + "aún en revision\n&r" + " \n");
         //login
-        esMessages.put(PendingLogin, prefix + Colorinfo + "Utilice el comando " + ColorLink + "/login <contraseña>");
-        esMessages.put(PendingRegister, prefix + Colorinfo + "Utilice el comando " + ColorLink + "/register <contraseña> <contraseña>&e.");
-        esMessages.put(SuccessLogin, prefix + ColorSuccess + "Te has logueado con éxito.");
-        esMessages.put(SuccessRegister, prefix + ColorSuccess +  "Te has registrado con éxito.");
-        esMessages.put(SuccessSession, prefix + ColorSuccess + "Su sesión de inicio de sesión ha sido resumida.");
-        esMessages.put(SuccessPremium, prefix + ColorSuccess + "Usted inicia sesión automáticamente ya que está utilizando una cuenta original.");
-        esMessages.put(ErrorNotRegistered, prefix + ColorError + "Este apodo aún no se ha registrado.");
-        esMessages.put(ErrorOffline, prefix + ColorError + "El reproductor deseado está desconectado.");
-        esMessages.put(ErrorAddressLimit, prefix + ColorError + "Has agotado los límites de la cuenta por IP.");
-        esMessages.put(AlreadyLogin, prefix + ColorWarning + "Ya se ha autentificado.");
-        esMessages.put(AlreadyLoginOther, prefix + ColorWarning + "Este jugador ya ha iniciado sesión.");
-        esMessages.put(AlreadyRegistered,prefix + ColorWarning + "Este apodo ya ha sido registrado.");
-        esMessages.put(AlreadyPremium, prefix + ColorWarning + "Tu cuenta ya está marcada como premium.");
-        esMessages.put(PasswordSameAsCurrent, prefix + ColorError + "La contraseña introducida es la misma que la actual.");
-        esMessages.put(PasswordTooLarge, prefix + ColorError + "La contraseña introducida es muy grande.");
-        esMessages.put(PasswordTooSmall, prefix + ColorError + "La contraseña introducida es muy pequeña.");
-        esMessages.put(PasswordNotSecure, prefix + ColorError + "La contraseña proporcionada no cumple los requisitos de seguridad. Por favor, incluya un número, letras mayúsculas y minúsculas y un símbolo especial.");
-        esMessages.put(PasswordDoNotMatch, prefix + ColorError + "Las contraseñas no son las mismas.");
-        esMessages.put(PasswordRequireConfirmation, prefix + ColorError + "Debe confirmar su contraseña.");
-        esMessages.put(PasswordIncorrect, prefix + ColorError + "Contraseña incorrecta. Por favor, inténtelo de nuevo.");
-        esMessages.put(kickAlreadyOnline, prefix + ColorError + "Este reproductor ya está en línea.");
-        esMessages.put(kickInvalidNickname, prefix + ColorError + "Tu apodo no es válido.");
+        esMessages.put(Registration_RegisterRequest, prefix + Colorinfo + "Por favor, regístrese en el servidor con el comando: /register <password> <ConfirmPassword>");
+        esMessages.put(Registration_CommandUsage, prefix + Colorinfo + "Usage: /register <contraseña> <ConfirmPassword>");
+        esMessages.put(Registration_Success, prefix + ColorSuccess + "¡Registrado exitosamente!");
+        esMessages.put(Registration_disabled, prefix + Colorinfo + "¡El registro en el juego está deshabilitado!");
+        esMessages.put(Registration_NameTaken, prefix + ColorError + "Ya has registrado este nombre de usuario!");
+        esMessages.put(Password_MatchError, prefix + ColorError + "Las contraseñas no coinciden, ¡verifícalas de nuevo!");
+        esMessages.put(Password_NameInPassword, prefix + ColorWarning + "No puedes usar tu nombre como contraseña, elige otra...");
+        esMessages.put(Password_UnsafePassword, prefix + ColorWarning + "La contraseña elegida no es segura, elige otra...");
+        esMessages.put(Password_OrbiddenCharactfers, prefix + ColorError + "Tu contraseña contiene caracteres no permitidos.");
+        esMessages.put(Password_WrongLength, prefix + ColorError + "¡Su contraseña es demasiado corta o demasiado larga! ¡Por favor, intente con otra!");
+        esMessages.put(Login_CommandUsage, prefix + Colorinfo + "Uso: /login <contraseña>");
+        esMessages.put(Login_Success, prefix + ColorSuccess + "¡Inició sesión correctamente!");
+        esMessages.put(Login_LoginRequest, prefix + Colorinfo + "Por favor, inicie sesión con el comando: /login <contraseña>");
+        esMessages.put(Login_TimeoutError, prefix + ColorError + "Se ha excedido el tiempo de espera para iniciar sesión, ha sido expulsado del servidor, ¡inténtelo de nuevo!");
+        esMessages.put(Error_UnregisteredUser, prefix + ColorError + "¡Este usuario no está registrado!");
+        esMessages.put(Error_DeniedCommand, prefix + ColorError + "¡Para poder usar este comando, debe estar autenticado!");
+        esMessages.put(Error_DeniedChat, prefix + ColorError + "¡Para poder chatear, debe estar autenticado!");
+        esMessages.put(Error_NotLoggedIn, prefix + ColorError + "¡No ha iniciado sesión!");
+        esMessages.put(Error_TempbanMaxLogins, prefix + ColorError + "Se le ha prohibido temporalmente iniciar sesión debido a que no ha podido iniciar sesión demasiadas veces.");
+        esMessages.put(Error_MaxRegistration, prefix + ColorError + "Ha superado el número máximo de registros");
+        esMessages.put(Error_NoRermission, prefix + ColorError + "¡No tiene permiso para realizar esta acción!");
+        esMessages.put(Error_UnexpectedError, prefix + ColorError + "¡Se produjo un error inesperado, póngase en contacto con un administrador!");
+        esMessages.put(Error_ErrorKickForVip, prefix + ColorError + "¡Un jugador VIP se ha unido al servidor cuando estaba lleno!");
+        esMessages.put(Error_LoggedIn, prefix + ColorError + "¡Ya has iniciado sesión!");
+        esMessages.put(Error_KickUnresolvedHostname, prefix + ColorError + "¡Se produjo un error: nombre de host del jugador sin resolver!");
         //Invetarios
         esMessages.put(InvGlobal,"&a&lKits Globales");
         esMessages.put(InvCustom,"&e&lKits Personalizado");
@@ -389,9 +398,10 @@ public class MessageManager {
                 ChatColor.of("#FE8F22") + "&ly" + ChatColor.of("#FF7302") + "&lz" + Colorinfo + "\núnete a nuestro discord discord:" + ColorLink + "https://discord.gg/QYBwEFvnsG");
         //Kick
         esMessages.put(SpamCommand,prefixKick  + Colorinfo + "Echado por spam de comando");
+        esMessages.put(AlreadyConnected,prefixKick  + Colorinfo + "Este Usuario ya esta conectado");
     }
 
-    public String MasterMessageLocated(Player player, Messages message){
+    public static String MasterMessageLocated(Player player, Messages message){
         String locate = player.getLocale().toLowerCase();
         if (locate.contains("es")){
             if (esMessages.get(message) != null){
@@ -410,21 +420,21 @@ public class MessageManager {
         }
     }
 
-    public void BroadcastMessage(Messages message){
+    public static void BroadcastMessage(Messages message){
         for(Player p : Bukkit.getOnlinePlayers()){
             p.sendMessage(ChatColor.translateAlternateColorCodes('&', MasterMessageLocated(p,message)));
         }
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', esMessages.get(message)));
     }
 
-    public void BroadcastMessageBuy(String compra, Player player, Messages message){
+    public static void BroadcastMessageBuy(String compra, Player player, Messages message){
         for(Player p : Bukkit.getOnlinePlayers()){
             p.sendMessage(ChatColor.translateAlternateColorCodes('&', MasterMessageLocated(p,message)).replace("%player%", player.getDisplayName()).replace("%compra%", compra));
         }
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', esMessages.get(message)).replace("%player%", player.getDisplayName()).replace("%compra%", compra));
     }
 
-    public void BroadcastMessageDied(Messages message, Player player, Player killer, String item){
+    public static void BroadcastMessageDied(Messages message, Player player, Player killer, String item){
         String prefixWorld;
 
         switch (player.getWorld().getName()){
@@ -435,36 +445,44 @@ public class MessageManager {
 
         for(Player p : Bukkit.getOnlinePlayers()){
             if(killer != null){
-                p.sendMessage(ChatColor.translateAlternateColorCodes( '&', MasterMessageLocated(p,message).replace("%player%", prefixWorld + xBxTcore.getPlayerFileManager().loadPrefix(player.getUniqueId()) + Colorplayer +  player.getName()).replace("%killer%",xBxTcore.getPlayerFileManager().loadPrefix(killer.getUniqueId()) + Colorplayer + killer.getName()).replace("%item%", item)));
+                p.sendMessage(ChatColor.translateAlternateColorCodes( '&', MasterMessageLocated(p,message).replace("%player%", prefixWorld + getPlayerFileManager().loadPrefix(player.getUniqueId()) + Colorplayer +  player.getName()).replace("%killer%",getPlayerFileManager().loadPrefix(killer.getUniqueId()) + Colorplayer + killer.getName()).replace("%item%", item)));
             }else{
-                p.sendMessage(ChatColor.translateAlternateColorCodes( '&', MasterMessageLocated(p,message).replace("%player%", prefixWorld + xBxTcore.getPlayerFileManager().loadPrefix(player.getUniqueId()) + Colorplayer +  player.getName()).replace("%item%", item)));
+                p.sendMessage(ChatColor.translateAlternateColorCodes( '&', MasterMessageLocated(p,message).replace("%player%", prefixWorld + getPlayerFileManager().loadPrefix(player.getUniqueId()) + Colorplayer +  player.getName()).replace("%item%", item)));
             }
 
         }
         if(killer == null){
-            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', esMessages.get(message)).replace("%player%",ChatColor.translateAlternateColorCodes('&',prefixWorld + xBxTcore.getPlayerFileManager().loadPrefix(player.getUniqueId()) + Colorplayer +  player.getName()).replace("%item%", item)));
+            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', esMessages.get(message)).replace("%player%",ChatColor.translateAlternateColorCodes('&',prefixWorld + getPlayerFileManager().loadPrefix(player.getUniqueId()) + Colorplayer +  player.getName()).replace("%item%", item)));
         }else{
-            Bukkit.getConsoleSender().sendMessage(xBxTcore.getPlayerFileManager().loadPrefix(player.getUniqueId()));
-            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',ChatColor.translateAlternateColorCodes('&', esMessages.get(message)).replace("%player%", prefixWorld + xBxTcore.getPlayerFileManager().loadPrefix(player.getUniqueId()) + Colorplayer +  player.getName()).replace("%killer%",xBxTcore.getPlayerFileManager().loadPrefix(killer.getUniqueId()) + Colorplayer + killer.getName()).replace("%item%", item)));
+            Bukkit.getConsoleSender().sendMessage(getPlayerFileManager().loadPrefix(player.getUniqueId()));
+            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',ChatColor.translateAlternateColorCodes('&', esMessages.get(message)).replace("%player%", prefixWorld + getPlayerFileManager().loadPrefix(player.getUniqueId()) + Colorplayer +  player.getName()).replace("%killer%",getPlayerFileManager().loadPrefix(killer.getUniqueId()) + Colorplayer + killer.getName()).replace("%item%", item)));
         }
     }
 
-    public void KickMessage(Player p ,Messages message){
+    public static void KickMessage(Player p ,Messages message){
         p.kickPlayer(MasterMessageLocated(p,message));
     }
 
-    public void BroadcastMessagejoin(Player player){
+    public static void BroadcastMessagejoin(Player player){
         for(Player p : Bukkit.getOnlinePlayers()){
             p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&a+&8] " + Colorplayer + player.getName() + " " + MasterMessageLocated(p,Messages.join)));
         }
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&a+&8] " + Colorplayer + player.getName() + " " + esMessages.get(join)));
     }
 
-    public void BroadcastMessageleave(Player player){
+    public static void BroadcastMessageleave(Player player){
         for(Player p : Bukkit.getOnlinePlayers()){
             p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&4-&8] " + Colorplayer + player.getName() + " " + MasterMessageLocated(p,Messages.leave)));
 
         }
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&4-&8] " + Colorplayer + player.getName() + " " + esMessages.get(leave)));
+    }
+
+    public static void SendMessageConsole(String nota, Thread thread){
+        String nameClas = thread.getStackTrace()[1].getClassLoaderName();
+        String nameMethod = thread.getStackTrace()[1].getMethodName();
+        int nameLine = thread.getStackTrace()[1].getLineNumber();
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorWarning + "Hubo un error " +
+                "en la clase: " + nameClas + " en el metodo: " + nameMethod + " en la linea " + nameLine + "\nNota: " + nota));
     }
 }

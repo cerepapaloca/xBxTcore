@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
 
 import static Plugin.Messages.MessageManager.ColorLink;
+import static Plugin.Messages.MessageManager.MasterMessageLocated;
 
 public class CommandShop implements CommandExecutor {
 
@@ -22,7 +23,7 @@ public class CommandShop implements CommandExecutor {
     @Override
     public boolean onCommand(@Nullable CommandSender commandSender,@Nullable Command command,@Nullable String s, String[] strings) {
         if(commandSender instanceof Player player){
-            player.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(player, Messages.StoreLink));
+            player.sendMessage(MasterMessageLocated(player, Messages.StoreLink));
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', ColorLink + "aún en revision"));
         }else{
             plugin.messageOnlyPlayer();

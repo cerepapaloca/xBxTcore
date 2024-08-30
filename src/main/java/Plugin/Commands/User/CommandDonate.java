@@ -8,6 +8,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
 
+import static Plugin.Messages.MessageManager.MasterMessageLocated;
+
 public class CommandDonate implements CommandExecutor {
 
     private final xBxTcore plugin;
@@ -19,7 +21,7 @@ public class CommandDonate implements CommandExecutor {
     @Override
     public boolean onCommand(@Nullable CommandSender commandSender,@Nullable Command command,@Nullable String s, String[] strings) {
         if(commandSender instanceof Player player){
-            player.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(player, Messages.Donate));
+            player.sendMessage(MasterMessageLocated(player, Messages.Donate));
         }else{
             plugin.messageOnlyPlayer();
         }

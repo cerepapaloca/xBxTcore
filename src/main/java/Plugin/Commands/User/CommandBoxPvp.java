@@ -14,6 +14,10 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
+import static Plugin.BoxPvp.ItemsBoxPvp.Listener.ArmorBonusListener.UpdateBonus;
+import static Plugin.File.FileManagerSection.getPlayerFileManager;
+import static Plugin.Messages.MessageManager.MasterMessageLocated;
+
 public class CommandBoxPvp implements CommandExecutor {
 
     private final xBxTcore plugin;
@@ -32,14 +36,14 @@ public class CommandBoxPvp implements CommandExecutor {
                 }
                 if (!player.getWorld().getName().equals("boxpvp")) {
                     player.getInventory().clear();
-                    xBxTcore.getPlayerFileManager().loadInventoryBoxPvp(player);
+                    getPlayerFileManager().loadInventoryBoxPvp(player);
                 }
                 player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 999999, 1));
                 player.teleport(Objects.requireNonNull(Bukkit.getWorld("boxpvp")).getSpawnLocation());
-                xBxTcore.getArmorBonusListener().UpdateBonus(player);
+                UpdateBonus(player);
                 player.setGameMode(GameMode.SURVIVAL);
             }else{
-                player.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(player, Messages.InArea));
+                player.sendMessage(MasterMessageLocated(player, Messages.InArea));
             }
 
         }else{

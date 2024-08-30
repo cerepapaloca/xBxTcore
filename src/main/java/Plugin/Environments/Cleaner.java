@@ -15,7 +15,6 @@ public class Cleaner {
 
 
     public Cleaner(xBxTcore plugin) {
-
         this.plugin = plugin;
     }
 
@@ -60,7 +59,7 @@ public class Cleaner {
                         Location loc = new Location(world, x, y, z);
 
                         i = switch (worldname) {
-                            case "flat_world" -> CleanerWorld(y, loc, i);
+                            case "flat_world1" ,"flat_world2" ,"flat_world3" -> CleanerWorld(y, loc, i);
                             default -> CleanerLobby(loc, i);
                         };
 
@@ -88,6 +87,10 @@ public class Cleaner {
     }
 
     public int CleanerWorld(int y, Location loc, int i) {
+        if(loc.getBlock().getType() == Material.BEDROCK){
+            return i;
+        }
+
         if(y <= 15) {
             if (!loc.getBlock().getType().equals(Material.STONE)) {
                 loc.getBlock().setType(Material.STONE);

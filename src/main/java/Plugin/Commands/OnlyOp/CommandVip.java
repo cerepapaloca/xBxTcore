@@ -11,6 +11,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
+import static Plugin.Messages.MessageManager.BroadcastMessageBuy;
+import static Plugin.Messages.MessageManager.MasterMessageLocated;
+
 public class CommandVip implements CommandExecutor {
 
     public boolean onCommand(@Nullable CommandSender sender, @Nullable Command cmd, @Nullable String label, String[] args) {
@@ -25,9 +28,9 @@ public class CommandVip implements CommandExecutor {
                 });
             }
             if (args.length == 3 && args[2].equals("m")) {
-                xBxTcore.getMessageManager().BroadcastMessageBuy("Rango Vip",player,Messages.BuyGeneric);
-                player.sendTitle(xBxTcore.getMessageManager().MasterMessageLocated(player, Messages.BuysTitel),
-                        xBxTcore.getMessageManager().MasterMessageLocated(player, Messages.BuysTitelLower).replace("%compra%",
+                BroadcastMessageBuy("Rango Vip",player,Messages.BuyGeneric);
+                player.sendTitle(MasterMessageLocated(player, Messages.BuysTitel),
+                        MasterMessageLocated(player, Messages.BuysTitelLower).replace("%compra%",
                                 "Rango Vip"), 10 ,60 ,10);
                 player.playSound(player, Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
             }

@@ -8,6 +8,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
+import static Plugin.Messages.MessageManager.MasterMessageLocated;
+
 public class Commandinfo implements CommandExecutor {
 
     private final xBxTcore plugin;
@@ -20,7 +22,7 @@ public class Commandinfo implements CommandExecutor {
             if(p.isOp()){
                 plugin.info();
             }else{
-                p.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(p, Messages.NotOp));
+                p.sendMessage(MasterMessageLocated(p, Messages.NotOp));
             }
         }else{
             plugin.info();

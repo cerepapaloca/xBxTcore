@@ -11,7 +11,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
-import static Plugin.xBxTcore.getPlayerFileManager;
+import static Plugin.File.FileManagerSection.getPlayerFileManager;
+import static Plugin.Messages.MessageManager.BroadcastMessageBuy;
+import static Plugin.Messages.MessageManager.MasterMessageLocated;
 
 public class CommandTimeRewardSkip implements CommandExecutor {
 
@@ -34,9 +36,9 @@ public class CommandTimeRewardSkip implements CommandExecutor {
                 }
             }
             if (args.length == 3 && args[2].equalsIgnoreCase("m")) {
-                xBxTcore.getMessageManager().BroadcastMessageBuy(nameCompra,player, Messages.BuyGeneric);
-                player.sendTitle(xBxTcore.getMessageManager().MasterMessageLocated(player, Messages.BuysTitel),
-                        xBxTcore.getMessageManager().MasterMessageLocated(player, Messages.BuysTitelLower).replace("%compra%",
+                BroadcastMessageBuy(nameCompra,player, Messages.BuyGeneric);
+                player.sendTitle(MasterMessageLocated(player, Messages.BuysTitel),
+                        MasterMessageLocated(player, Messages.BuysTitelLower).replace("%compra%",
                                 nameCompra), 10 ,60 ,10);
                 player.playSound(player, Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
             }

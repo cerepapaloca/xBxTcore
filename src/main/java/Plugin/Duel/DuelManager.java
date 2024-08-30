@@ -1,6 +1,7 @@
 package Plugin.Duel;
 
 import Plugin.Duel.Enum.EndCombatCauses;
+import Plugin.Environments.EnvironmentsSection;
 import Plugin.Messages.MessageManager;
 import Plugin.Inventory.Models.KitData;
 import Plugin.Messages.Enum.Messages;
@@ -20,6 +21,9 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.*;
+
+import static Plugin.File.FileManagerSection.getPlayerFileManager;
+import static Plugin.Messages.MessageManager.MasterMessageLocated;
 
 public class DuelManager{
 
@@ -57,26 +61,26 @@ public class DuelManager{
 
         for (Player player : players){
             if (kitData.getName() != null && kitData.getUuid() != null){
-                xBxTcore.getPlayerFileManager().loadKit(kitData.getUuid(),kitData.getName(),null, player);
+                getPlayerFileManager().loadKit(kitData.getUuid(),kitData.getName(),null, player);
             }else{
-                xBxTcore.getPlayerFileManager().loadkitfavorite(player);
+                getPlayerFileManager().loadkitfavorite(player);
             }
             player.teleport(locations.get(i));
             i++;
         }
 
         startCountdown(world.getName(), xBxTcore.getPlayerDataUnique(players.get(0).getUniqueId()).getTimelimit());
-        xBxTcore.getCleaner().clearArea(world.getName());
+        EnvironmentsSection.getCleaner().clearArea(world.getName());
         TextComponent tp = new TextComponent();
         tp.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/spectator " + world.getName()));
         for (Player player : Bukkit.getOnlinePlayers()) {
-            tp.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(xBxTcore.getMessageManager().MasterMessageLocated(player, Messages.HoverDuel)).create()));
+            tp.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(MasterMessageLocated(player, Messages.HoverDuel)).create()));
             if(players.size() < 3){
-                tp.setText(xBxTcore.getMessageManager().MasterMessageLocated(player, Messages.DuelStarted1).replace("%player1%", players.get(0).getName())
+                tp.setText(MasterMessageLocated(player, Messages.DuelStarted1).replace("%player1%", players.get(0).getName())
                         .replace("%player2%", players.get(1).getName()).replace("%world%", world.getName()));
                 player.spigot().sendMessage(tp);
             }else {
-                tp.setText(xBxTcore.getMessageManager().MasterMessageLocated(player, Messages.DuelStarted2).replace("%player%", players.get(0).getName())
+                tp.setText(MasterMessageLocated(player, Messages.DuelStarted2).replace("%player%", players.get(0).getName())
                         .replace("%world%", world.getName()));
                 player.spigot().sendMessage(tp);
             }
@@ -101,7 +105,7 @@ public class DuelManager{
             public void run() {
                 if (timeLeft <= 0) {
                     for (Player player : Objects.requireNonNull(Bukkit.getWorld(world)).getPlayers()) {
-                        player.sendTitle("", xBxTcore.getMessageManager().MasterMessageLocated(player, Messages.Go), 0, 70, 20);
+                        player.sendTitle("", MasterMessageLocated(player, Messages.Go), 0, 70, 20);
                         player.playSound(player, Sound.BLOCK_NOTE_BLOCK_BIT, 1,1.587401f);
                         player.setGravity(true);
                         blockedPlayers.remove(player.getUniqueId());
@@ -165,7 +169,7 @@ public class DuelManager{
 
                     for (Player p : Objects.requireNonNull(Bukkit.getWorld(world.getName())).getPlayers()){
                         p.teleport(new Location((Bukkit.getWorld("lobby")), 0, 69, 0, 0, 0));
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&',xBxTcore.getMessageManager().MasterMessageLocated(p, Messages.EndCombat)));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&',MasterMessageLocated(p, Messages.EndCombat)));
                         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',MessageManager.prefixConsole + MessageManager.Colorinfo + "Se a terminado el duelo"));
                     }
 
@@ -177,7 +181,7 @@ public class DuelManager{
                 case TIME:
                     for (Player p : Objects.requireNonNull(Bukkit.getWorld(world.getName())).getPlayers()){
                         p.teleport(new Location((Bukkit.getWorld("lobby")), 0, 69, 0, 0, 0));
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&',xBxTcore.getMessageManager().MasterMessageLocated(p, Messages.EndTimeDuel)));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&',MasterMessageLocated(p, Messages.EndTimeDuel)));
                         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',MessageManager.prefixConsole + MessageManager.Colorinfo + "Se a terminado el duelo"));
                     }
                     break;
@@ -221,9 +225,9 @@ public class DuelManager{
         for (Player player : Objects.requireNonNull(Bukkit.getWorld(world)).getPlayers()) {
             String title;
             if (seconds < 10){
-                title = xBxTcore.getMessageManager().MasterMessageLocated(player, Messages.TimeBossBar) + minutes + ":0" + seconds;
+                title = MasterMessageLocated(player, Messages.TimeBossBar) + minutes + ":0" + seconds;
             }else{
-                title = xBxTcore.getMessageManager().MasterMessageLocated(player, Messages.TimeBossBar) + minutes + ":" + seconds;
+                title = MasterMessageLocated(player, Messages.TimeBossBar) + minutes + ":" + seconds;
             }
             BarStyle barStyle = BarStyle.PROGRESS;
             BarColor barColor = BarColor.BLUE;

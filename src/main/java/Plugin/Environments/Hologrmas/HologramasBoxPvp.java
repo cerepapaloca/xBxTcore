@@ -1,5 +1,6 @@
 package Plugin.Environments.Hologrmas;
 
+import Plugin.BoxPvp.AutoFillsBox;
 import Plugin.BoxPvp.Model.MinaBoxPvp;
 import Plugin.Utils.ColorUtils;
 import Plugin.Utils.Utils;
@@ -43,7 +44,7 @@ public class HologramasBoxPvp extends Hologramas {
     }
 
     public void updateHologramTimesMina(){
-        for (MinaBoxPvp mina : xBxTcore.getAutoFillsBox().minas){
+        for (MinaBoxPvp mina : AutoFillsBox.minas){
             ArmorStand armorStand = mina.getArmorStand();
             armorStand.setCustomName(ChatColor.translateAlternateColorCodes('&',Colorinfo + "Tiempo Restante " + Colorplayer + Utils.SecondToMinutes(mina.getTimeLeft())));
         }

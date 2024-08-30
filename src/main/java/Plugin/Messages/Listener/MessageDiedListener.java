@@ -1,6 +1,9 @@
 package Plugin.Messages.Listener;
 
+import Plugin.CombatLog.CombatSection;
+import Plugin.Duel.DuelSection;
 import Plugin.Duel.Enum.EndCombatCauses;
+import Plugin.Environments.EnvironmentsSection;
 import Plugin.Messages.Enum.Messages;
 import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
@@ -16,6 +19,8 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
+
+import static Plugin.Messages.MessageManager.BroadcastMessageDied;
 
 public class MessageDiedListener implements Listener {
 
@@ -67,7 +72,7 @@ public class MessageDiedListener implements Listener {
     }
 
     public void suicide(Player player) {
-        xBxTcore.getMessageManager().BroadcastMessageDied(Messages.Died4, player, null, "");
+        BroadcastMessageDied(Messages.Died4, player, null, "");
     }
 
     @EventHandler
@@ -109,7 +114,7 @@ public class MessageDiedListener implements Listener {
             switch (Objects.requireNonNull(event.getEntity().getLastDamageCause()).getCause()) {
                 case ENTITY_EXPLOSION -> {
                     weaponname = custonNameWeapon(Material.END_CRYSTAL, playerMasterKiller);
-                    xBxTcore.getMessageManager().BroadcastMessageDied(Messages.Died2, p, playerMasterKiller, weaponname);
+                    BroadcastMessageDied(Messages.Died2, p, playerMasterKiller, weaponname);
                 }
                 case BLOCK_EXPLOSION -> {
                     if(p == playeranchor){
@@ -123,13 +128,13 @@ public class MessageDiedListener implements Listener {
                     }else{
                         weaponname = custonNameWeapon(Material.TNT, playerMasterKiller);
                     }
-                    xBxTcore.getMessageManager().BroadcastMessageDied(Messages.Died2, p, playerMasterKiller, weaponname);
+                    BroadcastMessageDied(Messages.Died2, p, playerMasterKiller, weaponname);
                 }
                 case SUICIDE -> suicide(playerMasterKiller);
 
-                case ENTITY_ATTACK, PROJECTILE, ENTITY_SWEEP_ATTACK -> xBxTcore.getMessageManager().BroadcastMessageDied(Messages.Died1, p, playerMasterKiller, weaponname);
+                case ENTITY_ATTACK, PROJECTILE, ENTITY_SWEEP_ATTACK -> BroadcastMessageDied(Messages.Died1, p, playerMasterKiller, weaponname);
 
-                case FALL -> xBxTcore.getMessageManager().BroadcastMessageDied(Messages.Died5, p, null, "");
+                case FALL -> BroadcastMessageDied(Messages.Died5, p, null, "");
 
                 case FALLING_BLOCK -> {
                     playerMasterKiller = playeranvil;
@@ -139,20 +144,20 @@ public class MessageDiedListener implements Listener {
                         return;
                     }
                     weaponname = custonNameWeapon(MaterialFalling, playerMasterKiller);
-                    xBxTcore.getMessageManager().BroadcastMessageDied(Messages.Died1, p, playerMasterKiller, weaponname);
+                    BroadcastMessageDied(Messages.Died1, p, playerMasterKiller, weaponname);
                 }
-                case SUFFOCATION -> xBxTcore.getMessageManager().BroadcastMessageDied(Messages.Died3, p, null,"");
+                case SUFFOCATION -> BroadcastMessageDied(Messages.Died3, p, null,"");
             }
             if (playerMasterKiller != null) {
                 int i = playerMasterKiller.getLevel();
                 playerMasterKiller.setLevel(i + 1);
-                xBxTcore.getcombatlogListener().endCombat(event.getEntity());
-                xBxTcore.getcombatlogListener().endCombat(playerMasterKiller);
-                xBxTcore.getHologramas().PlayerKillerAdd(playerMasterKiller);
+                CombatSection.getCombatlogManager().endCombat(event.getEntity());
+                CombatSection.getCombatlogManager().endCombat(playerMasterKiller);
+                EnvironmentsSection.getHologramas().PlayerKillerAdd(playerMasterKiller);
                 playerMasterKiller = null;
             }
             if (!xBxTcore.getWorldProtec().contains(event.getEntity().getWorld())){
-                xBxTcore.getDuelManager().EndDuel(event.getEntity().getWorld(), playerMasterKiller, EndCombatCauses.DIED);
+                DuelSection.getDuelManager().EndDuel(event.getEntity().getWorld(), playerMasterKiller, EndCombatCauses.DIED);
             }
             event.setDeathMessage(null);
         }

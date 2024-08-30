@@ -5,12 +5,14 @@ import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 import static Plugin.Utils.Utils.processFormattingTags;
 
 public class ColorUtils {
 
-    public static String modifyColorHexWithHLS(String hexColor, float hueDelta, float lightnessDelta, float saturationDelta) {
+    public static @NotNull String modifyColorHexWithHLS(@NotNull String hexColor, float hueDelta, float lightnessDelta, float saturationDelta) {
         if(!hexColor.contains("#")){
             hexColor = "#" + hexColor;
         }
@@ -36,7 +38,8 @@ public class ColorUtils {
         return String.format("%02x%02x%02x", rgb[0], rgb[1], rgb[2]).toUpperCase();
     }
 
-    private static float[] rgbToHLS(int r, int g, int b) {
+    @Contract("_, _, _ -> new")
+    private static float @NotNull [] rgbToHLS(int r, int g, int b) {
         float rf = r / 255.0f;
         float gf = g / 255.0f;
         float bf = b / 255.0f;
@@ -64,7 +67,8 @@ public class ColorUtils {
         return new float[]{h, l, s};
     }
 
-    private static int[] hlsToRGB(float h, float l, float s) {
+    @Contract("_, _, _ -> new")
+    private static int @NotNull [] hlsToRGB(float h, float l, float s) {
         double r, g, b;
 
         if (s == 0) {
@@ -135,7 +139,7 @@ public class ColorUtils {
         return "000000";
     }
 
-    public static String applyGradient(String input) {
+    public static @NotNull String applyGradient(String input) {
         // Procesar etiquetas de formato (negrita, cursiva)
         String formattedText = processFormattingTags(input);
 
@@ -165,7 +169,7 @@ public class ColorUtils {
 
 
 
-    public static ItemStack colorLeatherArmor(ItemStack armor, String hexColor) {
+    public static ItemStack colorLeatherArmor(@NotNull ItemStack armor,@NotNull String hexColor) {
         if (armor.getType() != Material.LEATHER_HELMET &&
                 armor.getType() != Material.LEATHER_CHESTPLATE &&
                 armor.getType() != Material.LEATHER_LEGGINGS &&

@@ -1,5 +1,6 @@
 package Plugin.Commands.Tab;
 
+import Plugin.File.FileManagerSection;
 import Plugin.xBxTcore;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -16,8 +17,8 @@ public class TabCompleterDelKit implements TabCompleter {
     public List<String> onTabComplete(@NotNull CommandSender sender,@NotNull Command command,@NotNull String alias, String[] args) {
         if (sender instanceof Player player) {
             List<String> namekits;
-            xBxTcore.getPlayerFileManager().loadNameKit(player.getUniqueId());
-            namekits = xBxTcore.getPlayerFileManager().nameskits;
+            FileManagerSection.getPlayerFileManager().loadNameKit(player.getUniqueId());
+            namekits = FileManagerSection.getPlayerFileManager().nameskits;
 
             if (args.length == 1) {
                 String currentArg = args[0].toLowerCase();

@@ -1,8 +1,10 @@
 package Plugin.Environments.Hologrmas;
 
-import Plugin.File.PlayerfileManager;
+import Plugin.Environments.EnvironmentsSection;
+import Plugin.File.PlayerData.PlayerfileManager;
 import Plugin.BoxPvp.Model.MinaBoxPvp;
-import Plugin.Model.Player.PlayerDataGLobal;
+import Plugin.PlayerManager.Model.PlayerDataGLobal;
+import Plugin.PlayerManager.PlayerManagerSection;
 import Plugin.Utils.ColorUtils;
 import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
@@ -34,12 +36,12 @@ public class Hologramas{
     public Hologramas(xBxTcore plugin)  {
         this.armorStandsKills = new ArrayList<>();
         this.armorStandsUser = new ArrayList<>();
-        this.playerDataGLobal = xBxTcore.getPlayerDataGlobal();
+        this.playerDataGLobal = PlayerManagerSection.getPlayerDataGLobal();
         Hologramas.plugin = plugin;
         textholograms = new ArrayList<>();
         removeArmorStands();
         Bukkit.getScheduler().runTaskTimer(plugin, this::updateHologramkills, 100L, 100L);
-        xBxTcore.hologramas = this;
+        EnvironmentsSection.hologramas = this;
     }
 
     public void removeArmorStands() {
@@ -54,7 +56,7 @@ public class Hologramas{
                     }
                 }
                 for (MinaBoxPvp minaboxPvp : minas){
-                    xBxTcore.getHologramasBoxPvp().createTimesMina(minaboxPvp);
+                    EnvironmentsSection.getHologramasBoxPvp().createTimesMina(minaboxPvp);
                 }
                 textholograms.clear();
                 createPvPBoard(new Location(Bukkit.getWorld("lobby"), 0, 70, 5.5));
@@ -72,6 +74,12 @@ public class Hologramas{
                 createRewardsTimesBoard(new Location(Bukkit.getWorld("boxpvp"), 35.5, 125.5, -5.5));
                 textholograms.clear();
                 createBoxPvp(new Location(Bukkit.getWorld("lobby"), 0.5, 69, 14.5));
+                textholograms.clear();
+                createInfoBoxPvP1(new Location(Bukkit.getWorld("boxpvp"), 22.5, 125, -0.5));
+                textholograms.clear();
+                createInfoBoxPvP2(new Location(Bukkit.getWorld("boxpvp"), 28.5, 125, -6.5));
+                textholograms.clear();
+                createInfoBoxPvP3(new Location(Bukkit.getWorld("boxpvp"), 16, 125, 2.5));
                 Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + Colorinfo + "Hologramas Creados En " + Colorplayer + (System.currentTimeMillis() - time) + "ms"));
             }
         }.runTaskLater(plugin, 40);
@@ -91,6 +99,25 @@ public class Hologramas{
 
     public void createRewardsTimesBoard(Location location) {
         textholograms.add(ChatColor.translateAlternateColorCodes('&', Colorinfo + "<---" + Colorplayer + "Recompensas Gratis!!" + Colorinfo + "--->"));
+        createListArmorStand(textholograms, location ,textholograms.size());
+    }
+
+    public void createInfoBoxPvP1(Location location) {
+        textholograms.add(ChatColor.translateAlternateColorCodes('&', Colorinfo + "<---" + Colorplayer + "Advertencia" + Colorinfo + "--->"));
+        textholograms.add(ChatColor.translateAlternateColorCodes('&', Colorinfo + "En este modo de juego se permite uso hack pero no de dupes"));
+        createListArmorStand(textholograms, location ,textholograms.size());
+    }
+
+    public void createInfoBoxPvP2(Location location) {
+        textholograms.add(ChatColor.translateAlternateColorCodes('&', Colorinfo + "<---" + Colorplayer + "Tradeos" + Colorinfo + "--->"));
+        textholograms.add(ChatColor.translateAlternateColorCodes('&', Colorinfo + "Aquí puedes tradeos con los aldeanos"));
+        createListArmorStand(textholograms, location ,textholograms.size());
+    }
+
+    public void createInfoBoxPvP3(Location location) {
+        textholograms.add(ChatColor.translateAlternateColorCodes('&', Colorinfo + "<---" + Colorplayer + "Conversor" + Colorinfo + "--->"));
+        textholograms.add(ChatColor.translateAlternateColorCodes('&', Colorinfo + "Aquí puedes convertir los materiales de"));
+        textholograms.add(ChatColor.translateAlternateColorCodes('&', Colorinfo + "la mina por la moneda principal"));
         createListArmorStand(textholograms, location ,textholograms.size());
     }
 
@@ -208,7 +235,7 @@ public class Hologramas{
         String name;
         String iconSafeZone;
         for (ArmorStand armorStand : armorStandsTimes){
-            MinaBoxPvp mina = xBxTcore.getAutoFillsBox().minas.get(i);
+            MinaBoxPvp mina = minas.get(i);
             if (mina.isSafeZone()){
                 iconSafeZone = ChatColor.translateAlternateColorCodes('&', " &6[&2☮&6]");
             } else {

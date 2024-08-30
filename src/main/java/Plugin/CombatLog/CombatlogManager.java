@@ -1,80 +1,25 @@
 package Plugin.CombatLog;
 
-import Plugin.Messages.Enum.Messages;
 import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
 import me.neznamy.tab.api.TabPlayer;
 import me.neznamy.tab.api.bossbar.BarColor;
 import me.neznamy.tab.api.bossbar.BarStyle;
 import me.neznamy.tab.api.bossbar.BossBar;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.player.PlayerCommandPreprocessEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Objects;
+import java.util.UUID;
 
-import static Plugin.Listeners.BlockerListener.ejey;
+public class CombatlogManager {
 
-public class CombatlogListener implements Listener {
     private final HashMap<UUID, Long> combatCooldowns = new HashMap<>();
-    private final List<String> restrictedCommands = new ArrayList<>();
     private final xBxTcore plugin;
 
-    public CombatlogListener(xBxTcore plugin) {
+    public CombatlogManager(xBxTcore plugin) {
         this.plugin = plugin;
-        restrictedCommands.add("lobby");
-        restrictedCommands.add("kill");
-        restrictedCommands.add("spectator");
-        restrictedCommands.add("boxpvp");
-        restrictedCommands.add("kf");
-        restrictedCommands.add("kitfavorite");
-    }
-
-    @EventHandler
-    public void DamagePlayres(EntityDamageByEntityEvent event) {
-        if (event.getCause().equals(EntityDamageEvent.DamageCause.ENTITY_EXPLOSION) && event.getEntity() instanceof Player attacked) {
-            startCombat(attacked);
-            return;
-        }
-        if (event.getEntity() instanceof Player attacked && event.getDamager() instanceof Player attacker) {
-            if (ejey + 4 <= event.getEntity().getLocation().getBlockY() && (Bukkit.getWorld("lobby") == event.getEntity().getWorld()) || Bukkit.getWorld("creatorkits") == event.getEntity().getWorld()) {
-                event.setCancelled(true);
-                return;
-            }else if (Bukkit.getWorld("boxpvp") == event.getEntity().getWorld()){
-                if (xBxTcore.getZoneSafeBoxPvp().isSafeZone(event.getEntity().getLocation())){
-                    event.setCancelled(true);
-                    return;
-                }
-            }
-            startCombat(attacked);
-            startCombat(attacker);
-        }
-    }
-
-    @EventHandler
-    public void PlayerQuit(PlayerQuitEvent event){
-        Player player = event.getPlayer();
-        if(xBxTcore.getcombatlogListener().isInCombat(player)){
-            player.setHealth(0);
-        }
-    }
-
-    @EventHandler
-    public void onPlayerCommand(PlayerCommandPreprocessEvent event) {
-        Player player = event.getPlayer();
-        if (isInCombat(player)) {
-            String command = event.getMessage().split(" ")[0].substring(1).toLowerCase();
-            if (restrictedCommands.contains(command)) {
-                event.setCancelled(true);
-                player.sendMessage(xBxTcore.getMessageManager().MasterMessageLocated(player, Messages.OnCombat).replace("%time%", String.valueOf(getTimeRemaining(player))));
-            }
-        }
     }
 
     private void combatUpdate(Player player) {
@@ -96,7 +41,7 @@ public class CombatlogListener implements Listener {
         }.runTaskTimer(plugin, 0, 20);
     }
 
-    private void startCombat(Player player) {
+    public void startCombat(Player player) {
         if (!isInCombat(player)) {
             combatUpdate(player);
         }
@@ -140,4 +85,3 @@ public class CombatlogListener implements Listener {
         }
     }
 }
-
