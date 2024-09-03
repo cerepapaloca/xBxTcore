@@ -36,8 +36,8 @@ public class ItemBonusListener implements Listener {
             if (item.getItemMeta().getPersistentDataContainer().get(new NamespacedKey(plugin, "keyEspacial"), PersistentDataType.STRING) == null)return;
             switch (requireNonNull(item.getItemMeta().getPersistentDataContainer().get(new NamespacedKey(plugin, "keyEspacial"), PersistentDataType.STRING))){
                 case "DañoBonus" -> {
-                    event.setDamage(event.getDamage()*2);
-                    attacker.setFoodLevel(attacker.getFoodLevel() - 1);
+                    event.setDamage(event.getDamage()*1.75);
+                    attacker.setFoodLevel(attacker.getFoodLevel() - 3);
                 }
                 case "DañoPorWither" -> {
                     if (attacker.getHealth() <= 16){

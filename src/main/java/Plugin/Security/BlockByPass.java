@@ -16,17 +16,22 @@ public class BlockByPass {
         if(player.getAddress().toString().contains("127.0.0.1"))return;
 
         if(player.getGameMode() == GameMode.CREATIVE){
+            player.setGameMode(GameMode.SURVIVAL);
             Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',  MessageManager.prefixConsole +
                     MessageManager.ColorWarning + " El jugador " + MessageManager.Colorplayer +
-                    player.getName() + MessageManager.ColorWarning + " Tenia Creative y fue eliminado\n"));
+                    player.getName() + MessageManager.ColorWarning + " Tenia Creative y fue eliminado"));
+            player.sendMessage(MasterMessageLocated(player, Messages.OpNotAuthized));
         }
 
-        if(player.isOp()) Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',  MessageManager.prefixConsole +
-                MessageManager.ColorWarning + " El jugador " + MessageManager.Colorplayer +
-                        player.getName() + MessageManager.ColorWarning + " Tenia Op y fue eliminado\n"));
-        player.setOp(false);
+        if(player.isOp()){
+            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',  MessageManager.prefixConsole +
+                    MessageManager.ColorWarning + " El jugador " + MessageManager.Colorplayer +
+                    player.getName() + MessageManager.ColorWarning + " Tenia Op y fue eliminado"));
+            player.setOp(false);
+            player.sendMessage(MasterMessageLocated(player, Messages.OpNotAuthized));
+        }
 
-        player.sendMessage(MasterMessageLocated(player, Messages.OpNotAuthized));
+
     }
 
 }

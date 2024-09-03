@@ -427,7 +427,7 @@ public record ItemManage(xBxTcore plugin) {
         meta.addPage(ChatColor.translateAlternateColorCodes('&', "&lBoxPvPItem\n" + Colorplayer + "Pants&r\n" + "Increases your protection to general damage for each tier increases 1 level of the enchantment\n" +
                 Colorplayer + "Boots&r\n" + "Increases your protection to explosion damage for each tier increases 2 levels of the enchantment"));
 
-        meta.addPage(ChatColor.translateAlternateColorCodes('&', "&lBoxPvPItem\n" +Colorplayer + "Damage Tear&r\n" + "Increases your damage 2x but for each " +
+        meta.addPage(ChatColor.translateAlternateColorCodes('&', "&lBoxPvPItem\n" +Colorplayer + "Damage Tear&r\n" + "Increases your damage 1.75x but for each " +
                 "hit but lowers your hunger bar significantly\n" +
                 Colorplayer + "Wither Blessing&r\n" + "If you are less than 8 hearts when attacking damage you give wither 3 for 20 seconds\n"));
 
@@ -474,7 +474,7 @@ public record ItemManage(xBxTcore plugin) {
         meta.addPage(ChatColor.translateAlternateColorCodes('&', "&lItem Del BoxPvP\n" + Colorplayer + "Pantalones&r\n" + "Aumenta tu protección a daño general por cada tier aumenta 1 de nivel el encantamiento\n" +
                 Colorplayer + "Botas&r\n" + "Aumenta tu protección a daño de explosiones por cada tier aumenta 2 niveles el encantamiento"));
 
-        meta.addPage(ChatColor.translateAlternateColorCodes('&', "&lItem Del BoxPvP\n" +Colorplayer + "Desgarre de daño&r\n" + "Aumenta tu daño 2x pero por cada " +
+        meta.addPage(ChatColor.translateAlternateColorCodes('&', "&lItem Del BoxPvP\n" +Colorplayer + "Desgarre de daño&r\n" + "Aumenta tu daño 1.75x pero por cada " +
                 "golpe pero te baja tu barra de hambre significativamente\n" +
                 Colorplayer + "Bendición de wither&r\n" + "Si estas menos de 8 corazones al atacar daño le das wither 3 por 20 segundos\n"));
 
