@@ -14,6 +14,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.UUID;
 
 import static Plugin.BoxPvp.BoxPvpSection.getZoneSafeBoxPvp;
@@ -72,7 +73,7 @@ public class PlayerManager {
     public void RestartStats(Player player) {
         player.setSaturatedRegenRate(10);
         player.setUnsaturatedRegenRate(80);
-        player.getAttribute(Attribute.GENERIC_ARMOR).setBaseValue(0);
+        Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_ARMOR), "hola").setBaseValue(0);
         player.getAttribute(Attribute.GENERIC_ARMOR_TOUGHNESS).setBaseValue(0);
         player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(20);
         player.setLevel(0);

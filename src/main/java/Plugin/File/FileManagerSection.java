@@ -22,7 +22,7 @@ public class FileManagerSection implements Section {
     public void enable() {
         playerfileManager = new PlayerfileManager(plugin);
         blacklistIpManager = new BlackListIpManager(plugin);
-        clanFileManager = new ClanFileManager(plugin);
+        //clanFileManager = new ClanFileManager(plugin);
     }
 
     @Override
