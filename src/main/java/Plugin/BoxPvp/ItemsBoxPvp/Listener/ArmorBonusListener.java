@@ -15,6 +15,7 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
@@ -49,7 +50,7 @@ public class ArmorBonusListener implements Listener {
         }
     }
 
-    public static void UpdateBonus(Player player) {
+    public static void UpdateBonus(@NotNull Player player) {
         ItemStack item;
         item = player.getInventory().getItem(EquipmentSlot.HEAD);
         if (item.getType() == Material.LEATHER_HELMET){

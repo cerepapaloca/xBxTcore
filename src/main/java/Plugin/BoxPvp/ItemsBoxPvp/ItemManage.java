@@ -241,8 +241,7 @@ public record ItemManage(xBxTcore plugin) {
             lore.add(ChatColor.translateAlternateColorCodes('&',"&8" + "Mas información con " + ColorLink + "/help"));
             itemStack = newItemBoxPVP(Material.NETHERITE_SWORD ,"<#" + blockToHex(mina.getMaterial()) + ">Espada Tier " + Utils.arabicToRoman(i) + "<#" + modifyColorHexWithHLS(blockToHex(mina.getMaterial()), 0.1f, 0.3f, -0.3f) + ">", lore, i, true);
             itemMeta = itemStack.getItemMeta();
-            assert itemMeta != null : ChatColor.translateAlternateColorCodes('&',prefixConsole + ColorError + "Hubo un error en la meta");
-            Thread.currentThread().getStackTrace()[1].getMethodName();
+            assert itemMeta != null;
             itemMeta.addEnchant(Enchantment.DAMAGE_ALL, i * 2, true);
             itemStack.setItemMeta(itemMeta);
             swords.add(itemStack);

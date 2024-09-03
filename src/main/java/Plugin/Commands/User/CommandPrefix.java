@@ -43,7 +43,7 @@ public class CommandPrefix implements CommandExecutor {
                         }
                         /*Objects.requireNonNull(xBxTcore.getTabAPI().getNameTagManager()).setPrefix(Objects.requireNonNull(xBxTcore.getTabAPI().getPlayer(player.getUniqueId())), prefixName);
                         Objects.requireNonNull(xBxTcore.getTabAPI().getTabListFormatManager()).setPrefix(Objects.requireNonNull(xBxTcore.getTabAPI().getPlayer(player.getUniqueId())), prefixName);*/
-                        FileManagerSection.getPlayerFileManager().SavePrefix(player.getUniqueId(), prefixName);
+                        //FileManagerSection.getPlayerFileManager().SavePrefix(player.getUniqueId(), prefixName);
                         player.sendMessage(MasterMessageLocated(player, Messages.PrefixSuccess));
                         AntiSpam(player, Messages.SpamCommand, plugin);
                         return true;
@@ -53,7 +53,7 @@ public class CommandPrefix implements CommandExecutor {
                 }else if (args.length == 0){
                     /*Objects.requireNonNull(xBxTcore.getTabAPI().getNameTagManager()).setPrefix(Objects.requireNonNull(xBxTcore.getTabAPI().getPlayer(player.getUniqueId())), "");
                     Objects.requireNonNull(xBxTcore.getTabAPI().getTabListFormatManager()).setPrefix(Objects.requireNonNull(xBxTcore.getTabAPI().getPlayer(player.getUniqueId())), "");*/
-                    FileManagerSection.getPlayerFileManager().SavePrefix(player.getUniqueId(), "");
+                    //FileManagerSection.getPlayerFileManager().SavePrefix(player.getUniqueId(), "");
                     player.sendMessage(MasterMessageLocated(player, Messages.PrefixClear));
                 }
             }else{

@@ -171,12 +171,12 @@ public class PlayerfileManager {
         }
     }
 
-    public String loadPrefix(UUID uuid) {
+    public String loadClanId(UUID uuid) {
 
         if (listPrefix.containsKey(uuid)){
             return listPrefix.get(uuid);
         }else{
-            String prefix = getfile(uuid).getPlayerDataFile().getString("metadataplayer.Prefix", "");
+            String prefix = getfile(uuid).getPlayerDataFile().getString("metadataplayer.clanId", "");
             listPrefix.put(uuid,prefix);
             return prefix;
         }
@@ -293,9 +293,9 @@ public class PlayerfileManager {
         }
     }
 
-    public void SavePrefix(UUID uuid, String prefix){
-        getfile(uuid).getPlayerDataFile().set("metadataplayer.Prefix", null);
-        getfile(uuid).getPlayerDataFile().set("metadataplayer.Prefix", prefix);
+    public void SaveClanId(UUID uuid, String prefix){
+        getfile(uuid).getPlayerDataFile().set("metadataplayer.clanId", null);
+        getfile(uuid).getPlayerDataFile().set("metadataplayer.clanId", prefix);
         getfile(uuid).saveConfig();
         listPrefix.remove(uuid);
         getPlayerFileManager().reloadCustomConfig(uuid);

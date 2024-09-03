@@ -1,10 +1,8 @@
 package Plugin.Security;
 
 import Plugin.File.BLackList.BlackListIpManager;
-import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Server;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -13,7 +11,6 @@ import org.bukkit.event.player.PlayerLoginEvent;
 
 import java.util.HashMap;
 
-import static Plugin.File.FileManagerSection.getBlacklistIpManager;
 import static Plugin.File.FileManagerSection.getPlayerFileManager;
 import static Plugin.Messages.MessageManager.*;
 import static Plugin.Messages.MessageManager.ColorWarning;

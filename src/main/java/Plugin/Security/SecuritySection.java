@@ -2,7 +2,6 @@ package Plugin.Security;
 
 import Plugin.Section;
 import Plugin.xBxTcore;
-import org.checkerframework.checker.units.qual.A;
 
 public class SecuritySection implements Section {
 

@@ -125,7 +125,7 @@ public class InventoryManager {
     protected void rewardDaly(Player player){
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key0 5".replace("%player%", player.getName()));
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key1 2".replace("%player%", player.getName()));
-        if(player.hasPermission("Commandxbxtcore.vip")){
+        if(player.hasPermission("xbxtcore.vip")){
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key0 10".replace("%player%", player.getName()));
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key1 10".replace("%player%", player.getName()));
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key3 3".replace("%player%", player.getName()));
@@ -137,7 +137,7 @@ public class InventoryManager {
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key1 10".replace("%player%", player.getName()));
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key2 5".replace("%player%", player.getName()));
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key2 2".replace("%player%", player.getName()));
-        if(player.hasPermission("Commandxbxtcore.vip")){
+        if(player.hasPermission("xbxtcore.vip")){
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key0 30".replace("%player%", player.getName()));
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key1 25".replace("%player%", player.getName()));
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key2 20".replace("%player%", player.getName()));
@@ -150,7 +150,7 @@ public class InventoryManager {
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key1 100".replace("%player%", player.getName()));
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key2 80".replace("%player%", player.getName()));
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key2 50".replace("%player%", player.getName()));
-        if(player.hasPermission("Commandxbxtcore.vip")){
+        if(player.hasPermission("xbxtcore.vip")){
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key0 140".replace("%player%", player.getName()));
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key1 120".replace("%player%", player.getName()));
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key2 100".replace("%player%", player.getName()));

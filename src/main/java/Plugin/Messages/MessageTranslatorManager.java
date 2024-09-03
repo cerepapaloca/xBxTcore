@@ -75,11 +75,14 @@ public class MessageTranslatorManager {
                     if (message.equals("Login_Success")){
                         event.getPlayer().setGravity(true);
                         event.getPlayer().teleport(new Location(Bukkit.getWorld("lobby"), 0 , 68, 0));
+                        event.getPlayer().getInventory().clear();
                         Bukkit.getConsoleSender().sendMessage( ChatColor.translateAlternateColorCodes('&',prefixConsole + ColorSuccess + "El jugador " + Colorplayer + event.getPlayer().getName() + ColorSuccess + " a iniciado sesion exitosamente"));
                     }
                     if (message.equals("Registration_Success")){
                         event.getPlayer().setGravity(true);
                         event.getPlayer().teleport(new Location(Bukkit.getWorld("lobby"), 0 , 68, 0));
+                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "authme forcelogin " + event.getPlayer().getName());
+                        Bukkit.getConsoleSender().sendMessage( ChatColor.translateAlternateColorCodes('&',prefixConsole + ColorSuccess + "El jugador " + Colorplayer + event.getPlayer().getName() + ColorSuccess + " se registrado exitosamente"));
                     }
                 }
             }

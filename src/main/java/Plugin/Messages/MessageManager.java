@@ -445,17 +445,16 @@ public class MessageManager {
 
         for(Player p : Bukkit.getOnlinePlayers()){
             if(killer != null){
-                p.sendMessage(ChatColor.translateAlternateColorCodes( '&', MasterMessageLocated(p,message).replace("%player%", prefixWorld + getPlayerFileManager().loadPrefix(player.getUniqueId()) + Colorplayer +  player.getName()).replace("%killer%",getPlayerFileManager().loadPrefix(killer.getUniqueId()) + Colorplayer + killer.getName()).replace("%item%", item)));
+                p.sendMessage(ChatColor.translateAlternateColorCodes( '&', MasterMessageLocated(p,message).replace("%player%", prefixWorld + Colorplayer +  player.getName()).replace("%killer%", Colorplayer + killer.getName()).replace("%item%", item)));
             }else{
-                p.sendMessage(ChatColor.translateAlternateColorCodes( '&', MasterMessageLocated(p,message).replace("%player%", prefixWorld + getPlayerFileManager().loadPrefix(player.getUniqueId()) + Colorplayer +  player.getName()).replace("%item%", item)));
+                p.sendMessage(ChatColor.translateAlternateColorCodes( '&', MasterMessageLocated(p,message).replace("%player%", prefixWorld +  Colorplayer +  player.getName()).replace("%item%", item)));
             }
 
         }
         if(killer == null){
-            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', esMessages.get(message)).replace("%player%",ChatColor.translateAlternateColorCodes('&',prefixWorld + getPlayerFileManager().loadPrefix(player.getUniqueId()) + Colorplayer +  player.getName()).replace("%item%", item)));
+            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', esMessages.get(message)).replace("%player%",ChatColor.translateAlternateColorCodes('&',prefixWorld + Colorplayer +  player.getName()).replace("%item%", item)));
         }else{
-            Bukkit.getConsoleSender().sendMessage(getPlayerFileManager().loadPrefix(player.getUniqueId()));
-            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',ChatColor.translateAlternateColorCodes('&', esMessages.get(message)).replace("%player%", prefixWorld + getPlayerFileManager().loadPrefix(player.getUniqueId()) + Colorplayer +  player.getName()).replace("%killer%",getPlayerFileManager().loadPrefix(killer.getUniqueId()) + Colorplayer + killer.getName()).replace("%item%", item)));
+            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',ChatColor.translateAlternateColorCodes('&', esMessages.get(message)).replace("%player%", prefixWorld + Colorplayer +  player.getName()).replace("%killer%", Colorplayer + killer.getName()).replace("%item%", item)));
         }
     }
 

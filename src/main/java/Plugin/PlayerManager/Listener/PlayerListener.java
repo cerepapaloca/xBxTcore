@@ -79,7 +79,7 @@ public class PlayerListener implements Listener {
         Player player = event.getPlayer();
         if (!xBxTcore.getWorldProtec().contains(player.getWorld()) && !Objects.equals(Bukkit.getWorld(xBxTcore.worldBoxPvp), player.getWorld())){
             if (50 <= player.getLocation().getY() && event.getPlayer().getGameMode().equals(GameMode.SURVIVAL)) {
-                if (player.getWorld().getName().contains("stone")){
+                if (player.getWorld().getName().contains("world")){
                     player.teleport(new Location(event.getPlayer().getWorld(), 0, 21, 0));
                 }else{
                     player.teleport(new Location(event.getPlayer().getWorld(), 0, 10, 0));
@@ -99,6 +99,8 @@ public class PlayerListener implements Listener {
             player.teleport(Objects.requireNonNull(Bukkit.getWorld(xBxTcore.worldBoxPvp)).getSpawnLocation());
             UpdateBonus(player);
             player.setGameMode(GameMode.SURVIVAL);
+            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + Colorinfo + "El jugador " +
+                    Colorplayer + player.getName() + Colorinfo + " ah entrado al box pvp"));
         }
     }
 
