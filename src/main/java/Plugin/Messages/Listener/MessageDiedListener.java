@@ -130,7 +130,9 @@ public class MessageDiedListener implements Listener {
                     }
                     BroadcastMessageDied(Messages.Died2, p, playerMasterKiller, weaponname);
                 }
-                case SUICIDE -> suicide(playerMasterKiller);
+                case SUICIDE -> {
+                    if (playerMasterKiller != null)suicide(playerMasterKiller);
+                }
 
                 case ENTITY_ATTACK, PROJECTILE, ENTITY_SWEEP_ATTACK -> BroadcastMessageDied(Messages.Died1, p, playerMasterKiller, weaponname);
 

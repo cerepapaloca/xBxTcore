@@ -173,6 +173,7 @@ public enum Messages {
     Donate,
     Vote,
     NewPlayer,
+    OpNotAuthized,
     //kick
     SpamCommand,
     AlreadyConnected;

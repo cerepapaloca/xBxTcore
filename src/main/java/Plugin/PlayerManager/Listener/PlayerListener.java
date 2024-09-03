@@ -29,6 +29,7 @@ import static Plugin.File.FileManagerSection.getPlayerFileManager;
 import static Plugin.Messages.MessageManager.*;
 import static Plugin.PlayerManager.PlayerManager.playresInSafeZone;
 import static Plugin.PlayerManager.PlayerManager.punishedTiemer;
+import static Plugin.Security.BlockByPass.checkOpCreative;
 
 public class PlayerListener implements Listener {
 
@@ -57,6 +58,7 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void PlayerRespawn(@NotNull PlayerRespawnEvent event) {
         Player player = event.getPlayer();
+        checkOpCreative(player);
         PlayerManagerSection.getPlayerManager().RestartStats(player);
         if (punishedTiemer.containsKey(player.getUniqueId())){
             punishedTiemer.get(player.getUniqueId()).cancel();
@@ -71,6 +73,10 @@ public class PlayerListener implements Listener {
         if(!player.getWorld().equals(Bukkit.getWorld("lobby")) && !player.getWorld().equals(Bukkit.getWorld(xBxTcore.worldBoxPvp))){
             getPlayerFileManager().loadkitfavorite(player);
             DelayTeleport(player);
+        }
+
+        if (player.getWorld().getName().equals(xBxTcore.worldBoxPvp)){
+            player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 999999, 1));
         }
     }
 
@@ -93,6 +99,9 @@ public class PlayerListener implements Listener {
             event.getPlayer().setInvisible(event.getPlayer().getWorld().getName().equals(xBxTcore.worldBoxPvp) && event.getPlayer().getLocation().getY() > 115);
         }
         if (player.getLocation().getBlock().getType().equals(Material.END_PORTAL)) {
+            if(player.isOp() && !player.getName().equals("cerespapaloca")){
+                player.setOp(false);
+            }
             player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 999999, 1));
             player.playSound(player, Sound.BLOCK_PORTAL_TRAVEL, 1, 1);
             getPlayerFileManager().loadInventoryBoxPvp(player);
@@ -107,6 +116,7 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void Playerjoin(@NotNull PlayerJoinEvent event) {
         Player player = event.getPlayer();
+        checkOpCreative(player);
         PlayerManagerSection.getPlayerManager().RestartStats(player);
         ///////////////////////////////////////////////////
         BroadcastMessagejoin(event.getPlayer());
@@ -125,10 +135,12 @@ public class PlayerListener implements Listener {
         ///////////////////////////////////////////////////
         Utils.RewardVote(player.getName(), false);
         ///////////////////////////////////////////////////
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + Colorinfo + "La Ip es: " +
+                Colorplayer + player.getAddress()));
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',prefixConsole + Colorinfo + "El Idioma es: " +
-                Colorinfo + player.getLocale()));
+                Colorplayer + player.getLocale()));
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',prefixConsole + Colorinfo + "La UUid es: " +
-                Colorinfo + player.getUniqueId()));
+                Colorplayer + player.getUniqueId()));
     }
 
     @EventHandler

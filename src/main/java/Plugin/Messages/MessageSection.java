@@ -1,6 +1,8 @@
 package Plugin.Messages;
 
 import Plugin.Messages.Listener.MessageDiedListener;
+import Plugin.Messages.Messages.MessagesEN;
+import Plugin.Messages.Messages.MessagesES;
 import Plugin.Section;
 import Plugin.xBxTcore;
 
@@ -17,6 +19,8 @@ public class MessageSection implements Section {
         plugin.register(new MessageDiedListener());
         new MessageManager();
         new MessageTranslatorManager(plugin);
+        new MessagesEN();
+        new MessagesES();
     }
 
     @Override

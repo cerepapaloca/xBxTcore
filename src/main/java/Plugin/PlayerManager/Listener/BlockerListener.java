@@ -24,6 +24,7 @@ import java.util.*;
 import java.util.List;
 
 import static Plugin.Messages.MessageManager.MasterMessageLocated;
+import static Plugin.Security.BlockByPass.checkOpCreative;
 import static Plugin.xBxTcore.worldBoxPvp;
 
 public class BlockerListener implements Listener {
@@ -98,6 +99,7 @@ public class BlockerListener implements Listener {
 
     @EventHandler
     public void BlockBreak(@NotNull BlockBreakEvent event) {
+        checkOpCreative(event.getPlayer());
         if (!event.getPlayer().isOp() && ejey <= event.getBlock().getLocation().getBlockY() && xBxTcore.getWorldProtec().contains(event.getPlayer().getWorld())) {
             if (materialsBoxPvp.contains(event.getBlock().getType())) {
                 event.setDropItems(false);
@@ -133,6 +135,7 @@ public class BlockerListener implements Listener {
 
     @EventHandler
     public void BlockPlace(@NotNull BlockPlaceEvent event) {
+        checkOpCreative(event.getPlayer());
         if (!event.getPlayer().isOp() && ejey <= event.getBlock().getLocation().getBlockY() && xBxTcore.getWorldProtec().contains(event.getPlayer().getWorld())) {
             if (event.getPlayer().getWorld().equals(Bukkit.getWorld(worldBoxPvp)) && (event.getBlock().getType().equals(Material.OBSIDIAN)) || event.getBlock().getType().equals(Material.COBWEB)){
                 if(120 <= event.getBlock().getLocation().getBlockY()) {
@@ -182,6 +185,7 @@ public class BlockerListener implements Listener {
 
     @EventHandler
     public void PlayerCommandPreprocess(@NotNull PlayerCommandPreprocessEvent event) {
+        checkOpCreative(event.getPlayer());
         if(!event.getPlayer().isOp()){
             String command = event.getMessage().split(" ")[0].substring(1).toLowerCase();
 

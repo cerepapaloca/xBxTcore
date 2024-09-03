@@ -33,7 +33,7 @@ public class ItemBonusListener implements Listener {
             ItemStack item = attacker.getInventory().getItemInOffHand();
             if (item.getItemMeta() == null) return;
             PotionEffect Wither = new PotionEffect(PotionEffectType.WITHER, 20*10, 3);
-
+            if (item.getItemMeta().getPersistentDataContainer().get(new NamespacedKey(plugin, "keyEspacial"), PersistentDataType.STRING) == null)return;
             switch (requireNonNull(item.getItemMeta().getPersistentDataContainer().get(new NamespacedKey(plugin, "keyEspacial"), PersistentDataType.STRING))){
                 case "DañoBonus" -> {
                     event.setDamage(event.getDamage()*2);

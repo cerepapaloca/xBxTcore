@@ -1,7 +1,9 @@
 package Plugin.Commands.User;
 
+import Plugin.BoxPvp.BoxPvpSection;
 import Plugin.File.FileManagerSection;
 import Plugin.Messages.Enum.Messages;
+import Plugin.PlayerManager.PlayerManagerSection;
 import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
@@ -14,6 +16,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 
+import static Plugin.BoxPvp.ItemsBoxPvp.Listener.ArmorBonusListener.UpdateBonus;
 import static Plugin.Messages.MessageManager.MasterMessageLocated;
 
 public class CommandLobby implements CommandExecutor {
@@ -36,6 +39,7 @@ public class CommandLobby implements CommandExecutor {
                     player.removePotionEffect(PotionEffectType.NIGHT_VISION);
                     FileManagerSection.getPlayerFileManager().SaveInventoryBoxPvp(player.getUniqueId(), Utils.getItensInvetory(player));
                     player.getInventory().clear();
+                    UpdateBonus(player);
                 }
                 player.teleport(new Location(Bukkit.getWorld("lobby"), 0 , 68, 0));
                 player.setGameMode(GameMode.SURVIVAL);
