@@ -6,12 +6,13 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import static Plugin.Messages.MessageManager.MasterMessageLocated;
 
 public class BlockByPass {
 
-    public static void checkOpCreative (Player player) {
+    public static void checkOpCreative (@NotNull Player player) {
         if(player.getAddress().toString().contains("192.168.1.4"))return; //La ip privada de mi pc
         if(player.getAddress().toString().contains("127.0.0.1"))return;
 

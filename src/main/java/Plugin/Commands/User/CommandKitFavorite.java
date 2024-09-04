@@ -2,8 +2,12 @@ package Plugin.Commands.User;
 
 import Plugin.File.FileManagerSection;
 import Plugin.Messages.Enum.Messages;
+import Plugin.Messages.MessageManager;
+import Plugin.Messages.MessageSection;
 import Plugin.Utils.UtilsMain;
 import Plugin.xBxTcore;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -23,11 +27,18 @@ public class CommandKitFavorite implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender,@NotNull Command command,@NotNull String s, String[] args) {
         if(commandSender instanceof Player player){
+            if (player.getWorld().getName().equals(xBxTcore.worldBoxPvp)) {
+                player.sendMessage(MessageManager.MasterMessageLocated(player, Messages.InArea));
+                return false;
+            }
+
             if(args.length == 1){
                 FileManagerSection.getPlayerFileManager().SaveNameKitFavorite(player.getUniqueId(), args[0]);
+                return true;
             } else if (args.length == 0) {
                 LoadKit(player);
                 AntiSpam(player, Messages.SpamCommand, plugin);
+                return true;
             }
         }else{
             plugin.messageOnlyPlayer();

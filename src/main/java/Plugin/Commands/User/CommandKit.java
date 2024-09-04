@@ -3,6 +3,7 @@ package Plugin.Commands.User;
 import Plugin.Inventory.InventorySection;
 import Plugin.Inventory.Models.InvetoryPlayer;
 import Plugin.Messages.Enum.Messages;
+import Plugin.Messages.MessageManager;
 import Plugin.xBxTcore;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -24,9 +25,15 @@ public class CommandKit implements CommandExecutor {
     public boolean onCommand(@Nullable CommandSender commandSender,@Nullable Command command,@Nullable String s, String[] strings) {
         if(commandSender instanceof Player player){
             if(player.getLocation().getY() >= 30 && xBxTcore.getWorldProtec().contains(player.getWorld())){
+                if (player.getWorld().getName().equals(xBxTcore.worldBoxPvp)) {
+                    player.sendMessage(MessageManager.MasterMessageLocated(player, Messages.InArea));
+                    return false;
+                }
                 InventorySection.getInventoryMenu().OpenMenuInvetory(new InvetoryPlayer(player));
+                return true;
             }else{
                 player.sendMessage(MasterMessageLocated(player, Messages.InArea));
+                return false;
             }
         }else{
             plugin.messageOnlyPlayer();

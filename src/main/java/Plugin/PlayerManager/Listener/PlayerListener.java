@@ -49,7 +49,8 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void AsyncPlayerChat(@NotNull AsyncPlayerChatEvent event) {
-        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', event.getPlayer().getName() + " » &7" + event.getMessage()));
+        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&',Utils.getPlayerPrefix(event.getPlayer()) + " "
+                + event.getPlayer().getName() + " » &7" + event.getMessage()));
         event.setMessage(ChatColor.translateAlternateColorCodes('&', event.getMessage()));
         event.setCancelled(true);
     }
@@ -67,16 +68,10 @@ public class PlayerListener implements Listener {
         playresInSafeZone.remove(player.getUniqueId());
         CombatSection.getCombatlogManager().endCombat(player);
         if (player.getWorld().getName().equals(xBxTcore.worldBoxPvp)){
-            return;
-        }
-
-        if(!player.getWorld().equals(Bukkit.getWorld("lobby")) && !player.getWorld().equals(Bukkit.getWorld(xBxTcore.worldBoxPvp))){
+            player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 999999, 1));
+        }else{
             getPlayerFileManager().loadkitfavorite(player);
             DelayTeleport(player);
-        }
-
-        if (player.getWorld().getName().equals(xBxTcore.worldBoxPvp)){
-            player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 999999, 1));
         }
     }
 

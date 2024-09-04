@@ -2,6 +2,9 @@ package Plugin.Utils;
 
 import Plugin.Messages.Enum.Messages;
 import Plugin.xBxTcore;
+import net.luckperms.api.LuckPerms;
+import net.luckperms.api.LuckPermsProvider;
+import net.luckperms.api.model.user.User;
 import net.luckperms.api.node.types.InheritanceNode;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -302,6 +305,17 @@ public class Utils {
         }
 
         return Material.STRUCTURE_VOID;
+    }
+
+    public static String getPlayerPrefix(Player player) {
+        LuckPerms luckPerms = LuckPermsProvider.get();
+        User user = luckPerms.getUserManager().getUser(player.getUniqueId());
+
+        if (user != null) {
+            return user.getCachedData().getMetaData().getPrefix();
+        }
+
+        return null;
     }
 
 }

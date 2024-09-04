@@ -1,6 +1,7 @@
 package Plugin.Commands.User;
 
 import Plugin.Messages.Enum.Messages;
+import Plugin.Messages.MessageManager;
 import Plugin.Utils.Utils;
 import Plugin.Utils.UtilsMain;
 import Plugin.xBxTcore;
@@ -35,6 +36,11 @@ public class CommandSaveKit implements CommandExecutor {
     public boolean onCommand(@Nullable CommandSender commandSender,@Nullable Command command,@Nullable String s, String[] args) {
 
         if(commandSender instanceof Player player){
+            if (player.getWorld().getName().equals(xBxTcore.worldBoxPvp)) {
+                player.sendMessage(MessageManager.MasterMessageLocated(player, Messages.InArea));
+                return false;
+            }
+
             if (args.length == 1) {
                 namekit = args[0];
                 GetItemInvetort(player);
