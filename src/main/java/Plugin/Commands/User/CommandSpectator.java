@@ -32,26 +32,26 @@ public class CommandSpectator implements CommandExecutor {
                             if(!Objects.requireNonNull(world).getPlayers().isEmpty()){
                                 Location loc = new Location(world,0,15,0);
                                 p.teleport(loc);
-                                Utils.ClickExecuteCommand("lobby", Messages.SpectatorSuccess, p);
+                                Utils.ClickExecuteCommand("lobby", Messages.SpectatorMode_SpectatorSuccess, p);
                                 new BukkitRunnable() {
                                     public void run() {
                                         p.setGameMode(GameMode.SPECTATOR);
                                     }
                                 }.runTaskLater(plugin, 2);
                             }else{
-                                p.sendMessage(MasterMessageLocated(p, Messages.NotCombatWorld));
+                                p.sendMessage(MasterMessageLocated(p, Messages.SpectatorMode_NotCombatWorld));
                             }
                         }else{
-                            p.sendMessage(MasterMessageLocated(p, Messages.NotAllowed));
+                            p.sendMessage(MasterMessageLocated(p, Messages.Generic_NotAllowed));
                         }
                     }else{
-                        p.sendMessage(MasterMessageLocated(p, Messages.NotFoundWorld));
+                        p.sendMessage(MasterMessageLocated(p, Messages.SpectatorMode_NotFoundWorld));
                     }
                 }else{
-                    p.sendMessage(MasterMessageLocated(p, Messages.SpectatorError));
+                    p.sendMessage(MasterMessageLocated(p, Messages.SpectatorMode_SpectatorError));
                 }
             }else{
-                p.sendMessage(MasterMessageLocated(p, Messages.InArea));
+                p.sendMessage(MasterMessageLocated(p, Messages.Generic_InArea));
             }
         }else{
             plugin.messageOnlyPlayer();

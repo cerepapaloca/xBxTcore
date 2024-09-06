@@ -2,7 +2,6 @@ package Plugin.Commands.OnlyOp;
 
 import Plugin.Messages.Enum.Messages;
 import Plugin.Inventory.Enum.PlayerFileTimes;
-import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
@@ -36,9 +35,9 @@ public class CommandTimeRewardSkip implements CommandExecutor {
                 }
             }
             if (args.length == 3 && args[2].equalsIgnoreCase("m")) {
-                BroadcastMessageBuy(nameCompra,player, Messages.BuyGeneric);
-                player.sendTitle(MasterMessageLocated(player, Messages.BuysTitel),
-                        MasterMessageLocated(player, Messages.BuysTitelLower).replace("%compra%",
+                BroadcastMessageBuy(nameCompra,player, Messages.Reward_BuyGeneric);
+                player.sendTitle(MasterMessageLocated(player, Messages.Reward_BuysTitel),
+                        MasterMessageLocated(player, Messages.Reward_BuysTitelLower).replace("%compra%",
                                 nameCompra), 10 ,60 ,10);
                 player.playSound(player, Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
             }

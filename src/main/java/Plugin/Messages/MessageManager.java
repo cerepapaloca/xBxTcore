@@ -94,17 +94,17 @@ public class MessageManager {
 
     public static void BroadcastMessagejoin(Player player){
         for(Player p : Bukkit.getOnlinePlayers()){
-            p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&a+&8] " + Colorplayer + player.getName() + " " + MasterMessageLocated(p,Messages.join)));
+            p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&a+&8] " + Colorplayer + player.getName() + " " + MasterMessageLocated(p,Messages.Event_join)));
         }
-        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&a+&8] " + Colorplayer + player.getName() + " " + esMessages.get(join)));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&a+&8] " + Colorplayer + player.getName() + " " + esMessages.get(Event_join)));
     }
 
     public static void BroadcastMessageleave(Player player){
         for(Player p : Bukkit.getOnlinePlayers()){
-            p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&4-&8] " + Colorplayer + player.getName() + " " + MasterMessageLocated(p,Messages.leave)));
+            p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&4-&8] " + Colorplayer + player.getName() + " " + MasterMessageLocated(p,Messages.Event_leave)));
 
         }
-        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&4-&8] " + Colorplayer + player.getName() + " " + esMessages.get(leave)));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&4-&8] " + Colorplayer + player.getName() + " " + esMessages.get(Event_leave)));
     }
 
     public static void SendMessageConsole(String nota, Thread thread){

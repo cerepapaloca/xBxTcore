@@ -17,7 +17,6 @@ public class ColorUtils {
             hexColor = "#" + hexColor;
         }
 
-
         // 1. Convert Hex to RGB
         int r = Integer.valueOf(hexColor.substring(1, 3), 16);
         int g = Integer.valueOf(hexColor.substring(3, 5), 16);
@@ -140,6 +139,7 @@ public class ColorUtils {
     }
 
     public static @NotNull String applyGradient(String input) {
+        input = input.replace("/","");
         // Procesar etiquetas de formato (negrita, cursiva)
         String formattedText = processFormattingTags(input);
 

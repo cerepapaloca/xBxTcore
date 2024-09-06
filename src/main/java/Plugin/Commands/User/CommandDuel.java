@@ -81,10 +81,10 @@ public class CommandDuel implements CommandExecutor {
                                 players.add(target);
                                 sendRequest(players, "bedrock", (playareSender).getUniqueId());
                             }else{
-                                playareSender.sendMessage(MasterMessageLocated(playareSender, Messages.SendSelf));
+                                playareSender.sendMessage(MasterMessageLocated(playareSender, Messages.RequestDuel_SendSelf));
                             }
                         }else{
-                            playareSender.sendMessage(MasterMessageLocated(playareSender, Messages.PlayerOffTarget));
+                            playareSender.sendMessage(MasterMessageLocated(playareSender, Messages.RequestDuel_PlayerOffTarget));
                         }
                         return true;
                     case 2:
@@ -105,17 +105,17 @@ public class CommandDuel implements CommandExecutor {
                                     sendRequest(players, args[1].toLowerCase(), (playareSender).getUniqueId());
 
                                 }else{
-                                    playareSender.sendMessage(MasterMessageLocated(playareSender, Messages.WorldType));
+                                    playareSender.sendMessage(MasterMessageLocated(playareSender, Messages.RequestDuel_WorldType));
                                 }
                             }else{
-                                playareSender.sendMessage(MasterMessageLocated(playareSender, Messages.SendSelf));
+                                playareSender.sendMessage(MasterMessageLocated(playareSender, Messages.RequestDuel_SendSelf));
                             }
                         }else{
-                            playareSender.sendMessage(MasterMessageLocated(playareSender, Messages.PlayerOffTarget));
+                            playareSender.sendMessage(MasterMessageLocated(playareSender, Messages.RequestDuel_PlayerOffTarget));
                         }
                 }
             }else{
-                playareSender.sendMessage(MasterMessageLocated(playareSender, Messages.OnDuel));
+                playareSender.sendMessage(MasterMessageLocated(playareSender, Messages.RequestDuel_OnDuel));
             }
 
         } else {
@@ -131,40 +131,40 @@ public class CommandDuel implements CommandExecutor {
 
         if(players1.isEmpty()){
             assert requester != null;
-            requester.sendMessage(MasterMessageLocated(requester, Messages.ListPlayersEmpty));
+            requester.sendMessage(MasterMessageLocated(requester, Messages.DuelWorld_ListPlayersEmpty));
             return;
         }
 
         pendingRequests.put(requesterId, requestlast);
         for (Player player : players1){
             TextComponent finalMessage = new TextComponent();
-            String message1 = MasterMessageLocated(player, Messages.SendRequest1);
-            String message2 = MasterMessageLocated(player, Messages.SendRequest2);
-            yes.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(MasterMessageLocated(player,Messages.HoverYes)).create()));
-            deny.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(MasterMessageLocated(player,Messages.HoverDeny)).create()));
+            String message1 = MasterMessageLocated(player, Messages.RequestDuel_SendRequest1);
+            String message2 = MasterMessageLocated(player, Messages.RequestDuel_SendRequest2);
+            yes.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(MasterMessageLocated(player,Messages.RequestDuel_HoverYes)).create()));
+            deny.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(MasterMessageLocated(player,Messages.RequestDuel_HoverDeny)).create()));
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + Colorinfo + "&l⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊>"));
             if (xBxTcore.getPlayerDataUnique(requesterId).getTimelimit()){
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', "-" + InventoryManager.secondsToMinutesLore(requester).get(0)));
             }else {
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "-" + MasterMessageLocated(player,Messages.TimeLimit) + Colorplayer + "No"));
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "-" + MasterMessageLocated(player,Messages.RequestDuel_TimeLimit) + Colorplayer + "No"));
             }
 
             if (xBxTcore.getPlayerDataUnique(requesterId).getKitData().getName() != null){
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "-" + MasterMessageLocated(player,Messages.KitSelect) + xBxTcore.getPlayerDataUnique(requesterId).getKitData().getName()));
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "-" + MasterMessageLocated(player,Messages.RequestDuel_KitSelect) + xBxTcore.getPlayerDataUnique(requesterId).getKitData().getName()));
             }else {
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "-" + MasterMessageLocated(player,Messages.KitSelect) + MasterMessageLocated(player,Messages.KitFavorite)));
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "-" + MasterMessageLocated(player,Messages.RequestDuel_KitSelect) + MasterMessageLocated(player,Messages.RequestDuel_KitFavorite)));
             }
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "-" + MasterMessageLocated(player,Messages.ArenaDuel) + worldType));
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "-" + MasterMessageLocated(player,Messages.SenderPlayer) + requester.getName()));
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "-" + MasterMessageLocated(player,Messages.RequestDuel_ArenaDuel) + worldType));
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "-" + MasterMessageLocated(player,Messages.RequestDuel_SenderPlayer) + requester.getName()));
             finalMessage.addExtra(message1);
             finalMessage.addExtra(yes);
             finalMessage.addExtra(message2);
             finalMessage.addExtra(deny);
             player.spigot().sendMessage(finalMessage);
-            requester.sendMessage(MasterMessageLocated(requester, Messages.SendRequest).replace("%player%", player.getName()));
+            requester.sendMessage(MasterMessageLocated(requester, Messages.RequestDuel_SendRequest).replace("%player%", player.getName()));
         }
         assert requester != null;
-        AntiSpam(requester, Messages.SpamCommand, plugin);
+        AntiSpam(requester, Messages.Kick_SpamCommand, plugin);
     }
 
     private void acceptRequest(Player accepter, UUID uuidResquest) {
@@ -174,27 +174,27 @@ public class CommandDuel implements CommandExecutor {
                 Player requester = Bukkit.getPlayer(request.getRequesterId());
                 if (requester != null) {
                     if (requestlast.getPlayers().contains(accepter)) {
-                        accepter.sendMessage(MasterMessageLocated(accepter, Messages.AcceptedRequest));
-                        requester.sendMessage(MasterMessageLocated(requester, Messages.AcceptedYourRequest));
+                        accepter.sendMessage(MasterMessageLocated(accepter, Messages.RequestDuel_AcceptedRequest));
+                        requester.sendMessage(MasterMessageLocated(requester, Messages.RequestDuel_AcceptedYourRequest));
                         if (accepter.getWorld().equals(Bukkit.getWorld("lobby")) || accepter.getWorld().equals(Bukkit.getWorld("creatorkits"))) {
                             request.getAcceptPlayers().add(accepter);
                             teleportDuel(request);
 
                         } else {
-                            accepter.sendMessage(MasterMessageLocated(accepter, Messages.OnDuel));
+                            accepter.sendMessage(MasterMessageLocated(accepter, Messages.RequestDuel_OnDuel));
                         }
                     } else {
-                        accepter.sendMessage(MasterMessageLocated(accepter, Messages.SelfAccepted));
+                        accepter.sendMessage(MasterMessageLocated(accepter, Messages.RequestDuel_SelfAccepted));
                     }
                 } else {
-                    accepter.sendMessage(MasterMessageLocated(accepter, Messages.PlayerOffSender));
+                    accepter.sendMessage(MasterMessageLocated(accepter, Messages.RequestDuel_PlayerOffSender));
                 }
             } else {
-                accepter.sendMessage(MasterMessageLocated(accepter, Messages.RequestExpired));
+                accepter.sendMessage(MasterMessageLocated(accepter, Messages.RequestDuel_RequestExpired));
                 pendingRequests.remove(uuidResquest);
             }
         } else {
-            accepter.sendMessage(MasterMessageLocated(accepter, Messages.NotRequests));
+            accepter.sendMessage(MasterMessageLocated(accepter, Messages.RequestDuel_NotRequests));
         }
     }
 
@@ -212,16 +212,16 @@ public class CommandDuel implements CommandExecutor {
                     teleportDuel(request);
                 }
                 if(messges){
-                    denier.sendMessage(MasterMessageLocated(denier, Messages.DenyYou).replace("%player%", requester.getName()));
-                    requester.sendMessage(MasterMessageLocated(requester, Messages.DenyYour).replace("%player%", denier.getName()));
+                    denier.sendMessage(MasterMessageLocated(denier, Messages.RequestDuel_DenyYou).replace("%player%", requester.getName()));
+                    requester.sendMessage(MasterMessageLocated(requester, Messages.RequestDuel_DenyYour).replace("%player%", denier.getName()));
                 }
             } else {
-                denier.sendMessage(MasterMessageLocated(denier, Messages.PlayerOffSender));
+                denier.sendMessage(MasterMessageLocated(denier, Messages.RequestDuel_PlayerOffSender));
                 pendingRequests.remove(uuidResquest);
             }
 
         } else {
-            denier.sendMessage(MasterMessageLocated(denier, Messages.NotRequests));
+            denier.sendMessage(MasterMessageLocated(denier, Messages.RequestDuel_NotRequests));
         }
     }
 
@@ -261,13 +261,13 @@ public class CommandDuel implements CommandExecutor {
             }
         }
         for (Player player : request.getPlayers()) {
-            player.sendMessage(MasterMessageLocated(player, Messages.FullSites));
+            player.sendMessage(MasterMessageLocated(player, Messages.RequestDuel_FullSites));
         }
     }
 
     public void Broadcast(Request request){
         for (Player player : request.getPlayers()) {
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&',MasterMessageLocated(player, Messages.MissingPlayers) + "(" + Colorplayer + request.getPlayers().size() + Colorinfo + "/" + Colorplayer + request.getAcceptPlayers().size() + Colorinfo + ")"));
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&',MasterMessageLocated(player, Messages.RequestDuel_MissingPlayers) + "(" + Colorplayer + request.getPlayers().size() + Colorinfo + "/" + Colorplayer + request.getAcceptPlayers().size() + Colorinfo + ")"));
         }
     }
 

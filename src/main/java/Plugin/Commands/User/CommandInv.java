@@ -32,10 +32,10 @@ public class CommandInv implements CommandExecutor {
                         xBxTcore.getPlayerDataUnique(p.getUniqueId()).addGuestPlayer(Objects.requireNonNull(Bukkit.getPlayer(name)));
                     }
                 }else{
-                    p.sendMessage(MasterMessageLocated(p, Messages.WarningGetGuestPlayers));
+                    p.sendMessage(MasterMessageLocated(p, Messages.Others_WarningGetGuestPlayers));
                 }
             }
-            p.sendMessage(MasterMessageLocated(p,Messages.Inv));
+            p.sendMessage(MasterMessageLocated(p,Messages.RequestDuel_Inv));
             Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',   prefixConsole + Colorplayer + xBxTcore.getPlayerDataUnique(p.getUniqueId()).getGuestPlayers(false).size() + Colorinfo + " Catidad de ivn"));
         }else{
             plugin.messageOnlyPlayer();

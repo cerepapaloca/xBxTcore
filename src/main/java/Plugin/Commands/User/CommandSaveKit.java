@@ -2,8 +2,6 @@ package Plugin.Commands.User;
 
 import Plugin.Messages.Enum.Messages;
 import Plugin.Messages.MessageManager;
-import Plugin.Utils.Utils;
-import Plugin.Utils.UtilsMain;
 import Plugin.xBxTcore;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -37,7 +35,7 @@ public class CommandSaveKit implements CommandExecutor {
 
         if(commandSender instanceof Player player){
             if (player.getWorld().getName().equals(xBxTcore.worldBoxPvp)) {
-                player.sendMessage(MessageManager.MasterMessageLocated(player, Messages.InArea));
+                player.sendMessage(MessageManager.MasterMessageLocated(player, Messages.Generic_InArea));
                 return false;
             }
 
@@ -49,7 +47,7 @@ public class CommandSaveKit implements CommandExecutor {
                 namekit = args[0];
                 GetItemInvetort(player);
             } else if (args.length == 0) {
-                player.sendMessage(MasterMessageLocated(player, Messages.SaveError));
+                player.sendMessage(MasterMessageLocated(player, Messages.Kit_SaveError));
             }
         }else{
             plugin.messageOnlyPlayer();
@@ -60,7 +58,7 @@ public class CommandSaveKit implements CommandExecutor {
     public void GetItemInvetort(Player player){
         items.clear();
         if (namekit.contains(".")) {
-            player.sendMessage(MasterMessageLocated(player, Messages.SaveErrorPunto));
+            player.sendMessage(MasterMessageLocated(player, Messages.Kit_SaveErrorPunto));
             return;
         }
 
@@ -72,6 +70,6 @@ public class CommandSaveKit implements CommandExecutor {
         getPlayerFileManager().SaveKit(player.getUniqueId(), namekit, Objects.requireNonNullElse(material, Material.WHITE_SHULKER_BOX), items);
         items.clear();
         material = null;
-        AntiSpam(player, Messages.SpamCommand, plugin);
+        AntiSpam(player, Messages.Kick_SpamCommand, plugin);
     }
 }

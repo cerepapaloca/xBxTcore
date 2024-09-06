@@ -34,7 +34,7 @@ public class CommandDelKit implements CommandExecutor {
                 GetItemInvetort(player);
 
             }else{
-                player.sendMessage(MasterMessageLocated(player, Messages.DelError));
+                player.sendMessage(MasterMessageLocated(player, Messages.Kit_DelError));
             }
         }else{
             plugin.messageOnlyPlayer();

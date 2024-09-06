@@ -156,7 +156,7 @@ public class InventoryClick extends InventoryManager {
             case MENUDUEL -> {
                 switch (slot) {
                     case 10 -> {
-                        invetoryPlayer.getPlayer().sendTitle(MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.IvnPlayers1), MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.IvnPlayers2), 10, 70, 20);
+                        invetoryPlayer.getPlayer().sendTitle(MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.Others_IvnPlayers1), MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.Others_IvnPlayers2), 10, 70, 20);
                         invetoryPlayer.getPlayer().closeInventory();
                     }
                     case 12 -> {
@@ -192,10 +192,10 @@ public class InventoryClick extends InventoryManager {
                     case 13 -> {
                         if (xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).getTimelimit()){
                             xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).setTimelimit(false);
-                            Utils.NewitemInvetory(Messages.DuelTimeLimitOff, Material.ENDER_PEARL, 13, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer(), secondsToMinutesLore(invetoryPlayer.getPlayer()));
+                            Utils.NewitemInvetory(Messages.Inventory_DuelTimeLimitOff, Material.ENDER_PEARL, 13, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer(), secondsToMinutesLore(invetoryPlayer.getPlayer()));
                         }else{
                             xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).setTimelimit(true);
-                            Utils.NewitemInvetory(Messages.DuelTimeLimitOn, Material.ENDER_EYE, 13, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer(), secondsToMinutesLore(invetoryPlayer.getPlayer()));
+                            Utils.NewitemInvetory(Messages.Inventory_DuelTimeLimitOn, Material.ENDER_EYE, 13, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer(), secondsToMinutesLore(invetoryPlayer.getPlayer()));
                         }
                     }
                     case 14 -> {
@@ -216,10 +216,10 @@ public class InventoryClick extends InventoryManager {
                         if (getPlayerFileManager().daily <= System.currentTimeMillis()){
                             rewardDaly(invetoryPlayer.getPlayer());
                             getPlayerFileManager().SaveTimesRewords(invetoryPlayer.getPlayer().getUniqueId(), PlayerFileTimes.daily, System.currentTimeMillis() + 1000L*60*60*24);
-                            Utils.NewitemInvetory(Messages.Daily, Material.MINECART, 20, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer());
-                            invetoryPlayer.getPlayer().sendMessage(MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.GiveDaily));
+                            Utils.NewitemInvetory(Messages.Reward_Daily, Material.MINECART, 20, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer());
+                            invetoryPlayer.getPlayer().sendMessage(MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.Reward_GiveDaily));
                         }else{
-                            invetoryPlayer.getPlayer().sendMessage(MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.RewardNotYet));
+                            invetoryPlayer.getPlayer().sendMessage(MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.Reward_RewardNotYet));
                         }
                     }
                     case 22 -> {
@@ -227,10 +227,10 @@ public class InventoryClick extends InventoryManager {
                         if (getPlayerFileManager().weekly <= System.currentTimeMillis()){
                             rewardWeekly(invetoryPlayer.getPlayer());
                             getPlayerFileManager().SaveTimesRewords(invetoryPlayer.getPlayer().getUniqueId(), PlayerFileTimes.weekly, System.currentTimeMillis() + 1000L*60*60*24*7);
-                            Utils.NewitemInvetory(Messages.Weekly, Material.MINECART, 22, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer());
-                            invetoryPlayer.getPlayer().sendMessage(MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.GiveWeekly));
+                            Utils.NewitemInvetory(Messages.Reward_Weekly, Material.MINECART, 22, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer());
+                            invetoryPlayer.getPlayer().sendMessage(MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.Reward_GiveWeekly));
                         }else{
-                            invetoryPlayer.getPlayer().sendMessage(MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.RewardNotYet));
+                            invetoryPlayer.getPlayer().sendMessage(MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.Reward_RewardNotYet));
                         }
                     }
                     case 24 -> {
@@ -238,10 +238,10 @@ public class InventoryClick extends InventoryManager {
                         if (getPlayerFileManager().monthly <= System.currentTimeMillis()){
                             rewardMonthly(invetoryPlayer.getPlayer());
                             getPlayerFileManager().SaveTimesRewords(invetoryPlayer.getPlayer().getUniqueId(), PlayerFileTimes.monthly, System.currentTimeMillis() + 1000L*60*60*24*30);
-                            Utils.NewitemInvetory(Messages.Monthly, Material.MINECART, 24, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer());
-                            invetoryPlayer.getPlayer().sendMessage(MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.GiveMonthly));
+                            Utils.NewitemInvetory(Messages.Reward_Monthly, Material.MINECART, 24, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer());
+                            invetoryPlayer.getPlayer().sendMessage(MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.Reward_GiveMonthly));
                         }else{
-                            invetoryPlayer.getPlayer().sendMessage(MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.RewardNotYet));
+                            invetoryPlayer.getPlayer().sendMessage(MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.Reward_RewardNotYet));
                         }
                     }
                 }

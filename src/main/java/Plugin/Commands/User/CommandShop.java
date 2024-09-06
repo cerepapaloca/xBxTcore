@@ -23,7 +23,7 @@ public class CommandShop implements CommandExecutor {
     @Override
     public boolean onCommand(@Nullable CommandSender commandSender,@Nullable Command command,@Nullable String s, String[] strings) {
         if(commandSender instanceof Player player){
-            player.sendMessage(MasterMessageLocated(player, Messages.StoreLink));
+            player.sendMessage(MasterMessageLocated(player, Messages.Reward_StoreLink));
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', ColorLink + "aún en revision"));
         }else{
             plugin.messageOnlyPlayer();

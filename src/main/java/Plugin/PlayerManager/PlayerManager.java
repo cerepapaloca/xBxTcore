@@ -49,7 +49,7 @@ public class PlayerManager {
                     return;
                 }
 
-                player.sendTitle("", MasterMessageLocated(player, Messages.InSafeZone).replace("%time%", String.valueOf(time)), 5, 15, 5);
+                player.sendTitle("", MasterMessageLocated(player, Messages.CombateLog_InSafeZone).replace("%time%", String.valueOf(time)), 5, 15, 5);
                 if (time <= 0) {
                     cancel();
                     BukkitTask bukkitTask = new BukkitRunnable() {

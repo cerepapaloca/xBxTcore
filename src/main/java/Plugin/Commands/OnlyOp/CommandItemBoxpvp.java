@@ -33,7 +33,7 @@ public class CommandItemBoxpvp implements CommandExecutor {
         if (sender instanceof Player p) {
             player = p;
             if (!p.isOp()) {
-                p.sendMessage(MasterMessageLocated(p, Messages.NotOp));
+                p.sendMessage(MasterMessageLocated(p, Messages.Generic_NotOp));
                 return false;
             }
         }
@@ -117,7 +117,7 @@ public class CommandItemBoxpvp implements CommandExecutor {
                 }
             }
             if (args.length == 4 && args[3].equals("message")) {
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&', MasterMessageLocated(player, Messages.BuysTitel)));
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', MasterMessageLocated(player, Messages.Reward_BuysTitel)));
             }
             return true;
         }

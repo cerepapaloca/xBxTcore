@@ -69,7 +69,7 @@ public class CombatlogListener implements Listener {
             String command = event.getMessage().split(" ")[0].substring(1).toLowerCase();
             if (restrictedCommands.contains(command)) {
                 event.setCancelled(true);
-                player.sendMessage(MasterMessageLocated(player, Messages.OnCombat).replace("%time%", String.valueOf(CombatSection.getCombatlogManager().getTimeRemaining(player))));
+                player.sendMessage(MasterMessageLocated(player, Messages.CombateLog_OnCombat).replace("%time%", String.valueOf(CombatSection.getCombatlogManager().getTimeRemaining(player))));
             }
         }
     }

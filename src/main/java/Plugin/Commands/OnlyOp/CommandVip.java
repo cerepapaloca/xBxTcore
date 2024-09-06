@@ -28,9 +28,9 @@ public class CommandVip implements CommandExecutor {
                 });
             }
             if (args.length == 3 && args[2].equals("m")) {
-                BroadcastMessageBuy("Rango Vip",player,Messages.BuyGeneric);
-                player.sendTitle(MasterMessageLocated(player, Messages.BuysTitel),
-                        MasterMessageLocated(player, Messages.BuysTitelLower).replace("%compra%",
+                BroadcastMessageBuy("Rango Vip",player,Messages.Reward_BuyGeneric);
+                player.sendTitle(MasterMessageLocated(player, Messages.Reward_BuysTitel),
+                        MasterMessageLocated(player, Messages.Reward_BuysTitelLower).replace("%compra%",
                                 "Rango Vip"), 10 ,60 ,10);
                 player.playSound(player, Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
             }

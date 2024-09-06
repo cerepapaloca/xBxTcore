@@ -25,7 +25,7 @@ public class CommandReloadDataPlayares implements CommandExecutor {
             if(p.isOp()){
                 PlayerfileManager.playesfiles.reloadConfigs();
             }else{
-                p.sendMessage(MasterMessageLocated(p, Messages.NotOp));
+                p.sendMessage(MasterMessageLocated(p, Messages.Generic_NotOp));
                 Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',prefixConsole + ColorSuccess + "Se recargo los datos de los usuarios"));
             }
         }else{

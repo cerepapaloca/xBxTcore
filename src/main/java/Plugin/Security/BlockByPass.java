@@ -21,7 +21,7 @@ public class BlockByPass {
             Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',  MessageManager.prefixConsole +
                     MessageManager.ColorWarning + " El jugador " + MessageManager.Colorplayer +
                     player.getName() + MessageManager.ColorWarning + " Tenia Creative y fue eliminado"));
-            player.sendMessage(MasterMessageLocated(player, Messages.OpNotAuthized));
+            player.sendMessage(MasterMessageLocated(player, Messages.Others_OpNotAuthized));
         }
 
         if(player.isOp()){
@@ -29,7 +29,7 @@ public class BlockByPass {
                     MessageManager.ColorWarning + " El jugador " + MessageManager.Colorplayer +
                     player.getName() + MessageManager.ColorWarning + " Tenia Op y fue eliminado"));
             player.setOp(false);
-            player.sendMessage(MasterMessageLocated(player, Messages.OpNotAuthized));
+            player.sendMessage(MasterMessageLocated(player, Messages.Others_OpNotAuthized));
         }
 
 

@@ -74,13 +74,13 @@ public class DuelManager{
         TextComponent tp = new TextComponent();
         tp.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/spectator " + world.getName()));
         for (Player player : Bukkit.getOnlinePlayers()) {
-            tp.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(MasterMessageLocated(player, Messages.HoverDuel)).create()));
+            tp.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(MasterMessageLocated(player, Messages.DuelWorld_HoverDuel)).create()));
             if(players.size() < 3){
-                tp.setText(MasterMessageLocated(player, Messages.DuelStarted1).replace("%player1%", players.get(0).getName())
+                tp.setText(MasterMessageLocated(player, Messages.DuelWorld_DuelStarted1).replace("%player1%", players.get(0).getName())
                         .replace("%player2%", players.get(1).getName()).replace("%world%", world.getName()));
                 player.spigot().sendMessage(tp);
             }else {
-                tp.setText(MasterMessageLocated(player, Messages.DuelStarted2).replace("%player%", players.get(0).getName())
+                tp.setText(MasterMessageLocated(player, Messages.DuelWorld_DuelStarted2).replace("%player%", players.get(0).getName())
                         .replace("%world%", world.getName()));
                 player.spigot().sendMessage(tp);
             }
@@ -105,7 +105,7 @@ public class DuelManager{
             public void run() {
                 if (timeLeft <= 0) {
                     for (Player player : Objects.requireNonNull(Bukkit.getWorld(world)).getPlayers()) {
-                        player.sendTitle("", MasterMessageLocated(player, Messages.Go), 0, 70, 20);
+                        player.sendTitle("", MasterMessageLocated(player, Messages.DuelWorld_Go), 0, 70, 20);
                         player.playSound(player, Sound.BLOCK_NOTE_BLOCK_BIT, 1,1.587401f);
                         player.setGravity(true);
                         blockedPlayers.remove(player.getUniqueId());
@@ -169,7 +169,7 @@ public class DuelManager{
 
                     for (Player p : Objects.requireNonNull(Bukkit.getWorld(world.getName())).getPlayers()){
                         p.teleport(new Location((Bukkit.getWorld("lobby")), 0, 69, 0, 0, 0));
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&',MasterMessageLocated(p, Messages.EndCombat)));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&',MasterMessageLocated(p, Messages.DuelWorld_EndCombat)));
                         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',MessageManager.prefixConsole + MessageManager.Colorinfo + "Se a terminado el duelo"));
                     }
 
@@ -181,7 +181,7 @@ public class DuelManager{
                 case TIME:
                     for (Player p : Objects.requireNonNull(Bukkit.getWorld(world.getName())).getPlayers()){
                         p.teleport(new Location((Bukkit.getWorld("lobby")), 0, 69, 0, 0, 0));
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&',MasterMessageLocated(p, Messages.EndTimeDuel)));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&',MasterMessageLocated(p, Messages.DuelWorld_EndTimeDuel)));
                         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',MessageManager.prefixConsole + MessageManager.Colorinfo + "Se a terminado el duelo"));
                     }
                     break;
@@ -225,9 +225,9 @@ public class DuelManager{
         for (Player player : Objects.requireNonNull(Bukkit.getWorld(world)).getPlayers()) {
             String title;
             if (seconds < 10){
-                title = MasterMessageLocated(player, Messages.TimeBossBar) + minutes + ":0" + seconds;
+                title = MasterMessageLocated(player, Messages.Others_TimeBossBar) + minutes + ":0" + seconds;
             }else{
-                title = MasterMessageLocated(player, Messages.TimeBossBar) + minutes + ":" + seconds;
+                title = MasterMessageLocated(player, Messages.Others_TimeBossBar) + minutes + ":" + seconds;
             }
             BarStyle barStyle = BarStyle.PROGRESS;
             BarColor barColor = BarColor.BLUE;

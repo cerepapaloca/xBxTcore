@@ -43,7 +43,7 @@ public class CommandBoxPvp implements CommandExecutor {
                 UpdateBonus(player);
                 player.setGameMode(GameMode.SURVIVAL);
             }else{
-                player.sendMessage(MasterMessageLocated(player, Messages.InArea));
+                player.sendMessage(MasterMessageLocated(player, Messages.Generic_InArea));
             }
 
         }else{

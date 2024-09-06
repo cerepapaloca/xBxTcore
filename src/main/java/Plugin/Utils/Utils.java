@@ -43,7 +43,7 @@ public class Utils {
         Bukkit.getScheduler().runTaskTimer(plugin, () -> {
             if(getServer().getOnlinePlayers().size() == 1){
                 for (Player p :getServer().getOnlinePlayers()){
-                    p.sendMessage(MasterMessageLocated(p, Messages.Alone));
+                    p.sendMessage(MasterMessageLocated(p, Messages.Others_Alone));
                 }
             }
         }, 2 * 20,40 * 20);
@@ -101,7 +101,7 @@ public class Utils {
         TextComponent executefinal = new TextComponent(MasterMessageLocated(p, messages));
         execute.setText(ChatColor.translateAlternateColorCodes('&', ColorLink + "/" + command));
         execute.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/" + command));
-        execute.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(MasterMessageLocated(p,Messages.HoverExecute)).create()));
+        execute.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(MasterMessageLocated(p,Messages.Generic_HoverExecute)).create()));
         executefinal.addExtra(execute);
         p.spigot().sendMessage(executefinal);
     }

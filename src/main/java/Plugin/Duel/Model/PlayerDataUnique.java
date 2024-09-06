@@ -3,7 +3,6 @@ package Plugin.Duel.Model;
 import Plugin.Inventory.Models.KitData;
 import Plugin.Duel.Enum.MapsDuel;
 import Plugin.Messages.Enum.Messages;
-import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -37,7 +36,7 @@ public class PlayerDataUnique {
             }else if (messgas){
                 Player p = Bukkit.getPlayer(playerUUID);
                 if (p != null) {
-                    p.sendMessage(MasterMessageLocated(p, Messages.WarningGetGuestPlayers));
+                    p.sendMessage(MasterMessageLocated(p, Messages.Others_WarningGetGuestPlayers));
                 }
                 Bukkit.getConsoleSender().sendMessage(ColorWarning + "Hubo un error al obtener el jugador: " + uuid);
             } else {

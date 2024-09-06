@@ -2,7 +2,6 @@ package Plugin.Commands.OnlyOp;
 
 import Plugin.File.FileManagerSection;
 import Plugin.Messages.Enum.Messages;
-import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -45,7 +44,7 @@ public class CommandDebugKit implements CommandExecutor {
                     }
                 }
             }else{
-                p.sendMessage(MasterMessageLocated(p, Messages.NotOp));
+                p.sendMessage(MasterMessageLocated(p, Messages.Generic_NotOp));
             }
         }
 

@@ -49,8 +49,7 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void AsyncPlayerChat(@NotNull AsyncPlayerChatEvent event) {
-        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&',Utils.getPlayerPrefix(event.getPlayer()) + " "
-                + event.getPlayer().getName() + " » &7" + event.getMessage()));
+        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', event.getPlayer().getName() + " » &7" + event.getMessage()));
         event.setMessage(ChatColor.translateAlternateColorCodes('&', event.getMessage()));
         event.setCancelled(true);
     }
@@ -85,7 +84,7 @@ public class PlayerListener implements Listener {
                 }else{
                     player.teleport(new Location(event.getPlayer().getWorld(), 0, 10, 0));
                 }
-                player.sendMessage(MasterMessageLocated(event.getPlayer(),Messages.IncorrectLoc));
+                player.sendMessage(MasterMessageLocated(event.getPlayer(),Messages.DuelWorld_IncorrectLoc));
             }
         } else {
             if (CombatSection.getCombatlogManager().isInCombat(player) && getZoneSafeBoxPvp().isSafeZone(player.getLocation())){

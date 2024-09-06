@@ -61,11 +61,11 @@ public class MessageTranslatorManager {
             case "Crates » givekey" -> event.setCancelled(true);
             case "reward" -> {
                 event.setCancelled(true);
-                event.getPlayer().sendMessage(MasterMessageLocated(event.getPlayer(), Messages.ClaimReward));
+                event.getPlayer().sendMessage(MasterMessageLocated(event.getPlayer(), Messages.Reward_ClaimReward));
             }
             case "Crates » You don't have permissions to do that!" -> {
                 event.setCancelled(true);
-                event.getPlayer().sendMessage(MasterMessageLocated(event.getPlayer(), Messages.CrateNotPermission));
+                event.getPlayer().sendMessage(MasterMessageLocated(event.getPlayer(), Messages.Reward_CrateNotPermission));
             }
             default -> {
                 if (message.startsWith("#%#")) {

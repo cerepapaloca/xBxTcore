@@ -72,7 +72,7 @@ public class MessageDiedListener implements Listener {
     }
 
     public void suicide(Player player) {
-        BroadcastMessageDied(Messages.Died4, player, null, "");
+        BroadcastMessageDied(Messages.Died_Died4, player, null, "");
     }
 
     @EventHandler
@@ -114,7 +114,7 @@ public class MessageDiedListener implements Listener {
             switch (Objects.requireNonNull(event.getEntity().getLastDamageCause()).getCause()) {
                 case ENTITY_EXPLOSION -> {
                     weaponname = custonNameWeapon(Material.END_CRYSTAL, playerMasterKiller);
-                    BroadcastMessageDied(Messages.Died2, p, playerMasterKiller, weaponname);
+                    BroadcastMessageDied(Messages.Died_Died2, p, playerMasterKiller, weaponname);
                 }
                 case BLOCK_EXPLOSION -> {
                     if(p == playeranchor){
@@ -128,15 +128,15 @@ public class MessageDiedListener implements Listener {
                     }else{
                         weaponname = custonNameWeapon(Material.TNT, playerMasterKiller);
                     }
-                    BroadcastMessageDied(Messages.Died2, p, playerMasterKiller, weaponname);
+                    BroadcastMessageDied(Messages.Died_Died2, p, playerMasterKiller, weaponname);
                 }
                 case SUICIDE -> {
                     if (playerMasterKiller != null)suicide(playerMasterKiller);
                 }
 
-                case ENTITY_ATTACK, PROJECTILE, ENTITY_SWEEP_ATTACK -> BroadcastMessageDied(Messages.Died1, p, playerMasterKiller, weaponname);
+                case ENTITY_ATTACK, PROJECTILE, ENTITY_SWEEP_ATTACK -> BroadcastMessageDied(Messages.Died_Died1, p, playerMasterKiller, weaponname);
 
-                case FALL -> BroadcastMessageDied(Messages.Died5, p, null, "");
+                case FALL -> BroadcastMessageDied(Messages.Died_Died5, p, null, "");
 
                 case FALLING_BLOCK -> {
                     playerMasterKiller = playeranvil;
@@ -146,9 +146,9 @@ public class MessageDiedListener implements Listener {
                         return;
                     }
                     weaponname = custonNameWeapon(MaterialFalling, playerMasterKiller);
-                    BroadcastMessageDied(Messages.Died1, p, playerMasterKiller, weaponname);
+                    BroadcastMessageDied(Messages.Died_Died1, p, playerMasterKiller, weaponname);
                 }
-                case SUFFOCATION -> BroadcastMessageDied(Messages.Died3, p, null,"");
+                case SUFFOCATION -> BroadcastMessageDied(Messages.Died_Died3, p, null,"");
             }
             if (playerMasterKiller != null) {
                 int i = playerMasterKiller.getLevel();

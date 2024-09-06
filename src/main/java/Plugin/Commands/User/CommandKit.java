@@ -26,13 +26,13 @@ public class CommandKit implements CommandExecutor {
         if(commandSender instanceof Player player){
             if(player.getLocation().getY() >= 30 && xBxTcore.getWorldProtec().contains(player.getWorld())){
                 if (player.getWorld().getName().equals(xBxTcore.worldBoxPvp)) {
-                    player.sendMessage(MessageManager.MasterMessageLocated(player, Messages.InArea));
+                    player.sendMessage(MessageManager.MasterMessageLocated(player, Messages.Generic_InArea));
                     return false;
                 }
                 InventorySection.getInventoryMenu().OpenMenuInvetory(new InvetoryPlayer(player));
                 return true;
             }else{
-                player.sendMessage(MasterMessageLocated(player, Messages.InArea));
+                player.sendMessage(MasterMessageLocated(player, Messages.Generic_InArea));
                 return false;
             }
         }else{

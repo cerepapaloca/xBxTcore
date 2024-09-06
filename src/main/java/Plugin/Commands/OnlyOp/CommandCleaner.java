@@ -17,9 +17,9 @@ public class CommandCleaner implements CommandExecutor {
         if(sender instanceof Player p){
             if(p.isOp()){
                 EnvironmentsSection.getCleaner().clearArea(p.getWorld().getName());
-                BroadcastMessage(Messages.CleanerExecuted);
+                BroadcastMessage(Messages.Others_CleanerExecuted);
             }else{
-                p.sendMessage(MasterMessageLocated(p, Messages.NotOp));
+                p.sendMessage(MasterMessageLocated(p, Messages.Generic_NotOp));
             }
         }else{
             EnvironmentsSection.getCleaner().clearArea("lobby");

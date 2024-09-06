@@ -23,7 +23,7 @@ public class CommandKill implements CommandExecutor {
             if (xBxTcore.getWorldProtec().contains(p.getWorld())){
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "minecraft:kill " + p.getName());
             }else{
-                p.sendMessage(MasterMessageLocated(p, Messages.InArea));
+                p.sendMessage(MasterMessageLocated(p, Messages.Generic_InArea));
             }
 
         }else{

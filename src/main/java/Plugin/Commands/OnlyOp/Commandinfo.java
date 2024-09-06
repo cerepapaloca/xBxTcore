@@ -22,7 +22,7 @@ public class Commandinfo implements CommandExecutor {
             if(p.isOp()){
                 plugin.info();
             }else{
-                p.sendMessage(MasterMessageLocated(p, Messages.NotOp));
+                p.sendMessage(MasterMessageLocated(p, Messages.Generic_NotOp));
             }
         }else{
             plugin.info();

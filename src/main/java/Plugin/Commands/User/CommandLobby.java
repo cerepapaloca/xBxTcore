@@ -1,9 +1,7 @@
 package Plugin.Commands.User;
 
-import Plugin.BoxPvp.BoxPvpSection;
 import Plugin.File.FileManagerSection;
 import Plugin.Messages.Enum.Messages;
-import Plugin.PlayerManager.PlayerManagerSection;
 import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
@@ -44,7 +42,7 @@ public class CommandLobby implements CommandExecutor {
                 player.teleport(new Location(Bukkit.getWorld("lobby"), 0 , 68, 0));
                 player.setGameMode(GameMode.SURVIVAL);
             }else{
-                player.sendMessage(MasterMessageLocated(player, Messages.InArea));
+                player.sendMessage(MasterMessageLocated(player, Messages.Generic_InArea));
             }
 
         }else{

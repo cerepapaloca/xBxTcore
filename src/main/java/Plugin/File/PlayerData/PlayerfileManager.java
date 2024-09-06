@@ -17,7 +17,6 @@ import java.util.*;
 
 import static Plugin.File.FileManagerSection.getPlayerFileManager;
 import static Plugin.Messages.MessageManager.*;
-import static Plugin.xBxTcore.*;
 
 
 public class PlayerfileManager {
@@ -54,7 +53,7 @@ public class PlayerfileManager {
     public void loadKit(UUID uuid, String namekit, Inventory inv, Player player) {
         int i = 0;
         if(!Objects.requireNonNull(getfile(uuid).getPlayerDataFile().getConfigurationSection("Kits")).getKeys(false).contains(namekit)){
-           player.sendMessage(MasterMessageLocated(player,Messages.KitNotExist));
+           player.sendMessage(MasterMessageLocated(player,Messages.Kit_KitNotExist));
            return;
         }
         List<?> rawList = getfile(uuid).getPlayerDataFile().getList("Kits." + namekit + ".inventory", null);
@@ -66,13 +65,13 @@ public class PlayerfileManager {
                 }else if (obj instanceof ItemStack) {
                     itemStacks.add((ItemStack) obj);
                 } else {
-                    Objects.requireNonNull(player.getPlayer()).sendMessage(MasterMessageLocated(player, Messages.LoadWaring).replace("%item%", String.valueOf(obj)));
+                    Objects.requireNonNull(player.getPlayer()).sendMessage(MasterMessageLocated(player, Messages.Kit_LoadWaring).replace("%item%", String.valueOf(obj)));
                     Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorWarning + "El Kit&r " + namekit
                             + ColorWarning + " contiene un objeto no válido: " + obj));
                 }
             }
         }else{
-            Objects.requireNonNull(player.getPlayer()).sendMessage(MasterMessageLocated(player, Messages.LoadError).replace("%namekit%", ChatColor.translateAlternateColorCodes('&', namekit)));
+            Objects.requireNonNull(player.getPlayer()).sendMessage(MasterMessageLocated(player, Messages.Kit_LoadError).replace("%namekit%", ChatColor.translateAlternateColorCodes('&', namekit)));
         }
         if (inv != null){
             for(ItemStack item : itemStacks) {
@@ -105,14 +104,14 @@ public class PlayerfileManager {
             ItemStack Exit = new ItemStack(Material.BARRIER);
             ItemMeta exitItemMeta = Exit.getItemMeta();
             assert exitItemMeta != null;
-            exitItemMeta.setDisplayName(MasterMessageLocated(player, Messages.InvExit));
+            exitItemMeta.setDisplayName(MasterMessageLocated(player, Messages.Inventory_InvExit));
             Exit.setItemMeta(exitItemMeta);
             inv.setItem(53,Exit);
             ///////////////////////////////////////////////////////
             List<String> lore = new ArrayList<>();
             ItemStack selec = new ItemStack(Material.BLAZE_POWDER);
             ItemMeta selecitemmeta = Exit.getItemMeta();
-            selecitemmeta.setDisplayName(MasterMessageLocated(player, Messages.InvLoad));
+            selecitemmeta.setDisplayName(MasterMessageLocated(player, Messages.Inventory_InvLoad));
             lore.add(ChatColor.translateAlternateColorCodes('&', namekit));
             selecitemmeta.setLore(lore);
             selecitemmeta.getPersistentDataContainer().set(new NamespacedKey(plugin, "kitName"), PersistentDataType.STRING, namekit);
@@ -129,7 +128,7 @@ public class PlayerfileManager {
             }
             Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorSuccess + "El Kit&r " + namekit
                     + "&r" + ColorSuccess + " Fue Cargado Corretamente Del jugador " + Colorplayer + player.getName()));
-            Objects.requireNonNull(player.getPlayer()).sendMessage(MasterMessageLocated(player, Messages.Load).replace("%namekit%", ChatColor.translateAlternateColorCodes('&', namekit)));
+            Objects.requireNonNull(player.getPlayer()).sendMessage(MasterMessageLocated(player, Messages.Kit_Load).replace("%namekit%", ChatColor.translateAlternateColorCodes('&', namekit)));
         }
         namekitfavorite = null;
     }
@@ -165,9 +164,9 @@ public class PlayerfileManager {
                 getPlayerFileManager().loadKit(UUID.fromString("00000000-0000-0000-0000-000000000000"), target, null, player);
                 return;
             }
-            player.sendMessage(MasterMessageLocated(player,Messages.KitNotExist));
+            player.sendMessage(MasterMessageLocated(player,Messages.Kit_KitNotExist));
         }else{
-            player.sendMessage(MasterMessageLocated(player,Messages.KitNotExist));
+            player.sendMessage(MasterMessageLocated(player,Messages.Kit_KitNotExist));
         }
     }
 
@@ -250,7 +249,7 @@ public class PlayerfileManager {
             return;
         }
         Objects.requireNonNull(Bukkit.getPlayer(uuid)).sendMessage(MasterMessageLocated(Objects.requireNonNull(Bukkit.getPlayer(uuid))
-                ,Messages.Save).replace("%namekit%", ChatColor.translateAlternateColorCodes('&', namekit)));
+                ,Messages.Kit_Save).replace("%namekit%", ChatColor.translateAlternateColorCodes('&', namekit)));
         itemstacks.clear();
     }
 
@@ -270,9 +269,9 @@ public class PlayerfileManager {
         getPlayerFileManager().reloadCustomConfig(uuid);
         loadNameKitfavorite(uuid);
         if(nameskitsboth.contains(namekitfavorite)){
-            Objects.requireNonNull(Bukkit.getPlayer(uuid)).sendMessage(MasterMessageLocated(Objects.requireNonNull(Bukkit.getPlayer(uuid)),Messages.Favorite));
+            Objects.requireNonNull(Bukkit.getPlayer(uuid)).sendMessage(MasterMessageLocated(Objects.requireNonNull(Bukkit.getPlayer(uuid)),Messages.Kit_Favorite));
         }else{
-            Objects.requireNonNull(Bukkit.getPlayer(uuid)).sendMessage(MasterMessageLocated(Objects.requireNonNull(Bukkit.getPlayer(uuid)),Messages.FavoriteWaring));
+            Objects.requireNonNull(Bukkit.getPlayer(uuid)).sendMessage(MasterMessageLocated(Objects.requireNonNull(Bukkit.getPlayer(uuid)),Messages.Kit_FavoriteWaring));
         }
     }
 
@@ -289,7 +288,7 @@ public class PlayerfileManager {
             getfile(uuid).saveConfig();
             getPlayerFileManager().reloadCustomConfig(uuid);
             loadNamesPlayers();
-            Objects.requireNonNull(Bukkit.getPlayer(uuid)).sendMessage(MasterMessageLocated(Objects.requireNonNull(Bukkit.getPlayer(uuid)),Messages.NewPlayer));
+            Objects.requireNonNull(Bukkit.getPlayer(uuid)).sendMessage(MasterMessageLocated(Objects.requireNonNull(Bukkit.getPlayer(uuid)),Messages.Others_NewPlayer));
         }
     }
 
@@ -304,7 +303,7 @@ public class PlayerfileManager {
     public void DeleteKitConfig(UUID uuid, String namekit){
         if (null == getfile(uuid).getPlayerDataFile().get("Kits." + namekit, null)){
             Objects.requireNonNull(Bukkit.getPlayer(uuid)).sendMessage(MasterMessageLocated(Objects.requireNonNull(Bukkit.getPlayer(uuid)),
-                    Messages.RemovedWaring));
+                    Messages.Kit_RemovedWaring));
         }
         getfile(uuid).getPlayerDataFile().set("Kits." + namekit, null);
         getfile(uuid).saveConfig();
@@ -315,7 +314,7 @@ public class PlayerfileManager {
             return;
         }
         Objects.requireNonNull(Bukkit.getPlayer(uuid)).sendMessage(MasterMessageLocated(Objects.requireNonNull(Bukkit.getPlayer(uuid)),
-                Messages.Removed).replace("%namekit%", ChatColor.translateAlternateColorCodes('&', namekit)));
+                Messages.Kit_Removed).replace("%namekit%", ChatColor.translateAlternateColorCodes('&', namekit)));
     }
 
     public PlayerFile getfile(UUID uuid){

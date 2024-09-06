@@ -202,14 +202,14 @@ public class xBxTcore extends JavaPlugin {
     private void startAutoCleaner() {
         long intervalTicks =2 * 60 * 60 * 20L;
         Bukkit.getScheduler().runTaskTimer(this, () -> {
-            BroadcastMessage(Messages.message1Minute);
+            BroadcastMessage(Messages.Others_message1Minute);
             left1minutes();
         }, 0L, intervalTicks);
     }
 
     private void left1minutes() {
        task1minute = Bukkit.getScheduler().runTaskTimer(this, () -> {
-           BroadcastMessage(Messages.message5Seconds);
+           BroadcastMessage(Messages.Others_message5Seconds);
            left5seconds();
        }, 55 * 20, 30);
     }
@@ -223,7 +223,7 @@ public class xBxTcore extends JavaPlugin {
     ///////////////////////////////////////////////////
 
     private void ExecuteClener(){
-        BroadcastMessage(Messages.messageStarCleaner);
+        BroadcastMessage(Messages.Others_messageStarCleaner);
         EnvironmentsSection.getCleaner().clearArea("lobby");
         task5seconds.cancel();
     }

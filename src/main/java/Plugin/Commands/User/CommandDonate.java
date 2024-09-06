@@ -21,7 +21,7 @@ public class CommandDonate implements CommandExecutor {
     @Override
     public boolean onCommand(@Nullable CommandSender commandSender,@Nullable Command command,@Nullable String s, String[] strings) {
         if(commandSender instanceof Player player){
-            player.sendMessage(MasterMessageLocated(player, Messages.Donate));
+            player.sendMessage(MasterMessageLocated(player, Messages.Others_Donate));
         }else{
             plugin.messageOnlyPlayer();
         }

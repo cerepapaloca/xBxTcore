@@ -1,9 +1,7 @@
 package Plugin.Commands.User;
 
-import Plugin.File.FileManagerSection;
 import Plugin.Messages.Enum.Messages;
 import Plugin.Utils.Utils;
-import Plugin.Utils.UtilsMain;
 import Plugin.xBxTcore;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -45,7 +43,7 @@ public class CommandPrefix implements CommandExecutor {
                         Objects.requireNonNull(xBxTcore.getTabAPI().getTabListFormatManager()).setPrefix(Objects.requireNonNull(xBxTcore.getTabAPI().getPlayer(player.getUniqueId())), prefixName);*/
                         //FileManagerSection.getPlayerFileManager().SavePrefix(player.getUniqueId(), prefixName);
                         player.sendMessage(MasterMessageLocated(player, Messages.PrefixSuccess));
-                        AntiSpam(player, Messages.SpamCommand, plugin);
+                        AntiSpam(player, Messages.Kick_SpamCommand, plugin);
                         return true;
                     }else{
                         player.sendMessage(MasterMessageLocated(player, Messages.TooLengthName));
