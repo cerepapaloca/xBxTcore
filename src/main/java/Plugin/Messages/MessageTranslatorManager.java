@@ -17,6 +17,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import static Plugin.Messages.MessageManager.*;
 
 public class MessageTranslatorManager {
@@ -56,8 +60,8 @@ public class MessageTranslatorManager {
         });
     }
 
-    public void replaceMessages(String message, PacketEvent event) {
-        switch (message) {
+    public void replaceMessages(String messageId, PacketEvent event) {
+        switch (messageId) {
             case "Crates » givekey" -> event.setCancelled(true);
             case "reward" -> {
                 event.setCancelled(true);
@@ -68,17 +72,56 @@ public class MessageTranslatorManager {
                 event.getPlayer().sendMessage(MasterMessageLocated(event.getPlayer(), Messages.Reward_CrateNotPermission));
             }
             default -> {
-                if (message.startsWith("#%#")) {
-                    message = message.replace("#%#", "");
+                if (messageId.startsWith("#%#")) {
+                    messageId = messageId.replace("#%#", "");
                     event.setCancelled(true);
-                    event.getPlayer().sendMessage(MasterMessageLocated(event.getPlayer(), Messages.valueOf(message)));
-                    if (message.equals("Login_Success")){
+
+                    if(messageId.contains("[")) {
+                        String var = messageId.replace(messageId.replaceAll("\\[.*?]", ""), "");
+                        Bukkit.getConsoleSender().sendMessage(var);
+
+                        // Expresión regular para encontrar el contenido dentro de los corchetes
+                        Pattern pattern = Pattern.compile("\\[(.*?)\\]");
+                        Matcher matcher = pattern.matcher(var);
+
+                        // Lista temporal para almacenar los resultados
+                        ArrayList<String> lista = new ArrayList<>();
+
+                        // Mientras encuentre contenido dentro de los corchetes, lo agrega a la lista
+                        while (matcher.find()) {
+                            lista.add(matcher.group(1)); // matcher.group(1) obtiene solo el contenido dentro de los corchetes
+                        }
+
+                        // Convertir la lista a un array de Strings
+                        String[] reemplazos = lista.toArray(new String[0]);
+
+                        String mensaje = MasterMessageLocated(event.getPlayer(), Messages.valueOf(messageId.replaceAll("\\[.*?]", "")));
+
+                        // Expresión regular para encontrar los corchetes y su contenido
+                        pattern = Pattern.compile("\\[(\\d+)]");
+                        matcher = pattern.matcher(mensaje);
+
+                        StringBuilder resultado = new StringBuilder();
+                        int i = 0;
+
+                        // Reemplazar dinámicamente el contenido dentro de los corchetes
+                        while (matcher.find() && i < reemplazos.length) {
+                            matcher.appendReplacement(resultado,reemplazos[i++]);
+                        }
+                        matcher.appendTail(resultado);
+                        Bukkit.getConsoleSender().sendMessage(resultado.toString());
+                        event.getPlayer().sendMessage(resultado.toString());
+                    }else {
+                        event.getPlayer().sendMessage(MasterMessageLocated(event.getPlayer(), Messages.valueOf(messageId)));
+                    }
+
+                    if (messageId.equals("Login_Login_Success")){
                         event.getPlayer().setGravity(true);
                         event.getPlayer().teleport(new Location(Bukkit.getWorld("lobby"), 0 , 68, 0));
                         event.getPlayer().getInventory().clear();
                         Bukkit.getConsoleSender().sendMessage( ChatColor.translateAlternateColorCodes('&',prefixConsole + ColorSuccess + "El jugador " + Colorplayer + event.getPlayer().getName() + ColorSuccess + " a iniciado sesion exitosamente"));
                     }
-                    if (message.equals("Registration_Success")){
+                    if (messageId.equals("Login_Registration_Success")){
                         event.getPlayer().setGravity(true);
                         event.getPlayer().teleport(new Location(Bukkit.getWorld("lobby"), 0 , 68, 0));
                         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "authme forcelogin " + event.getPlayer().getName());

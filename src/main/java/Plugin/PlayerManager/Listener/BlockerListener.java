@@ -18,6 +18,7 @@ import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.checkerframework.checker.units.qual.A;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -30,8 +31,8 @@ import static Plugin.xBxTcore.worldBoxPvp;
 public class BlockerListener implements Listener {
     public final static ArrayList<Location> blockLocations = new ArrayList<>();
     public static final int ejey = 30;
-    private final List<String> restrictedCommands = new ArrayList<>();
-    private final HashMap<String, String> restrictedCommandsWithPermissions = new HashMap<>();
+    private final List<String> AlloedCommands = new ArrayList<>();
+    private final HashMap<String, String> AlloedCommandsWithPermissions = new HashMap<>();
     private static final Set<Material> materials = EnumSet.of(
             Material.CHEST, Material.TRAPPED_CHEST, Material.ENDER_CHEST,
             Material.FURNACE, Material.BLAST_FURNACE, Material.SMOKER,
@@ -64,36 +65,37 @@ public class BlockerListener implements Listener {
 
     public BlockerListener(xBxTcore plugin) {
         this.plugin = plugin;
-        restrictedCommands.add("kill");
-        restrictedCommands.add("sk");
-        restrictedCommands.add("kf");
-        restrictedCommands.add("dk");
-        restrictedCommands.add("kit");
-        restrictedCommands.add("lobby");
-        restrictedCommands.add("delkit");
-        restrictedCommands.add("tell");
-        restrictedCommands.add("savekit");
-        restrictedCommands.add("kitfavorite");
-        restrictedCommands.add("w");
-        restrictedCommands.add("r");
-        restrictedCommands.add("msg");
-        restrictedCommands.add("help");
-        restrictedCommands.add("duel");
-        restrictedCommands.add("discord");
-        restrictedCommands.add("spectator");
-        restrictedCommands.add("spawn");
-        restrictedCommands.add("rank");
-        restrictedCommands.add("vote");
-        restrictedCommands.add("donate");
-        restrictedCommands.add("prefix");
-        restrictedCommands.add("plugins");
-        restrictedCommands.add("inv");
-        restrictedCommands.add("boxpvp");
-        restrictedCommands.add("shop");
-        restrictedCommands.add("login");
-        restrictedCommands.add("log");
-        restrictedCommands.add("register");
-        restrictedCommandsWithPermissions.put("skin", "xbxtcore.vip");
+        AlloedCommands.add("kill");
+        AlloedCommands.add("sk");
+        AlloedCommands.add("kf");
+        AlloedCommands.add("dk");
+        AlloedCommands.add("kit");
+        AlloedCommands.add("lobby");
+        AlloedCommands.add("delkit");
+        AlloedCommands.add("tell");
+        AlloedCommands.add("savekit");
+        AlloedCommands.add("kitfavorite");
+        AlloedCommands.add("w");
+        AlloedCommands.add("r");
+        AlloedCommands.add("msg");
+        AlloedCommands.add("help");
+        AlloedCommands.add("duel");
+        AlloedCommands.add("discord");
+        AlloedCommands.add("spectator");
+        AlloedCommands.add("spawn");
+        AlloedCommands.add("rank");
+        AlloedCommands.add("vote");
+        AlloedCommands.add("donate");
+        AlloedCommands.add("prefix");
+        AlloedCommands.add("plugins");
+        AlloedCommands.add("inv");
+        AlloedCommands.add("boxpvp");
+        AlloedCommands.add("shop");
+        AlloedCommands.add("login");
+        AlloedCommands.add("log");
+        AlloedCommands.add("register");
+        AlloedCommands.add("team");
+        AlloedCommandsWithPermissions.put("skin", "xbxtcore.vip");
         //////////////////////////////////////
     }
 
@@ -189,11 +191,11 @@ public class BlockerListener implements Listener {
         if(!event.getPlayer().isOp()){
             String command = event.getMessage().split(" ")[0].substring(1).toLowerCase();
 
-            if(restrictedCommandsWithPermissions.containsKey(command)){
-                if (event.getPlayer().hasPermission(restrictedCommandsWithPermissions.get(command)))return;
+            if(AlloedCommandsWithPermissions.containsKey(command)){
+                if (event.getPlayer().hasPermission(AlloedCommandsWithPermissions.get(command)))return;
             }
 
-            if(!restrictedCommands.contains(command)){
+            if(!AlloedCommands.contains(command)){
                 event.setCancelled(true);
                 event.getPlayer().sendMessage(MasterMessageLocated(event.getPlayer(), Messages.Generic_NotAllowed));
             }

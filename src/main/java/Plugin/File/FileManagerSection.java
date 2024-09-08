@@ -1,7 +1,6 @@
 package Plugin.File;
 
 import Plugin.File.BLackList.BlackListIpManager;
-import Plugin.File.Clan.ClanFileManager;
 import Plugin.File.PlayerData.PlayerfileManager;
 import Plugin.Section;
 import Plugin.xBxTcore;

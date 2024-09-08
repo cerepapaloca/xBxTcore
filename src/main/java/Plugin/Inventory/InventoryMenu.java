@@ -292,8 +292,12 @@ public class InventoryMenu extends InventoryManager {
             }
 
             if (!invetoryplayer.getKitSelectMode()){
+                itemMeta.setDisplayName(MasterMessageLocated(player, Messages.Inventory_InvClear));
+                STRUCTURE_VOID.setItemMeta(itemMeta);
                 inv.setItem(31, STRUCTURE_VOID);
             }else{
+                itemMeta.setDisplayName(MasterMessageLocated(player, Messages.Inventory_SelectKitFavorite));
+                STRUCTURE_VOID.setItemMeta(itemMeta);
                 inv.setItem(30, CHEST_MINECART);
                 inv.setItem(32, STRUCTURE_VOID);
             }

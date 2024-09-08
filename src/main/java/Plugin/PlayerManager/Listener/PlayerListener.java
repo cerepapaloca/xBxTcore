@@ -9,6 +9,7 @@ import Plugin.Messages.Enum.Messages;
 import Plugin.PlayerManager.Model.PlayerDataGLobal;
 import Plugin.Duel.Model.Request;
 import Plugin.PlayerManager.PlayerManagerSection;
+import Plugin.Utils.ColorUtils;
 import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
 import org.bukkit.*;
@@ -49,7 +50,10 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void AsyncPlayerChat(@NotNull AsyncPlayerChatEvent event) {
-        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', event.getPlayer().getName() + " » &7" + event.getMessage()));
+        String prefix = ColorUtils.applyGradient(Utils.getPlayerPrefix(event.getPlayer()).replace("&l", ""), "l");
+        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&',
+                prefix + "&r "
+                + event.getPlayer().getName() + " » &7" + event.getMessage()));
         event.setMessage(ChatColor.translateAlternateColorCodes('&', event.getMessage()));
         event.setCancelled(true);
     }

@@ -167,6 +167,34 @@ public class ColorUtils {
         return gradientText.toString();
     }
 
+    public static @NotNull String applyGradient(String input, String in) {
+        input = input.replace("/","");
+        // Procesar etiquetas de formato (negrita, cursiva)
+
+        // Extraer colores de degradado y texto
+        String startTag = input.substring(input.indexOf("<#") + 2, input.indexOf(">")).replace("#", "");
+        String endTag = input.substring(input.lastIndexOf("<#") + 2, input.lastIndexOf(">")).replace("#", "");
+        String text = input.substring(input.indexOf(">") + 1, input.lastIndexOf("<"));
+
+        int startColor = Integer.parseInt(startTag, 16);
+        int endColor = Integer.parseInt(endTag, 16);
+
+        int length = text.length();
+        StringBuilder gradientText = new StringBuilder();
+
+        for (int i = 0; i < length; i++) {
+            float ratio = (float) i / (length - 1);
+            int red = (int) ((1 - ratio) * ((startColor >> 16) & 0xFF) + ratio * ((endColor >> 16) & 0xFF));
+            int green = (int) ((1 - ratio) * ((startColor >> 8) & 0xFF) + ratio * ((endColor >> 8) & 0xFF));
+            int blue = (int) ((1 - ratio) * (startColor & 0xFF) + ratio * (endColor & 0xFF));
+            String hexColor = String.format("#%02x%02x%02x", red, green, blue);
+
+            gradientText.append(ChatColor.of(hexColor)).append("&").append(in).append(text.charAt(i));
+        }
+
+        return gradientText.toString();
+    }
+
 
 
     public static ItemStack colorLeatherArmor(@NotNull ItemStack armor,@NotNull String hexColor) {
