@@ -21,16 +21,19 @@ public class CommandReloadDataPlayares implements CommandExecutor {
         this.plugin = plugin;
     }
     public boolean onCommand(@Nullable CommandSender sender,@Nullable Command cmd,@Nullable String label, String[] args) {
+        long time = System.currentTimeMillis();
         if(sender instanceof Player p){
             if(p.isOp()){
                 PlayerfileManager.playesfiles.reloadConfigs();
             }else{
                 p.sendMessage(MasterMessageLocated(p, Messages.Generic_NotOp));
-                Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',prefixConsole + ColorSuccess + "Se recargo los datos de los usuarios"));
+                Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',prefixConsole + ColorSuccess
+                        + "Se recargo los datos de los usuarios y tardo: " + (System.currentTimeMillis() - time)));
             }
         }else{
             PlayerfileManager.playesfiles.reloadConfigs();
-            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',prefixConsole + ColorSuccess + "Se recargo los datos de los usuarios"));
+            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',prefixConsole + ColorSuccess
+                    + "Se recargo los datos de los usuarios y tardo: " + (System.currentTimeMillis() - time)));
         }
 
         return false;

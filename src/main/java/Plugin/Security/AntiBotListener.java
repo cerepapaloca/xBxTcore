@@ -1,6 +1,5 @@
 package Plugin.Security;
 
-import Plugin.File.BLackList.BlackListIpManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
@@ -9,8 +8,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
+import static Plugin.File.BLackList.BlackListIpManager.blackListedIps;
 import static Plugin.File.FileManagerSection.getPlayerFileManager;
 import static Plugin.Messages.MessageManager.*;
 import static Plugin.Messages.MessageManager.ColorWarning;
@@ -28,17 +29,23 @@ public class AntiBotListener implements Listener {
     private final String messageKickConsole3 = ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorWarning + "Se le baneo ip del jugador " + Colorplayer + "%p%" + ColorWarning + " por posible ataque de bots");
 
 
-    @EventHandler(priority = EventPriority.LOW)
+    @EventHandler(priority = EventPriority.HIGH)
     public void AntiBot(AsyncPlayerPreLoginEvent event) {
 
         if(!SecuritySection.ActiveAntiBot)return;
 
-        if(BlackListIpManager.blackListedIps.contains(event.getAddress().toString())){
-            event.setLoginResult(AsyncPlayerPreLoginEvent.Result.KICK_OTHER);
-            event.setKickMessage(messageBlackListIp);
-            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorWarning + "Se Expulso por Ip al jugador: " + event.getName() + " y su ip: " + event.getAddress()));
-            return;
+        byte[] PlayerBytesIp = event.getAddress().getAddress();
+        long time = System.currentTimeMillis();
+        for (byte[] bytes : blackListedIps){
+            if (Arrays.equals(PlayerBytesIp, bytes)){
+                event.setLoginResult(AsyncPlayerPreLoginEvent.Result.KICK_OTHER);
+                event.setKickMessage(messageBlackListIp);
+                //Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorWarning + "Se Expulso por Ip al jugador: " + event.getName() + " y su ip: " + event.getAddress()));
+                return;
+            }
         }
+
+        Bukkit.getConsoleSender().sendMessage((System.currentTimeMillis() - time) + " ms");
 
         if (getPlayerFileManager().namesPlayres.contains(event.getName())) {
             if (!listAntiBot.containsKey(event.getName())) {
@@ -57,7 +64,7 @@ public class AntiBotListener implements Listener {
                 Bukkit.getConsoleSender().sendMessage(messageKickConsole2.replace("%p%", name));
                 if (listAntiBotBan.containsKey(event.getName())) {
                     if (listAntiBotBan.get(event.getName()) >= 4) {
-                        BlackListIpManager.AddIpBlackList(event.getAddress());
+                        blackListedIps.add(PlayerBytesIp);
                         Bukkit.getConsoleSender().sendMessage(messageKickConsole3.replace("%p%", name));
                         listAntiBotBan.remove(event.getName());
                     }

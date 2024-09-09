@@ -1,5 +1,6 @@
 package Plugin.Commands.OnlyOp;
 
+import Plugin.File.BLackList.BlackListIpManager;
 import Plugin.File.FileManagerSection;
 import Plugin.Security.SecuritySection;
 import Plugin.xBxTcore;
@@ -12,6 +13,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import static Plugin.Messages.MessageManager.*;
+import static Plugin.Security.FireWall.updateFirewallRule;
 
 public class Commandxbxtcore implements CommandExecutor {
 
@@ -51,15 +53,18 @@ public class Commandxbxtcore implements CommandExecutor {
                 }
                 case "ip" -> {
                     switch (args[1]) {
-                        /*case "add" -> {
-
-                            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorSuccess + "Sistema antiBot Activo"));
+                        case "save" -> {
+                            BlackListIpManager.saveIpBlacklist();
+                            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorSuccess + "Se guardo las ips Correctamente"));
                             return true;
-                        }*/
+                        }
                         case "reload" -> {
                             FileManagerSection.getBlacklistIpManager().ReloadIpBlacklist();
                             Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorSuccess + "Lista negra recargada"));
                             return true;
+                        }
+                        case "update" -> {
+                            updateFirewallRule();
                         }
 
                     }

@@ -21,6 +21,9 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
@@ -307,6 +310,22 @@ public class Utils {
         return Material.STRUCTURE_VOID;
     }
 
+    public static void executeCommand(String command) {
+        ProcessBuilder processBuilder = new ProcessBuilder("cmd.exe", "/c", command);
+
+        try {
+            Process process = processBuilder.start();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Bukkit.getConsoleSender().sendMessage( ChatColor.translateAlternateColorCodes('&',prefixConsole + Colorinfo + "informe: " + line));
+            }
+            process.waitFor();
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static String getPlayerPrefix(Player player) {
         LuckPerms luckPerms = LuckPermsProvider.get();
         User user = luckPerms.getUserManager().getUser(player.getUniqueId());
@@ -316,6 +335,26 @@ public class Utils {
         }
 
         return null;
+    }
+
+    public static boolean isRunningAsAdmin() {
+        try {
+            // Ejecutar el comando "net session" que solo los administradores pueden usar
+            Process process = Runtime.getRuntime().exec("net session");
+
+            // Leer la salida del comando
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                // Procesar la salida
+            }
+
+            // Si el comando devuelve 0, el usuario tiene permisos de administrador
+            return process.waitFor() == 0;
+        } catch (Exception e) {
+            // Si el comando falla (acceso denegado o error), no se está ejecutando como administrador
+            return false;
+        }
     }
 
 }

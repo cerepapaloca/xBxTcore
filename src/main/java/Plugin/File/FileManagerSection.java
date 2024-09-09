@@ -24,7 +24,7 @@ public class FileManagerSection implements Section {
 
     @Override
     public void disable() {
-
+        BlackListIpManager.saveIpBlacklist();
     }
 
     @Override

@@ -118,10 +118,15 @@ public class xBxTcore extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&8/__/ /\\ __\\    &8\\|_______&f/__/ /\\ __\\       &f \\|__|       &e \\|__|     \\|__|/       \\|__|   "));
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&8|__|/ \\|__|       &8      &f|__|/ \\|__| "));
         Bukkit.getConsoleSender().sendMessage("");
-        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&3   ╔═══════════════════════════════════════════════════════════════════════════╗"));
-        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&3   ║                     &6xBxT Core Las Bases Del Servidor&3                      ║"));
-        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&3   ╚═══════════════════════════════════════════════════════════════════════════╝"));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&7   ╔═══════════════════════════════════════════════════════════════════════════╗"));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&7   ║                     &fxBxT Core Las Bases Del Servidor&7                      ║"));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&7   ╚═══════════════════════════════════════════════════════════════════════════╝"));
         Bukkit.getConsoleSender().sendMessage("");
+        if (Utils.isRunningAsAdmin()){
+            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',ColorSuccess +  "FireWall Activo"));
+        }else {
+            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',ColorWarning +  "FireWall Desactivado"));
+        }
     }
 
     private void MessageOFF(){
@@ -129,10 +134,11 @@ public class xBxTcore extends JavaPlugin {
     }
 
     private void register(Section section) {
+        long time = System.currentTimeMillis();
         if (getSectionByName(section.getName()) != null)
             throw new IllegalArgumentException("Section has already been registered " + section.getName());
         sections.add(section);
-        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorSuccess + "Se a Cargado: " + section.getName()));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', Colorinfo + section.getName() + ColorSuccess + " Ok"));
     }
 
     public void register(Listener... listeners) {
