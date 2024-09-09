@@ -3,6 +3,7 @@ package Plugin.Commands;
 import Plugin.Commands.OnlyOp.*;
 import Plugin.Commands.Tab.*;
 import Plugin.Commands.User.*;
+import Plugin.File.PlayerData.PlayerfileManager;
 import Plugin.Section;
 import Plugin.xBxTcore;
 
@@ -58,6 +59,7 @@ public class CommandSection implements Section {
         Objects.requireNonNull(plugin.getCommand("spectator")).setTabCompleter(new TabCompleterSpectator());
         Objects.requireNonNull(plugin.getCommand("debugkit")).setTabCompleter(new TabCompleterDebugKit());
         Objects.requireNonNull(plugin.getCommand("itemboxpvp")).setTabCompleter(new TabItemBoxpvp());
+        Objects.requireNonNull(plugin.getCommand("xbxtcore")).setTabCompleter(new TabxBxTcore());
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////
         Objects.requireNonNull(plugin.getCommand("sk")).setTabCompleter(new TabCompleterSaveKit());
         Objects.requireNonNull(plugin.getCommand("dk")).setTabCompleter(new TabCompleterDelKit());
@@ -80,7 +82,7 @@ public class CommandSection implements Section {
 
     @Override
     public void reloadConfig() {
-
+        PlayerfileManager.playesfiles.reloadConfigs();
     }
 
 }

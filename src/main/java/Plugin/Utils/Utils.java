@@ -310,7 +310,7 @@ public class Utils {
         return Material.STRUCTURE_VOID;
     }
 
-    public static void executeCommand(String command) {
+    public static void executeCommandCMD(String command) {
         ProcessBuilder processBuilder = new ProcessBuilder("cmd.exe", "/c", command);
 
         try {
@@ -318,7 +318,7 @@ public class Utils {
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line;
             while ((line = reader.readLine()) != null) {
-                Bukkit.getConsoleSender().sendMessage( ChatColor.translateAlternateColorCodes('&',prefixConsole + Colorinfo + "informe: " + line));
+                Bukkit.getConsoleSender().sendMessage( ChatColor.translateAlternateColorCodes('&',prefixConsole + Colorinfo + line));
             }
             process.waitFor();
         } catch (IOException | InterruptedException e) {

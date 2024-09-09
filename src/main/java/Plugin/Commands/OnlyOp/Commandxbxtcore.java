@@ -12,6 +12,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
+import static Plugin.File.BLackList.BlackListIpManager.RemoveIpBlackListAndSave;
 import static Plugin.Messages.MessageManager.*;
 import static Plugin.Security.FireWall.updateFirewallRule;
 
@@ -65,8 +69,18 @@ public class Commandxbxtcore implements CommandExecutor {
                         }
                         case "update" -> {
                             updateFirewallRule();
+                            return true;
                         }
 
+                        case "remove" -> {
+                            if(!(args.length == 3))return false;
+                            try {
+                                RemoveIpBlackListAndSave(InetAddress.getByName(args[2]));
+                            } catch (UnknownHostException e) {
+                                throw new RuntimeException(e);
+                            }
+                            return true;
+                        }
                     }
                 }
 

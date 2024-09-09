@@ -29,7 +29,7 @@ public class PlayerfileManager {
     public String namekitfavorite;
     public static PlayersFiles playesfiles;
     public HashMap<UUID, String> listPrefix;
-    public ArrayList<String> namesPlayres;
+    public HashSet<UUID> UuidsPlayres = new HashSet<>();
 
     public long daily;
     public long weekly;
@@ -46,7 +46,7 @@ public class PlayerfileManager {
         nameskitsglobal = new ArrayList<>();
         nameskitsboth = new ArrayList<>();
         listPrefix = new HashMap<>();
-        namesPlayres = new ArrayList<>();
+
         loadNamesPlayers();
     }
 
@@ -170,22 +170,11 @@ public class PlayerfileManager {
         }
     }
 
-    public String loadClanId(UUID uuid) {
-
-        if (listPrefix.containsKey(uuid)){
-            return listPrefix.get(uuid);
-        }else{
-            String prefix = getfile(uuid).getPlayerDataFile().getString("metadataplayer.clanId", "");
-            listPrefix.put(uuid,prefix);
-            return prefix;
-        }
-    }
-
     public void loadNamesPlayers() {
-        namesPlayres.clear();
+        UuidsPlayres.clear();
         for(PlayerFile playerFile : playesfiles.getConfigFiles()){
-            String name = playerFile.getPlayerDataFile().getString("metadataplayer.Name");
-            namesPlayres.add(name);
+            UUID uuid = UUID.fromString(playerFile.getPath().replace(".yml", ""));
+            UuidsPlayres.add(uuid);
         }
     }
 
@@ -290,14 +279,6 @@ public class PlayerfileManager {
             loadNamesPlayers();
             Objects.requireNonNull(Bukkit.getPlayer(uuid)).sendMessage(MasterMessageLocated(Objects.requireNonNull(Bukkit.getPlayer(uuid)),Messages.Others_NewPlayer));
         }
-    }
-
-    public void SaveClanId(UUID uuid, String prefix){
-        getfile(uuid).getPlayerDataFile().set("metadataplayer.clanId", null);
-        getfile(uuid).getPlayerDataFile().set("metadataplayer.clanId", prefix);
-        getfile(uuid).saveConfig();
-        listPrefix.remove(uuid);
-        getPlayerFileManager().reloadCustomConfig(uuid);
     }
 
     public void DeleteKitConfig(UUID uuid, String namekit){

@@ -24,7 +24,6 @@ public class BoxPvpSection implements Section {
     public void enable() {
         plugin.register(new ArmorBonusListener(plugin));
         plugin.register(new ItemBonusListener(plugin));
-        playerfileManager = new PlayerfileManager(plugin);
         autoFillsBox = new AutoFillsBox(plugin);
         zoneSafeBoxPvp = new ZoneSafeBoxPvp();
         itemManage = new ItemManage(plugin);
@@ -51,10 +50,6 @@ public class BoxPvpSection implements Section {
 
     public static AutoFillsBox getAutoFillsBox() {
         return autoFillsBox;
-    }
-
-    public static PlayerfileManager getPlayerfileManager() {
-        return playerfileManager;
     }
 
     public static ItemManage getItemManage() {

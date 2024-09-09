@@ -6,6 +6,7 @@ import org.bukkit.ChatColor;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.net.UnknownHostException;
@@ -34,8 +35,8 @@ public class BlackListIpManager {
                 if (obj != null) {
                     if (obj instanceof String ip) {
                         try {
-                            ipBlacklist.add(InetAddress.getByName(ip.replace("/","")));
-                            blackListedIps.add(InetAddress.getByName(ip.replace("/","")).getAddress());
+                            ipBlacklist.add(InetAddress.getByName(ip));
+                            blackListedIps.add(InetAddress.getByName(ip).getAddress());
                         }catch (UnknownHostException e) {
                             Bukkit.getLogger().warning(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorWarning + "La ip " + ip.replace("/","") + " esta mal y sea omitida"));
                             e.printStackTrace();
@@ -54,10 +55,17 @@ public class BlackListIpManager {
         saveIpBlacklist();
     }
 
-    public static void RemoveIpBlackList(InetAddress ip) {
-        blackListedIps.remove(ip.getAddress());
-        blackListIpFile.getBlackListIpFile().set("ipblacklist", blackListedIps);
-        blackListIpFile.saveConfig();
+    public static void RemoveIpBlackListAndSave(InetAddress ip) {
+        for (byte[] blackListedIp : blackListedIps) {
+            if (Arrays.equals(blackListedIp, ip.getAddress())) {
+                blackListedIps.remove(blackListedIp);
+                Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorSuccess + "Se elimino y " +
+                        "guardo la lista de ips. La ip: " + ip.getHostAddress()));
+                saveIpBlacklist();
+                return;
+            }
+        }
+        Bukkit.getConsoleSender().sendMessage("Nop");
     }
 
     public void ReloadIpBlacklist() {
@@ -71,14 +79,11 @@ public class BlackListIpManager {
         for (byte[] bytes : blackListedIps) {
             try {
                 InetAddress ip = InetAddress.getByAddress(bytes);
-                if (!saveBlackListedIps.contains(ip.toString())) {
-                    saveBlackListedIps.add(ip.toString());
-                }
+                saveBlackListedIps.add(ip.toString().replace("/", ""));
             }catch (UnknownHostException e) {
-                Bukkit.getLogger().warning(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorWarning + "Una Ip esta mal y sea omitida en auto save"));
+                Bukkit.getLogger().warning(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorWarning + "Una Ip esta mal y seta omitida"));
                 e.printStackTrace();
             }
-
         }
         blackListIpFile.getBlackListIpFile().set("ipblacklist", saveBlackListedIps);
         blackListIpFile.saveConfig();
