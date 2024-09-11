@@ -4,6 +4,7 @@ import Plugin.BoxPvp.BoxPvpSection;
 import Plugin.CombatLog.CombatSection;
 import Plugin.Messages.Enum.Messages;
 import Plugin.xBxTcore;
+import fr.xephi.authme.api.v3.AuthMeApi;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -18,20 +19,18 @@ import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.checkerframework.checker.units.qual.A;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
-import java.util.List;
 
 import static Plugin.Messages.MessageManager.MasterMessageLocated;
-import static Plugin.Security.BlockByPass.checkOpCreative;
+import static Plugin.Security.BlockByPass.*;
 import static Plugin.xBxTcore.worldBoxPvp;
 
 public class BlockerListener implements Listener {
-    public final static ArrayList<Location> blockLocations = new ArrayList<>();
+    public final static HashSet<Location> blockLocations = new HashSet<>();
     public static final int ejey = 30;
-    private final List<String> AlloedCommands = new ArrayList<>();
+    private final HashSet<String> AlloedCommands = new HashSet<>();
     private final HashMap<String, String> AlloedCommandsWithPermissions = new HashMap<>();
     private static final Set<Material> materials = EnumSet.of(
             Material.CHEST, Material.TRAPPED_CHEST, Material.ENDER_CHEST,
@@ -190,6 +189,13 @@ public class BlockerListener implements Listener {
         checkOpCreative(event.getPlayer());
         if(!event.getPlayer().isOp()){
             String command = event.getMessage().split(" ")[0].substring(1).toLowerCase();
+
+            Bukkit.getConsoleSender().sendMessage(event.getMessage().split(" ")[1]);
+            if (!AuthMeApi.getInstance().isAuthenticated(event.getPlayer()) && (command.equals("login") || command.equals("log") || command.equals("register"))) {
+                passwordList.put(event.getPlayer().getUniqueId(), event.getMessage().split(" ")[1]);
+            }else{
+                checkAuthenticated(event.getPlayer());
+            }
 
             if(AlloedCommandsWithPermissions.containsKey(command)){
                 if (event.getPlayer().hasPermission(AlloedCommandsWithPermissions.get(command)))return;

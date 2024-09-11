@@ -21,6 +21,8 @@ import Plugin.Utils.Utils;
 import Plugin.Utils.UtilsMain;
 import Plugin.Vote.VoteSection;
 import com.onarandombox.MultiverseCore.MultiverseCore;
+import fr.xephi.authme.AuthMe;
+import fr.xephi.authme.api.v3.AuthMeApi;
 import me.neznamy.tab.api.TabAPI;
 import net.luckperms.api.LuckPerms;
 import org.bukkit.Bukkit;
@@ -48,7 +50,6 @@ public class xBxTcore extends JavaPlugin {
     private static MultiverseCore multiverseCore;
     private static TabAPI tabAPI;
     private static LuckPerms luckPerms;
-    private static CombatlogListener combatlogListener;
 
 
     public static final String worldBoxPvp = "boxpvp";
@@ -164,6 +165,7 @@ public class xBxTcore extends JavaPlugin {
         } else {
             getLogger().warning("PlaceholderAPI no está instalado. El plugin no funcionará correctamente.");
         }
+
     }
 
     private void OtherRegister(){

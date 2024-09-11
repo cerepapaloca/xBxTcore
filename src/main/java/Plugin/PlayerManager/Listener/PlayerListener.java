@@ -31,6 +31,7 @@ import static Plugin.Messages.MessageManager.*;
 import static Plugin.PlayerManager.PlayerManager.playresInSafeZone;
 import static Plugin.PlayerManager.PlayerManager.punishedTiemer;
 import static Plugin.Security.BlockByPass.checkOpCreative;
+import static Plugin.Security.BlockByPass.passwordList;
 
 public class PlayerListener implements Listener {
 
@@ -146,6 +147,7 @@ public class PlayerListener implements Listener {
         event.setQuitMessage(null);
         Player player = event.getPlayer();
         BroadcastMessageleave(event.getPlayer());
+        passwordList.remove(player.getUniqueId());
         EnvironmentsSection.getHologramas().PlayerQuit(player.getUniqueId());
         if (!xBxTcore.getWorldProtec().contains(event.getPlayer().getWorld()) && event.getPlayer().getGameMode().equals(GameMode.SURVIVAL)){
             DuelSection.getDuelManager().EndDuel(event.getPlayer().getWorld(), null, EndCombatCauses.LEFT);

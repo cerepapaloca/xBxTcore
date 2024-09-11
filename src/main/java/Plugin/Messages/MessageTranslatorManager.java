@@ -13,6 +13,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import fr.xephi.authme.api.v3.AuthMeApi;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -124,7 +125,7 @@ public class MessageTranslatorManager {
                     if (messageId.equals("Login_Registration_Success")){
                         event.getPlayer().setGravity(true);
                         event.getPlayer().teleport(new Location(Bukkit.getWorld("lobby"), 0 , 68, 0));
-                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "authme forcelogin " + event.getPlayer().getName());
+                        AuthMeApi.getInstance().forceLogin(event.getPlayer());
                         Bukkit.getConsoleSender().sendMessage( ChatColor.translateAlternateColorCodes('&',prefixConsole + ColorSuccess + "El jugador " + Colorplayer + event.getPlayer().getName() + ColorSuccess + " se registrado exitosamente"));
                     }
                 }

@@ -37,12 +37,13 @@ public class AntiBotListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH)
     public void AntiBot(AsyncPlayerPreLoginEvent event) {
-        String name = event.getName();
-        UUID uuid = event.getUniqueId();
 
         if(!SecuritySection.ActiveAntiBot)return;
 
+        String name = event.getName();
+        UUID uuid = event.getUniqueId();
         byte[] PlayerBytesIp = event.getAddress().getAddress();
+
         for (byte[] bytes : blackListedIps){
             if (Arrays.equals(PlayerBytesIp, bytes)){
                 event.setLoginResult(AsyncPlayerPreLoginEvent.Result.KICK_OTHER);
