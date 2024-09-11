@@ -12,13 +12,17 @@ import static Plugin.Messages.Messages.MessagesES.esMessages;
 
 public class MessageManager {
 
-    public static String prefixKick = "&6[&8&lxB&f&lxT &e&lPvP&6]&r \n";
-    public static String prefixConsole = "&6[&8&lxB&f&lxT &eConsoler&6]&r ";
+    public static String prefixKick = "&6[&0&lx&8&lB&7&lx&f&lT &e&lPvP&6]&r \n";
+    public static String prefixConsole = "&6[&8xB&7x&fT &eConsoler&6]&r ";
     public static String prefix = "&6[" + ChatColor.of("#61CAFD") + "&lx" + ChatColor.of("#7CAFEC") + "&lB" + ChatColor.of("#9893DC")
             + "&lx" + ChatColor.of("#B378CB") + "&lT" + ChatColor.of("#FDC661") + " &lC" + ChatColor.of("#FEAA41") + "&lo" +
             ChatColor.of("#FE8F22") + "&lr" + ChatColor.of("#FF7302") + "&le" + "&6]&r ";
     public static String prefixDuel = "&8[&4⚔&8] ";
     public static String prefixDied = "&8[&4☠&8] ";
+    public static String prefixTeam = "&6[" + ChatColor.of("#00D2DB") + "&lT" +ChatColor.of("#23E1D9") + "&le" +ChatColor.of("#47F0D7") +
+            "&la" +ChatColor.of("#6AFFD5") + "&lm" + "&6]&r ";
+    public static String prefixLogin = "&6[" + ChatColor.of("#0BFB08") + "&lL" +ChatColor.of("#40FC31") + "&lo" +ChatColor.of("#75FC5B") +
+            "&lg" +ChatColor.of("#AAFD84") + "&li" +ChatColor.of("#DFFDAD") + "&ln" + "&6]&r ";
 
     public static String ColorError = "&c";
     public static String ColorSuccess = "&a";

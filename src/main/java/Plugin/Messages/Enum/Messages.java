@@ -1,5 +1,7 @@
 package Plugin.Messages.Enum;
 
+import Plugin.Inventory.Models.KitData;
+
 public enum Messages {
     //Generico
     Generic_NotOp,
@@ -288,5 +290,6 @@ public enum Messages {
     Others_OpNotAuthized,
     //kick
     Kick_SpamCommand,
-    Kick_AlreadyConnected;
+    Kick_AlreadyConnected,
+    Kick_NotAuthenticated,
 }

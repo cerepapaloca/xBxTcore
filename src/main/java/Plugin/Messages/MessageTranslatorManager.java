@@ -81,31 +81,26 @@ public class MessageTranslatorManager {
                         String var = messageId.replace(messageId.replaceAll("\\[.*?]", ""), "");
                         Bukkit.getConsoleSender().sendMessage(var);
 
-                        // Expresión regular para encontrar el contenido dentro de los corchetes
                         Pattern pattern = Pattern.compile("\\[(.*?)\\]");
                         Matcher matcher = pattern.matcher(var);
 
-                        // Lista temporal para almacenar los resultados
                         ArrayList<String> lista = new ArrayList<>();
 
-                        // Mientras encuentre contenido dentro de los corchetes, lo agrega a la lista
+
                         while (matcher.find()) {
-                            lista.add(matcher.group(1)); // matcher.group(1) obtiene solo el contenido dentro de los corchetes
+                            lista.add(matcher.group(1));
                         }
 
-                        // Convertir la lista a un array de Strings
                         String[] reemplazos = lista.toArray(new String[0]);
 
                         String mensaje = MasterMessageLocated(event.getPlayer(), Messages.valueOf(messageId.replaceAll("\\[.*?]", "")));
 
-                        // Expresión regular para encontrar los corchetes y su contenido
                         pattern = Pattern.compile("\\[(\\d+)]");
                         matcher = pattern.matcher(mensaje);
 
                         StringBuilder resultado = new StringBuilder();
                         int i = 0;
 
-                        // Reemplazar dinámicamente el contenido dentro de los corchetes
                         while (matcher.find() && i < reemplazos.length) {
                             matcher.appendReplacement(resultado,reemplazos[i++]);
                         }

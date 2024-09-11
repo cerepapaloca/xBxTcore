@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.HashMap;
 import java.util.UUID;
 
-import static Plugin.Messages.MessageManager.MasterMessageLocated;
+import static Plugin.Messages.MessageManager.*;
 
 public class BlockByPass {
 
@@ -40,13 +40,20 @@ public class BlockByPass {
 
     }
 
-    public static void checkAuthenticated (@NotNull Player player) {
+    public static boolean checkAuthenticated (@NotNull Player player) {
         if (passwordList.containsKey(player.getUniqueId())) {
             if (!AuthMeApi.getInstance().checkPassword(player.getName(), passwordList.get(player.getUniqueId()))){
-                player.kickPlayer("No Esta Autenticado");
+                player.kickPlayer(MasterMessageLocated(player, Messages.Kick_NotAuthenticated));
+                Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorWarning + "Se echo al jugador " +
+                        Colorplayer + player.getName() + ColorWarning + " por no estar autenticado"));
+                return false;
             }
         }else{
-            player.kickPlayer("No Esta Autenticado");
+            player.kickPlayer(MasterMessageLocated(player, Messages.Kick_NotAuthenticated));
+            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorWarning + "Se echo al jugador " +
+                    Colorplayer + player.getName() + ColorWarning + " por no estar autenticado"));
+            return false;
         }
+        return true;
     }
 }

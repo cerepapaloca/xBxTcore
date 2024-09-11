@@ -153,7 +153,7 @@ public class Hologramas{
 
     public void createKillBoard(Location location) {
         ArmorStand armorStand = (ArmorStand) Objects.requireNonNull(location.getWorld()).spawnEntity(location, EntityType.ARMOR_STAND);
-        armorStand.setCustomName(ChatColor.translateAlternateColorCodes('&', "&b<--&c&lTop Kills&r&b-->"));
+        armorStand.setCustomName(ChatColor.translateAlternateColorCodes('&', "&b<--&c&lTop Kills De los Jugadores OnLine&r&b-->"));
         armorStand.setCustomNameVisible(true);
         armorStand.setInvisible(true);
         armorStand.setGravity(false);

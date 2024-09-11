@@ -190,15 +190,22 @@ public class BlockerListener implements Listener {
         if(!event.getPlayer().isOp()){
             String command = event.getMessage().split(" ")[0].substring(1).toLowerCase();
 
-            Bukkit.getConsoleSender().sendMessage(event.getMessage().split(" ")[1]);
-            if (!AuthMeApi.getInstance().isAuthenticated(event.getPlayer()) && (command.equals("login") || command.equals("log") || command.equals("register"))) {
-                passwordList.put(event.getPlayer().getUniqueId(), event.getMessage().split(" ")[1]);
+            if (!AuthMeApi.getInstance().isAuthenticated(event.getPlayer()) && (command.equals("login") || command.equals("log") || command.equals("register") || command.equals("reg"))) {
+                String password = event.getMessage().split(" ")[1];
+                if (password == null)return;
+                passwordList.put(event.getPlayer().getUniqueId(), password);
             }else{
-                checkAuthenticated(event.getPlayer());
+                if(!checkAuthenticated(event.getPlayer())){
+                    event.setCancelled(true);
+                    return;
+                }
             }
 
             if(AlloedCommandsWithPermissions.containsKey(command)){
-                if (event.getPlayer().hasPermission(AlloedCommandsWithPermissions.get(command)))return;
+                if (!event.getPlayer().hasPermission(AlloedCommandsWithPermissions.get(command))){
+                    event.setCancelled(true);
+                    return;
+                }
             }
 
             if(!AlloedCommands.contains(command)){

@@ -44,7 +44,7 @@ import java.util.concurrent.TimeUnit;
 import static Plugin.File.FileManagerSection.getPlayerFileManager;
 import static Plugin.Messages.MessageManager.*;
 
-public class xBxTcore extends JavaPlugin {
+public final class xBxTcore extends JavaPlugin {
 
     private static PlayerfileManager playerfileManager;
     private static MultiverseCore multiverseCore;
@@ -135,7 +135,6 @@ public class xBxTcore extends JavaPlugin {
     }
 
     private void register(Section section) {
-        long time = System.currentTimeMillis();
         if (getSectionByName(section.getName()) != null)
             throw new IllegalArgumentException("Section has already been registered " + section.getName());
         sections.add(section);
