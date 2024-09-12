@@ -201,7 +201,7 @@ public class CommandDuel implements CommandExecutor {
     public void denyRequest(Player denier, UUID uuidResquest, Boolean messges) {
         if (pendingRequests.containsKey(uuidResquest)) {
             Request request = pendingRequests.get(uuidResquest);
-            Bukkit.getConsoleSender().sendMessage("falta eliminacion jugadores " + request.getPlayers().size() + "/" + request.getAcceptPlayers().size());
+
             Player requester = Bukkit.getPlayer(request.getRequesterId());
             if (requester != null) {
                 request.getAcceptPlayers().remove(denier);
@@ -228,6 +228,7 @@ public class CommandDuel implements CommandExecutor {
     private void teleportDuel(Request request){
         if (!(request.getPlayers().size() == request.getAcceptPlayers().size())){
             Broadcast(request);
+            Bukkit.getConsoleSender().sendMessage("falta eliminacion jugadores " + request.getPlayers().size() + "/" + request.getAcceptPlayers().size());
             Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',prefixConsole + Colorinfo + "falta jugadores " + request.getPlayers().size() + "/" + request.getAcceptPlayers().size()));
             return;
         }

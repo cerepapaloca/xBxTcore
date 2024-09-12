@@ -50,8 +50,7 @@ public final class xBxTcore extends JavaPlugin {
     private static MultiverseCore multiverseCore;
     private static TabAPI tabAPI;
     private static LuckPerms luckPerms;
-
-
+    public static xBxTcore plugin;
     public static final String worldBoxPvp = "boxpvp";
 
     public static String bedrockPrefix = ".";
@@ -65,6 +64,7 @@ public final class xBxTcore extends JavaPlugin {
     @Override
     public void onEnable() {
         long timeStaringtotal = System.currentTimeMillis();
+        plugin = this;
         OtherRegister();
         APIs();
         register(new FileManagerSection(this));
@@ -183,6 +183,10 @@ public final class xBxTcore extends JavaPlugin {
     }
     ///////////////////////////////////////////////////
     ///////////////////////////////////////////////////
+
+    public static xBxTcore getInstance(){
+        return plugin;
+    }
 
     public static MultiverseCore getMultiverseCore() {
         return multiverseCore;

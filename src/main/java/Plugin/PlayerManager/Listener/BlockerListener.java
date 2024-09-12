@@ -108,14 +108,15 @@ public class BlockerListener implements Listener {
                 double tier = 0;
                 ItemStack item = event.getPlayer().getInventory().getItemInMainHand();
                 if (item.getItemMeta() != null) {
-                    tier = (double) item.getItemMeta().getPersistentDataContainer().get(new NamespacedKey(plugin, "tier"), PersistentDataType.INTEGER);
-                    tier = (tier*3)/100;
+                    tier = (double) item.getItemMeta().getPersistentDataContainer().getOrDefault(new NamespacedKey(plugin, "tier"), PersistentDataType.INTEGER, -1);
+                    if(tier != -1){
+                        tier = (tier*3)/100;
+                        if (i < tier) {
+                            BoxPvpSection.getItemManage().AddItemMine(event.getPlayer(), event.getBlock().getType());
+                        }
+                    }
                 }
                 BoxPvpSection.getItemManage().AddItemMine(event.getPlayer(), event.getBlock().getType());
-                if (i < tier) {
-                    BoxPvpSection.getItemManage().AddItemMine(event.getPlayer(), event.getBlock().getType());
-                }
-
                 return;
             }
             if (blockLocations.contains(event.getBlock().getLocation())) {

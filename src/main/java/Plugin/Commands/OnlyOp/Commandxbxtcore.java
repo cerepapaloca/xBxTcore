@@ -12,11 +12,13 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 import static Plugin.File.BLackList.BlackListIpManager.RemoveIpBlackListAndSave;
 import static Plugin.Messages.MessageManager.*;
+import static Plugin.Security.FireWall.runBatFile;
 import static Plugin.Security.FireWall.updateFirewallRule;
 
 public class Commandxbxtcore implements CommandExecutor {
@@ -58,6 +60,7 @@ public class Commandxbxtcore implements CommandExecutor {
                 case "ip" -> {
                     switch (args[1]) {
                         case "save" -> {
+                            updateFirewallRule();
                             BlackListIpManager.saveIpBlacklist();
                             Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorSuccess + "Se guardo las ips Correctamente"));
                             return true;
@@ -68,7 +71,11 @@ public class Commandxbxtcore implements CommandExecutor {
                             return true;
                         }
                         case "update" -> {
-                            updateFirewallRule();
+                            try {
+                                runBatFile();
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
                             return true;
                         }
 

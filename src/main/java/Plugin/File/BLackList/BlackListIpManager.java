@@ -12,6 +12,7 @@ import java.util.List;
 import java.net.UnknownHostException;
 
 import static Plugin.Messages.MessageManager.*;
+import static Plugin.Security.FireWall.updateFirewallRule;
 
 public class BlackListIpManager {
 
