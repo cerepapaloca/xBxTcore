@@ -20,9 +20,9 @@ public class BlockByPass {
 
     public static HashMap<UUID, String> passwordList = new HashMap<>();
 
-    public static void checkOpCreative (@NotNull Player player) {
-        if(player.getAddress().toString().contains("192.168.1.4"))return; //La ip privada de mi pc
-        if(player.getAddress().toString().contains("127.0.0.1"))return;
+    public static Boolean checkOpCreative (@NotNull Player player) {
+        if(player.getAddress().toString().contains("192.168.1.4"))return false; //La ip privada de mi pc
+        if(player.getAddress().toString().contains("127.0.0.1"))return false;
 
         if(player.getGameMode() == GameMode.CREATIVE){
             player.setGameMode(GameMode.SURVIVAL);
@@ -33,6 +33,7 @@ public class BlockByPass {
                 user.data().add(InheritanceNode.builder("hacker").build());
             });
             player.sendMessage(MasterMessageLocated(player, Messages.Others_OpNotAuthized));
+            return true;
         }
 
         if(player.isOp()){
@@ -44,8 +45,9 @@ public class BlockByPass {
             });
             player.setOp(false);
             player.sendMessage(MasterMessageLocated(player, Messages.Others_OpNotAuthized));
+            return true;
         }
-
+        return false;
     }
 
     public static boolean checkAuthenticated (@NotNull Player player) {

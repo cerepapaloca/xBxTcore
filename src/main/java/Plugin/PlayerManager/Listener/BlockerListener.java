@@ -187,33 +187,36 @@ public class BlockerListener implements Listener {
 
     @EventHandler
     public void PlayerCommandPreprocess(@NotNull PlayerCommandPreprocessEvent event) {
-        checkOpCreative(event.getPlayer());
-        if(!event.getPlayer().isOp()){
-            String command = event.getMessage().split(" ")[0].substring(1).toLowerCase();
+        if (!checkOpCreative(event.getPlayer())){
+            if(!event.getPlayer().isOp()){
+                String command = event.getMessage().split(" ")[0].substring(1).toLowerCase();
 
-            if (!AuthMeApi.getInstance().isAuthenticated(event.getPlayer()) && (command.equals("login") || command.equals("log") || command.equals("register") || command.equals("reg"))) {
-                if (event.getMessage().split(" ").length == 0)return;
+                if (!AuthMeApi.getInstance().isAuthenticated(event.getPlayer()) && (command.equals("login") || command.equals("log") || command.equals("register") || command.equals("reg"))) {
+                    if (event.getMessage().split(" ").length == 0)return;
 
-                String password = event.getMessage().split(" ")[1];
-                if (password == null)return;
-                passwordList.put(event.getPlayer().getUniqueId(), password);
-            }else{
-                if(!checkAuthenticated(event.getPlayer())){
+                    String password = event.getMessage().split(" ")[1];
+                    if (password == null)return;
+                    passwordList.put(event.getPlayer().getUniqueId(), password);
+                }else{
+                    if(!checkAuthenticated(event.getPlayer())){
+                        event.setCancelled(true);
+                        return;
+                    }
+                }
+
+                if(AlloedCommandsWithPermissions.containsKey(command)){
+                    if (event.getPlayer().hasPermission(AlloedCommandsWithPermissions.get(command))){
+                        return;
+                    }
+                }
+
+                if(!AlloedCommands.contains(command)){
                     event.setCancelled(true);
-                    return;
+                    event.getPlayer().sendMessage(MasterMessageLocated(event.getPlayer(), Messages.Generic_NotAllowed));
                 }
             }
-
-            if(AlloedCommandsWithPermissions.containsKey(command)){
-                if (event.getPlayer().hasPermission(AlloedCommandsWithPermissions.get(command))){
-                    return;
-                }
-            }
-
-            if(!AlloedCommands.contains(command)){
-                event.setCancelled(true);
-                event.getPlayer().sendMessage(MasterMessageLocated(event.getPlayer(), Messages.Generic_NotAllowed));
-            }
+        }else{
+            event.setCancelled(true);
         }
     }
 

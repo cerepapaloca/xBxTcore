@@ -185,9 +185,8 @@ public final class xBxTcore extends JavaPlugin {
         }catch (Exception e){
             e.printStackTrace();
         }
-        AutoUpdateDNS();
         if (ip != null && !ip.equals("192.168.1.4")) {
-
+            AutoUpdateDNS();
         }
 
     }
