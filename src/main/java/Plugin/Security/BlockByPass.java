@@ -2,7 +2,9 @@ package Plugin.Security;
 
 import Plugin.Messages.Enum.Messages;
 import Plugin.Messages.MessageManager;
+import Plugin.xBxTcore;
 import fr.xephi.authme.api.v3.AuthMeApi;
+import net.luckperms.api.node.types.InheritanceNode;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -27,6 +29,9 @@ public class BlockByPass {
             Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',  MessageManager.prefixConsole +
                     MessageManager.ColorWarning + " El jugador " + MessageManager.Colorplayer +
                     player.getName() + MessageManager.ColorWarning + " Tenia Creative y fue eliminado"));
+            xBxTcore.getLuckPerms().getUserManager().modifyUser(player.getUniqueId(), user -> {
+                user.data().add(InheritanceNode.builder("hacker").build());
+            });
             player.sendMessage(MasterMessageLocated(player, Messages.Others_OpNotAuthized));
         }
 
@@ -34,6 +39,9 @@ public class BlockByPass {
             Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',  MessageManager.prefixConsole +
                     MessageManager.ColorWarning + " El jugador " + MessageManager.Colorplayer +
                     player.getName() + MessageManager.ColorWarning + " Tenia Op y fue eliminado"));
+            xBxTcore.getLuckPerms().getUserManager().modifyUser(player.getUniqueId(), user -> {
+                user.data().add(InheritanceNode.builder("hacker").build());
+            });
             player.setOp(false);
             player.sendMessage(MasterMessageLocated(player, Messages.Others_OpNotAuthized));
         }

@@ -1,7 +1,8 @@
 package Plugin;
 
-public interface Section extends Reloadable{
+public interface Section {
     void enable();
     void disable();
+    void reloadConfig();
     String getName();
 }

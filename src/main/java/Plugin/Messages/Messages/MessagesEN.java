@@ -304,5 +304,6 @@ public record MessagesEN() {
         enMessages.put(Kick_SpamCommand,prefixKick + Colorinfo + "Kicked out for command spam");
         enMessages.put(Kick_AlreadyConnected,prefixKick  + Colorinfo + "This user is already logged in");
         enMessages.put(Kick_NotAuthenticated,prefixKick  + Colorinfo + "A discrepancy was detected in your authentication, please log in again.");
+        enMessages.put(Kick_Cheat,prefixKick + Colorinfo + "Hacks are not allowed in the PVP box, but in FFA they are.");
     }
 }

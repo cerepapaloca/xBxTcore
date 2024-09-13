@@ -2,6 +2,7 @@ package Plugin.Commands.OnlyOp;
 
 import Plugin.File.BLackList.BlackListIpManager;
 import Plugin.File.FileManagerSection;
+import Plugin.Messages.Enum.Messages;
 import Plugin.Security.SecuritySection;
 import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
@@ -54,9 +55,20 @@ public class Commandxbxtcore implements CommandExecutor {
 
                     }
                 }
-                default -> {
-                    return false;
+
+                case "ac" -> {
+                    switch (args[1]) {
+                        case "kick" -> {
+                            if(!(args.length == 3))return false;
+                            Player player = Bukkit.getPlayer(args[2]);
+                            if(player == null)return false;
+                            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',prefixConsole + ColorSuccess + "Se Echo al jugador por hacks"));
+                            player.kickPlayer(MasterMessageLocated(player, Messages.Kick_Cheat));
+                            return true;
+                        }
+                    }
                 }
+
                 case "ip" -> {
                     switch (args[1]) {
                         case "save" -> {
@@ -78,7 +90,6 @@ public class Commandxbxtcore implements CommandExecutor {
                             }
                             return true;
                         }
-
                         case "remove" -> {
                             if(!(args.length == 3))return false;
                             try {
@@ -90,7 +101,9 @@ public class Commandxbxtcore implements CommandExecutor {
                         }
                     }
                 }
-
+                default -> {
+                    return false;
+                }
             }
         }
         return false;

@@ -17,6 +17,7 @@ public class TabxBxTcore implements TabCompleter {
         List<String> argsTab = new ArrayList<>();
         argsTab.add("ip");
         argsTab.add("antibot");
+        argsTab.add("ac");
         List<String> argsIp = new ArrayList<>();
         argsIp.add("reload");
         argsIp.add("save");

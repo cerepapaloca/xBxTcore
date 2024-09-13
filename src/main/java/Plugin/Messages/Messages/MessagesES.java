@@ -304,5 +304,6 @@ public record MessagesES() {
         esMessages.put(Kick_SpamCommand,prefixKick  + Colorinfo + "Echado por spam de comando");
         esMessages.put(Kick_AlreadyConnected,prefixKick  + Colorinfo + "Este Usuario ya esta conectado");
         esMessages.put(Kick_NotAuthenticated,prefixKick  + Colorinfo + "Se detecto una discrepancia en su authentication, por favor vuele a iniciar sesión");
+        esMessages.put(Kick_Cheat,prefixKick + Colorinfo + "No se permite hacks en el box pvp, pero en el FFA si");
     }
 }

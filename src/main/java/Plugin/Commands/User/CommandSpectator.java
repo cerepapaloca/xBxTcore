@@ -48,7 +48,14 @@ public class CommandSpectator implements CommandExecutor {
                         p.sendMessage(MasterMessageLocated(p, Messages.SpectatorMode_NotFoundWorld));
                     }
                 }else{
-                    p.sendMessage(MasterMessageLocated(p, Messages.SpectatorMode_SpectatorError));
+                    if(p.getGameMode() == GameMode.SPECTATOR){
+                        p.setGameMode(GameMode.SURVIVAL);
+                        p.teleport(Objects.requireNonNull(Bukkit.getWorld("lobby")).getSpawnLocation());
+                    }else {
+                        p.setGameMode(GameMode.SPECTATOR);
+                        Utils.ClickExecuteCommand("lobby", Messages.SpectatorMode_SpectatorSuccess, p);
+                    }
+
                 }
             }else{
                 p.sendMessage(MasterMessageLocated(p, Messages.Generic_InArea));

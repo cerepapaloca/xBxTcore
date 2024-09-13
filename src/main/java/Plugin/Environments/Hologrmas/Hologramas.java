@@ -86,7 +86,8 @@ public class Hologramas{
     }
 
     public void createPvPBoard(Location location) {
-        textholograms.add(ChatColor.translateAlternateColorCodes('&', Colorinfo + "<---" + Colorplayer + "El PvP Es Aquí!!" + Colorinfo + "--->"));
+        textholograms.add(ChatColor.translateAlternateColorCodes('&', Colorinfo + "<---" + "&a✔ Se Permite Hacks Aquí!! ✔" + Colorinfo + "--->"));
+        textholograms.add(ChatColor.translateAlternateColorCodes('&', Colorinfo + "<---" + Colorplayer + "El FFA Es Aquí!!" + Colorinfo + "--->"));
         textholograms.add(ChatColor.translateAlternateColorCodes('&', Colorinfo + "<---" + Colorplayer + " ↓   ↓   ↓ " + Colorinfo + "--->"));
         createListArmorStand(textholograms, location, textholograms.size());
     }
@@ -104,7 +105,7 @@ public class Hologramas{
 
     public void createInfoBoxPvP1(Location location) {
         textholograms.add(ChatColor.translateAlternateColorCodes('&', Colorinfo + "<---" + Colorplayer + "Advertencia" + Colorinfo + "--->"));
-        textholograms.add(ChatColor.translateAlternateColorCodes('&', Colorinfo + "En este modo de juego se permite uso hack pero no de dupes"));
+        textholograms.add(ChatColor.translateAlternateColorCodes('&', Colorinfo + "En este modo de juego no permite uso hack ni de dupes"));
         createListArmorStand(textholograms, location ,textholograms.size());
     }
 
@@ -122,6 +123,7 @@ public class Hologramas{
     }
 
     public void createBoxPvp(Location location) {
+        textholograms.add(ChatColor.translateAlternateColorCodes('&', Colorinfo + "<---" + "&c\uD83D\uDEAB No Permite Hacks Aquí!! \uD83D\uDEAB" + Colorinfo + "--->"));
         textholograms.add(ChatColor.translateAlternateColorCodes('&', Colorinfo + "<---" + Colorplayer + "El BOXPvP Es Aquí!!" + Colorinfo + "--->"));
         textholograms.add(ChatColor.translateAlternateColorCodes('&', Colorinfo + "<---" + Colorplayer + " ↓   ↓   ↓ " + Colorinfo + "--->"));
         createListArmorStand(textholograms, location ,textholograms.size());
@@ -253,7 +255,7 @@ public class Hologramas{
 
     public void updateHologramUser() {
         ArmorStand armorStand = armorStandsUser.get(1);
-        armorStand.setCustomName(ChatColor.translateAlternateColorCodes('&', "&eNumber of unique users:&b " + PlayerfileManager.playesfiles.getConfigFiles().size()));
+        armorStand.setCustomName(ChatColor.translateAlternateColorCodes('&', "&eNumero de usuarios unicos:&b " + PlayerfileManager.playesfiles.getConfigFiles().size()));
     }
 
     public void ResetKills(UUID playerUUID){

@@ -192,6 +192,8 @@ public class BlockerListener implements Listener {
             String command = event.getMessage().split(" ")[0].substring(1).toLowerCase();
 
             if (!AuthMeApi.getInstance().isAuthenticated(event.getPlayer()) && (command.equals("login") || command.equals("log") || command.equals("register") || command.equals("reg"))) {
+                if (event.getMessage().split(" ").length == 0)return;
+
                 String password = event.getMessage().split(" ")[1];
                 if (password == null)return;
                 passwordList.put(event.getPlayer().getUniqueId(), password);
@@ -203,8 +205,7 @@ public class BlockerListener implements Listener {
             }
 
             if(AlloedCommandsWithPermissions.containsKey(command)){
-                if (!event.getPlayer().hasPermission(AlloedCommandsWithPermissions.get(command))){
-                    event.setCancelled(true);
+                if (event.getPlayer().hasPermission(AlloedCommandsWithPermissions.get(command))){
                     return;
                 }
             }

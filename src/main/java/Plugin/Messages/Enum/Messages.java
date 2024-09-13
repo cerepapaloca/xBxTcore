@@ -292,4 +292,6 @@ public enum Messages {
     Kick_SpamCommand,
     Kick_AlreadyConnected,
     Kick_NotAuthenticated,
+    Kick_Cheat,
+
 }

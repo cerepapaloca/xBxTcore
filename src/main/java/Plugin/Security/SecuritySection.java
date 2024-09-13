@@ -16,6 +16,7 @@ public class SecuritySection implements Section {
     @Override
     public void enable() {
         plugin.register(new AntiBotListener());
+        plugin.register(new GrimAC());
         new AntiTwoPlayer();
     }
 

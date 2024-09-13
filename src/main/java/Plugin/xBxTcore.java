@@ -3,7 +3,6 @@ package Plugin;
 import Plugin.Apis.DDNS_NameCheap;
 import Plugin.BoxPvp.BoxPvpSection;
 import Plugin.CombatLog.CombatSection;
-import Plugin.CombatLog.Listener.CombatlogListener;
 import Plugin.Commands.CommandSection;
 import Plugin.Duel.DuelSection;
 import Plugin.Environments.*;
@@ -23,8 +22,6 @@ import Plugin.Utils.UtilsMain;
 import Plugin.Vote.VoteSection;
 import ac.grim.grimac.api.GrimAbstractAPI;
 import com.onarandombox.MultiverseCore.MultiverseCore;
-import fr.xephi.authme.AuthMe;
-import fr.xephi.authme.api.v3.AuthMeApi;
 import me.neznamy.tab.api.TabAPI;
 import net.luckperms.api.LuckPerms;
 import org.bukkit.Bukkit;
@@ -188,8 +185,9 @@ public final class xBxTcore extends JavaPlugin {
         }catch (Exception e){
             e.printStackTrace();
         }
+        AutoUpdateDNS();
         if (ip != null && !ip.equals("192.168.1.4")) {
-            AutoUpdateDNS();
+
         }
 
     }

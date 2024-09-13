@@ -15,6 +15,7 @@ public class DDNS_NameCheap {
     private static final String DYNAMIC_DNS_URL = "https://dynamicdns.park-your-domain.com/update";
     private static final String domain = "xbxtpvp.xyz";
     private static final String password = "ead10319d4b349c29a8438e46490d8a2";
+    private static String IpNow = null;
 
     public static String getPublicIP() throws Exception {
         String url = "https://api.ipify.org";
@@ -48,15 +49,23 @@ public class DDNS_NameCheap {
     }
 
     public static void updateIP() throws Exception {
-        String url = DYNAMIC_DNS_URL + "?host=@&domain=" + domain + "&password=" + password + "&ip=" + getPublicIP();
-        HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-        connection.setRequestMethod("GET");
+        if (IpNow == null) {
+            IpNow = getPublicIP();
+        }
+        if (!IpNow.equals(getPublicIP())) {
+            String url = DYNAMIC_DNS_URL + "?host=@&domain=" + domain + "&password=" + password + "&ip=" + getPublicIP();
+            HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+            connection.setRequestMethod("GET");
 
-        int responseCode = connection.getResponseCode();
-        if (responseCode == HttpURLConnection.HTTP_OK) {
-            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',prefixConsole + ColorSuccess + "IP actualizada correctamente."));
-        } else {
-            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',prefixConsole + ColorError + "Error al actualizar la IP. Código de respuesta: " + responseCode));
+            int responseCode = connection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                IpNow = getPublicIP();
+                Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',prefixConsole + ColorSuccess + "IP actualizada correctamente."));
+            } else {
+                Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',prefixConsole + ColorError + "Error al actualizar la IP. Código de respuesta: " + responseCode));
+            }
+        }else{
+            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',prefixConsole + ColorSuccess + "La Ip es la misma"));
         }
     }
 }
