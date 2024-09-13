@@ -100,12 +100,11 @@ public class FireWall {
         new Thread(() -> {
             try {
                 executeCommandCMD(batFile.getAbsolutePath());
+                Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorSuccess + "Se actualizo correctamente"));
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }).start();
-
-        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorSuccess + "Se actualizo correctamente"));
     }
 
 }

@@ -1,5 +1,6 @@
 package Plugin;
 
+import Plugin.Apis.DDNS_NameCheap;
 import Plugin.BoxPvp.BoxPvpSection;
 import Plugin.CombatLog.CombatSection;
 import Plugin.CombatLog.Listener.CombatlogListener;
@@ -20,6 +21,7 @@ import Plugin.Security.SecuritySection;
 import Plugin.Utils.Utils;
 import Plugin.Utils.UtilsMain;
 import Plugin.Vote.VoteSection;
+import ac.grim.grimac.api.GrimAbstractAPI;
 import com.onarandombox.MultiverseCore.MultiverseCore;
 import fr.xephi.authme.AuthMe;
 import fr.xephi.authme.api.v3.AuthMeApi;
@@ -41,6 +43,7 @@ import net.md_5.bungee.api.ChatColor;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
+import static Plugin.Apis.DDNS_NameCheap.updateIP;
 import static Plugin.File.FileManagerSection.getPlayerFileManager;
 import static Plugin.Messages.MessageManager.*;
 
@@ -51,6 +54,7 @@ public final class xBxTcore extends JavaPlugin {
     private static TabAPI tabAPI;
     private static LuckPerms luckPerms;
     public static xBxTcore plugin;
+    public static GrimAbstractAPI grimAPI;
     public static final String worldBoxPvp = "boxpvp";
 
     public static String bedrockPrefix = ".";
@@ -165,6 +169,10 @@ public final class xBxTcore extends JavaPlugin {
             getLogger().warning("PlaceholderAPI no está instalado. El plugin no funcionará correctamente.");
         }
 
+        RegisteredServiceProvider<GrimAbstractAPI> provider1 = Bukkit.getServicesManager().getRegistration(GrimAbstractAPI.class);
+        if (provider1 != null) {
+            grimAPI = provider1.getProvider();
+        }
     }
 
     private void OtherRegister(){
@@ -174,6 +182,16 @@ public final class xBxTcore extends JavaPlugin {
         Timeinfo();
         startAutoCleaner();
         TimeAutoSafeInventory();
+        String ip = "?";
+        try {
+            ip = DDNS_NameCheap.getPrivateIP();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        if (ip != null && !ip.equals("192.168.1.4")) {
+            AutoUpdateDNS();
+        }
+
     }
 
     public void WorldProtec() {
@@ -183,6 +201,10 @@ public final class xBxTcore extends JavaPlugin {
     }
     ///////////////////////////////////////////////////
     ///////////////////////////////////////////////////
+
+    public static GrimAbstractAPI getGrimAPI() {
+        return grimAPI;
+    }
 
     public static xBxTcore getInstance(){
         return plugin;
@@ -319,6 +341,17 @@ public final class xBxTcore extends JavaPlugin {
                 }
             }.runTaskTimer(this, 0, 2);
         }, 2 * 20,60 * 20 * 5);
+    }
 
+    private void AutoUpdateDNS (){
+        new BukkitRunnable() {
+            public void run() {
+                try {
+                    updateIP();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }.runTaskTimer(this, 20*60*10, 20*60*60);
     }
 }
