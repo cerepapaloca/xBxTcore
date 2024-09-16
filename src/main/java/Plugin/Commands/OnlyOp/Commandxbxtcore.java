@@ -3,6 +3,8 @@ package Plugin.Commands.OnlyOp;
 import Plugin.File.BLackList.BlackListIpManager;
 import Plugin.File.FileManagerSection;
 import Plugin.Messages.Enum.Messages;
+import Plugin.Messages.MessageManager;
+import Plugin.PlayerManager.PlayerManagerSection;
 import Plugin.Security.BanManager;
 import Plugin.Security.SecuritySection;
 import Plugin.xBxTcore;
@@ -136,6 +138,23 @@ public class Commandxbxtcore implements CommandExecutor {
                         sender.sendMessage("Jugador no encontrado.");
                     }
                 }
+
+                case "chatmodetarion" -> {
+                    switch (args[1]) {
+                        case "true" -> {
+                            PlayerManagerSection.moderationChatEnabled = true;
+                            MessageManager.BroadcastMessage(Messages.Others_Chat_Active);
+                            return true;
+                        }
+                        case "false" -> {
+                            PlayerManagerSection.moderationChatEnabled = false;
+                            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorWarning + "Moderación del chat desactivada "));
+                            return true;
+                        }
+
+                    }
+                }
+
 
                 default -> {
                     return false;

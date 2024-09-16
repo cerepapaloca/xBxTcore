@@ -285,6 +285,9 @@ public record MessagesES() {
         esMessages.put(Inventory_S1menos,"&c1S-");
         esMessages.put(Inventory_H1menos,"&c1M-");
         //otros
+        esMessages.put(Others_Chat_Cooldown, prefix + ColorError + "No puedes enviar varios mensaje seguidos");
+        esMessages.put(Others_Chat_BanWord, prefix + ColorError + "Tu mensaje contiene una palabra prohibida");
+        esMessages.put(Others_Chat_Active, prefix + Colorinfo + "La moderación en el chat fue activada");
         esMessages.put(Others_TimeBossBar, Colorinfo + "Tiempo restante: " + Colorplayer);
         esMessages.put(Others_WarningGetGuestPlayers, ColorWarning + "Unos de jugadores que invitaste no esta o no existe");
         esMessages.put(Others_IvnPlayers1, Coloritem + "Usa /inv");

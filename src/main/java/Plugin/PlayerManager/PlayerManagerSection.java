@@ -13,6 +13,8 @@ public class PlayerManagerSection implements Section {
 
     private static PlayerManager playerManager;
     public static PlayerDataGLobal playerDataGLobal;
+    private static ModerationChat moderationChat;
+    public static boolean moderationChatEnabled = false;
 
     public PlayerManagerSection(xBxTcore xBxTcore) {
         plugin = xBxTcore;
@@ -20,6 +22,7 @@ public class PlayerManagerSection implements Section {
 
     @Override
     public void enable() {
+        moderationChat = new ModerationChat(plugin);
         playerDataGLobal = new PlayerDataGLobal();
         playerManager = new PlayerManager(plugin);
         plugin.register(new BlockerListener(plugin));
@@ -48,5 +51,9 @@ public class PlayerManagerSection implements Section {
 
     public static PlayerManager getPlayerManager() {
         return playerManager;
+    }
+
+    public static ModerationChat getModerationChat() {
+        return moderationChat;
     }
 }

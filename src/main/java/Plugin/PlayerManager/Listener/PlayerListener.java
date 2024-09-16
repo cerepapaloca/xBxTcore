@@ -51,12 +51,7 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void AsyncPlayerChat(@NotNull AsyncPlayerChatEvent event) {
-        String prefix = ColorUtils.applyGradient(Utils.getPlayerPrefix(event.getPlayer()).replace("&l", ""), "l");
-        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&',
-                prefix + "&r "
-                + event.getPlayer().getName() + " » &7" + event.getMessage()));
-        event.setMessage(ChatColor.translateAlternateColorCodes('&', event.getMessage()));
-        event.setCancelled(true);
+        PlayerManagerSection.getModerationChat().CheckMessage(event);
     }
 
 

@@ -1,7 +1,5 @@
 package Plugin.Messages.Enum;
 
-import Plugin.Inventory.Models.KitData;
-
 public enum Messages {
     //Generico
     Generic_NotOp,
@@ -275,6 +273,9 @@ public enum Messages {
     Inventory_S1menos,
     Inventory_H1menos,
     //otros
+    Others_Chat_Cooldown,
+    Others_Chat_BanWord,
+    Others_Chat_Active,
     Others_WarningGetGuestPlayers,
     Others_IvnPlayers1,
     Others_IvnPlayers2,

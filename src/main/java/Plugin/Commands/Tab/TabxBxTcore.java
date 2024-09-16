@@ -20,6 +20,7 @@ public class TabxBxTcore implements TabCompleter {
         argsTab.add("antibot");
         argsTab.add("ac");
         argsTab.add("ban");
+        argsTab.add("chatmodetarion");
         List<String> argsIp = new ArrayList<>();
         argsIp.add("reload");
         argsIp.add("save");
@@ -44,7 +45,7 @@ public class TabxBxTcore implements TabCompleter {
                         .filter(name -> name.startsWith(currentArg))
                         .collect(Collectors.toList());
             }
-            case "antibot" -> {
+            case "antibot", "chatmodetarion" -> {
                 String currentArg = args[1].toLowerCase();
                 return argsAntiBot.stream()
                         .filter(name -> name.startsWith(currentArg))

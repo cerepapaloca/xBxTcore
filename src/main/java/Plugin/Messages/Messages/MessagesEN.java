@@ -285,6 +285,9 @@ public record MessagesEN() {
         enMessages.put(Inventory_S1menos,"&c1S-");
         enMessages.put(Inventory_H1menos,"&c1M-");
         //otros
+        enMessages.put(Others_Chat_Cooldown, prefix + ColorError + "You cannot send multiple messages in a row");
+        enMessages.put(Others_Chat_BanWord, prefix + ColorError + "Your message contains a forbidden word");
+        enMessages.put(Others_Chat_Active, prefix + Colorinfo + "Chat moderation has been activated");
         enMessages.put(Others_TimeBossBar, Colorinfo + "Time remaining: " + Colorplayer);
         enMessages.put(Others_WarningGetGuestPlayers, ColorWarning + "One of the players you invited is not connected or does not exist");
         enMessages.put(Others_IvnPlayers1, Colorinfo + "Use /inv");
