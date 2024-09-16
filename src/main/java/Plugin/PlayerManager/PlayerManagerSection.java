@@ -14,7 +14,7 @@ public class PlayerManagerSection implements Section {
     private static PlayerManager playerManager;
     public static PlayerDataGLobal playerDataGLobal;
     private static ModerationChat moderationChat;
-    public static boolean moderationChatEnabled = false;
+    public static boolean moderationChatEnabled = true;
 
     public PlayerManagerSection(xBxTcore xBxTcore) {
         plugin = xBxTcore;

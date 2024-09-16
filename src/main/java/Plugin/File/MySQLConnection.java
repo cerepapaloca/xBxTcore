@@ -64,6 +64,8 @@ public class MySQLConnection {
         } catch (SQLException | UnknownHostException e) {
             e.printStackTrace();
         }
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + Colorinfo +
+                "hay " + ipBan.size() + " ips baneadas"));
     }
 
     public void close() {

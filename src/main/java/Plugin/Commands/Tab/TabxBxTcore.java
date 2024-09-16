@@ -52,6 +52,7 @@ public class TabxBxTcore implements TabCompleter {
                         .collect(Collectors.toList());
             }
             case "ban" -> {
+                if (args.length == 2) return null;
                 return argsBan;
             }
         }

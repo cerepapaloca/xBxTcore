@@ -7,6 +7,7 @@ import Plugin.Messages.MessageManager;
 import Plugin.PlayerManager.PlayerManagerSection;
 import Plugin.Security.BanManager;
 import Plugin.Security.SecuritySection;
+import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -24,6 +25,7 @@ import java.util.List;
 
 import static Plugin.File.BLackList.BlackListIpManager.RemoveIpBlackListAndSave;
 import static Plugin.Messages.MessageManager.*;
+import static Plugin.Security.BanManager.checkBanPlayer;
 import static Plugin.Security.FireWall.runBatFile;
 import static Plugin.Security.FireWall.updateFirewallRule;
 
@@ -113,21 +115,24 @@ public class Commandxbxtcore implements CommandExecutor {
                 }
 
                 case "ban" -> {
-                    if(!(args.length == 5))return false;
-                    Bukkit.getConsoleSender().sendMessage("feedback");
+                    if (args[1].equalsIgnoreCase("reload")) FileManagerSection.getMySQLConnection().reloadBannedIPs();
+                    if(!(args.length >= 5))return false;
                     Player target = sender.getServer().getPlayer(args[1]);
                     if (target != null) {
                         String uuid = target.getUniqueId().toString();
                         String name = target.getName();
                         String ip = target.getAddress().getAddress().getHostAddress();
-                        String reason = args[4];
-                        long duration = Long.parseLong(args[3]) * 1000L;
+                        String reason = "";
+                        for (int i = 4; i < args.length; i++){
+                            reason = reason.concat(args[i] + " ");
+                        }
+
+                        long duration = Utils.convertToMilliseconds(args[3]);
                         long banDate = System.currentTimeMillis();
                         long unbanDate = banDate + duration;
                         if (contexts.contains(args[2].toLowerCase())) {
-                            reason = reason.replace("-", " ");
+
                             banManager.banPlayer(ip, name, uuid, reason, banDate, unbanDate, args[2]);
-                            target.kickPlayer("Has sido baneado. Razón: " + reason);
 
                             sender.sendMessage("El jugador " + name + " ha sido baneado.");
                         }else{
@@ -143,7 +148,7 @@ public class Commandxbxtcore implements CommandExecutor {
                     switch (args[1]) {
                         case "true" -> {
                             PlayerManagerSection.moderationChatEnabled = true;
-                            MessageManager.BroadcastMessage(Messages.Others_Chat_Active);
+                            BroadcastMessage(Messages.Others_Chat_Active);
                             return true;
                         }
                         case "false" -> {

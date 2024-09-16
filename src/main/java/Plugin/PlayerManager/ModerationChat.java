@@ -55,8 +55,11 @@ public class ModerationChat {
         String prefix = ColorUtils.applyGradient(Utils.getPlayerPrefix(event.getPlayer()).replace("&l", ""), "l");
 
         if (moderationChatEnabled){
-            if(cooldown.contains(event.getPlayer().getUniqueId())){
+            if(!cooldown.contains(event.getPlayer().getUniqueId())){
                 if (isBanWord(event.getMessage())){
+                    Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',
+                            prefix + "&r "
+                                    + event.getPlayer().getName() + " » &7" + event.getMessage() + " &c[Eliminado]"));
                     event.getPlayer().sendMessage(MasterMessageLocated(event.getPlayer(), Messages.Others_Chat_BanWord));
                     event.setCancelled(true);
                     return;
@@ -68,6 +71,9 @@ public class ModerationChat {
                 cooldown.add(event.getPlayer().getUniqueId());
                 starCoolDown(event.getPlayer().getUniqueId());
             }else {
+                Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',
+                        prefix + "&r "
+                                + event.getPlayer().getName() + " » &7" + event.getMessage() + " &c[Eliminado]"));
                 event.getPlayer().sendMessage(MasterMessageLocated(event.getPlayer(), Messages.Others_Chat_Cooldown));
             }
 
@@ -94,22 +100,22 @@ public class ModerationChat {
             if (message.contains(word)){
                 return true;
             }
-            if (message.contains(word.replace("1", "i").toLowerCase())){
+            if (message.contains(word.replace("i", "1"))){
                 return true;
             }
-            if (message.contains(message.replace("1", "l").toLowerCase())){
+            if (message.contains(word.replace("l", "1"))){
                 return true;
             }
-            if (message.contains(message.replace("4", "a").toLowerCase())){
+            if (message.contains(word.replace("a", "4"))){
                 return true;
             }
-            if (message.contains(message.replace("0", "o").toLowerCase())){
+            if (message.contains(word.replace("o", "0"))){
                 return true;
             }
-            if(message.contains(message.replace("n", "ñ").toLowerCase())){
+            if(message.contains(word.replace("n", "ñ"))){
                 return true;
             }
-            if(message.contains(message.replace("ñ", "n").toLowerCase())){
+            if(message.contains(word.replace("ñ", "n"))){
                 return true;
             }
         }

@@ -32,7 +32,7 @@ public class CommandBoxPvp implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, String[] strings) {
         if(commandSender instanceof Player player){
             if (xBxTcore.getWorldProtec().contains(player.getWorld()) || player.getGameMode().equals(GameMode.SPECTATOR) || player.isOp() || player.getWorld().getPlayers().size() == 1) {
-                if (!BanManager.checkBanPlayer(Objects.requireNonNull(player.getAddress()).getAddress(), player, "boxpvp"))return false;
+                if (BanManager.checkBanPlayer(Objects.requireNonNull(player.getAddress()).getAddress(), player, "boxpvp"))return false;
                 if (!player.getWorld().getName().equals("lobby") && !player.getWorld().getName().equals("boxpvp")) {
                     player.setLevel(0);
                     player.setExp(0);

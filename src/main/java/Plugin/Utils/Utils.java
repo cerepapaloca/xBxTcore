@@ -182,6 +182,23 @@ public class Utils {
         world.dropItemNaturally(location, item);
     }
 
+    public static long convertToMilliseconds(@NotNull String time) {
+        char unit = time.charAt(time.length() - 1);
+        long value = Long.parseLong(time.substring(0, time.length() - 1));
+
+        return switch (unit) {
+            case 's' -> // Segundos
+                    value * 1000;
+            case 'm' -> // Minutos
+                    value * 1000 * 60;
+            case 'h' -> // Horas
+                    value * 1000 * 60 * 60;
+            case 'd' -> // Días
+                    value * 1000 * 60 * 60 * 24;
+            default -> throw new IllegalArgumentException("Unidad de tiempo no válida: " + unit);
+        };
+    }
+
     public static void additem(@NotNull Player player, ItemStack item, int cantidad){
         player.playSound(player, Sound.ENTITY_ITEM_PICKUP, 1,1);
         for (int i = 0; i < cantidad; i++){

@@ -12,7 +12,7 @@ import static Plugin.Messages.Messages.MessagesES.esMessages;
 
 public class MessageManager {
 
-    public static String prefixKick = "&6[&0&lx&8&lB&7&lx&f&lT &e&lPvP&6]&r \n";
+    public static String prefixKick = "&b<====== &6[&0&lx&8&lB&7&lx&f&lT &e&lPvP&6]&r&b ======>&r\n";
     public static String prefixConsole = "&6[&8xB&7x&fT &eConsoler&6]&r ";
     public static String prefix = "&6[" + ChatColor.of("#61CAFD") + "&lx" + ChatColor.of("#7CAFEC") + "&lB" + ChatColor.of("#9893DC")
             + "&lx" + ChatColor.of("#B378CB") + "&lT" + ChatColor.of("#FDC661") + " &lC" + ChatColor.of("#FEAA41") + "&lo" +

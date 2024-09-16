@@ -93,6 +93,11 @@ public final class xBxTcore extends JavaPlugin {
             }
         }
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', ColorSuccess + "xBxTcore Cargado " + Colorplayer + (System.currentTimeMillis() - timeStaringtotal) + "ms"));
+        if (Utils.isRunningAsAdmin()){
+            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',ColorSuccess +  "FireWall Automático Activo"));
+        }else {
+            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',ColorWarning +  "FireWall Automático Desactivado"));
+        }
         MessageON();
     }
 
@@ -124,11 +129,6 @@ public final class xBxTcore extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&7   ║                     &fxBxT Core Las Bases Del Servidor&7                      ║"));
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&7   ╚═══════════════════════════════════════════════════════════════════════════╝"));
         Bukkit.getConsoleSender().sendMessage("");
-        if (Utils.isRunningAsAdmin()){
-            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',ColorSuccess +  "FireWall Activo"));
-        }else {
-            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',ColorWarning +  "FireWall Desactivado"));
-        }
     }
 
     private void MessageOFF(){
