@@ -185,7 +185,7 @@ public final class xBxTcore extends JavaPlugin {
         }catch (Exception e){
             e.printStackTrace();
         }
-        if (ip != null && !ip.equals("192.168.1.4")) {
+        if (ip != null) {
             AutoUpdateDNS();
         }
 
@@ -349,6 +349,6 @@ public final class xBxTcore extends JavaPlugin {
                     throw new RuntimeException(e);
                 }
             }
-        }.runTaskTimer(this, 20*60*10, 20*60*60);
+        }.runTaskTimer(this, 60, 20*30);
     }
 }
