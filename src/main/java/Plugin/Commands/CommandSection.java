@@ -5,6 +5,7 @@ import Plugin.Commands.Tab.*;
 import Plugin.Commands.User.*;
 import Plugin.File.PlayerData.PlayerfileManager;
 import Plugin.Section;
+import Plugin.Security.SecuritySection;
 import Plugin.xBxTcore;
 
 import java.util.Objects;
@@ -44,7 +45,7 @@ public class CommandSection implements Section {
         Objects.requireNonNull(plugin.getCommand("timerewardskip")).setExecutor(new CommandTimeRewardSkip());
         Objects.requireNonNull(plugin.getCommand("vip")).setExecutor(new CommandVip());
         Objects.requireNonNull(plugin.getCommand("shop")).setExecutor(new CommandShop(plugin));
-        Objects.requireNonNull(plugin.getCommand("xbxtcore")).setExecutor(new Commandxbxtcore(plugin));
+        Objects.requireNonNull(plugin.getCommand("xbxtcore")).setExecutor(new Commandxbxtcore(plugin, SecuritySection.getBanManager()));
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////
         Objects.requireNonNull(plugin.getCommand("sk")).setExecutor(new CommandSaveKit(plugin));
         Objects.requireNonNull(plugin.getCommand("dk")).setExecutor(new CommandDelKit(plugin));

@@ -1,5 +1,6 @@
 package Plugin.Commands.Tab;
 
+import net.luckperms.api.LuckPerms;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
@@ -18,6 +19,7 @@ public class TabxBxTcore implements TabCompleter {
         argsTab.add("ip");
         argsTab.add("antibot");
         argsTab.add("ac");
+        argsTab.add("ban");
         List<String> argsIp = new ArrayList<>();
         argsIp.add("reload");
         argsIp.add("save");
@@ -26,6 +28,8 @@ public class TabxBxTcore implements TabCompleter {
         List<String> argsAntiBot = new ArrayList<>();
         argsAntiBot.add("true");
         argsAntiBot.add("false");
+        List<String> argsBan = new ArrayList<>();
+        argsBan.add("<Player> <Contexto> <tiempo> <Razón>");
 
         if (args.length == 1) {
             String currentArg = args[0].toLowerCase();
@@ -45,6 +49,9 @@ public class TabxBxTcore implements TabCompleter {
                 return argsAntiBot.stream()
                         .filter(name -> name.startsWith(currentArg))
                         .collect(Collectors.toList());
+            }
+            case "ban" -> {
+                return argsBan;
             }
         }
 

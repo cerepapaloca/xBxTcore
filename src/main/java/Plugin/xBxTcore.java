@@ -7,6 +7,8 @@ import Plugin.Commands.CommandSection;
 import Plugin.Duel.DuelSection;
 import Plugin.Environments.*;
 import Plugin.File.FileManagerSection;
+import Plugin.File.MySQLConnection;
+import Plugin.File.MySQLManager;
 import Plugin.File.PlayerData.PlayerfileManager;
 import Plugin.Inventory.InventorySection;
 import Plugin.Messages.Enum.Messages;
@@ -72,7 +74,6 @@ public final class xBxTcore extends JavaPlugin {
         register(new PlayerManagerSection(this));
         register(new MessageSection(this));
         register(new InventorySection(this));
-        register(new CommandSection(this));
         register(new EnvironmentsSection(this));
         register(new BoxPvpSection(this));
         register(new UtilsMain(this));
@@ -80,8 +81,7 @@ public final class xBxTcore extends JavaPlugin {
         register(new CombatSection(this));
         register(new VoteSection(this));
         register(new SecuritySection(this));
-
-
+        register(new CommandSection(this));
 
         serverStartTime = System.currentTimeMillis();
         for (Section section : sections) {

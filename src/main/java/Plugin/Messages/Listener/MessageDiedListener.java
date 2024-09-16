@@ -94,22 +94,6 @@ public class MessageDiedListener implements Listener {
                 event.setDeathMessage(null);
                 return;
             }
-            /*ItemStack weapon;
-            if (null != event.getEntity().getKiller()){
-                weapon = playerMasterKiller.getInventory().getItemInMainHand();
-                if (weapon.getItemMeta() != null){
-                    weaponname = Objects.requireNonNull(weapon.getItemMeta()).getDisplayName();
-                    if(weaponname.isEmpty()){
-                        weaponname = Objects.requireNonNull(weapon.getType().name().replace("_", " ")).toLowerCase();
-                    }
-                }else{
-                    weaponname = "?";
-                }
-                weaponname = ChatColor.translateAlternateColorCodes('&', weaponname);
-
-            }else {
-                weaponname = "";
-            }*/
             weaponname = custonNameWeapon(playerMasterKiller.getInventory().getItemInMainHand().getType(), playerMasterKiller);
             switch (Objects.requireNonNull(event.getEntity().getLastDamageCause()).getCause()) {
                 case ENTITY_EXPLOSION -> {

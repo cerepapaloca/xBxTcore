@@ -135,7 +135,7 @@ public class PlayerListener implements Listener {
         Utils.RewardVote(player.getName(), false);
         ///////////////////////////////////////////////////
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + Colorinfo + "La Ip es: " +
-                Colorplayer + player.getAddress()));
+                Colorplayer + Objects.requireNonNull(player.getAddress()).getHostString()));
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',prefixConsole + Colorinfo + "El Idioma es: " +
                 Colorplayer + player.getLocale()));
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',prefixConsole + Colorinfo + "La UUid es: " +

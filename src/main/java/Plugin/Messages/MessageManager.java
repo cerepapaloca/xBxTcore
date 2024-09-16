@@ -32,6 +32,8 @@ public class MessageManager {
     public static String ColorLink = "&a&n";
     public static String Coloritem = "&b";
 
+    public static String LinkDiscord = ColorLink + "https://discord.gg/QYBwEFvnsG";
+
     private static final String esErrorMensaje = prefix + ColorError + "&LHubo un error con el mensaje: '%message%' Contacta rapidamente con el dueño del servidor";
     private static final String enErrorMensaje = prefix + ColorError + "&LThere was an error with the message: '%message%' Please contact the server owner quickly";
 

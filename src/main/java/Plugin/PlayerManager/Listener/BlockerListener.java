@@ -105,7 +105,7 @@ public class BlockerListener implements Listener {
             if (materialsBoxPvp.contains(event.getBlock().getType())) {
                 event.setDropItems(false);
                 double i = Math.random();
-                double tier = 0;
+                double tier;
                 ItemStack item = event.getPlayer().getInventory().getItemInMainHand();
                 if (item.getItemMeta() != null) {
                     tier = (double) item.getItemMeta().getPersistentDataContainer().getOrDefault(new NamespacedKey(plugin, "tier"), PersistentDataType.INTEGER, -1);
