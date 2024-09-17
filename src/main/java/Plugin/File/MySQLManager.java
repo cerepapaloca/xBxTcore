@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import static Plugin.Messages.MessageManager.ColorSuccess;
-import static Plugin.Messages.MessageManager.prefixConsole;
 
 public class MySQLManager {
 

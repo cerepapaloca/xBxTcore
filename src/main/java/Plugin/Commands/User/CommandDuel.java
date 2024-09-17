@@ -30,7 +30,6 @@ public class CommandDuel implements CommandExecutor {
 
     private final Map<UUID, Request> pendingRequests = new HashMap<>();
     private final ArrayList<Player> players = new ArrayList<>();
-    private final ArrayList<Player> acceptPlayers = new ArrayList<>();
     private final xBxTcore plugin;
     MultiverseWorld world;
     private final TextComponent yes;
@@ -50,19 +49,14 @@ public class CommandDuel implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
         if (sender instanceof Player playareSender) {
             players.clear();
-            if(args.length > 0){
-
-
-            }/*else{
-                //playareSender.sendMessage(xBxTcore.getMessageManager().MasterMessage(playareSender, Messages.DuelError));
-            }*/
             if (xBxTcore.getWorldProtec().contains(playareSender.getWorld())) {
+                Player target = null;
+                if (args.length != 0) target = Bukkit.getPlayer(args[0]);
                 switch (args.length) {
                     case 0:
                         InventorySection.getInventoryMenu().OpenDuel(new InvetoryPlayer(playareSender));
                         return true;
                     case 1:
-                        Player target = Bukkit.getPlayer(args[0]);
                         if (args[0].equalsIgnoreCase("deny")) {
                             denyRequest((Player) sender, requestlast.getRequesterId(), true);
                             return true;
@@ -88,14 +82,14 @@ public class CommandDuel implements CommandExecutor {
                         }
                         return true;
                     case 2:
-                        if (args[0].equalsIgnoreCase("deny") && pendingRequests.containsKey(Bukkit.getPlayer(args[1]).getUniqueId())){
-                            denyRequest((Player) sender, Bukkit.getPlayer(args[1]).getUniqueId(), true);
+                        UUID uuid = Objects.requireNonNull(Bukkit.getPlayer(args[1])).getUniqueId();
+                        if (args[0].equalsIgnoreCase("deny") && pendingRequests.containsKey(uuid)){
+                            denyRequest((Player) sender, uuid, true);
                             return true;
-                        } else if (args[0].equalsIgnoreCase("yes") && pendingRequests.containsKey(Bukkit.getPlayer(args[1]).getUniqueId())){
-                            acceptRequest((Player) sender, Bukkit.getPlayer(args[1]).getUniqueId());
+                        } else if (args[0].equalsIgnoreCase("yes") && pendingRequests.containsKey(uuid)){
+                            acceptRequest((Player) sender, uuid);
                             return true;
                         }
-                        target = Bukkit.getPlayer(args[0]);
                         if (target != null) {
                             if(target != playareSender){
                                 if(args[1].equalsIgnoreCase("bedrock") || args[1].equalsIgnoreCase("flat_bedrock") || args[1].equalsIgnoreCase("flat_world")){
@@ -125,7 +119,7 @@ public class CommandDuel implements CommandExecutor {
     }
 
     public void sendRequest(ArrayList<Player> players1, String worldType, UUID requesterId) {
-        requestlast = new Request(requesterId, System.currentTimeMillis() + 60000, world, players1, worldType); // 60 segundos
+        requestlast = new Request(requesterId, System.currentTimeMillis() + 60000, players1, worldType); // 60 segundos
         Player requester = Bukkit.getPlayer(requesterId);
         players1.remove(requester);
 

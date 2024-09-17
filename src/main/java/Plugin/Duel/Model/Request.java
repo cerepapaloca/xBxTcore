@@ -11,15 +11,13 @@ public class Request {
 
     private final UUID requesterId;
     private final long expirationTime;
-    private final MultiverseWorld nameWold;
     private final ArrayList<Player> players = new ArrayList<>();
     private final ArrayList<Player> acceptPlayers = new ArrayList<>();
     private final String WorldType;
 
-    public Request(UUID requesterId, long expirationTime, MultiverseWorld nameWold, ArrayList<Player> players, String worldType) {
+    public Request(UUID requesterId, long expirationTime, ArrayList<Player> players, String worldType) {
         this.requesterId = requesterId;
         this.expirationTime = expirationTime;
-        this.nameWold = nameWold;
         this.players.addAll(players);
         this.WorldType = worldType;
         acceptPlayers.add(Bukkit.getPlayer(requesterId));

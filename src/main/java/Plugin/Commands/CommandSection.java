@@ -40,7 +40,7 @@ public class CommandSection implements Section {
         Objects.requireNonNull(plugin.getCommand("donate")).setExecutor(new CommandDonate(plugin));
         Objects.requireNonNull(plugin.getCommand("inv")).setExecutor(new CommandInv(plugin));
         Objects.requireNonNull(plugin.getCommand("boxpvp")).setExecutor(new CommandBoxPvp(plugin));
-        Objects.requireNonNull(plugin.getCommand("ReloadDataPlayares")).setExecutor(new CommandReloadDataPlayares(plugin));
+        Objects.requireNonNull(plugin.getCommand("ReloadDataPlayares")).setExecutor(new CommandReloadDataPlayares());
         Objects.requireNonNull(plugin.getCommand("itemboxpvp")).setExecutor(new CommandItemBoxpvp(plugin));
         Objects.requireNonNull(plugin.getCommand("timerewardskip")).setExecutor(new CommandTimeRewardSkip());
         Objects.requireNonNull(plugin.getCommand("vip")).setExecutor(new CommandVip());

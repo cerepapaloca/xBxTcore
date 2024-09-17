@@ -17,8 +17,8 @@ import static Plugin.PlayerManager.PlayerManagerSection.moderationChatEnabled;
 
 public class ModerationChat {
 
-    private static HashSet<UUID> cooldown = new HashSet<>();
-    private static HashSet<String> banWord = new HashSet<>();
+    private static final HashSet<UUID> cooldown = new HashSet<>();
+    private static final HashSet<String> banWord = new HashSet<>();
     private final xBxTcore plugin;
 
     public ModerationChat(xBxTcore plugin) {

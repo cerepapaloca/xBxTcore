@@ -1,8 +1,5 @@
 package Plugin.Commands.Tab;
 
-import Plugin.xBxTcore;
-import org.bukkit.Bukkit;
-import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;

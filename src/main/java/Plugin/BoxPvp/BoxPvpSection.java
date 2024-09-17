@@ -11,7 +11,6 @@ public class BoxPvpSection implements Section {
 
     private static xBxTcore plugin;
 
-    private static PlayerfileManager playerfileManager;
     private static AutoFillsBox autoFillsBox;
     private static ZoneSafeBoxPvp zoneSafeBoxPvp;
     private static ItemManage itemManage;

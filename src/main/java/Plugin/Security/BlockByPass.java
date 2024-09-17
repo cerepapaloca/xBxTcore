@@ -12,6 +12,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.UUID;
 
 import static Plugin.Messages.MessageManager.*;
@@ -21,7 +22,7 @@ public class BlockByPass {
     public static HashMap<UUID, String> passwordList = new HashMap<>();
 
     public static Boolean checkOpCreative (@NotNull Player player) {
-        if(player.getAddress().toString().contains("192.168.1.4"))return false; //La ip privada de mi pc
+        if(Objects.requireNonNull(player.getAddress()).toString().contains("192.168.1.4"))return false; //La ip privada de mi pc
         if(player.getAddress().toString().contains("127.0.0.1"))return false;
 
         if(player.getGameMode() == GameMode.CREATIVE){

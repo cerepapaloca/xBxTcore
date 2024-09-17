@@ -20,12 +20,10 @@ public class CommandVip implements CommandExecutor {
         Player player = Bukkit.getPlayer(args[0]);
         if (player != null) {
             switch (args[1]) {
-                case "add" -> xBxTcore.getLuckPerms().getUserManager().modifyUser(player.getUniqueId(), user -> {
-                    user.data().add(InheritanceNode.builder("vip").build());
-                });
-                case "del" -> xBxTcore.getLuckPerms().getUserManager().modifyUser(player.getUniqueId(), user -> {
-                    user.data().remove(InheritanceNode.builder("vip").build());
-                });
+                case "add" -> xBxTcore.getLuckPerms().getUserManager().modifyUser(player.getUniqueId(),
+                        user -> user.data().add(InheritanceNode.builder("vip").build()));
+                case "del" -> xBxTcore.getLuckPerms().getUserManager().modifyUser(player.getUniqueId(),
+                        user -> user.data().remove(InheritanceNode.builder("vip").build()));
             }
             if (args.length == 3 && args[2].equals("m")) {
                 BroadcastMessageBuy("Rango Vip",player,Messages.Reward_BuyGeneric);

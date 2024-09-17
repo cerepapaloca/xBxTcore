@@ -258,12 +258,10 @@ public class Utils {
         String[] tens = {"", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"};
         String[] units = {"", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"};
 
-        String roman = thousands[number / 1000] +
+        return thousands[number / 1000] +
                 hundreds[(number % 1000) / 100] +
                 tens[(number % 100) / 10] +
                 units[number % 10];
-
-        return roman;
     }
 
     public static Material colorToMaterial(@NotNull Material material, @NotNull Material target) {
@@ -358,13 +356,6 @@ public class Utils {
         try {
             // Ejecutar el comando "net session" que solo los administradores pueden usar
             Process process = Runtime.getRuntime().exec("net session");
-
-            // Leer la salida del comando
-            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                // Procesar la salida
-            }
 
             // Si el comando devuelve 0, el usuario tiene permisos de administrador
             return process.waitFor() == 0;

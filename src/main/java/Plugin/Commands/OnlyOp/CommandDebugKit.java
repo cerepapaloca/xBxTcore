@@ -37,7 +37,7 @@ public class CommandDebugKit implements CommandExecutor {
                         FileManagerSection.getPlayerFileManager().loadKit(uuid, args[2], null, p);
                     }else{
                         if (args[2].equalsIgnoreCase("add")){
-                            run(args, p);
+                            run(p);
                         }else if(args[2].equalsIgnoreCase("remove")){
                             FileManagerSection.getPlayerFileManager().DeleteKitConfig(UUID.fromString("00000000-0000-0000-0000-000000000000"), namekit);
                         }
@@ -51,7 +51,7 @@ public class CommandDebugKit implements CommandExecutor {
         return false;
     }
 
-    public void run (String[] args, Player player){
+    public void run (Player player){
         items.clear();
         for(int i = 0; i<player.getInventory().getContents().length;){
             ItemStack itemstack = player.getInventory().getItem(i);
@@ -60,12 +60,10 @@ public class CommandDebugKit implements CommandExecutor {
         }
         if (material != null){
             FileManagerSection.getPlayerFileManager().SaveKit(UUID.fromString("00000000-0000-0000-0000-000000000000"), namekit, material, items);
-            items.clear();
-            material = null;
         }else{
             FileManagerSection.getPlayerFileManager().SaveKit(UUID.fromString("00000000-0000-0000-0000-000000000000"), namekit, Material.WHITE_SHULKER_BOX, items);
-            items.clear();
-            material = null;
         }
+        items.clear();
+        material = null;
     }
 }

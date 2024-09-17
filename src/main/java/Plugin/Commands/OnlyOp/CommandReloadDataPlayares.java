@@ -2,7 +2,6 @@ package Plugin.Commands.OnlyOp;
 
 import Plugin.File.PlayerData.PlayerfileManager;
 import Plugin.Messages.Enum.Messages;
-import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -15,11 +14,6 @@ import static Plugin.Messages.MessageManager.*;
 
 public class CommandReloadDataPlayares implements CommandExecutor {
 
-    private final xBxTcore plugin;
-
-    public CommandReloadDataPlayares(xBxTcore plugin){
-        this.plugin = plugin;
-    }
     public boolean onCommand(@Nullable CommandSender sender,@Nullable Command cmd,@Nullable String label, String[] args) {
         long time = System.currentTimeMillis();
         if(sender instanceof Player p){
