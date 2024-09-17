@@ -415,8 +415,9 @@ public record ItemManage(xBxTcore plugin) {
         meta.addPage(ChatColor.translateAlternateColorCodes('&',"&lBoxPvPItem\n" + Colorplayer + "Coins From The Material Mines&r\n" +
                 "This currency is used to improve your equipment by trading with the villager below and with the villager above the coin is compacted\n"));
 
-        meta.addPage(ChatColor.translateAlternateColorCodes('&',"&lItem Del BoxPvP\n" + Colorplayer + "Coins From The Material Mines&r\n" + "This is used to exchange it with the aliens on the surface to have the main currency " +
-                "and thus be able to buy things"));
+        meta.addPage(ChatColor.translateAlternateColorCodes('&',"&lItem Del BoxPvP\n" + Colorplayer + "Coins From The Material Mines&r\n" +
+                "The main currency is for trading with the villagers, it is obtained by mining from the mines that are near the center of the pvp box, " +
+                "so you can make a conversion of materials to the main currency"));
 
         meta.addPage(ChatColor.translateAlternateColorCodes('&',"&lItem Del BoxPvP\n" + Colorplayer + "Helmet&r\n" +
                 "The helmet increases your regeneration for each tier you regenerate one tick faster with a minimum of 2 ticks for 1 life point\n" +
@@ -462,15 +463,16 @@ public record ItemManage(xBxTcore plugin) {
         metaEs.addPage(ChatColor.translateAlternateColorCodes('&',"&lItem Del BoxPvP\n" + Colorplayer + "Monedas De las Minas De Materiales&r\n" +
                 "Esta moneda se usa para mejorar tu equipamiento tradiando con el aldeano de abajo y con el aldeano de arriba se compacta la moneda\n"));
 
-        metaEs.addPage(ChatColor.translateAlternateColorCodes('&',"&lItem Del BoxPvP\n" + Colorplayer + "Monedas De las Minas De Materiales&r\n" + "este se usa para intercambiar lo con el alenos de la superficie para tener la moneda " +
-                "principal y así poder comprar cosas"));
+        metaEs.addPage(ChatColor.translateAlternateColorCodes('&',"&lItem Del BoxPvP\n" + Colorplayer + "Monedas Principal/especial y otros materiales&r\n" +
+                "La moneda principal es para tradear con los aldeanos, se consigue minado de las minas que están cerca del centro del box pvp, " +
+                "así podrás puedes hacer una conversion de materiales a la moneda principal "));
 
         metaEs.addPage(ChatColor.translateAlternateColorCodes('&',"&lItem Del BoxPvP\n" + Colorplayer + "Casco&r\n" +
                 "El casco aumenta tu regeneración por cada tier te regeneras un tick más rápido com un mínimo 2 tick por 1 punto de vida\n" +
                 Colorplayer + "Elytras&r\n" + "Aumenta tu vida maxima, un corazon por tier"));
 
         metaEs.addPage(ChatColor.translateAlternateColorCodes('&', "&lItem Del BoxPvP\n" + Colorplayer + "Pantalones&r\n" + "Aumenta tu protección a daño general por cada tier aumenta 1 de nivel el encantamiento\n" +
-                Colorplayer + "Botas&r\n" + "Aumenta tu protección a daño de explosiones por cada tier aumenta 2 niveles el encantamiento"));
+                Colorplayer + "Botas&r\n" + "Increase your resistance to pushes with each level"));
 
         metaEs.addPage(ChatColor.translateAlternateColorCodes('&', "&lItem Del BoxPvP\n" +Colorplayer + "Desgarre de daño&r\n" + "Aumenta tu daño 1.75x pero por cada " +
                 "golpe pero te baja tu barra de hambre significativamente\n" +
