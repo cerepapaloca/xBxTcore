@@ -349,6 +349,6 @@ public final class xBxTcore extends JavaPlugin {
                     throw new RuntimeException(e);
                 }
             }
-        }.runTaskTimer(this, 60, 20*30);
+        }.runTaskTimer(this, 0, 20*30);
     }
 }

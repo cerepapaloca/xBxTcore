@@ -53,6 +53,7 @@ public class DDNS_NameCheap {
             try {
                 if (IpNow == null) {
                     IpNow = getPublicIP();
+                    Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',Colorinfo + "La ip publica es: " + IpNow));
                 }
                 if (!IpNow.equals(getPublicIP())) {
                     String url = DYNAMIC_DNS_URL + "?host=@&domain=" + domain + "&password=" + password + "&ip=" + getPublicIP();

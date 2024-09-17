@@ -266,6 +266,11 @@ public class BlockerListener implements Listener {
         event.setAmount(0);
     }
 
+    @EventHandler
+    public void BlockDrop(@NotNull PlayerDropItemEvent event) {
+        if (materials.contains(event.getItemDrop().getItemStack().getType()))event.setCancelled(true);
+    }
+
     public void temporalBlock(Location location) {
         new BukkitRunnable() {
             public void run() {

@@ -5,6 +5,11 @@ import Plugin.File.PlayerData.PlayerfileManager;
 import Plugin.Section;
 import Plugin.xBxTcore;
 
+import java.net.SocketException;
+import java.util.Objects;
+
+import static Plugin.Apis.DDNS_NameCheap.getPrivateIP;
+
 public class FileManagerSection implements Section {
 
     private final xBxTcore plugin;
@@ -20,9 +25,19 @@ public class FileManagerSection implements Section {
 
     @Override
     public void enable() {
+        String myIpMySql;
+        try {
+            if (Objects.equals(getPrivateIP(), "192.168.1.4")){
+                myIpMySql = "192.168.1.55";
+            }else{
+                myIpMySql = "127.0.0.1";
+            }
+        } catch (SocketException e) {
+            throw new RuntimeException(e);
+        }
         playerfileManager = new PlayerfileManager(plugin);
         blacklistIpManager = new BlackListIpManager(plugin);
-        mysql = new MySQLConnection("192.168.1.55", "xbxtcore", "root", "");
+        mysql = new MySQLConnection(myIpMySql, "xbxtcore", "root", "");
         mysql.connect();
         mySQLManager = new MySQLManager(mysql);
         mySQLManager.createBanTableIfNotExists();
