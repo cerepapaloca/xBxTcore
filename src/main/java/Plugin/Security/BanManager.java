@@ -1,7 +1,6 @@
 package Plugin.Security;
 
 import Plugin.File.MySQLConnection;
-import Plugin.PlayerManager.PlayerManagerSection;
 import Plugin.Utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -9,7 +8,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.jetbrains.annotations.NotNull;
 
@@ -35,7 +33,7 @@ public class BanManager implements Listener {
         for (byte[] bytes : ipBan){
             if (Arrays.equals(ipByte, bytes)){
                 try (Connection connection = mysql.getConnection();
-                     PreparedStatement statement = connection.prepareStatement("SELECT * FROM bans WHERE ip = ?")) {
+                    PreparedStatement statement = connection.prepareStatement("SELECT * FROM bans WHERE ip = ?")) {
                     statement.setString(1, ip);
                     ResultSet resultSet = statement.executeQuery();
 

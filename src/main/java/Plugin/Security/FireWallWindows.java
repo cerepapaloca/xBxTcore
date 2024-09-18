@@ -16,13 +16,7 @@ import static Plugin.Messages.MessageManager.ColorSuccess;
 import static Plugin.Messages.MessageManager.prefixConsole;
 import static Plugin.Utils.Utils.executeCommandCMD;
 
-public class FireWall {
-
-    /*private final xBxTcore plugin ;
-
-    public FireWall(xBxTcore plugin) {
-        this.plugin = plugin;
-    }*/
+public class FireWallWindows {
 
     public static void updateFirewallRule() {
 

@@ -3,8 +3,6 @@ package Plugin.Utils;
 import Plugin.Section;
 import Plugin.xBxTcore;
 
-import static Plugin.Security.FireWall.updateFirewallRule;
-
 public class UtilsMain implements Section {
 
     private static xBxTcore plugin;
@@ -23,7 +21,7 @@ public class UtilsMain implements Section {
 
     @Override
     public void disable() {
-        updateFirewallRule();
+
     }
 
     @Override
@@ -33,7 +31,7 @@ public class UtilsMain implements Section {
 
     @Override
     public void reloadConfig() {
-        updateFirewallRule();
+
     }
 
     public static Utils getUtils() {

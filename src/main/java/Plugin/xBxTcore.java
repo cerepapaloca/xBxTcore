@@ -7,8 +7,6 @@ import Plugin.Commands.CommandSection;
 import Plugin.Duel.DuelSection;
 import Plugin.Environments.*;
 import Plugin.File.FileManagerSection;
-import Plugin.File.MySQLConnection;
-import Plugin.File.MySQLManager;
 import Plugin.File.PlayerData.PlayerfileManager;
 import Plugin.Inventory.InventorySection;
 import Plugin.Messages.Enum.Messages;
@@ -19,6 +17,7 @@ import Plugin.Placeholder.HealthPlaceholder;
 import Plugin.PlayerManager.Listener.BlockerListener;
 import Plugin.PlayerManager.PlayerManagerSection;
 import Plugin.Security.SecuritySection;
+import Plugin.Utils.Enum.SystemOperative;
 import Plugin.Utils.Utils;
 import Plugin.Utils.UtilsMain;
 import Plugin.Vote.VoteSection;
@@ -38,6 +37,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import net.md_5.bungee.api.ChatColor;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -54,6 +54,7 @@ public final class xBxTcore extends JavaPlugin {
     private static LuckPerms luckPerms;
     public static xBxTcore plugin;
     public static GrimAbstractAPI grimAPI;
+    public static SystemOperative getSystemOperative;
     public static final String worldBoxPvp = "boxpvp";
 
     public static String bedrockPrefix = ".";
@@ -93,11 +94,14 @@ public final class xBxTcore extends JavaPlugin {
             }
         }
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', ColorSuccess + "xBxTcore Cargado " + Colorplayer + (System.currentTimeMillis() - timeStaringtotal) + "ms"));
-        if (Utils.isRunningAsAdmin()){
-            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',ColorSuccess +  "FireWall Automático Activo"));
-        }else {
-            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',ColorWarning +  "FireWall Automático Desactivado"));
+        String os = System.getProperty("os.name").toLowerCase();
+        if (os.contains("win")) {
+            getSystemOperative = SystemOperative.WINDOWS;
+            System.out.println("El sistema operativo es Windows.");
+        } else if (os.contains("nix") || os.contains("nux")) {
+            getSystemOperative = SystemOperative.LINUX;
         }
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', Colorinfo + "info de sistema: " + os));
         MessageON();
     }
 
@@ -135,14 +139,14 @@ public final class xBxTcore extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',  Colorinfo + "XBXTPVP.XYZ " + Colorplayer + "OFF"));
     }
 
-    private void register(Section section) {
+    private void register(@NotNull Section section) {
         if (getSectionByName(section.getName()) != null)
             throw new IllegalArgumentException("Section has already been registered " + section.getName());
         sections.add(section);
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', Colorinfo + section.getName() + ColorSuccess + " Ok"));
     }
 
-    public void register(Listener... listeners) {
+    public void register(Listener @NotNull ... listeners) {
         for (Listener listener : listeners) {
             getServer().getPluginManager().registerEvents(listener, this);
         }

@@ -3,10 +3,12 @@ package Plugin.Commands.OnlyOp;
 import Plugin.File.BLackList.BlackListIpManager;
 import Plugin.File.FileManagerSection;
 import Plugin.Messages.Enum.Messages;
-import Plugin.Messages.MessageManager;
 import Plugin.PlayerManager.PlayerManagerSection;
 import Plugin.Security.BanManager;
+import Plugin.Security.FireWallLinux;
+import Plugin.Security.FireWallWindows;
 import Plugin.Security.SecuritySection;
+import Plugin.Utils.Enum.SystemOperative;
 import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
@@ -22,12 +24,11 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static Plugin.File.BLackList.BlackListIpManager.RemoveIpBlackListAndSave;
 import static Plugin.Messages.MessageManager.*;
-import static Plugin.Security.BanManager.checkBanPlayer;
-import static Plugin.Security.FireWall.runBatFile;
-import static Plugin.Security.FireWall.updateFirewallRule;
+import static Plugin.Security.FireWallWindows.runBatFile;
 
 public class Commandxbxtcore implements CommandExecutor {
 
@@ -84,7 +85,9 @@ public class Commandxbxtcore implements CommandExecutor {
                 case "ip" -> {
                     switch (args[1]) {
                         case "save" -> {
-                            updateFirewallRule();
+                            if (Objects.requireNonNull(xBxTcore.getSystemOperative) == SystemOperative.WINDOWS) {
+                                FireWallWindows.updateFirewallRule();
+                            }
                             BlackListIpManager.saveIpBlacklist();
                             Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorSuccess + "Se guardo las ips Correctamente"));
                             return true;
@@ -95,10 +98,15 @@ public class Commandxbxtcore implements CommandExecutor {
                             return true;
                         }
                         case "update" -> {
-                            try {
-                                runBatFile();
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
+                            switch (xBxTcore.getSystemOperative){
+                                case LINUX -> FireWallLinux.updateBlockedIPs();
+                                case WINDOWS -> {
+                                    try {
+                                        runBatFile();
+                                    } catch (IOException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                }
                             }
                             return true;
                         }
