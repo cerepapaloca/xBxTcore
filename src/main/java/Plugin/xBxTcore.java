@@ -97,7 +97,6 @@ public final class xBxTcore extends JavaPlugin {
         String os = System.getProperty("os.name").toLowerCase();
         if (os.contains("win")) {
             getSystemOperative = SystemOperative.WINDOWS;
-            System.out.println("El sistema operativo es Windows.");
         } else if (os.contains("nix") || os.contains("nux")) {
             getSystemOperative = SystemOperative.LINUX;
         }

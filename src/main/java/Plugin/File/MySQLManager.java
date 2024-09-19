@@ -19,16 +19,17 @@ public class MySQLManager {
 
     public void createBanTableIfNotExists() {
         String createTableSQL = "CREATE TABLE IF NOT EXISTS bans (" +
-                "ip VARCHAR(45) NOT NULL, " +
+                "name VARCHAR(100) NOT NULL, " +
                 "uuid VARCHAR(36), " +
-                "name VARCHAR(100), " +
+                "ip VARCHAR(45) NOT NULL, " +
                 "reason TEXT, " +
                 "ban_date BIGINT, " +
                 "unban_date BIGINT, " +
                 "context VARCHAR(255), " +
-                "PRIMARY KEY (ip), " +
-                "UNIQUE (ip)" +
+                "PRIMARY KEY (name), " +
+                "UNIQUE (name)" +
                 ");";
+
         try (Connection connection = mysql.getConnection();
              Statement statement = connection.createStatement()) {
             statement.executeUpdate(createTableSQL);

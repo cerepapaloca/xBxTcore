@@ -19,6 +19,7 @@ public class MySQLConnection {
     private final String password;
 
     public static HashSet<byte[]> ipBan = new HashSet<>();
+    public static HashSet<String> nameBan = new HashSet<>();
 
     public MySQLConnection(String host, String database, String user, String password) {
         this.host = host;
@@ -50,7 +51,7 @@ public class MySQLConnection {
     }
 
     public void reloadBannedIPs() {
-        String sql = "SELECT ip FROM bans";
+        String sql = "SELECT name FROM bans";
         ipBan.clear();
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(sql);
@@ -59,12 +60,14 @@ public class MySQLConnection {
             while (resultSet.next()) {
                 String ip = resultSet.getString("ip");
                 ipBan.add(InetAddress.getByName(ip).getAddress());
+                String name = resultSet.getString("name");
+                nameBan.add(name);
             }
         } catch (SQLException | UnknownHostException e) {
             e.printStackTrace();
         }
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + Colorinfo +
-                "hay " + ipBan.size() + " ips baneadas"));
+                "hay " + ipBan.size() + " jugadores baneados"));
     }
 
     public void close() {

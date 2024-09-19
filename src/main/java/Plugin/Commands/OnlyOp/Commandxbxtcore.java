@@ -5,8 +5,8 @@ import Plugin.File.FileManagerSection;
 import Plugin.Messages.Enum.Messages;
 import Plugin.PlayerManager.PlayerManagerSection;
 import Plugin.Security.BanManager;
-import Plugin.Security.FireWallLinux;
-import Plugin.Security.FireWallWindows;
+import Plugin.Security.FireWall.FireWallLinux;
+import Plugin.Security.FireWall.FireWallWindows;
 import Plugin.Security.SecuritySection;
 import Plugin.Utils.Enum.SystemOperative;
 import Plugin.Utils.Utils;
@@ -28,17 +28,15 @@ import java.util.Objects;
 
 import static Plugin.File.BLackList.BlackListIpManager.RemoveIpBlackListAndSave;
 import static Plugin.Messages.MessageManager.*;
-import static Plugin.Security.FireWallWindows.runBatFile;
+import static Plugin.Security.FireWall.FireWallWindows.runBatFile;
 
 public class Commandxbxtcore implements CommandExecutor {
 
-    private final xBxTcore plugin;
     private final BanManager banManager;
-    private List<String> contexts = new ArrayList<>();
+    private final List<String> contexts = new ArrayList<>();
 
-    public Commandxbxtcore(xBxTcore plugin, BanManager banManager){
+    public Commandxbxtcore(BanManager banManager){
         this.banManager = banManager;
-        this.plugin = plugin;
         contexts.add("global");
         contexts.add("boxpvp");
     }
@@ -129,7 +127,7 @@ public class Commandxbxtcore implements CommandExecutor {
                     if (target != null) {
                         String uuid = target.getUniqueId().toString();
                         String name = target.getName();
-                        String ip = target.getAddress().getAddress().getHostAddress();
+                        String ip = Objects.requireNonNull(target.getAddress()).getAddress().getHostAddress();
                         String reason = "";
                         for (int i = 4; i < args.length; i++){
                             reason = reason.concat(args[i] + " ");
@@ -167,7 +165,6 @@ public class Commandxbxtcore implements CommandExecutor {
 
                     }
                 }
-
 
                 default -> {
                     return false;

@@ -1,4 +1,4 @@
-package Plugin.Security;
+package Plugin.Security.FireWall;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -15,21 +15,6 @@ import static Plugin.File.BLackList.BlackListIpManager.loadIpBlacklist;
 import static Plugin.Messages.MessageManager.*;
 
 public class FireWallLinux {
-
-    // Ruta del archivo que contiene las IP a bloquear
-    private static final String IP_LIST_FILE = "ips_a_bloquear.txt";
-
-    public static void main(String[] args) {
-        // Cargar la lista de IP desde un archivo
-        Set<String> ipList = loadIPList(IP_LIST_FILE);
-
-        if (ipList.isEmpty()) {
-            System.out.println("La lista de IPs está vacía o no se pudo cargar.");
-            return;
-        }
-
-        System.out.println("IPs actualizadas con éxito.");
-    }
 
     public static void updateBlockedIPs() {
         List<String> ipList = new ArrayList<>();

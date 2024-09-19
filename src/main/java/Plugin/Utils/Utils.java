@@ -325,6 +325,12 @@ public class Utils {
         return Material.STRUCTURE_VOID;
     }
 
+    /**
+     * Ejecuta un comando
+     * @deprecated
+     * @param command
+     */
+
     public static void executeCommandCMD(String command) {
         ProcessBuilder processBuilder = new ProcessBuilder("cmd.exe", "/c", command);
 

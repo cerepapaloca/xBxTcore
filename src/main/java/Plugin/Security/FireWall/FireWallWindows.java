@@ -1,4 +1,4 @@
-package Plugin.Security;
+package Plugin.Security.FireWall;
 import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
