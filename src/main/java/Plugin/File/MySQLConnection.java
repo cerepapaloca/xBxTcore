@@ -7,6 +7,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.sql.*;
 import java.util.HashSet;
+import java.util.UUID;
 
 import static Plugin.Messages.MessageManager.*;
 
@@ -19,7 +20,7 @@ public class MySQLConnection {
     private final String password;
 
     public static HashSet<byte[]> ipBan = new HashSet<>();
-    public static HashSet<String> nameBan = new HashSet<>();
+    public static HashSet<UUID> UUIDBan = new HashSet<>();
 
     public MySQLConnection(String host, String database, String user, String password) {
         this.host = host;
@@ -45,13 +46,13 @@ public class MySQLConnection {
                 connect();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         return connection;
     }
 
     public void reloadBannedIPs() {
-        String sql = "SELECT name FROM bans";
+        String sql = "SELECT uuid, ip FROM bans";
         ipBan.clear();
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(sql);
@@ -60,11 +61,11 @@ public class MySQLConnection {
             while (resultSet.next()) {
                 String ip = resultSet.getString("ip");
                 ipBan.add(InetAddress.getByName(ip).getAddress());
-                String name = resultSet.getString("name");
-                nameBan.add(name);
+                String name = resultSet.getString("uuid");
+                UUIDBan.add(UUID.fromString(name));
             }
         } catch (SQLException | UnknownHostException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + Colorinfo +
                 "hay " + ipBan.size() + " jugadores baneados"));
@@ -76,7 +77,7 @@ public class MySQLConnection {
                 connection.close();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 }

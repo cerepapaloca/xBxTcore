@@ -9,7 +9,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
-import org.jetbrains.annotations.CheckReturnValue;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -19,7 +18,7 @@ import java.util.Arrays;
 import java.util.Objects;
 
 import static Plugin.File.MySQLConnection.ipBan;
-import static Plugin.File.MySQLConnection.nameBan;
+import static Plugin.File.MySQLConnection.UUIDBan;
 import static Plugin.Messages.MessageManager.*;
 
 public class BanManager implements Listener {
@@ -83,8 +82,8 @@ public class BanManager implements Listener {
                 "ban_date = VALUES(ban_date), unban_date = VALUES(unban_date), context = VALUES(context)";
         try (Connection connection = mysql.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, name);
-            statement.setString(2, uuid);
+            statement.setString(1, uuid);
+            statement.setString(2, name);
             statement.setString(3, ip);
             statement.setString(4, reason);
             statement.setLong(5, banDate);
@@ -107,7 +106,7 @@ public class BanManager implements Listener {
 
     public static boolean checkBanPlayer(@NotNull InetAddress ipPlayer, @NotNull Player player,@Nullable String context) {
         byte[] ipByte = ipPlayer.getAddress();
-        boolean checkName = nameBan.contains(player.getName());
+        boolean checkName = UUIDBan.contains(player.getUniqueId());
         boolean checkIp = false;
 
         for (byte[] bytes : ipBan){
@@ -118,24 +117,7 @@ public class BanManager implements Listener {
         }
 
         if (checkName || checkIp){
-            ResultSet resultSet = null;
-            if (checkName){
-                try (Connection connection = mysql.getConnection();
-                     PreparedStatement statement = connection.prepareStatement("SELECT * FROM bans WHERE name = ?")) {
-                    statement.setString(1, player.getName());
-                    resultSet = statement.executeQuery();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }else {
-                try (Connection connection = mysql.getConnection();
-                     PreparedStatement statement = connection.prepareStatement("SELECT * FROM bans WHERE ip = ?")) {
-                    statement.setString(1, player.getName());
-                    resultSet = statement.executeQuery();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+            final ResultSet resultSet = getDataMySQL(player, checkName);
             if (resultSet == null)return false;
 
             try {
@@ -145,7 +127,7 @@ public class BanManager implements Listener {
                         long currentTime = System.currentTimeMillis();
 
                         if (currentTime < unbanDate) {
-                            if (context.equals("global")) context = "xBxTpvp.xyz";
+                            if (Objects.equals(context, "global")) context = "xBxTpvp.xyz";
                             String reason = ChatColor.translateAlternateColorCodes('&', prefixKick + Colorinfo + "Haz sido baneado de &o" + context + "&r\n" +
                                     Colorinfo + "Expira en: " + Colorplayer + Utils.SecondToMinutes(unbanDate - currentTime) + "\n" +
                                     Colorinfo + "Razón de baneo: " + Colorplayer + resultSet.getString("reason") + "\n" +
@@ -164,6 +146,28 @@ public class BanManager implements Listener {
             return false;
         }
         return false;
+    }
+
+    private static ResultSet getDataMySQL(@NotNull Player player, boolean checkName) {
+        ResultSet resultSet;
+        if (checkName){
+            try (Connection connection = mysql.getConnection();
+                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM bans WHERE name = ?")) {
+                statement.setString(1, player.getName());
+                resultSet = statement.executeQuery();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }else {
+            try (Connection connection = mysql.getConnection();
+                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM bans WHERE ip = ?")) {
+                statement.setString(1, player.getName());
+                resultSet = statement.executeQuery();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return resultSet;
     }
 
 }

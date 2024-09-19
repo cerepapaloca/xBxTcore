@@ -4,8 +4,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.InetAddress;
@@ -69,28 +67,6 @@ public class FireWallLinux {
                 "Se ejecuto exitosamente"));
     }
 
-    // Método para cargar las IPs desde un archivo
-    private static Set<String> loadIPList(String filePath) {
-        Set<String> ipList = new HashSet<>();
-
-        File file = new File(filePath);
-        if (!file.exists()) {
-            System.err.println("El archivo de IPs no existe: " + filePath);
-            return ipList;
-        }
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                ipList.add(line.trim());  // Agrega cada IP a la lista
-            }
-        } catch (IOException e) {
-            System.err.println("Error al leer el archivo de IPs: " + e.getMessage());
-        }
-
-        return ipList;
-    }
-
     // Método para obtener las IPs actualmente bloqueadas en el firewall
     private static Set<String> getBlockedIPs() {
         Set<String> blockedIPs = new HashSet<>();
@@ -109,7 +85,7 @@ public class FireWallLinux {
             }
             process.waitFor();
         } catch (IOException | InterruptedException e) {
-            System.err.println("Error al obtener las IPs bloqueadas: " + e.getMessage());
+            Bukkit.getConsoleSender().sendMessage("Error al obtener las IPs bloqueadas: " + e.getMessage());
         }
 
         return blockedIPs;

@@ -67,7 +67,7 @@ public final class xBxTcore extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        long timeStaringtotal = System.currentTimeMillis();
+        long timeStaringTotal = System.currentTimeMillis();
         plugin = this;
         OtherRegister();
         APIs();
@@ -83,24 +83,25 @@ public final class xBxTcore extends JavaPlugin {
         register(new VoteSection(this));
         register(new SecuritySection(this));
         register(new CommandSection(this));
-
-        serverStartTime = System.currentTimeMillis();
         for (Section section : sections) {
             try {
                 section.enable();
             } catch (Exception e) {
                 Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorError + "Error al Cargar " + section.getName() + " servidor requiere reinicio"));
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
-        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', ColorSuccess + "xBxTcore Cargado " + Colorplayer + (System.currentTimeMillis() - timeStaringtotal) + "ms"));
+        updateIP();
+        serverStartTime = System.currentTimeMillis();
         String os = System.getProperty("os.name").toLowerCase();
         if (os.contains("win")) {
             getSystemOperative = SystemOperative.WINDOWS;
         } else if (os.contains("nix") || os.contains("nux")) {
             getSystemOperative = SystemOperative.LINUX;
         }
-        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', Colorinfo + "info de sistema: " + os));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', Colorinfo + "Os = " + os));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', ColorSuccess + "xBxTcore Cargado " + Colorplayer + (System.currentTimeMillis() - timeStaringTotal) + "ms"));
+
         MessageON();
     }
 
@@ -352,6 +353,6 @@ public final class xBxTcore extends JavaPlugin {
                     throw new RuntimeException(e);
                 }
             }
-        }.runTaskTimer(this, 0, 20*30);
+        }.runTaskTimer(this, 20*30, 20*30);
     }
 }

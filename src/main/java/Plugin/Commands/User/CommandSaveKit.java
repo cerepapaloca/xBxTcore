@@ -55,7 +55,7 @@ public class CommandSaveKit implements CommandExecutor {
         return false;
     }
 
-    public void GetItemInvetort(Player player){
+    private void GetItemInvetort(Player player){
         items.clear();
         if (namekit.contains(".")) {
             player.sendMessage(MasterMessageLocated(player, Messages.Kit_SaveErrorPunto));
