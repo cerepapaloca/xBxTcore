@@ -83,9 +83,11 @@ public class Commandxbxtcore implements CommandExecutor {
                 case "ip" -> {
                     switch (args[1]) {
                         case "save" -> {
-                            if (Objects.requireNonNull(xBxTcore.getSystemOperative) == SystemOperative.WINDOWS) {
-                                FireWallWindows.updateFirewallRule();
+                            switch (xBxTcore.getSystemOperative){
+                                case WINDOWS -> FireWallWindows.updateFirewallRule();
+                                case LINUX -> FireWallLinux.updateFirewallZone();
                             }
+
                             BlackListIpManager.saveIpBlacklist();
                             Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorSuccess + "Se guardo las ips Correctamente"));
                             return true;
@@ -97,14 +99,8 @@ public class Commandxbxtcore implements CommandExecutor {
                         }
                         case "update" -> {
                             switch (xBxTcore.getSystemOperative){
-                                case LINUX -> FireWallLinux.updateBlockedIPs();
-                                case WINDOWS -> {
-                                    try {
-                                        runBatFile();
-                                    } catch (IOException e) {
-                                        throw new RuntimeException(e);
-                                    }
-                                }
+                                case LINUX -> FireWallLinux.executeFirewallScript();
+                                case WINDOWS -> FireWallWindows.runBatFile();
                             }
                             return true;
                         }

@@ -113,10 +113,10 @@ public final class xBxTcore extends JavaPlugin {
         for (Player p : Objects.requireNonNull(Bukkit.getWorld(worldBoxPvp)).getPlayers()) {
             getPlayerFileManager().SaveInventoryBoxPvp(p.getUniqueId(), Utils.getItensInvetory(p));
         }
-        MessageOFF();
-        HandlerList.unregisterAll(this);
         sections.forEach(Section::disable);
         sections.clear();
+        HandlerList.unregisterAll(this);
+        MessageOFF();
     }
 
     private void MessageON(){

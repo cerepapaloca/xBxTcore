@@ -84,19 +84,19 @@ public class FireWallWindows {
             writer.write("netsh advfirewall firewall add rule name=\"Bloquear_IPs\" dir=in action=block remoteip=" + ipString + " protocol=any\n");
             writer.write("pause\n");
         }catch (Exception e){
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
     // Método para ejecutar el archivo .bat
-    public static void runBatFile() throws IOException {
+    public static void runBatFile() {
         if (batFile == null)batFile = new File(xBxTcore.getInstance().getDataFolder(), "firewall_rule.bat");
         new Thread(() -> {
             try {
                 executeCommandCMD(batFile.getAbsolutePath());
                 Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorSuccess + "Se actualizo correctamente"));
             } catch (Exception e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }).start();
     }
