@@ -110,27 +110,29 @@ public class FireWallLinux {
 
     public static void executeFirewallScript() {
         ProcessBuilder processBuilder = new ProcessBuilder();
-        processBuilder.command("bash", "-c", "sudo Desktop/xBxTpvp.xyz/plugins/xBxTcore/firewall_zone.sh");
+        processBuilder.command("bash", "-c", "sudo /home/ceres/Desktop/xBxTpvp.xyz/plugins/xBxTcore/firewall_zone.sh");
+        new Thread(() -> {
+            try {
+                // Ejecutar el comando
+                Process process = processBuilder.start();
 
-        try {
-            // Ejecutar el comando
-            Process process = processBuilder.start();
+                // Leer la salida del comando
+                BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',Colorinfo +  "Salida De FireWall: " + line)); // Imprimir la salida en la consola
+                }
 
-            // Leer la salida del comando
-            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',Colorinfo + line)); // Imprimir la salida en la consola
+                // Esperar a que el proceso termine y obtener el código de salida
+                int exitCode = process.waitFor();
+                Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorSuccess +
+                        "Comando ejecutado con éxito, código de salida: " + exitCode + " recuerda que puedes usar 'firewall-cmd --zone=public --list-all' para ver las ips"));
+
+            } catch (IOException | InterruptedException e) {
+                throw new RuntimeException(e);
             }
+        }).start();
 
-            // Esperar a que el proceso termine y obtener el código de salida
-            int exitCode = process.waitFor();
-            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorSuccess +
-                    "Comando ejecutado con éxito, código de salida: " + exitCode));
-
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
 }
