@@ -50,7 +50,7 @@ public class BlackListIpManager {
         return ipBlacklist;
     }
 
-    public static void AddIpBlackListAndSave(InetAddress ip) {
+    public static void AddIpBlackList(InetAddress ip) {
         blackListedIps.add(ip.getAddress());
         saveIpBlacklist();
     }

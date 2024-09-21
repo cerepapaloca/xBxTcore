@@ -99,7 +99,7 @@ public final class xBxTcore extends JavaPlugin {
         } else if (os.contains("nix") || os.contains("nux")) {
             getSystemOperative = SystemOperative.LINUX;
         }
-        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', Colorinfo + "Os = " + os));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', Colorinfo + "System = " + os));
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', ColorSuccess + "xBxTcore Cargado " + Colorplayer + (System.currentTimeMillis() - timeStaringTotal) + "ms"));
 
         MessageON();

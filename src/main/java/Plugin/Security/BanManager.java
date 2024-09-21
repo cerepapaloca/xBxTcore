@@ -63,7 +63,7 @@ public class BanManager implements Listener {
         }
     }
 
-    private static void unbanPlayer(String name) {
+    public static void unbanPlayer(String name) {
         String sql = "DELETE FROM bans WHERE name = ?";
         try (Connection connection = mysql.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -75,7 +75,15 @@ public class BanManager implements Listener {
         }
     }
 
-    public void banPlayer(String ip,String uuid, String name, String reason, long banDate, long unbanDate, String context) {
+    public static void banPlayer(Player player, String reason, long unbanDate) {
+        banPlayer(Objects.requireNonNull(player.getAddress()).getHostName(), player.getUniqueId().toString(), player.getName(), reason, System.currentTimeMillis(), unbanDate, "global");
+    }
+
+    public static void banPlayer(Player player, String reason, long unbanDate, String context) {
+        banPlayer(Objects.requireNonNull(player.getAddress()).getHostName(), player.getUniqueId().toString(), player.getName(), reason, System.currentTimeMillis(), unbanDate, context);
+    }
+
+    public static void banPlayer(String ip, String uuid, String name, String reason, long banDate, long unbanDate, String context) {
         String sql = "INSERT INTO bans (name, uuid, ip, reason, ban_date, unban_date, context) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?) " +
                 "ON DUPLICATE KEY UPDATE uuid = VALUES(uuid), name = VALUES(name), reason = VALUES(reason), " +

@@ -132,7 +132,7 @@ public class Utils {
         i.setItem(slot, itemStack);
     }
 
-    public static @NotNull ArrayList<ItemStack> getItensInvetory(Player player){
+    public static @NotNull ArrayList<ItemStack> getItensInvetory(@NotNull Player player){
         ArrayList<ItemStack> items = new ArrayList<>();
         for(int i = 0; i<player.getInventory().getContents().length;){
             ItemStack itemstack = player.getInventory().getItem(i);
@@ -182,6 +182,7 @@ public class Utils {
         world.dropItemNaturally(location, item);
     }
 
+    @Contract(pure = true)
     public static long convertToMilliseconds(@NotNull String time) {
         char unit = time.charAt(time.length() - 1);
         long value = Long.parseLong(time.substring(0, time.length() - 1));
@@ -211,6 +212,7 @@ public class Utils {
         }
     }
 
+    @Contract(pure = true)
     public static @NotNull String processFormattingTags(String input) {
         // Reemplazar etiquetas de negrita y cursiva
         String result = input;
@@ -226,6 +228,7 @@ public class Utils {
         return result;
     }
 
+    @Contract(pure = true)
     public static @Nullable Chunk getChunkByCoordinates(String worldName, int chunkX, int chunkZ) {
         World world = Bukkit.getWorld(worldName);
         if (world != null) {
@@ -264,6 +267,7 @@ public class Utils {
                 units[number % 10];
     }
 
+    @Contract(pure = true)
     public static Material colorToMaterial(@NotNull Material material, @NotNull Material target) {
         String nameColor = material.name();
         String nameTarget = target.name();
@@ -325,12 +329,6 @@ public class Utils {
         return Material.STRUCTURE_VOID;
     }
 
-    /**
-     * Ejecuta un comando
-     * @deprecated
-     * @param command
-     */
-
     public static void executeCommandCMD(String command) {
         ProcessBuilder processBuilder = new ProcessBuilder("cmd.exe", "/c", command);
 
@@ -347,6 +345,7 @@ public class Utils {
         }
     }
 
+    @Contract(pure = true)
     public static String getPlayerPrefix(Player player) {
         LuckPerms luckPerms = LuckPermsProvider.get();
         User user = luckPerms.getUserManager().getUser(player.getUniqueId());

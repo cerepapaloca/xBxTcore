@@ -21,6 +21,7 @@ public class SecuritySection implements Section {
         plugin.register(new GrimAC());
         plugin.register(banManager = new BanManager(FileManagerSection.getMySQLConnection()));
         new AntiTwoPlayer();
+        new AutoBan(plugin);
     }
 
     @Override
