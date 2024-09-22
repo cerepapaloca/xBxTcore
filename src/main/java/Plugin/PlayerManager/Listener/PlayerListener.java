@@ -21,7 +21,6 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 
-import java.sql.SQLException;
 import java.util.*;
 
 import static Plugin.BoxPvp.BoxPvpSection.getZoneSafeBoxPvp;
@@ -30,7 +29,7 @@ import static Plugin.File.FileManagerSection.getPlayerFileManager;
 import static Plugin.Messages.MessageManager.*;
 import static Plugin.PlayerManager.PlayerManager.playresInSafeZone;
 import static Plugin.PlayerManager.PlayerManager.punishedTiemer;
-import static Plugin.Security.BanManager.checkBanPlayer;
+import static Plugin.Security.SystemBan.BanManager.checkBanPlayer;
 import static Plugin.Security.BlockByPass.checkOpCreative;
 import static Plugin.Security.BlockByPass.passwordList;
 

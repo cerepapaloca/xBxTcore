@@ -367,8 +367,7 @@ public final class xBxTcore extends JavaPlugin {
         new BukkitRunnable() {
             public void run() {
                 PingRequest.pingRequest();
-
             }
-        }.runTaskTimer(this, 20*30, 20);
+        }.runTaskTimer(this, 20, 20);
     }
 }

@@ -6,39 +6,38 @@ import org.bukkit.ChatColor;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.sql.*;
-import java.util.HashSet;
 import java.util.UUID;
 
 import static Plugin.Messages.MessageManager.*;
-import static Plugin.Security.BanManager.UUIDBan;
-import static Plugin.Security.BanManager.ipBan;
+import static Plugin.Security.SystemBan.BanManager.UUIDBan;
+import static Plugin.Security.SystemBan.BanManager.ipBan;
 
 public class MySQLConnection {
-    private Connection connection;
+    private static Connection connection;
 
-    private final String host;
-    private final String database;
-    private final String user;
-    private final String password;
+    private static String host;
+    private static String database;
+    private static String user;
+    private static String password;
 
     public MySQLConnection(String host, String database, String user, String password) {
-        this.host = host;
-        this.database = database;
-        this.user = user;
-        this.password = password;
+        MySQLConnection.host = host;
+        MySQLConnection.database = database;
+        MySQLConnection.user = user;
+        MySQLConnection.password = password;
     }
 
-    public void connect() {
+    public static void connect() {
         String url = "jdbc:mysql://" + host + "/" + database;
         try {
             connection = DriverManager.getConnection(url, user, password);
             Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorSuccess +  "Conexión a MySQL establecida."));
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
-    public Connection getConnection() {
+    public static Connection getConnection() {
         try {
             if (connection == null || connection.isClosed()) {
                 Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorWarning + "Conexión cerrada, reconectando..."));
@@ -50,7 +49,7 @@ public class MySQLConnection {
         return connection;
     }
 
-    public void reloadBannedIPs() {
+    public static void reloadBannedBans() {
         String sql = "SELECT uuid, ip FROM bans";
         ipBan.clear();
         UUIDBan.clear();

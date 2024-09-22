@@ -2,6 +2,8 @@ package Plugin.Security;
 
 import Plugin.File.FileManagerSection;
 import Plugin.Section;
+import Plugin.Security.SystemBan.AutoBan;
+import Plugin.Security.SystemBan.BanManager;
 import Plugin.xBxTcore;
 
 public class SecuritySection implements Section {

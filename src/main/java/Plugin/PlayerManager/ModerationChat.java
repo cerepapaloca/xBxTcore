@@ -1,7 +1,7 @@
 package Plugin.PlayerManager;
 
 import Plugin.Messages.Enum.Messages;
-import Plugin.Security.ReasonBan;
+import Plugin.Security.SystemBan.ReasonBan;
 import Plugin.Utils.ColorUtils;
 import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
@@ -15,7 +15,7 @@ import java.util.UUID;
 
 import static Plugin.Messages.MessageManager.MasterMessageLocated;
 import static Plugin.PlayerManager.PlayerManagerSection.moderationChatEnabled;
-import static Plugin.Security.AutoBan.checkAutoBanChat;
+import static Plugin.Security.SystemBan.AutoBan.checkAutoBanChat;
 
 public class ModerationChat {
 
@@ -39,18 +39,6 @@ public class ModerationChat {
         banWord.add(".tv");
         banWord.add(".us");
         banWord.add("nigga");
-        banWord.add("fack");
-        banWord.add("puto");
-        banWord.add("puta");
-        banWord.add("mierda");
-        banWord.add("sexo");
-        banWord.add("coño");
-        banWord.add(" ñ ");
-        banWord.add("maricon");
-        banWord.add("violar");
-        banWord.add("pene");
-        banWord.add("vajina");
-        banWord.add("on top");
     }
 
     public void CheckMessage(AsyncPlayerChatEvent event){
@@ -59,7 +47,6 @@ public class ModerationChat {
         if (moderationChatEnabled){
             if(!cooldownPlayer.contains(event.getPlayer().getUniqueId())){
                 if (isBanWord(event.getMessage())){
-                    checkAutoBanChat(event.getPlayer(), ReasonBan.Chat_Word, event.getMessage());
                     Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',
                             prefix + "&r " + event.getPlayer().getName() + " » &7" + event.getMessage() + " &c[Eliminado: Palabras prohibidas]"));
                     event.getPlayer().sendMessage(MasterMessageLocated(event.getPlayer(), Messages.Others_Chat_BanWord));
@@ -68,14 +55,12 @@ public class ModerationChat {
                             prefix + "&r "
                                     + event.getPlayer().getName() + " » &7" + event.getMessage()));
                 }
-                checkAutoBanChat(event.getPlayer(), ReasonBan.Chat_Bot, event.getMessage());
             }else {
-                if (isBanWord(event.getMessage()))checkAutoBanChat(event.getPlayer(), ReasonBan.Chat_Both, event.getMessage());
                 Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',
                         prefix + "&r " + event.getPlayer().getName() + " » &7" + event.getMessage() + " &c[Eliminado: Spam]"));
                 event.getPlayer().sendMessage(MasterMessageLocated(event.getPlayer(), Messages.Others_Chat_Cooldown).replace("%time%", "4s"));
-                checkAutoBanChat(event.getPlayer(), ReasonBan.Chat_Spam, event.getMessage());
             }
+            checkAutoBanChat(event.getPlayer(), ReasonBan.Chat_Bot, event.getMessage());
             starCoolDown(event.getPlayer().getUniqueId());
         }else{
             Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&',

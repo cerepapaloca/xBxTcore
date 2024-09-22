@@ -1,4 +1,4 @@
-package Plugin.Security;
+package Plugin.Security.SystemBan;
 
 import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
@@ -74,14 +74,6 @@ public class AutoBan {
                     timeDifferenceOld.put(player.getUniqueId(), DifferenceNew);
                 }
             }
-            case Chat_Spam -> countPunishChat.put(player.getUniqueId(), countPunishChat.getOrDefault(player.getUniqueId(), 0) + 1);
-            case Chat_Word -> countPunishChat.put(player.getUniqueId(), countPunishChat.getOrDefault(player.getUniqueId(), 0) + 2);
-            case Chat_Both -> countPunishChat.put(player.getUniqueId(), countPunishChat.getOrDefault(player.getUniqueId(), 0) + 3);
-        }
-
-
-        if (countPunishChat.getOrDefault(player.getUniqueId(), 0) == 15) {
-            BanManager.banPlayer(player, "(Ban Automático) Span indebido en el chat y/o palabras no adecuadas", 1000*60*2L);
         }
 
         timePunishChat.put(player.getUniqueId(), currentTime);

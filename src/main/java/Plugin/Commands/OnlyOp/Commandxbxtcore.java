@@ -4,11 +4,10 @@ import Plugin.File.BLackList.BlackListIpManager;
 import Plugin.File.FileManagerSection;
 import Plugin.Messages.Enum.Messages;
 import Plugin.PlayerManager.PlayerManagerSection;
-import Plugin.Security.BanManager;
+import Plugin.Security.SystemBan.BanManager;
 import Plugin.Security.FireWall.FireWallLinux;
 import Plugin.Security.FireWall.FireWallWindows;
 import Plugin.Security.SecuritySection;
-import Plugin.Utils.Enum.SystemOperative;
 import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
@@ -19,16 +18,13 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import static Plugin.File.BLackList.BlackListIpManager.RemoveIpBlackListAndSave;
 import static Plugin.Messages.MessageManager.*;
-import static Plugin.Security.FireWall.FireWallWindows.runBatFile;
 
 public class Commandxbxtcore implements CommandExecutor {
 
@@ -117,28 +113,23 @@ public class Commandxbxtcore implements CommandExecutor {
                 }
 
                 case "ban" -> {
-                    if (args[1].equalsIgnoreCase("reload")) FileManagerSection.getMySQLConnection().reloadBannedIPs();
+                    if (args[1].equalsIgnoreCase("reload")) FileManagerSection.getMySQLConnection().reloadBannedBans();
                     if(!(args.length >= 5))return false;
                     Player target = sender.getServer().getPlayer(args[1]);
                     if (target != null) {
-                        String uuid = target.getUniqueId().toString();
                         String name = target.getName();
-                        String ip = Objects.requireNonNull(target.getAddress()).getAddress().getHostAddress();
                         String reason = "";
                         for (int i = 4; i < args.length; i++){
                             reason = reason.concat(args[i] + " ");
                         }
 
                         long duration = Utils.convertToMilliseconds(args[3]);
-                        long banDate = System.currentTimeMillis();
-                        long unbanDate = banDate + duration;
                         if (contexts.contains(args[2].toLowerCase())) {
 
-                            banManager.banPlayer(ip, name, uuid, reason, banDate, unbanDate, args[2]);
-
-                            sender.sendMessage("El jugador " + name + " ha sido baneado.");
+                            BanManager.banPlayer(target, reason, duration, args[2]);
                         }else{
-                            sender.sendMessage("ese contexto no existe");
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorError +
+                                    "Ese Contexto no existe solo exite 'global' y 'boxpvp'"));
                         }
 
                     } else {
