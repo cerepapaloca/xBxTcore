@@ -50,11 +50,6 @@ public class BlackListIpManager {
         return ipBlacklist;
     }
 
-    public static void AddIpBlackList(InetAddress ip) {
-        blackListedIps.add(ip.getAddress());
-        saveIpBlacklist();
-    }
-
     public static void RemoveIpBlackListAndSave(InetAddress ip) {
         for (byte[] blackListedIp : blackListedIps) {
             if (Arrays.equals(blackListedIp, ip.getAddress())) {

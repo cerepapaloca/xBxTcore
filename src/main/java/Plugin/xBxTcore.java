@@ -1,6 +1,6 @@
 package Plugin;
 
-import Plugin.Apis.DDNS_NameCheap;
+import Plugin.WebSide.DDNS_NameCheap;
 import Plugin.BoxPvp.BoxPvpSection;
 import Plugin.CombatLog.CombatSection;
 import Plugin.Commands.CommandSection;
@@ -21,6 +21,7 @@ import Plugin.Utils.Enum.SystemOperative;
 import Plugin.Utils.Utils;
 import Plugin.Utils.UtilsMain;
 import Plugin.Vote.VoteSection;
+import Plugin.WebSide.PingRequest;
 import ac.grim.grimac.api.GrimAbstractAPI;
 import com.onarandombox.MultiverseCore.MultiverseCore;
 import me.neznamy.tab.api.TabAPI;
@@ -35,14 +36,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
 import net.md_5.bungee.api.ChatColor;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-import static Plugin.Apis.DDNS_NameCheap.updateIP;
+import static Plugin.WebSide.DDNS_NameCheap.updateIP;
 import static Plugin.File.FileManagerSection.getPlayerFileManager;
 import static Plugin.Messages.MessageManager.*;
 
@@ -183,6 +183,7 @@ public final class xBxTcore extends JavaPlugin {
         Timeinfo();
         startAutoCleaner();
         TimeAutoSafeInventory();
+        StarRequestPing();
         String ip = "?";
         try {
             ip = DDNS_NameCheap.getPrivateIP();
@@ -227,40 +228,46 @@ public final class xBxTcore extends JavaPlugin {
         return luckPerms;
     }
 
-    BukkitTask task1minute;
-    BukkitTask task5seconds;
-
     ///////////////////////////////////////////////////
     ///////////////////////////////////////////////////
 
     private void startAutoCleaner() {
-        long intervalTicks =2 * 60 * 60 * 20L;
-        Bukkit.getScheduler().runTaskTimer(this, () -> {
-            BroadcastMessage(Messages.Others_message1Minute);
-            left1minutes();
-        }, 0L, intervalTicks);
+        long intervalTicks = 2 * 60 * 60 * 20L;
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                BroadcastMessage(Messages.Others_message1Minute);
+                left1minutes();
+            }
+        }.runTaskTimer(plugin, 20*4, intervalTicks);
     }
 
     private void left1minutes() {
-       task1minute = Bukkit.getScheduler().runTaskTimer(this, () -> {
-           BroadcastMessage(Messages.Others_message5Seconds);
-           left5seconds();
-       }, 55 * 20, 30);
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                BroadcastMessage(Messages.Others_message5Seconds);
+                left5seconds();
+            }
+        }.runTaskLater(this, 55*20);
     }
 
     private void left5seconds() {
-        task5seconds = Bukkit.getScheduler().runTaskTimer(this, this::ExecuteClener, 5 * 20, 0);
-        task1minute.cancel();
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                ExecuteClener();
+            }
+        }.runTaskLater(this, 5*20);
     }
-
-    ///////////////////////////////////////////////////
-    ///////////////////////////////////////////////////
 
     private void ExecuteClener(){
         BroadcastMessage(Messages.Others_messageStarCleaner);
         EnvironmentsSection.getCleaner().clearArea("lobby");
-        task5seconds.cancel();
     }
+
+    ///////////////////////////////////////////////////
+    ///////////////////////////////////////////////////
 
     public void messageOnlyPlayer(){
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', MessageManager.prefix + Colorinfo + "Solo jugadores Tonto"));
@@ -354,5 +361,14 @@ public final class xBxTcore extends JavaPlugin {
                 }
             }
         }.runTaskTimer(this, 20*30, 20*30);
+    }
+
+    public void StarRequestPing(){
+        new BukkitRunnable() {
+            public void run() {
+                PingRequest.pingRequest();
+
+            }
+        }.runTaskTimer(this, 20*30, 20);
     }
 }

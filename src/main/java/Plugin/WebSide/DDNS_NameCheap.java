@@ -1,4 +1,4 @@
-package Plugin.Apis;
+package Plugin.WebSide;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

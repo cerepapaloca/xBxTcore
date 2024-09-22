@@ -97,7 +97,7 @@ public class PlayerListener implements Listener {
             if(player.isOp() && !player.getName().equals("cerespapaloca")){
                 player.setOp(false);
             }
-            if (checkBanPlayer(Objects.requireNonNull(player.getAddress()).getAddress(), player, "boxpvp"))return;
+            if (checkBanPlayer(Objects.requireNonNull(player.getAddress()).getAddress(), player, "boxpvp") != null)return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 999999, 1));
             player.playSound(player, Sound.BLOCK_PORTAL_TRAVEL, 1, 1);
             getPlayerFileManager().loadInventoryBoxPvp(player);

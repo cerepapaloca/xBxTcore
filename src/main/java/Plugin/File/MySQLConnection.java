@@ -10,6 +10,8 @@ import java.util.HashSet;
 import java.util.UUID;
 
 import static Plugin.Messages.MessageManager.*;
+import static Plugin.Security.BanManager.UUIDBan;
+import static Plugin.Security.BanManager.ipBan;
 
 public class MySQLConnection {
     private Connection connection;
@@ -18,9 +20,6 @@ public class MySQLConnection {
     private final String database;
     private final String user;
     private final String password;
-
-    public static HashSet<byte[]> ipBan = new HashSet<>();
-    public static HashSet<UUID> UUIDBan = new HashSet<>();
 
     public MySQLConnection(String host, String database, String user, String password) {
         this.host = host;
@@ -54,6 +53,7 @@ public class MySQLConnection {
     public void reloadBannedIPs() {
         String sql = "SELECT uuid, ip FROM bans";
         ipBan.clear();
+        UUIDBan.clear();
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(sql);
              ResultSet resultSet = statement.executeQuery()) {

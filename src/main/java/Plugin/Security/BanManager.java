@@ -16,13 +16,16 @@ import org.jetbrains.annotations.Nullable;
 import java.net.InetAddress;
 import java.sql.*;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.UUID;
 
-import static Plugin.File.MySQLConnection.ipBan;
-import static Plugin.File.MySQLConnection.UUIDBan;
 import static Plugin.Messages.MessageManager.*;
 
 public class BanManager implements Listener {
+
+    public static HashSet<byte[]> ipBan = new HashSet<>();
+    public static HashSet<UUID> UUIDBan = new HashSet<>();
 
     private static MySQLConnection mysql;
     private static xBxTcore plugin = null;
@@ -34,36 +37,10 @@ public class BanManager implements Listener {
 
     @EventHandler (priority = EventPriority.NORMAL)
     public void onPlayerLogin(@NotNull PlayerLoginEvent event) {
-        String ip = event.getAddress().getHostAddress();
-        byte[] ipByte = event.getAddress().getAddress();
-        for (byte[] bytes : ipBan){
-            if (Arrays.equals(ipByte, bytes)){
-                try (Connection connection = mysql.getConnection();
-                    PreparedStatement statement = connection.prepareStatement("SELECT * FROM bans WHERE ip = ?")) {
-                    statement.setString(1, ip);
-                    ResultSet resultSet = statement.executeQuery();
-
-                    if (resultSet.next()) {
-                        if (resultSet.getString("context").equals("global")) {
-                            long unbanDate = resultSet.getLong("unban_date");
-                            long currentTime = System.currentTimeMillis();
-
-                            if (currentTime < unbanDate) {
-                                String reason = ChatColor.translateAlternateColorCodes('&', prefixKick + Colorinfo + "Haz sido baneado de &oxBxTpvp.xyz&r\n" +
-                                        Colorinfo + "Expira en: " + Colorplayer + Utils.SecondToMinutes(unbanDate - currentTime) + "\n" +
-                                        Colorinfo + "Razón de baneo: " + Colorplayer + resultSet.getString("reason") + "\n" +
-                                        Colorinfo + "Apelación de ban: " + LinkDiscord);
-                                event.setKickMessage(reason);
-                                event.setResult(PlayerLoginEvent.Result.KICK_BANNED);
-                            } else {
-                                unbanPlayer(ip);
-                            }
-                        }
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+        String reason = checkBanPlayer(event.getAddress(), event.getPlayer(), "global");
+        if (reason != null){
+            event.setResult(PlayerLoginEvent.Result.KICK_BANNED);
+            event.setKickMessage(reason);
         }
     }
 
@@ -120,7 +97,7 @@ public class BanManager implements Listener {
         }
     }
 
-    public static boolean checkBanPlayer(@NotNull InetAddress ipPlayer, @NotNull Player player,@Nullable String context) {
+    public static String checkBanPlayer(@NotNull InetAddress ipPlayer, @NotNull Player player,@Nullable String context) {
         byte[] ipByte = ipPlayer.getAddress();
         boolean checkName = UUIDBan.contains(player.getUniqueId());
         boolean checkIp = false;
@@ -134,7 +111,7 @@ public class BanManager implements Listener {
 
         if (checkName || checkIp){
             final ResultSet resultSet = getDataMySQL(player, checkName);
-            if (resultSet == null)return false;
+            if (resultSet == null)return null;
 
             try {
                 if (resultSet.next()) {
@@ -149,19 +126,19 @@ public class BanManager implements Listener {
                                     Colorinfo + "Razón de baneo: " + Colorplayer + resultSet.getString("reason") + "\n" +
                                     Colorinfo + "Apelación de ban: " + LinkDiscord);
                             player.kickPlayer(reason);
-                            return true;
+                            return reason;
                         } else {
                             unbanPlayer(player.getName());
-                            return false;
+                            return null;
                         }
                     }
                 }
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-            return false;
+            return null;
         }
-        return false;
+        return null;
     }
 
     private static ResultSet getDataMySQL(@NotNull Player player, boolean checkName) {
