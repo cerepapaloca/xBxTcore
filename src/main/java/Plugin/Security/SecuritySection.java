@@ -19,7 +19,7 @@ public class SecuritySection implements Section {
     public void enable() {
         plugin.register(new AntiBotListener());
         plugin.register(new GrimAC());
-        plugin.register(banManager = new BanManager(FileManagerSection.getMySQLConnection()));
+        plugin.register(banManager = new BanManager(FileManagerSection.getMySQLConnection(), plugin));
         new AntiTwoPlayer();
         new AutoBan(plugin);
     }

@@ -1,6 +1,8 @@
 package Plugin.Security;
 
 import Plugin.xBxTcore;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -9,6 +11,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 import static Plugin.File.BLackList.BlackListIpManager.AddIpBlackList;
+import static Plugin.Messages.MessageManager.ColorWarning;
 
 public class AutoBan {
 
@@ -21,41 +24,56 @@ public class AutoBan {
 
     private static final HashMap<UUID, Integer> countPunishChat = new HashMap<>();
     private static final HashMap<UUID, Long> timePunishChat = new HashMap<>();
+    private static final HashMap<UUID, Long> timeDifferenceNew = new HashMap<>();
+    private static final HashMap<UUID, Long> timeDifferenceOld = new HashMap<>();
+    private static final HashMap<UUID, Integer> timeDifferenceCount = new HashMap<>();
     private static String lastMessage = "";
     private static long cooldown = System.currentTimeMillis();
 
     public static void checkAutoBanChat(Player player, ReasonBan reasonBan, String Message) {
         long currentTime = System.currentTimeMillis();
+        switch (reasonBan) {
+            case Chat_Bot -> {
+                if (Objects.equals(lastMessage, Message)){
+                    if ((currentTime - cooldown) < 50){
+                        BanManager.banPlayer(player, "(Ban Automático) uso de bot o de uso indebido de multicuentas." +
+                                " Por seguridad tu ip fue agregada a la lista negras de los bos", 1000*60*60*24*5);
+                        AddIpBlackList(Objects.requireNonNull(player.getAddress()).getAddress());
+                        cooldown = currentTime;
+                        return;
+                    }
+                }else {
+                    lastMessage = Message;
+                }
 
-        if (Objects.equals(lastMessage, Message)){
-            if ((currentTime - cooldown) > 100){
-                BanManager.banPlayer(player, "(Ban Automático) uso de bot o de uso indebido de multicuentas." +
-                        " Por seguridad tu ip fue agregada a la lista negras de los bos", 1000*60*60*24*5);
-                AddIpBlackList(Objects.requireNonNull(player.getAddress()).getAddress());
-                cooldown = currentTime;
-                return;
+                if (timePunishChat.containsKey(player.getUniqueId())) {
+                    long lastTime = timePunishChat.get(player.getUniqueId());
+                    long DifferenceOld = timeDifferenceOld.getOrDefault(player.getUniqueId(), -1000L);
+                    long DifferenceNew = timeDifferenceNew.getOrDefault(player.getUniqueId(), 1000L);
+
+                    if ((DifferenceOld - DifferenceNew) < 50 && (DifferenceOld - DifferenceNew) > -50) {
+                        timeDifferenceCount.put(player.getUniqueId(), timeDifferenceCount.getOrDefault(player.getUniqueId(), 0) + 1);
+                        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', ColorWarning +
+                                "Este jugador usa AutoBotChat: (" + timeDifferenceCount.get(player.getUniqueId()) + "/3) " + "Tiene una precision de "
+                                + (DifferenceOld - DifferenceNew) + " ms"));
+                        if (timeDifferenceCount.get(player.getUniqueId()) >= 3){
+                            BanManager.banPlayer(player, "(Ban Automático) uso de mensajes automatizado", 1000*60*30);
+                            timeDifferenceCount.remove(player.getUniqueId());
+                            timeDifferenceOld.remove(player.getUniqueId());
+                            timeDifferenceNew.remove(player.getUniqueId());
+                        }
+                    }
+                    timeDifferenceNew.put(player.getUniqueId() ,currentTime - lastTime);
+                    timeDifferenceOld.put(player.getUniqueId(), DifferenceNew);
+                }
             }
-        }else {
-            lastMessage = Message;
-        }
-
-        if (timePunishChat.containsKey(player.getUniqueId())) {
-            long lastTime = timePunishChat.get(player.getUniqueId());
-            long timeDifference = currentTime - lastTime;
-
-            if (timeDifference < 80) {
-                BanManager.banPlayer(player, "(Ban Automático) uso de mensajes automatizado", 1000*60*30);
-                return;
-            }
-        }
-
-        switch (reasonBan){
             case Chat_Spam -> countPunishChat.put(player.getUniqueId(), countPunishChat.getOrDefault(player.getUniqueId(), 0) + 1);
             case Chat_Word -> countPunishChat.put(player.getUniqueId(), countPunishChat.getOrDefault(player.getUniqueId(), 0) + 2);
             case Chat_Both -> countPunishChat.put(player.getUniqueId(), countPunishChat.getOrDefault(player.getUniqueId(), 0) + 3);
         }
 
-        if (countPunishChat.get(player.getUniqueId()) == 15) {
+
+        if (countPunishChat.getOrDefault(player.getUniqueId(), 0) == 15) {
             long timeDelay = currentTime - timePunishChat.get(player.getUniqueId());
             long levelPunish;
             if (timeDelay > 15000) {
@@ -69,7 +87,7 @@ public class AutoBan {
             }else {
                 levelPunish = 100;
             }
-            BanManager.banPlayer(player, "(Ban Automático) Span indebido en el chat y/o palabras no adecuadas", 1000*30L*levelPunish);
+            BanManager.banPlayer(player, "(Ban Automático) Span indebido en el chat y/o palabras no adecuadas", 1000*30L);
         }
 
         timePunishChat.put(player.getUniqueId(), currentTime);
@@ -81,6 +99,7 @@ public class AutoBan {
                 for (UUID uuid : countPunishChat.keySet()) {
                     if (countPunishChat.get(uuid) <= 0) {
                         countPunishChat.put(uuid, countPunishChat.get(uuid) - 1);
+                        timeDifferenceCount.put(uuid, timeDifferenceCount.getOrDefault(uuid, 0) - 1);
                     }else {
                         countPunishChat.remove(uuid);
                     }

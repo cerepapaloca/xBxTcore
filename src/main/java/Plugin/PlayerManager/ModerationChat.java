@@ -61,27 +61,22 @@ public class ModerationChat {
                 if (isBanWord(event.getMessage())){
                     checkAutoBanChat(event.getPlayer(), ReasonBan.Chat_Word, event.getMessage());
                     Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',
-                            prefix + "&r " + event.getPlayer().getName() + " » &7" + event.getMessage() + " &c[Eliminado]"));
+                            prefix + "&r " + event.getPlayer().getName() + " » &7" + event.getMessage() + " &c[Eliminado: Palabras prohibidas]"));
                     event.getPlayer().sendMessage(MasterMessageLocated(event.getPlayer(), Messages.Others_Chat_BanWord));
-                    event.setCancelled(true);
                 }else{
                     Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&',
                             prefix + "&r "
                                     + event.getPlayer().getName() + " » &7" + event.getMessage()));
-                    event.setCancelled(true);
-                    cooldownPlayer.add(event.getPlayer().getUniqueId());
-                    starCoolDown(event.getPlayer().getUniqueId());
                 }
+                checkAutoBanChat(event.getPlayer(), ReasonBan.Chat_Bot, event.getMessage());
             }else {
-                if (isBanWord(event.getMessage())){
-                    checkAutoBanChat(event.getPlayer(), ReasonBan.Chat_Both, event.getMessage());
-                }else {
-                    checkAutoBanChat(event.getPlayer(), ReasonBan.Chat_Spam, event.getMessage());
-                }
+                if (isBanWord(event.getMessage()))checkAutoBanChat(event.getPlayer(), ReasonBan.Chat_Both, event.getMessage());
                 Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',
-                        prefix + "&r " + event.getPlayer().getName() + " » &7" + event.getMessage() + " &c[Eliminado]"));
-                event.getPlayer().sendMessage(MasterMessageLocated(event.getPlayer(), Messages.Others_Chat_Cooldown));
+                        prefix + "&r " + event.getPlayer().getName() + " » &7" + event.getMessage() + " &c[Eliminado: Spam]"));
+                event.getPlayer().sendMessage(MasterMessageLocated(event.getPlayer(), Messages.Others_Chat_Cooldown).replace("%time%", "4s"));
+                checkAutoBanChat(event.getPlayer(), ReasonBan.Chat_Spam, event.getMessage());
             }
+            starCoolDown(event.getPlayer().getUniqueId());
         }else{
             Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&',
                     prefix + "&r "
@@ -92,6 +87,7 @@ public class ModerationChat {
     }
 
     public void starCoolDown(UUID uuid){
+        cooldownPlayer.add(uuid);
         new BukkitRunnable() {
             public void run() {
                 cooldownPlayer.remove(uuid);

@@ -23,8 +23,8 @@ public class AntiBotListener implements Listener {
     private final HashMap<UUID, Long> listAntiBot = new HashMap<>();
     private final HashMap<UUID, Integer> listAntiBotBan = new HashMap<>();
     private final String messageBlackListIp = ChatColor.translateAlternateColorCodes('&',prefixKick + Colorinfo +
-            "Esta Ip esta Baneada, Si crees que es error Contacta con el owner rápidamente antes de se la ip se agregue a la BlackList del FireWallWindows\n" +
-            "This IP is Banned, If you think it is a mistake, contact the owner quickly before the IP is added to the FireWallWindows BlackList\n"
+            "Esta Ip esta Baneada, Si crees que es error Contacta con el owner rápidamente antes de se la ip se agregue a la BlackList del FireWall\n" +
+            "This IP is Banned, If you think it is a mistake, contact the owner quickly before the IP is added to the FireWall BlackList\n"
             + ColorLink +  "https://discord.gg/QYBwEFvnsG");
     private final String messageKick = ChatColor.translateAlternateColorCodes('&',prefixKick + Colorinfo + "Only one player can join every 3 seconds\nSolo se puede unir un jugador por cada 3 segundos");
     private final String messageKick2 = ChatColor.translateAlternateColorCodes('&',prefixKick + Colorinfo +

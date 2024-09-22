@@ -2,6 +2,7 @@ package Plugin.Security;
 
 import Plugin.File.MySQLConnection;
 import Plugin.Utils.Utils;
+import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -22,10 +23,13 @@ import static Plugin.File.MySQLConnection.UUIDBan;
 import static Plugin.Messages.MessageManager.*;
 
 public class BanManager implements Listener {
-    private static MySQLConnection mysql;
 
-    public BanManager(MySQLConnection mysql) {
+    private static MySQLConnection mysql;
+    private static xBxTcore plugin = null;
+
+    public BanManager(MySQLConnection mysql, xBxTcore plugin) {
         BanManager.mysql = mysql;
+        BanManager.plugin = plugin;
     }
 
     @EventHandler (priority = EventPriority.NORMAL)
@@ -76,15 +80,15 @@ public class BanManager implements Listener {
     }
 
     public static void banPlayer(Player player, String reason, long unbanDate) {
-        banPlayer(Objects.requireNonNull(player.getAddress()).getHostName(), player.getUniqueId().toString(), player.getName(), reason, System.currentTimeMillis(), unbanDate, "global");
+        banPlayer(Objects.requireNonNull(player.getAddress()).getHostName(), player.getUniqueId().toString(), player.getName(), reason, System.currentTimeMillis(),System.currentTimeMillis() + unbanDate, "global");
     }
 
     public static void banPlayer(Player player, String reason, long unbanDate, String context) {
-        banPlayer(Objects.requireNonNull(player.getAddress()).getHostName(), player.getUniqueId().toString(), player.getName(), reason, System.currentTimeMillis(), unbanDate, context);
+        banPlayer(Objects.requireNonNull(player.getAddress()).getHostName(), player.getUniqueId().toString(), player.getName(), reason, System.currentTimeMillis(),System.currentTimeMillis() + unbanDate, context);
     }
 
     public static void banPlayer(String ip, String uuid, String name, String reason, long banDate, long unbanDate, String context) {
-        String sql = "INSERT INTO bans (name, uuid, ip, reason, ban_date, unban_date, context) " +
+        String sql = "INSERT INTO bans (uuid, name, ip, reason, ban_date, unban_date, context) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?) " +
                 "ON DUPLICATE KEY UPDATE uuid = VALUES(uuid), name = VALUES(name), reason = VALUES(reason), " +
                 "ban_date = VALUES(ban_date), unban_date = VALUES(unban_date), context = VALUES(context)";
@@ -106,9 +110,13 @@ public class BanManager implements Listener {
                     Colorinfo + "Expira en: " + Colorplayer + Utils.SecondToMinutes(unbanDate - banDate) + "\n" +
                     Colorinfo + "Razón de baneo: " + Colorplayer + reason + "\n" +
                     Colorinfo + "Apelación de ban: " + LinkDiscord);
-            Objects.requireNonNull(Bukkit.getPlayer(uuid)).kickPlayer(reasonFinal);
+            Bukkit.getScheduler().runTask(plugin, () -> Objects.requireNonNull(Bukkit.getPlayer(name)).kickPlayer(reasonFinal));
+            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + Colorplayer + name +  Colorinfo + " Baneado: \n" +
+                    Colorinfo + "Tiempo Baneado: " + Colorplayer + Utils.SecondToMinutes(unbanDate - banDate) + "\n" +
+                    Colorinfo + "Razón de baneo: " + Colorplayer + reason + "\n"  +
+                    Colorinfo + "Contexto: " + Colorplayer + context));
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
