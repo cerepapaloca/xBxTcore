@@ -49,6 +49,7 @@ public class DDNS_NameCheap {
     }
 
     public static void updateIP() {
+        if (!PingRequest.conected)return;
         new Thread(() ->{
             try {
                 if (IpNow == null) {

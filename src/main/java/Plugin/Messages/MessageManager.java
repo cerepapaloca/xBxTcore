@@ -13,7 +13,7 @@ import static Plugin.Messages.Messages.MessagesES.esMessages;
 public class MessageManager {
 
     public static String prefixKick = "&b<====== &6[&0&lx&8&lB&7&lx&f&lT &e&lPvP&6]&r&b ======>&r\n";
-    public static String prefixConsole = "&6[&8xB&7x&fT &eConsoler&6]&r ";
+    public static String prefixConsole = "&6[&8xB&7x&fT&6]&r ";
     public static String prefix = "&6[" + ChatColor.of("#61CAFD") + "&lx" + ChatColor.of("#7CAFEC") + "&lB" + ChatColor.of("#9893DC")
             + "&lx" + ChatColor.of("#B378CB") + "&lT" + ChatColor.of("#FDC661") + " &lC" + ChatColor.of("#FEAA41") + "&lo" +
             ChatColor.of("#FE8F22") + "&lr" + ChatColor.of("#FF7302") + "&le" + "&6]&r ";
@@ -113,11 +113,4 @@ public class MessageManager {
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&4-&8] " + Colorplayer + player.getName() + " " + esMessages.get(Event_leave)));
     }
 
-    public static void SendMessageConsole(String nota, Thread thread){
-        String nameClas = thread.getStackTrace()[1].getClassLoaderName();
-        String nameMethod = thread.getStackTrace()[1].getMethodName();
-        int nameLine = thread.getStackTrace()[1].getLineNumber();
-        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorWarning + "Hubo un error " +
-                "en la clase: " + nameClas + " en el metodo: " + nameMethod + " en la linea " + nameLine + "\nNota: " + nota));
-    }
 }

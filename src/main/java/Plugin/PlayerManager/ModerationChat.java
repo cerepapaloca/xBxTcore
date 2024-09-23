@@ -1,7 +1,6 @@
 package Plugin.PlayerManager;
 
 import Plugin.Messages.Enum.Messages;
-import Plugin.Security.SystemBan.ReasonBan;
 import Plugin.Utils.ColorUtils;
 import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
@@ -60,7 +59,7 @@ public class ModerationChat {
                         prefix + "&r " + event.getPlayer().getName() + " » &7" + event.getMessage() + " &c[Eliminado: Spam]"));
                 event.getPlayer().sendMessage(MasterMessageLocated(event.getPlayer(), Messages.Others_Chat_Cooldown).replace("%time%", "4s"));
             }
-            checkAutoBanChat(event.getPlayer(), ReasonBan.Chat_Bot, event.getMessage());
+            checkAutoBanChat(event.getPlayer(), event.getMessage());
             starCoolDown(event.getPlayer().getUniqueId());
         }else{
             Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&',
