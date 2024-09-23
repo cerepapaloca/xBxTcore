@@ -1,4 +1,4 @@
-package Plugin.Environments.Hologrmas;
+package Plugin.Environment.Hologrmas;
 
 import Plugin.BoxPvp.AutoFillsBox;
 import Plugin.BoxPvp.Model.MinaBoxPvp;

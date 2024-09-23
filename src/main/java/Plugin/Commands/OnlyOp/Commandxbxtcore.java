@@ -25,6 +25,7 @@ import java.util.List;
 
 import static Plugin.File.BLackList.BlackListIpManager.RemoveIpBlackListAndSave;
 import static Plugin.Messages.MessageManager.*;
+import static Plugin.Security.SystemBan.AutoBan.checkAutoBanCheat;
 
 public class Commandxbxtcore implements CommandExecutor {
 
@@ -69,6 +70,7 @@ public class Commandxbxtcore implements CommandExecutor {
                             if(!(args.length == 3))return false;
                             Player player = Bukkit.getPlayer(args[2]);
                             if(player == null)return false;
+                            checkAutoBanCheat(player);
                             Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',prefixConsole + ColorSuccess + "Se Echo al jugador por hacks"));
                             player.kickPlayer(MasterMessageLocated(player, Messages.Kick_Cheat));
                             return true;

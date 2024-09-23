@@ -1,4 +1,4 @@
-package Plugin.Environments;
+package Plugin.Environment;
 
 import Plugin.xBxTcore;
 import org.bukkit.*;

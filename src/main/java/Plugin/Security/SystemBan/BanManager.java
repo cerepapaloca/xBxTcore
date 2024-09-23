@@ -64,7 +64,7 @@ public class BanManager implements Listener {
         banPlayer(Objects.requireNonNull(player.getAddress()).getHostName(), player.getUniqueId().toString(), player.getName(), reason, System.currentTimeMillis(),System.currentTimeMillis() + unbanDate, context);
     }
 
-    public static DataBan banPlayer(String ip, String uuid, String name, String reason, long banDate, long unbanDate, String context) {
+    public static void banPlayer(String ip, String uuid, String name, String reason, long banDate, long unbanDate, String context) {
         String sql = "INSERT INTO bans (uuid, name, ip, reason, ban_date, unban_date, context) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?) " +
                 "ON DUPLICATE KEY UPDATE uuid = VALUES(uuid), name = VALUES(name), reason = VALUES(reason), " +
@@ -92,8 +92,6 @@ public class BanManager implements Listener {
                     Colorinfo + "Tiempo Baneado: " + Colorplayer + Utils.SecondToMinutes(unbanDate - banDate) + "\n" +
                     Colorinfo + "Razón de baneo: " + Colorplayer + reason + "\n"  +
                     Colorinfo + "Contexto: " + Colorplayer + context));
-
-            return new DataBan(Bukkit.getPlayer(name), reason , unbanDate , context);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

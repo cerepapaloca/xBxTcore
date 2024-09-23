@@ -1,6 +1,6 @@
 package Plugin.Commands.User;
 
-import Plugin.Environments.EnvironmentsSection;
+import Plugin.Environment.EnvironmentsSection;
 import Plugin.PlayerManager.Model.PlayerDataGLobal;
 import Plugin.PlayerManager.PlayerManagerSection;
 import Plugin.xBxTcore;

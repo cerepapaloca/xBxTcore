@@ -90,4 +90,15 @@ public class AutoBan {
         }.runTaskTimer(plugin, 0, 20*5);
     }
 
+    private static final HashMap<UUID, Integer> countPunishChatAC = new HashMap<>();
+
+    public static void checkAutoBanCheat(Player player) {
+        countPunishChatAC.put(player.getUniqueId(), countPunishChatAC.getOrDefault(player.getUniqueId(), 0) + 1);
+        float pingLevel = player.getPing()*0.01F;
+        if (countPunishChatAC.get(player.getUniqueId()) >= 2*pingLevel + 3) {
+            BanManager.banPlayer(player, "(Ban Automático) No uses hacks ne box pvp", 1000*60*60*3L, "boxpvp");
+            countPunishChatAC.remove(player.getUniqueId());
+        }
+    }
+
 }

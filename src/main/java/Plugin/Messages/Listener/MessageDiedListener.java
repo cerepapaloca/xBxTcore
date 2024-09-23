@@ -3,7 +3,7 @@ package Plugin.Messages.Listener;
 import Plugin.CombatLog.CombatSection;
 import Plugin.Duel.DuelSection;
 import Plugin.Duel.Enum.EndCombatCauses;
-import Plugin.Environments.EnvironmentsSection;
+import Plugin.Environment.EnvironmentsSection;
 import Plugin.Messages.Enum.Messages;
 import Plugin.xBxTcore;
 import org.bukkit.Bukkit;

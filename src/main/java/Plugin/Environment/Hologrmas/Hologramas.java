@@ -1,6 +1,6 @@
-package Plugin.Environments.Hologrmas;
+package Plugin.Environment.Hologrmas;
 
-import Plugin.Environments.EnvironmentsSection;
+import Plugin.Environment.EnvironmentsSection;
 import Plugin.File.PlayerData.PlayerfileManager;
 import Plugin.BoxPvp.Model.MinaBoxPvp;
 import Plugin.PlayerManager.Model.PlayerDataGLobal;

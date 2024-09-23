@@ -1,7 +1,7 @@
 package Plugin.BoxPvp;
 
 import Plugin.BoxPvp.Model.MinaBoxPvp;
-import Plugin.Environments.EnvironmentsSection;
+import Plugin.Environment.EnvironmentsSection;
 import Plugin.xBxTcore;
 import org.bukkit.*;
 import org.bukkit.scheduler.BukkitRunnable;

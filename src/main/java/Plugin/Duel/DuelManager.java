@@ -1,7 +1,7 @@
 package Plugin.Duel;
 
 import Plugin.Duel.Enum.EndCombatCauses;
-import Plugin.Environments.EnvironmentsSection;
+import Plugin.Environment.EnvironmentsSection;
 import Plugin.Messages.MessageManager;
 import Plugin.Inventory.Models.KitData;
 import Plugin.Messages.Enum.Messages;

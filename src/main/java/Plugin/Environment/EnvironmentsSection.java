@@ -1,7 +1,7 @@
-package Plugin.Environments;
+package Plugin.Environment;
 
-import Plugin.Environments.Hologrmas.Hologramas;
-import Plugin.Environments.Hologrmas.HologramasBoxPvp;
+import Plugin.Environment.Hologrmas.Hologramas;
+import Plugin.Environment.Hologrmas.HologramasBoxPvp;
 import Plugin.Section;
 import Plugin.xBxTcore;
 

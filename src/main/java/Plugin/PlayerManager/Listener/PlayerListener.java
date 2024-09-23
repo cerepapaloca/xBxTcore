@@ -4,7 +4,7 @@ import Plugin.CombatLog.CombatSection;
 import Plugin.Commands.CommandSection;
 import Plugin.Duel.DuelSection;
 import Plugin.Duel.Enum.EndCombatCauses;
-import Plugin.Environments.EnvironmentsSection;
+import Plugin.Environment.EnvironmentsSection;
 import Plugin.Messages.Enum.Messages;
 import Plugin.PlayerManager.Model.PlayerDataGLobal;
 import Plugin.Duel.Model.Request;

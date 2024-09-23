@@ -8,7 +8,7 @@ import Plugin.xBxTcore;
 import java.net.SocketException;
 import java.util.Objects;
 
-import static Plugin.WebSide.DDNS_NameCheap.getPrivateIP;
+import static Plugin.External.DDNS_NameCheap.getPrivateIP;
 
 public class FileManagerSection implements Section {
 

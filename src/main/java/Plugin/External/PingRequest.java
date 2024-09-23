@@ -1,15 +1,18 @@
-package Plugin.WebSide;
+package Plugin.External;
 
 import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+import static Plugin.Messages.MessageManager.ColorSuccess;
+
 public class PingRequest {
 
     private static long cooldown = System.currentTimeMillis();
-    public static boolean conected = false;
+    public static boolean conected = true;
 
     public static void pingRequest() {
         new Thread(() -> {
@@ -41,7 +44,12 @@ public class PingRequest {
                     //Bukkit.getLogger().warning(line);
                     // Filtra la línea que contiene el tiempo en ms
                     if (line.contains(timeLoc)) {
-                        conected = false;
+                        if (!conected){
+                            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', ColorSuccess + "*******************************"));
+                            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', ColorSuccess + "¡¡YA HAY CONNEXION A INTERNET!!"));
+                            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', ColorSuccess + "*******************************"));
+                            conected = true;
+                        }
                         String time = line.split(timeLoc)[1].split("ms")[0];
                         if (Integer.parseInt(time) > 150){
                             Bukkit.getLogger().warning("***************************************");
@@ -50,12 +58,12 @@ public class PingRequest {
                             Bukkit.getLogger().warning("***************************************");
                         }
                     }else if (line.contains(notConexion)) {
-                        conected = true;
+                        conected = false;
                         if (cooldown < System.currentTimeMillis()){
                             Bukkit.getLogger().warning("******************************");
                             Bukkit.getLogger().warning("¡¡NO HAY CONNEXION A INTERNET");
                             Bukkit.getLogger().warning("******************************");
-                            cooldown = System.currentTimeMillis() + 1000*30;
+                            cooldown = System.currentTimeMillis() + 1000*60;
                         }
                     }
                 }

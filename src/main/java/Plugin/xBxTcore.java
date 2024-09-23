@@ -1,11 +1,11 @@
 package Plugin;
 
-import Plugin.WebSide.DDNS_NameCheap;
+import Plugin.External.DDNS_NameCheap;
 import Plugin.BoxPvp.BoxPvpSection;
 import Plugin.CombatLog.CombatSection;
 import Plugin.Commands.CommandSection;
 import Plugin.Duel.DuelSection;
-import Plugin.Environments.*;
+import Plugin.Environment.*;
 import Plugin.File.FileManagerSection;
 import Plugin.File.PlayerData.PlayerfileManager;
 import Plugin.Inventory.InventorySection;
@@ -21,7 +21,7 @@ import Plugin.Utils.Enum.SystemOperative;
 import Plugin.Utils.Utils;
 import Plugin.Utils.UtilsMain;
 import Plugin.Vote.VoteSection;
-import Plugin.WebSide.PingRequest;
+import Plugin.External.PingRequest;
 import ac.grim.grimac.api.GrimAbstractAPI;
 import com.onarandombox.MultiverseCore.MultiverseCore;
 import me.neznamy.tab.api.TabAPI;
@@ -42,7 +42,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-import static Plugin.WebSide.DDNS_NameCheap.updateIP;
+import static Plugin.External.DDNS_NameCheap.updateIP;
 import static Plugin.File.FileManagerSection.getPlayerFileManager;
 import static Plugin.Messages.MessageManager.*;
 
