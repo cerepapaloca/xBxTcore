@@ -1,16 +1,17 @@
 package Plugin.File;
 
+import Plugin.Security.SystemBan.ContextBan;
+import Plugin.Security.SystemBan.DataBan;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
-import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.sql.*;
 import java.util.UUID;
 
 import static Plugin.Messages.MessageManager.*;
-import static Plugin.Security.SystemBan.BanManager.UUIDBan;
-import static Plugin.Security.SystemBan.BanManager.ipBan;
+import static Plugin.Security.SystemBan.BanManager.*;
+import static Plugin.Security.SystemBan.BanManager.addListBanIp;
 
 public class MySQLConnection {
     private static Connection connection;
@@ -60,24 +61,27 @@ public class MySQLConnection {
     }
 
     public static void reloadBannedBans() {
-        String sql = "SELECT uuid, ip FROM bans";
-        ipBan.clear();
-        UUIDBan.clear();
+        String sql = "SELECT uuid, ip, reason, unban_date, context FROM bans";
+        clearAll();
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(sql);
              ResultSet resultSet = statement.executeQuery()) {
 
             while (resultSet.next()) {
                 String ip = resultSet.getString("ip");
-                ipBan.add(InetAddress.getByName(ip).getAddress());
                 String name = resultSet.getString("uuid");
-                UUIDBan.add(UUID.fromString(name));
+                String reason = resultSet.getString("reason");
+                long unBan = resultSet.getLong("unban_date");
+                String context = resultSet.getString("context");
+                DataBan dataBan = new DataBan(UUID.fromString(name), reason, unBan, ContextBan.valueOf(context));
+                addListBanUUID(UUID.fromString(name), dataBan);
+                addListBanIp(ip, dataBan);
             }
-        } catch (SQLException | UnknownHostException e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + Colorinfo +
-                "hay " + ipBan.size() + " jugadores baneados"));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorSuccess +
+                "Baneos recargado con exitosamente"));
     }
 
 }

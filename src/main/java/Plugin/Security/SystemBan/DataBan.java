@@ -1,18 +1,18 @@
 package Plugin.Security.SystemBan;
 
-import org.bukkit.entity.Player;
+import java.util.UUID;
 
 public class DataBan {
 
-    private Player player;
-    private String reason;
-    private long unbanTime;
-    private ContextBan context;
+    private final UUID uuid;
+    private final String reason;
+    private final long unbanTime;
+    private final ContextBan context;
 
     private final long banTime;
 
-    public DataBan (Player player, String reason, long unBan, ContextBan context) {
-        this.player = player;
+    public DataBan (UUID uuid, String reason, long unBan, ContextBan context) {
+        this.uuid = uuid;
         this.reason = reason;
         this.unbanTime = unBan;
         this.context = context;
@@ -27,31 +27,16 @@ public class DataBan {
         return context;
     }
 
-    public void setContext(ContextBan context) {
-        this.context = context;
-    }
-
     public long getUnbanTime() {
         return unbanTime;
     }
 
-    public void setUnbanTime(long unbanTime) {
-        this.unbanTime = unbanTime;
-    }
 
     public String getReason() {
         return reason;
     }
 
-    public void setReason(String reason) {
-        this.reason = reason;
-    }
-
-    public Player getPlayer() {
-        return player;
-    }
-
-    public void setPlayer(Player player) {
-        this.player = player;
+    public UUID getUuid() {
+        return uuid;
     }
 }

@@ -14,18 +14,16 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.sql.*;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 import static Plugin.Messages.MessageManager.*;
 
 public class BanManager implements Listener {
 
-    public static HashSet<byte[]> ipBan = new HashSet<>();
-    public static HashSet<UUID> UUIDBan = new HashSet<>();
+    public static HashMap<UUID, DataBan> listBanUUID = new HashMap<>();
+    public static HashMap<byte[], DataBan> listBanIP = new HashMap<>();
 
     private static MySQLConnection mysql;
     private static xBxTcore plugin = null;
@@ -33,6 +31,23 @@ public class BanManager implements Listener {
     public BanManager(MySQLConnection mysql, xBxTcore plugin) {
         BanManager.mysql = mysql;
         BanManager.plugin = plugin;
+    }
+
+    public static void addListBanUUID(UUID uuid, DataBan listBan) {
+        listBanUUID.put(uuid, listBan);
+    }
+
+    public static void addListBanIp(String ip, DataBan listBan) {
+        try {
+            listBanIP.put(InetAddress.getByName(ip).getAddress(), listBan);
+        } catch (UnknownHostException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void clearAll(){
+        listBanUUID.clear();
+        listBanIP.clear();
     }
 
     @EventHandler (priority = EventPriority.NORMAL)
@@ -50,7 +65,7 @@ public class BanManager implements Listener {
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, name);
             statement.executeUpdate();
-            mysql.reloadBannedBans();
+            MySQLConnection.reloadBannedBans();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -111,27 +126,30 @@ public class BanManager implements Listener {
     }
 
     private static @Nullable String checkBanPlayerMaster(@Nullable InetAddress ipPlayer, @NotNull Player player, @Nullable ContextBan context) {
-
-        boolean checkName = UUIDBan.contains(player.getUniqueId());
+        boolean checkName = listBanUUID.containsKey(player.getUniqueId());
         boolean checkIp = false;
+        DataBan dataBan = null;
 
         if (ipPlayer != null) {
             byte[] ipByte = ipPlayer.getAddress();
-            for (byte[] bytes : ipBan) {
+            for (byte[] bytes : listBanIP.keySet()) {
                 if (Arrays.equals(bytes, ipByte)) {
+                    dataBan = listBanIP.get(bytes);
                     checkIp = true;
                     break;
                 }
             }
         }
 
-        if (checkName || checkIp) {
-            DataBan dataBan = getDataMySQL(player, checkName, ipPlayer);
-            if (dataBan == null) {
-                MySQLConnection.reloadBannedBans();
-                return null;
-            }
+        if (checkName){
+            dataBan = listBanUUID.get(player.getUniqueId());
+        }
 
+        if (checkName || checkIp) {
+
+            if (dataBan == null) {
+                dataBan = getDataMySQL(player, checkName, ipPlayer);
+            }
             if (context == null){
                 context = ContextBan.GLOBAL;
             }
@@ -144,8 +162,8 @@ public class BanManager implements Listener {
                     String contextName = context.name().toLowerCase().replace("_", " ");
                     if (Objects.equals(context.name(), "GLOBAL")) contextName = "xBxTpvp.xyz";
 
-                    Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorWarning + dataBan.getPlayer().getName() +
-                            "ingreso estando vetado"));
+                    Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorWarning + player.getName() +
+                            " se echo por que estar baneado de: " + contextName + ". Se detecto por Nombre:" + checkName + " por ip:" + checkIp));
                     String reason = ChatColor.translateAlternateColorCodes('&', prefixKick + Colorinfo + "Haz sido baneado de &o" + contextName + "&r\n" +
                             Colorinfo + "Expira en: " + Colorplayer + Utils.SecondToMinutes(unbanDate - currentTime) + "\n" +
                             Colorinfo + "Razón de baneo: " + Colorplayer + dataBan.getReason() + "\n" +
@@ -174,7 +192,7 @@ public class BanManager implements Listener {
                 resultSet = statement.executeQuery();
 
                 if (resultSet.next()) {
-                    return new DataBan(player, resultSet.getString("reason"), resultSet.getLong("unban_date"), ContextBan.valueOf(resultSet.getString("context")));
+                    return new DataBan(player.getUniqueId(), resultSet.getString("reason"), resultSet.getLong("unban_date"), ContextBan.valueOf(resultSet.getString("context")));
                 } else {
                     return null;
                 }
@@ -188,7 +206,7 @@ public class BanManager implements Listener {
                 resultSet = statement.executeQuery();
 
                 if (resultSet.next()) {
-                    return new DataBan(player, resultSet.getString("reason"), resultSet.getLong("unban_date"), ContextBan.valueOf(resultSet.getString("context")));
+                    return new DataBan(player.getUniqueId(), resultSet.getString("reason"), resultSet.getLong("unban_date"), ContextBan.valueOf(resultSet.getString("context")));
                 } else {
                     return null;
                 }

@@ -53,6 +53,7 @@ public class ModerationChat {
             Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',
                     prefix + "&r " + player.getName() + " » &7" + event.getMessage() + " &c[Eliminado: Baneado]"));
             event.setCancelled(true);
+            return;
         }
 
         if (moderationChatEnabled){

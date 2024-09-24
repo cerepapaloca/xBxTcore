@@ -41,7 +41,7 @@ public class FileManagerSection implements Section {
         mysql.connect();
         mySQLManager = new MySQLManager(mysql);
         mySQLManager.createBanTableIfNotExists();
-        mysql.reloadBannedBans();
+        MySQLConnection.reloadBannedBans();
     }
 
     @Override
@@ -57,7 +57,8 @@ public class FileManagerSection implements Section {
 
     @Override
     public void reloadConfig() {
-
+        MySQLConnection.reloadBannedBans();
+        blacklistIpManager.ReloadIpBlacklist();
     }
 
     public static PlayerfileManager getPlayerFileManager() {
