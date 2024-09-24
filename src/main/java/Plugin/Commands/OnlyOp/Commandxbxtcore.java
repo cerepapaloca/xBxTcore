@@ -2,12 +2,14 @@ package Plugin.Commands.OnlyOp;
 
 import Plugin.File.BLackList.BlackListIpManager;
 import Plugin.File.FileManagerSection;
+import Plugin.File.MySQLConnection;
 import Plugin.Messages.Enum.Messages;
 import Plugin.PlayerManager.PlayerManagerSection;
 import Plugin.Security.SystemBan.BanManager;
 import Plugin.Security.FireWall.FireWallLinux;
 import Plugin.Security.FireWall.FireWallWindows;
 import Plugin.Security.SecuritySection;
+import Plugin.Security.SystemBan.ContextBan;
 import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
@@ -29,11 +31,9 @@ import static Plugin.Security.SystemBan.AutoBan.checkAutoBanCheat;
 
 public class Commandxbxtcore implements CommandExecutor {
 
-    private final BanManager banManager;
     private final List<String> contexts = new ArrayList<>();
 
-    public Commandxbxtcore(BanManager banManager){
-        this.banManager = banManager;
+    public Commandxbxtcore(){
         contexts.add("global");
         contexts.add("boxpvp");
     }
@@ -70,7 +70,7 @@ public class Commandxbxtcore implements CommandExecutor {
                             if(!(args.length == 3))return false;
                             Player player = Bukkit.getPlayer(args[2]);
                             if(player == null)return false;
-                            checkAutoBanCheat(player);
+                            if (checkAutoBanCheat(player))return false;
                             Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',prefixConsole + ColorSuccess + "Se Echo al jugador por hacks"));
                             player.kickPlayer(MasterMessageLocated(player, Messages.Kick_Cheat));
                             return true;
@@ -115,7 +115,7 @@ public class Commandxbxtcore implements CommandExecutor {
                 }
 
                 case "ban" -> {
-                    if (args[1].equalsIgnoreCase("reload")) FileManagerSection.getMySQLConnection().reloadBannedBans();
+                    if (args[1].equalsIgnoreCase("reload")) MySQLConnection.reloadBannedBans();
                     if(!(args.length >= 5))return false;
                     Player target = sender.getServer().getPlayer(args[1]);
                     if (target != null) {
@@ -128,10 +128,10 @@ public class Commandxbxtcore implements CommandExecutor {
                         long duration = Utils.convertToMilliseconds(args[3]);
                         if (contexts.contains(args[2].toLowerCase())) {
 
-                            BanManager.banPlayer(target, reason, duration, args[2]);
+                            BanManager.banPlayer(target, reason, duration, ContextBan.valueOf(args[2].toUpperCase()));
                         }else{
                             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorError +
-                                    "Ese Contexto no existe solo exite 'global' y 'boxpvp'"));
+                                    "Ese Contexto no existe solo exite 'global' y 'box_pvp'"));
                         }
 
                     } else {

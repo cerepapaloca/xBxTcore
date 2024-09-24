@@ -37,7 +37,7 @@ public class BanManager implements Listener {
 
     @EventHandler (priority = EventPriority.NORMAL)
     public void onPlayerLogin(@NotNull PlayerLoginEvent event) {
-        String reason = checkBanPlayer(event.getAddress(), event.getPlayer(), "global");
+        String reason = checkBanPlayer(event.getAddress(), event.getPlayer(), ContextBan.GLOBAL);
         if (reason != null){
             event.setResult(PlayerLoginEvent.Result.KICK_BANNED);
             event.setKickMessage(reason);
@@ -57,11 +57,11 @@ public class BanManager implements Listener {
     }
 
     public static void banPlayer(Player player, String reason, long unbanDate) {
-        banPlayer(Objects.requireNonNull(player.getAddress()).getHostName(), player.getUniqueId().toString(), player.getName(), reason, System.currentTimeMillis(),System.currentTimeMillis() + unbanDate, "global");
+        banPlayer(Objects.requireNonNull(player.getAddress()).getHostName(), player.getUniqueId().toString(), player.getName(), reason, System.currentTimeMillis(),System.currentTimeMillis() + unbanDate, "GLOBAL");
     }
 
-    public static void banPlayer(Player player, String reason, long unbanDate, String context) {
-        banPlayer(Objects.requireNonNull(player.getAddress()).getHostName(), player.getUniqueId().toString(), player.getName(), reason, System.currentTimeMillis(),System.currentTimeMillis() + unbanDate, context);
+    public static void banPlayer(Player player, String reason, long unbanDate, ContextBan context) {
+        banPlayer(Objects.requireNonNull(player.getAddress()).getHostName(), player.getUniqueId().toString(), player.getName(), reason, System.currentTimeMillis(),System.currentTimeMillis() + unbanDate, context.name());
     }
 
     public static void banPlayer(String ip, String uuid, String name, String reason, long banDate, long unbanDate, String context) {
@@ -79,10 +79,11 @@ public class BanManager implements Listener {
             statement.setLong(6, unbanDate);
             statement.setString(7, context);
             statement.executeUpdate();
-            mysql.reloadBannedBans();
+            MySQLConnection.reloadBannedBans();
 
 
-            if (context.equals("global")) context = "xBxTpvp.xyz";
+            if (context.equals("GLOBAL")) context = "xBxTpvp.xyz";
+            context = context.toLowerCase().replace("_", " ");
             String reasonFinal = ChatColor.translateAlternateColorCodes('&', prefixKick + Colorinfo + "Haz sido baneado de &o" + context + "&r\n" +
                     Colorinfo + "Expira en: " + Colorplayer + Utils.SecondToMinutes(unbanDate - banDate) + "\n" +
                     Colorinfo + "Razón de baneo: " + Colorplayer + reason + "\n" +
@@ -97,58 +98,78 @@ public class BanManager implements Listener {
         }
 
     }
+    public static String checkBanPlayer(@Nullable InetAddress ipPlayer, @NotNull Player player,@NotNull ContextBan context) {
+        return checkBanPlayerMaster(ipPlayer, player, context);
+    }
 
-    public static String checkBanPlayer(@NotNull InetAddress ipPlayer, @NotNull Player player,@Nullable String context) {
-        byte[] ipByte = ipPlayer.getAddress();
+    public static String checkBanPlayer(@NotNull Player player,@NotNull ContextBan context) {
+        return checkBanPlayerMaster(player.getAddress().getAddress(), player, context);
+    }
+
+    private static String checkBanPlayerMaster(@Nullable InetAddress ipPlayer, @NotNull Player player, @NotNull ContextBan context) {
+
         boolean checkName = UUIDBan.contains(player.getUniqueId());
         boolean checkIp = false;
 
-        for (byte[] bytes : ipBan){
-            if (Arrays.equals(bytes, ipByte)){
-                checkIp = true;
-                break;
+        if (ipPlayer != null) {
+            byte[] ipByte = ipPlayer.getAddress();
+            for (byte[] bytes : ipBan) {
+                if (Arrays.equals(bytes, ipByte)) {
+                    checkIp = true;
+                    break;
+                }
             }
         }
 
-        if (checkName || checkIp){
-            DataBan dataBan = getDataMySQL(player, checkName);
-            if (dataBan == null){
+        if (checkName || checkIp) {
+            DataBan dataBan = getDataMySQL(player, checkName, ipPlayer);
+            if (dataBan == null) {
                 MySQLConnection.reloadBannedBans();
                 return null;
             }
 
-            if (context == null || dataBan.getContext().equals(context)) {
+            if (dataBan.getContext().equals(context)) {
                 long unbanDate = dataBan.getUnbanTime();
                 long currentTime = System.currentTimeMillis();
 
                 if (currentTime < unbanDate) {
-                    if (Objects.equals(context, "global")) context = "xBxTpvp.xyz";
-                    String reason = ChatColor.translateAlternateColorCodes('&', prefixKick + Colorinfo + "Haz sido baneado de &o" + context + "&r\n" +
+                    String contextName = context.name().toLowerCase().replace("_", " ");
+                    if (Objects.equals(context.name(), "GLOBAL")) contextName = "xBxTpvp.xyz";
+
+                    Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorWarning + dataBan.getPlayer().getName() +
+                            "ingreso estando vetado"));
+                    String reason = ChatColor.translateAlternateColorCodes('&', prefixKick + Colorinfo + "Haz sido baneado de &o" + contextName + "&r\n" +
                             Colorinfo + "Expira en: " + Colorplayer + Utils.SecondToMinutes(unbanDate - currentTime) + "\n" +
                             Colorinfo + "Razón de baneo: " + Colorplayer + dataBan.getReason() + "\n" +
                             Colorinfo + "Apelación de ban: " + LinkDiscord);
-                    player.kickPlayer(reason);
+
+                    // Ejecutar el kick en el hilo principal
+                    Bukkit.getScheduler().runTask(plugin, () -> player.kickPlayer(reason));
+
                     return reason;
                 } else {
                     unbanPlayer(player.getName());
                     return null;
                 }
+            } else {
+                return null;
             }
+        } else {
             return null;
         }
-        return null;
     }
 
-    private static DataBan getDataMySQL(@NotNull Player player, boolean checkName) {
+
+    private static DataBan getDataMySQL(@NotNull Player player, boolean checkName, InetAddress address) {
         ResultSet resultSet;
         if (checkName) {
-            try (Connection connection = mysql.getConnection();
+            try (Connection connection = MySQLConnection.getConnection();
                  PreparedStatement statement = connection.prepareStatement("SELECT * FROM bans WHERE name = ?")) {
                 statement.setString(1, player.getName());
                 resultSet = statement.executeQuery();
 
                 if (resultSet.next()) {
-                    return new DataBan(player, resultSet.getString("reason"), resultSet.getLong("unban_date"), resultSet.getString("context"));
+                    return new DataBan(player, resultSet.getString("reason"), resultSet.getLong("unban_date"), ContextBan.valueOf(resultSet.getString("context")));
                 } else {
                     return null;
                 }
@@ -156,13 +177,13 @@ public class BanManager implements Listener {
                 throw new RuntimeException(e);
             }
         } else {
-            try (Connection connection = mysql.getConnection();
+            try (Connection connection = MySQLConnection.getConnection();
                  PreparedStatement statement = connection.prepareStatement("SELECT * FROM bans WHERE ip = ?")) {
-                statement.setString(1, player.getAddress().getAddress().getHostAddress());
+                statement.setString(1, address.getHostAddress());
                 resultSet = statement.executeQuery();
 
                 if (resultSet.next()) {
-                    return new DataBan(player, resultSet.getString("reason"), resultSet.getLong("unban_date"), resultSet.getString("context"));
+                    return new DataBan(player, resultSet.getString("reason"), resultSet.getLong("unban_date"), ContextBan.valueOf(resultSet.getString("context")));
                 } else {
                     return null;
                 }

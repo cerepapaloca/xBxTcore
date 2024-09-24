@@ -7,11 +7,11 @@ public class DataBan {
     private Player player;
     private String reason;
     private long unbanTime;
-    private String context;
+    private ContextBan context;
 
     private final long banTime;
 
-    public DataBan (Player player, String reason, long unBan, String context) {
+    public DataBan (Player player, String reason, long unBan, ContextBan context) {
         this.player = player;
         this.reason = reason;
         this.unbanTime = unBan;
@@ -23,11 +23,11 @@ public class DataBan {
         return banTime;
     }
 
-    public String getContext() {
+    public ContextBan getContext() {
         return context;
     }
 
-    public void setContext(String context) {
+    public void setContext(ContextBan context) {
         this.context = context;
     }
 

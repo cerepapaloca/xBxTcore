@@ -2,6 +2,7 @@ package Plugin.Commands.User;
 
 import Plugin.Messages.Enum.Messages;
 import Plugin.Security.SystemBan.BanManager;
+import Plugin.Security.SystemBan.ContextBan;
 import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -14,6 +15,8 @@ import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 
 import static Plugin.BoxPvp.ItemsBoxPvp.Listener.ArmorBonusListener.UpdateBonus;
 import static Plugin.File.FileManagerSection.getPlayerFileManager;
@@ -31,7 +34,8 @@ public class CommandBoxPvp implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, String[] strings) {
         if(commandSender instanceof Player player){
             if (xBxTcore.getWorldProtec().contains(player.getWorld()) || player.getGameMode().equals(GameMode.SPECTATOR) || player.isOp() || player.getWorld().getPlayers().size() == 1) {
-                if (BanManager.checkBanPlayer(Objects.requireNonNull(player.getAddress()).getAddress(), player, "boxpvp") != null)return false;
+                if (BanManager.checkBanPlayer(player, ContextBan.BOX_PVP) != null)return false;
+
                 if (!player.getWorld().getName().equals("lobby") && !player.getWorld().getName().equals("boxpvp")) {
                     player.setLevel(0);
                     player.setExp(0);

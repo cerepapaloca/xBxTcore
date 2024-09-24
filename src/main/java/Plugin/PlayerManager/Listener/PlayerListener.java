@@ -9,6 +9,7 @@ import Plugin.Messages.Enum.Messages;
 import Plugin.PlayerManager.Model.PlayerDataGLobal;
 import Plugin.Duel.Model.Request;
 import Plugin.PlayerManager.PlayerManagerSection;
+import Plugin.Security.SystemBan.ContextBan;
 import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
 import org.bukkit.*;
@@ -22,6 +23,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 
 import static Plugin.BoxPvp.BoxPvpSection.getZoneSafeBoxPvp;
 import static Plugin.BoxPvp.ItemsBoxPvp.Listener.ArmorBonusListener.UpdateBonus;
@@ -96,7 +99,7 @@ public class PlayerListener implements Listener {
             if(player.isOp() && !player.getName().equals("cerespapaloca")){
                 player.setOp(false);
             }
-            if (checkBanPlayer(Objects.requireNonNull(player.getAddress()).getAddress(), player, "boxpvp") != null)return;
+            if (checkBanPlayer(player, ContextBan.BOX_PVP) != null)return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 999999, 1));
             player.playSound(player, Sound.BLOCK_PORTAL_TRAVEL, 1, 1);
             getPlayerFileManager().loadInventoryBoxPvp(player);

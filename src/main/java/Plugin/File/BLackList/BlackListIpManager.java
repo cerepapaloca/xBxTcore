@@ -57,10 +57,8 @@ public class BlackListIpManager {
                 Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorSuccess + "Se elimino y " +
                         "guardo la lista de ips. La ip: " + ip.getHostAddress()));
                 saveIpBlacklist();
-                return;
             }
         }
-        Bukkit.getConsoleSender().sendMessage("Nop");
     }
 
     public void ReloadIpBlacklist() {
@@ -70,7 +68,7 @@ public class BlackListIpManager {
     }
 
     public static void saveIpBlacklist() {
-        ArrayList<String> saveBlackListedIps = new ArrayList<>();
+        HashSet<String> saveBlackListedIps = new HashSet<>();
         for (byte[] bytes : blackListedIps) {
             try {
                 InetAddress ip = InetAddress.getByAddress(bytes);
@@ -80,7 +78,7 @@ public class BlackListIpManager {
                 e.printStackTrace();
             }
         }
-        blackListIpFile.getBlackListIpFile().set("ipblacklist", saveBlackListedIps);
+        blackListIpFile.getBlackListIpFile().set("ipblacklist", saveBlackListedIps.toArray());
         blackListIpFile.saveConfig();
     }
 }

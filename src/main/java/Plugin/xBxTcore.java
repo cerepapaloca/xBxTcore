@@ -24,6 +24,7 @@ import Plugin.Vote.VoteSection;
 import Plugin.External.PingRequest;
 import ac.grim.grimac.api.GrimAbstractAPI;
 import com.onarandombox.MultiverseCore.MultiverseCore;
+import com.zaxxer.hikari.HikariConfig;
 import me.neznamy.tab.api.TabAPI;
 import net.luckperms.api.LuckPerms;
 import org.bukkit.Bukkit;
@@ -185,6 +186,7 @@ public final class xBxTcore extends JavaPlugin {
         TimeAutoSafeInventory();
         StarRequestPing();
         String ip = "?";
+
         try {
             ip = DDNS_NameCheap.getPrivateIP();
         }catch (Exception e){

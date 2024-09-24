@@ -12,6 +12,7 @@ public class SecuritySection implements Section {
     final xBxTcore plugin;
     public static Boolean ActiveAntiBot = true;
     private static BanManager banManager;
+    public static AutoBan autoBan;
 
     public SecuritySection(xBxTcore xBxTcore) {
         this.plugin = xBxTcore;
@@ -23,7 +24,7 @@ public class SecuritySection implements Section {
         plugin.register(new GrimAC());
         plugin.register(banManager = new BanManager(FileManagerSection.getMySQLConnection(), plugin));
         new AntiTwoPlayer();
-        new AutoBan(plugin);
+        autoBan = new AutoBan(plugin);
     }
 
     @Override
@@ -39,6 +40,10 @@ public class SecuritySection implements Section {
     @Override
     public void reloadConfig() {
 
+    }
+
+    public static AutoBan getAutoBan() {
+        return autoBan;
     }
 
     public static BanManager getBanManager() {

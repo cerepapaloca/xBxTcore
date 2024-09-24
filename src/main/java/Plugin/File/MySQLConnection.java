@@ -1,5 +1,7 @@
 package Plugin.File;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
@@ -49,6 +51,16 @@ public class MySQLConnection {
         return connection;
     }
 
+    public void close() {
+        try {
+            if (connection != null && !connection.isClosed()) {
+                connection.close();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static void reloadBannedBans() {
         String sql = "SELECT uuid, ip FROM bans";
         ipBan.clear();
@@ -70,13 +82,4 @@ public class MySQLConnection {
                 "hay " + ipBan.size() + " jugadores baneados"));
     }
 
-    public void close() {
-        try {
-            if (connection != null && !connection.isClosed()) {
-                connection.close();
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }
