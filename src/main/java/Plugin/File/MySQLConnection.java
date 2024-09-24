@@ -1,7 +1,5 @@
 package Plugin.File;
 
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 

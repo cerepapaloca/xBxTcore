@@ -1,6 +1,6 @@
 package Plugin;
 
-import Plugin.External.DDNS_NameCheap;
+import Plugin.Service.DDNS_NameCheap;
 import Plugin.BoxPvp.BoxPvpSection;
 import Plugin.CombatLog.CombatSection;
 import Plugin.Commands.CommandSection;
@@ -21,10 +21,9 @@ import Plugin.Utils.Enum.SystemOperative;
 import Plugin.Utils.Utils;
 import Plugin.Utils.UtilsMain;
 import Plugin.Vote.VoteSection;
-import Plugin.External.PingRequest;
+import Plugin.Service.PingRequest;
 import ac.grim.grimac.api.GrimAbstractAPI;
 import com.onarandombox.MultiverseCore.MultiverseCore;
-import com.zaxxer.hikari.HikariConfig;
 import me.neznamy.tab.api.TabAPI;
 import net.luckperms.api.LuckPerms;
 import org.bukkit.Bukkit;
@@ -43,7 +42,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-import static Plugin.External.DDNS_NameCheap.updateIP;
+import static Plugin.Service.DDNS_NameCheap.updateIP;
 import static Plugin.File.FileManagerSection.getPlayerFileManager;
 import static Plugin.Messages.MessageManager.*;
 

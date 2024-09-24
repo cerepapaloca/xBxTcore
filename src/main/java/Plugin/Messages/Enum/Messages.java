@@ -268,10 +268,10 @@ public enum Messages {
     Inventory_DuelTimeLimitOff,
     Inventory_DuelTimeLore,
     Inventory_SelectKitFavorite,
-    Inventory_H1mas,
-    Inventory_S1mas,
-    Inventory_S1menos,
-    Inventory_H1menos,
+    Inventory_TimeLimit_M1mas,
+    Inventory_TimeLimit_S1mas,
+    Inventory_TimeLimit_S1menos,
+    Inventory_TimeLimit_M1menos,
     //otros
     Others_Chat_Cooldown,
     Others_Chat_BanWord,
@@ -294,5 +294,11 @@ public enum Messages {
     Kick_AlreadyConnected,
     Kick_NotAuthenticated,
     Kick_Cheat,
+    //ban
+    Ban_BotsChat,
+    Ban_AutoMessages,
+    Ban_HacksBoxPvp,
+    Ban_KickBoxPvp,
+
 
 }

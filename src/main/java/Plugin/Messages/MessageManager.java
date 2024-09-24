@@ -23,6 +23,7 @@ public class MessageManager {
             "&la" +ChatColor.of("#6AFFD5") + "&lm" + "&6]&r ";
     public static String prefixLogin = "&6[" + ChatColor.of("#0BFB08") + "&lL" +ChatColor.of("#40FC31") + "&lo" +ChatColor.of("#75FC5B") +
             "&lg" +ChatColor.of("#AAFD84") + "&li" +ChatColor.of("#DFFDAD") + "&ln" + "&6]&r ";
+    public static String prefixBanAuto = "(Auto Ban) ";
 
     public static String ColorError = "&c";
     public static String ColorSuccess = "&a";

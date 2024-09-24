@@ -280,10 +280,10 @@ public record MessagesEN() {
         enMessages.put(Inventory_DuelTimeLimitOff,Coloritem + "Time limit disabled");
         enMessages.put(Inventory_DuelTimeLore, Colorinfo + "Maximum time: " + Colorplayer);
         enMessages.put(Inventory_SelectKitFavorite,Coloritem  + "&lSelect favorite kit");
-        enMessages.put(Inventory_H1mas,"&21M+");
-        enMessages.put(Inventory_S1mas,"&21S+");
-        enMessages.put(Inventory_S1menos,"&c1S-");
-        enMessages.put(Inventory_H1menos,"&c1M-");
+        enMessages.put(Inventory_TimeLimit_M1mas,"&21M+");
+        enMessages.put(Inventory_TimeLimit_S1mas,"&21S+");
+        enMessages.put(Inventory_TimeLimit_S1menos,"&c1S-");
+        enMessages.put(Inventory_TimeLimit_M1menos,"&c1M-");
         //otros
         enMessages.put(Others_Chat_Cooldown, prefix + ColorError + "You cannot send messages for &b%time%");
         enMessages.put(Others_Chat_BanWord, prefix + ColorError + "Your message contains a forbidden word");
@@ -308,5 +308,10 @@ public record MessagesEN() {
         enMessages.put(Kick_AlreadyConnected,prefixKick  + Colorinfo + "This user is already logged in");
         enMessages.put(Kick_NotAuthenticated,prefixKick  + Colorinfo + "A discrepancy was detected in your authentication, please log in again.");
         enMessages.put(Kick_Cheat,prefixKick + Colorinfo + "Hacks are not allowed in the PVP box, but in FFA they are.");
+
+        enMessages.put(Ban_BotsChat,prefixBanAuto + "use of bot or misuse of multiple accounts. For security reasons your IP has been added to the bot blacklist");
+        enMessages.put(Ban_AutoMessages, prefixBanAuto + "use of automated messages");
+        enMessages.put(Ban_HacksBoxPvp, prefixBanAuto + "use of hacks in the pvp box");
+        enMessages.put(Ban_KickBoxPvp, prefixBanAuto + "please do not use hacks in the pvp box");
     }
 }

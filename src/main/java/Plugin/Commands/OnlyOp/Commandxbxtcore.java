@@ -35,7 +35,8 @@ public class Commandxbxtcore implements CommandExecutor {
 
     public Commandxbxtcore(){
         contexts.add("global");
-        contexts.add("boxpvp");
+        contexts.add("box_pvp");
+        contexts.add("chat");
     }
 
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {

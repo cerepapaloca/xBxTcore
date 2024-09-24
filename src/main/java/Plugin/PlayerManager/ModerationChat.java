@@ -19,6 +19,7 @@ import java.util.UUID;
 
 import static Plugin.Messages.MessageManager.MasterMessageLocated;
 import static Plugin.PlayerManager.PlayerManagerSection.moderationChatEnabled;
+import static Plugin.xBxTcore.plugin;
 
 public class ModerationChat {
 
@@ -48,11 +49,10 @@ public class ModerationChat {
         Player player = event.getPlayer();
         String prefix = ColorUtils.applyGradient(Utils.getPlayerPrefix(player).replace("&l", ""), "l");
 
-        if (BanManager.checkBanPlayer(player, ContextBan.CHAT) != null){
+        if (BanManager.checkBanPlayer(player, ContextBan.CHAT) != null) {
             Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',
                     prefix + "&r " + player.getName() + " » &7" + event.getMessage() + " &c[Eliminado: Baneado]"));
             event.setCancelled(true);
-            return;
         }
 
         if (moderationChatEnabled){
@@ -71,7 +71,7 @@ public class ModerationChat {
                         prefix + "&r " + player.getName() + " » &7" + event.getMessage() + " &c[Eliminado: Spam]"));
                 player.sendMessage(MasterMessageLocated(player, Messages.Others_Chat_Cooldown).replace("%time%", "4s"));
             }
-            AutoBan.checkAutoBanChat(player, event.getMessage());
+            SecuritySection.getAutoBan().checkAutoBanChat(player, event.getMessage());
             starCoolDown(player.getUniqueId());
         }else{
             Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&',

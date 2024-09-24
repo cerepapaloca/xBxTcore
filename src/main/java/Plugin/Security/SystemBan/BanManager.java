@@ -98,15 +98,19 @@ public class BanManager implements Listener {
         }
 
     }
-    public static String checkBanPlayer(@Nullable InetAddress ipPlayer, @NotNull Player player,@NotNull ContextBan context) {
+    public static @Nullable String checkBanPlayer(@Nullable InetAddress ipPlayer, @NotNull Player player,@NotNull ContextBan context) {
         return checkBanPlayerMaster(ipPlayer, player, context);
     }
 
-    public static String checkBanPlayer(@NotNull Player player,@NotNull ContextBan context) {
+    public static @Nullable String checkBanPlayer(@NotNull Player player,@Nullable ContextBan context) {
         return checkBanPlayerMaster(player.getAddress().getAddress(), player, context);
     }
 
-    private static String checkBanPlayerMaster(@Nullable InetAddress ipPlayer, @NotNull Player player, @NotNull ContextBan context) {
+    public static @Nullable String checkBanPlayer(@NotNull Player player) {
+        return checkBanPlayerMaster(player.getAddress().getAddress(), player, null);
+    }
+
+    private static @Nullable String checkBanPlayerMaster(@Nullable InetAddress ipPlayer, @NotNull Player player, @Nullable ContextBan context) {
 
         boolean checkName = UUIDBan.contains(player.getUniqueId());
         boolean checkIp = false;
@@ -128,6 +132,10 @@ public class BanManager implements Listener {
                 return null;
             }
 
+            if (context == null){
+                context = ContextBan.GLOBAL;
+            }
+
             if (dataBan.getContext().equals(context)) {
                 long unbanDate = dataBan.getUnbanTime();
                 long currentTime = System.currentTimeMillis();
@@ -142,8 +150,6 @@ public class BanManager implements Listener {
                             Colorinfo + "Expira en: " + Colorplayer + Utils.SecondToMinutes(unbanDate - currentTime) + "\n" +
                             Colorinfo + "Razón de baneo: " + Colorplayer + dataBan.getReason() + "\n" +
                             Colorinfo + "Apelación de ban: " + LinkDiscord);
-
-                    // Ejecutar el kick en el hilo principal
                     Bukkit.getScheduler().runTask(plugin, () -> player.kickPlayer(reason));
 
                     return reason;
@@ -151,7 +157,7 @@ public class BanManager implements Listener {
                     unbanPlayer(player.getName());
                     return null;
                 }
-            } else {
+            } else{
                 return null;
             }
         } else {
@@ -159,8 +165,7 @@ public class BanManager implements Listener {
         }
     }
 
-
-    private static DataBan getDataMySQL(@NotNull Player player, boolean checkName, InetAddress address) {
+    private static @Nullable DataBan getDataMySQL(@NotNull Player player, boolean checkName, InetAddress address) {
         ResultSet resultSet;
         if (checkName) {
             try (Connection connection = MySQLConnection.getConnection();

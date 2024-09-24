@@ -428,11 +428,11 @@ public class InventoryMenu extends InventoryManager {
             inv.setItem(i,PANEL_GLASS);
         }
         ///////////////////////////////////////////////////
-        Utils.NewitemInvetory(Messages.Inventory_H1menos, Material.RED_STAINED_GLASS_PANE, 11, inv, player);
-        Utils.NewitemInvetory(Messages.Inventory_S1menos, Material.RED_STAINED_GLASS_PANE, 12, inv, player);
+        Utils.NewitemInvetory(Messages.Inventory_TimeLimit_M1menos, Material.RED_STAINED_GLASS_PANE, 11, inv, player);
+        Utils.NewitemInvetory(Messages.Inventory_TimeLimit_S1menos, Material.RED_STAINED_GLASS_PANE, 12, inv, player);
         ///////////////////////////////////////////////////
-        Utils.NewitemInvetory(Messages.Inventory_S1mas, Material.GREEN_STAINED_GLASS_PANE, 14, inv, player);
-        Utils.NewitemInvetory(Messages.Inventory_H1mas, Material.GREEN_STAINED_GLASS_PANE, 15, inv, player);
+        Utils.NewitemInvetory(Messages.Inventory_TimeLimit_S1mas, Material.GREEN_STAINED_GLASS_PANE, 14, inv, player);
+        Utils.NewitemInvetory(Messages.Inventory_TimeLimit_M1mas, Material.GREEN_STAINED_GLASS_PANE, 15, inv, player);
         ///////////////////////////////////////////////////
         Utils.NewitemInvetory(Messages.Inventory_InvExit, Material.BARRIER, 22, inv, player);
 

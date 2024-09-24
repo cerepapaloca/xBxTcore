@@ -1,4 +1,4 @@
-package Plugin.External;
+package Plugin.Service;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -9,6 +9,7 @@ import java.net.*;
 import java.util.Enumeration;
 
 import static Plugin.Messages.MessageManager.*;
+import static Plugin.xBxTcore.plugin;
 
 public class DDNS_NameCheap {
 
@@ -39,7 +40,6 @@ public class DDNS_NameCheap {
             Enumeration<InetAddress> addresses = networkInterface.getInetAddresses();
             while (addresses.hasMoreElements()) {
                 InetAddress inetAddress = addresses.nextElement();
-                // Filtramos las direcciones locales no deseadas y nos quedamos con las IPv4
                 if (!inetAddress.isLoopbackAddress() && inetAddress.isSiteLocalAddress()) {
                     return inetAddress.getHostAddress();
                 }
@@ -50,7 +50,7 @@ public class DDNS_NameCheap {
 
     public static void updateIP() {
         if (!PingRequest.conected)return;
-        new Thread(() ->{
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
             try {
                 if (IpNow == null) {
                     IpNow = getPublicIP();
@@ -72,7 +72,6 @@ public class DDNS_NameCheap {
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
-        }).start();
-
+        });
     }
 }

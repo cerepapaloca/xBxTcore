@@ -280,10 +280,10 @@ public record MessagesES() {
         esMessages.put(Inventory_DuelTimeLimitOff,Coloritem + "Limite de tiempo desactivado");
         esMessages.put(Inventory_DuelTimeLore, Colorinfo + "Tiempo máximo: " + Colorplayer);
         esMessages.put(Inventory_SelectKitFavorite,Coloritem  + "&lSeleccionar kit favorito");
-        esMessages.put(Inventory_H1mas,"&21M+");
-        esMessages.put(Inventory_S1mas,"&21S+");
-        esMessages.put(Inventory_S1menos,"&c1S-");
-        esMessages.put(Inventory_H1menos,"&c1M-");
+        esMessages.put(Inventory_TimeLimit_M1mas,"&21M+");
+        esMessages.put(Inventory_TimeLimit_S1mas,"&21S+");
+        esMessages.put(Inventory_TimeLimit_S1menos,"&c1S-");
+        esMessages.put(Inventory_TimeLimit_M1menos,"&c1M-");
         //otros
         esMessages.put(Others_Chat_Cooldown, prefix + ColorError + "No puedes enviar mensajes durante &b%time%");
         esMessages.put(Others_Chat_BanWord, prefix + ColorError + "Tu mensaje contiene una palabra prohibida");
@@ -308,5 +308,11 @@ public record MessagesES() {
         esMessages.put(Kick_AlreadyConnected,prefixKick  + Colorinfo + "Este Usuario ya esta conectado");
         esMessages.put(Kick_NotAuthenticated,prefixKick  + Colorinfo + "Se detecto una discrepancia en su authentication, por favor vuele a iniciar sesión");
         esMessages.put(Kick_Cheat,prefixKick + Colorinfo + "No se permite hacks en el box pvp, pero en el FFA si");
+
+        esMessages.put(Ban_BotsChat,prefixBanAuto + "uso de bot o de uso indebido de multicuentas. Por seguridad tu ip fue agregada a la lista negras de los bot");
+        esMessages.put(Ban_AutoMessages, prefixBanAuto + "uso de mensajes automatizado");
+        esMessages.put(Ban_HacksBoxPvp, prefixBanAuto + "uso de hacks en el box pvp");
+        esMessages.put(Ban_KickBoxPvp, prefixBanAuto + "por favor no uses hacks en el box pvp");
+
     }
 }
