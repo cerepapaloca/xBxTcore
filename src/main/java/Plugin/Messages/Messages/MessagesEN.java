@@ -8,6 +8,7 @@ import java.util.Map;
 
 import static Plugin.Messages.Enum.Messages.*;
 import static Plugin.Messages.MessageManager.*;
+import static Plugin.Messages.Messages.MessagesES.esMessages;
 
 public record MessagesEN() {
 
@@ -20,12 +21,8 @@ public record MessagesEN() {
         enMessages.put(Generic_InArea,prefix + ColorError + "It is not allowed to use here");
         enMessages.put(Generic_HoverExecute,"Execute this command");
         //Vote y prefix
-        enMessages.put(NotVote,ColorError + "To have access to this command you have to vote for this server with the command: ");
-        enMessages.put(TooLengthName,prefix + ColorError + "Very long name. Maximum characters 10");
-        enMessages.put(WordNotAllowed,prefix + ColorError + "That word is not allowed");
-        enMessages.put(PrefixSuccess,prefix + ColorSuccess + "The prefix has been put in your name");
-        enMessages.put(Voted,Colorinfo + "Thank you for voting, you can now use the command: ");
-        enMessages.put(PrefixClear,prefix + Colorinfo + "The prefix has been cleared");
+        enMessages.put(Vote_Voted,prefix + ColorSuccess + "Thank you for voting");
+        enMessages.put(Vote_NotBoxPvp, prefix + Colorinfo + "You have to enter the pvp box to receive the rewards");
         //Eventos
         enMessages.put(Event_leave,Colorinfo + " left the game!");
         enMessages.put(Event_join,Colorinfo + " joined the game!");

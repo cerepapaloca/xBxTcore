@@ -1,6 +1,8 @@
 package Plugin.Service;
 
+import Plugin.Utils.Enum.SystemOperative;
 import Plugin.xBxTcore;
+import fr.xephi.authme.command.help.HelpSection;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
@@ -24,15 +26,17 @@ public class PingRequest {
                 Process process;
                 String timeLoc;
                 String notConexion;
+                String regex;
+                notConexion = "no pudo encontrar el host";
                 switch(xBxTcore.getSystemOperative){
                     case WINDOWS -> {
                         timeLoc = "tiempo=";
-                        notConexion = "no pudo encontrar el host";
+                        regex = "ms";
                         process = Runtime.getRuntime().exec("ping -n 1 " + ip);
                     }
                     case LINUX -> {
                         timeLoc = "time=";
-                        notConexion = "failure";
+                        regex = " ms";
                         process = Runtime.getRuntime().exec("ping -c 1 " + ip);
                     }
                     default -> {
@@ -42,32 +46,41 @@ public class PingRequest {
 
                 BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
                 String line;
+                int i = 0;
                 while ((line = reader.readLine()) != null) {
-                    //Bukkit.getLogger().warning(line);
+                    i ++;
                     // Filtra la línea que contiene el tiempo en ms
                     if (line.contains(timeLoc)) {
-                        if (!conected){
+                        if (!conected) {
                             Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', ColorSuccess + "*******************************"));
                             Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', ColorSuccess + "¡¡YA HAY CONNEXION A INTERNET!!"));
                             Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', ColorSuccess + "*******************************"));
                             conected = true;
+                            cooldown = System.currentTimeMillis();
                         }
-                        String time = line.split(timeLoc)[1].split("ms")[0];
-                        if (Integer.parseInt(time) > 150){
+                        String time = line.split(timeLoc)[1].split(regex)[0];
+                        if (Float.parseFloat(time) > 150F) {
                             Bukkit.getLogger().warning("****************************************");
                             Bukkit.getLogger().warning(line);
                             Bukkit.getLogger().warning("¡¡LATENCIA MUY ALTA SERVER NO RESPONDE!!");
                             Bukkit.getLogger().warning("****************************************");
                         }
-                    }else if (line.contains(notConexion)) {
+                    } else if (line.contains(notConexion)) {
                         conected = false;
-                        if (cooldown < System.currentTimeMillis()){
+                        if (cooldown < System.currentTimeMillis()) {
                             Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', ColorError + "*******************************"));
                             Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', ColorError + "¡¡NO HAY CONNEXION A INTERNET!!"));
                             Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', ColorError + "*******************************"));
-                            cooldown = System.currentTimeMillis() + 1000*60;
+                            cooldown = System.currentTimeMillis() + 1000 * 60 * 5;
                         }
                     }
+                }
+                if (cooldown < System.currentTimeMillis() && i == 0) {
+                    conected = false;
+                    Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', ColorError + "*******************************"));
+                    Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', ColorError + "¡¡NO HAY CONNEXION A INTERNET!!"));
+                    Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', ColorError + "*******************************"));
+                    cooldown = System.currentTimeMillis() + 1000 * 60 * 5;
                 }
                 reader.close();
             } catch (Exception e) {

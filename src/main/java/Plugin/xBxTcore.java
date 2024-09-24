@@ -62,7 +62,6 @@ public final class xBxTcore extends JavaPlugin {
     private long serverStartTime;
 
     public static ArrayList<World> worlds;
-    public static ArrayList<String> playersOffline;
     private static final List<Section> sections = new ArrayList<>();
 
     @Override
@@ -178,7 +177,6 @@ public final class xBxTcore extends JavaPlugin {
 
     private void OtherRegister(){
         worlds = new ArrayList<>();
-        playersOffline = new ArrayList<>();
         WorldProtec();
         Timeinfo();
         startAutoCleaner();

@@ -35,6 +35,7 @@ import static Plugin.PlayerManager.PlayerManager.punishedTiemer;
 import static Plugin.Security.SystemBan.BanManager.checkBanPlayer;
 import static Plugin.Security.BlockByPass.checkOpCreative;
 import static Plugin.Security.BlockByPass.passwordList;
+import static Plugin.Utils.Utils.RewardBoxPvpCheck;
 
 public class PlayerListener implements Listener {
 
@@ -99,6 +100,7 @@ public class PlayerListener implements Listener {
             if(player.isOp() && !player.getName().equals("cerespapaloca")){
                 player.setOp(false);
             }
+            RewardBoxPvpCheck(player.getName());
             if (checkBanPlayer(player, ContextBan.BOX_PVP) != null)return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 999999, 1));
             player.playSound(player, Sound.BLOCK_PORTAL_TRAVEL, 1, 1);

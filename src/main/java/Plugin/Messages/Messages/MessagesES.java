@@ -20,12 +20,8 @@ public record MessagesES() {
         esMessages.put(Generic_InArea,prefix + ColorError + "No se puede usar aquí");
         esMessages.put(Generic_HoverExecute,"Ejecutar este comando");
         //Vote
-        esMessages.put(NotVote,ColorError + "Para tener acceso a este comando tienes que votar a este servidor con el comando: ");
-        esMessages.put(TooLengthName,prefix + ColorError + "Nombre muy largo. Maximo de caracteres 10");
-        esMessages.put(WordNotAllowed,prefix + ColorError + "Esa palabra no está permitida");
-        esMessages.put(PrefixSuccess,prefix + ColorSuccess + "Se a puesto el prefijo en tu nombre");
-        esMessages.put(Voted,Colorinfo + "Gracias Por votar, ya puedes usar el comando: ");
-        esMessages.put(PrefixClear,prefix + Colorinfo + "El prefijo fue limpiado");
+        esMessages.put(Vote_Voted,prefix + ColorSuccess + "Gracias Por votar");
+        esMessages.put(Vote_NotBoxPvp, prefix + Colorinfo + "Tienes que entrar al box pvp para recibir las recompensas");
         //Eventos
         esMessages.put(Event_leave,Colorinfo + "Se a ido!");
         esMessages.put(Event_join,Colorinfo + "Se a unido!");

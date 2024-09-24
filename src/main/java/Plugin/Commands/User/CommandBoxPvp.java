@@ -21,6 +21,7 @@ import java.util.concurrent.TimeoutException;
 import static Plugin.BoxPvp.ItemsBoxPvp.Listener.ArmorBonusListener.UpdateBonus;
 import static Plugin.File.FileManagerSection.getPlayerFileManager;
 import static Plugin.Messages.MessageManager.MasterMessageLocated;
+import static Plugin.Utils.Utils.RewardBoxPvpCheck;
 
 public class CommandBoxPvp implements CommandExecutor {
 
@@ -47,6 +48,7 @@ public class CommandBoxPvp implements CommandExecutor {
                 player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 999999, 1));
                 player.teleport(Objects.requireNonNull(Bukkit.getWorld("boxpvp")).getSpawnLocation());
                 UpdateBonus(player);
+                RewardBoxPvpCheck(player.getName());
                 player.setGameMode(GameMode.SURVIVAL);
             }else{
                 player.sendMessage(MasterMessageLocated(player, Messages.Generic_InArea));
