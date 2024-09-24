@@ -2,6 +2,7 @@ package Plugin.PlayerManager;
 
 import Plugin.Messages.Enum.Messages;
 import Plugin.Security.SecuritySection;
+import Plugin.Security.SystemBan.AutoBan;
 import Plugin.Security.SystemBan.BanManager;
 import Plugin.Security.SystemBan.ContextBan;
 import Plugin.Utils.ColorUtils;
@@ -70,7 +71,7 @@ public class ModerationChat {
                         prefix + "&r " + player.getName() + " » &7" + event.getMessage() + " &c[Eliminado: Spam]"));
                 player.sendMessage(MasterMessageLocated(player, Messages.Others_Chat_Cooldown).replace("%time%", "4s"));
             }
-            SecuritySection.getAutoBan().checkAutoBanChat(player, event.getMessage());
+            AutoBan.checkAutoBanChat(player, event.getMessage());
             starCoolDown(player.getUniqueId());
         }else{
             Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&',

@@ -20,15 +20,15 @@ public class AutoBan {
         removeDelay();
     }
 
-    private final HashMap<UUID, Integer> countPunishChat = new HashMap<>();
-    private final HashMap<UUID, Long> timePunishChat = new HashMap<>();
-    private final HashMap<UUID, Long> timeDifferenceNew = new HashMap<>();
-    private final HashMap<UUID, Long> timeDifferenceOld = new HashMap<>();
-    private final HashMap<UUID, Integer> timeDifferenceCount = new HashMap<>();
-    private String lastMessage = "";
-    private final ArrayList<Player> ChatBotTime = new ArrayList<>();
+    private static final HashMap<UUID, Integer> countPunishChat = new HashMap<>();
+    private static final HashMap<UUID, Long> timePunishChat = new HashMap<>();
+    private static final HashMap<UUID, Long> timeDifferenceNew = new HashMap<>();
+    private static final HashMap<UUID, Long> timeDifferenceOld = new HashMap<>();
+    private static final HashMap<UUID, Integer> timeDifferenceCount = new HashMap<>();
+    private static String lastMessage = "";
+    private static final ArrayList<Player> ChatBotTime = new ArrayList<>();
 
-    public void checkAutoBanChat(Player player, String message) {
+    public static void checkAutoBanChat(Player player, String message) {
         long currentTime = System.currentTimeMillis();
         if (Objects.equals(lastMessage, message)){
             ChatBotTime.add(player);
