@@ -17,6 +17,7 @@ import Plugin.Placeholder.HealthPlaceholder;
 import Plugin.PlayerManager.Listener.BlockerListener;
 import Plugin.PlayerManager.PlayerManagerSection;
 import Plugin.Security.SecuritySection;
+import Plugin.Utils.ColorUtils;
 import Plugin.Utils.Enum.SystemOperative;
 import Plugin.Utils.Utils;
 import Plugin.Utils.UtilsMain;
@@ -70,6 +71,7 @@ public final class xBxTcore extends JavaPlugin {
         plugin = this;
         OtherRegister();
         APIs();
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', Colorinfo + "Registro iniciado..."));
         register(new FileManagerSection(this));
         register(new PlayerManagerSection(this));
         register(new MessageSection(this));
@@ -82,9 +84,12 @@ public final class xBxTcore extends JavaPlugin {
         register(new VoteSection(this));
         register(new SecuritySection(this));
         register(new CommandSection(this));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', ColorSuccess + "Registro completado"));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',Colorinfo + "iniciando..."));
         for (Section section : sections) {
             try {
                 section.enable();
+                Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', Colorinfo + section.getName() + ColorSuccess + " Ok"));
             } catch (Exception e) {
                 Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorError + "Error al Cargar " + section.getName() + " servidor requiere reinicio"));
                 throw new RuntimeException(e);
@@ -101,7 +106,11 @@ public final class xBxTcore extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', Colorinfo + "System = " + os));
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', ColorSuccess + "xBxTcore Cargado " + Colorplayer + (System.currentTimeMillis() - timeStaringTotal) + "ms"));
 
-        MessageON();
+        switch (getSystemOperative){
+            case WINDOWS -> MessageONWindows();
+            case LINUX -> MessageONLinux();
+        }
+
     }
 
     public void onDisable() {
@@ -118,7 +127,7 @@ public final class xBxTcore extends JavaPlugin {
         MessageOFF();
     }
 
-    private void MessageON(){
+    private void MessageONWindows(){
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&8 ___    ___&8 ________   &f  ___    ___&f _________    &e    ________  ___      ___ ________"));
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&8|\\  \\  /  /&8|\\   __  \\  &f |\\  \\  /  /|&f\\___   ___\\     &e|\\   __  \\|\\  \\    /  /|\\   __  \\ "));
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&8\\ \\  \\/  / &8| \\  \\|\\ /_  &f\\ \\  \\/  / |&f\\___ \\  \\_|   &e  \\ \\  \\|\\  \\ \\  \\  /  / | \\  \\|\\  \\"));
@@ -134,6 +143,23 @@ public final class xBxTcore extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage("");
     }
 
+    private void MessageONLinux(){
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',ColorUtils.applyGradient("<#61CAFD> ___    ___ ________     ___    ___ _________   <#B378CB>","l") + ColorUtils.applyGradient("<#FEAA41> ________  ________  ________  _______      <#FF7302>","l")));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',ColorUtils.applyGradient("<#61CAFD>|\\  \\  /  /|\\   __  \\   |\\  \\  /  /|\\___   ___\\ <#B378CB>","l") + ColorUtils.applyGradient("<#FEAA41>|\\   ____\\|\\   __  \\|\\   __  \\|\\  ___ \\     <#FF7302>","l")));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',ColorUtils.applyGradient("<#61CAFD>\\ \\  \\/  / | \\  \\|\\ /_  \\ \\  \\/  / ||___ \\  \\_| <#B378CB>","l") + ColorUtils.applyGradient("<#FEAA41>\\ \\  \\___|\\ \\  \\|\\  \\ \\  \\|\\  \\ \\   __/|    <#FF7302>","l")));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',ColorUtils.applyGradient("<#61CAFD> \\ \\    / / \\ \\   __  \\  \\ \\    / /     \\ \\  \\  <#B378CB>","l") + ColorUtils.applyGradient("<#FEAA41> \\ \\  \\    \\ \\  \\\\\\  \\ \\   _  _\\ \\  \\_|/__  <#FF7302>","l")));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',ColorUtils.applyGradient("<#61CAFD>  /     \\/   \\ \\  \\|\\  \\  /     \\/       \\ \\  \\ <#B378CB>","l") + ColorUtils.applyGradient("<#FEAA41>  \\ \\  \\____\\ \\  \\\\\\  \\ \\  \\\\  \\\\ \\  \\_|\\ \\ <#FF7302>","l")));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',ColorUtils.applyGradient("<#61CAFD> /  /\\   \\    \\ \\_______\\/  /\\   \\        \\ \\__\\<#B378CB>","l") + ColorUtils.applyGradient("<#FEAA41>   \\ \\_______\\ \\_______\\ \\__\\\\ _\\\\ \\_______\\<#FF7302>","l")));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',ColorUtils.applyGradient("<#61CAFD>/__/ /\\ __\\    \\|_______/__/ /\\ __\\        \\|__|<#B378CB>","l") + ColorUtils.applyGradient("<#FEAA41>    \\|_______|\\|_______|\\|__|\\|__|\\|_______|<#FF7302>","l")));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',ColorUtils.applyGradient("<#61CAFD>|__|/ \\|__|             |__|/ \\|__|             <#B378CB>","l")));
+        Bukkit.getConsoleSender().sendMessage("");
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&7   ╔═══════════════════════════════════════════════════════════════════════════╗"));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&7   ║                     &fxBxT Core Las Bases Del Servidor&7                      ║"));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&7   ╚═══════════════════════════════════════════════════════════════════════════╝"));
+        Bukkit.getConsoleSender().sendMessage("");
+    }
+
+
     private void MessageOFF(){
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',  Colorinfo + "XBXTPVP.XYZ " + Colorplayer + "OFF"));
     }
@@ -142,7 +168,6 @@ public final class xBxTcore extends JavaPlugin {
         if (getSectionByName(section.getName()) != null)
             throw new IllegalArgumentException("Section has already been registered " + section.getName());
         sections.add(section);
-        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', Colorinfo + section.getName() + ColorSuccess + " Ok"));
     }
 
     public void register(Listener @NotNull ... listeners) {

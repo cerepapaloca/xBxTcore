@@ -46,7 +46,7 @@ public class BlackListIpManager {
                 }
             }
         }
-        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',  prefixConsole + Colorinfo + "hay" + blackListedIps.size() + " Ips están en la lista anti bot"));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',  prefixConsole + Colorinfo + "hay " + blackListedIps.size() + " Ips están en la lista anti bot"));
         return ipBlacklist;
     }
 

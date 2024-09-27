@@ -139,7 +139,7 @@ public class ColorUtils {
     }
 
     public static @NotNull String applyGradient(String input) {
-        input = input.replace("/","");
+        if (input.contains("</#"))input = input.replace("/","");
         // Procesar etiquetas de formato (negrita, cursiva)
         String formattedText = processFormattingTags(input);
 
@@ -168,7 +168,7 @@ public class ColorUtils {
     }
 
     public static @NotNull String applyGradient(String input, String in) {
-        input = input.replace("/","");
+        if (input.contains("</#"))input = input.replace("/","");
         // Procesar etiquetas de formato (negrita, cursiva)
 
         // Extraer colores de degradado y texto

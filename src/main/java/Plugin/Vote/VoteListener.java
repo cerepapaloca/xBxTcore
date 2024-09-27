@@ -1,10 +1,7 @@
 package Plugin.Vote;
 
-import Plugin.Messages.Enum.Messages;
 import Plugin.Utils.Utils;
 import com.vexsoftware.votifier.model.VotifierEvent;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
