@@ -390,51 +390,54 @@ public record ItemManage(xBxTcore plugin) {
     public ArrayList<ItemStack> wiki(){
         ArrayList<ItemStack> wikis = new ArrayList<>();
         ItemStack item = new ItemStack(Material.WRITTEN_BOOK);
-        BookMeta meta = (BookMeta) item.getItemMeta();
-        assert meta != null;
-        meta.setAuthor("Ceres");
-        meta.setTitle(ChatColor.translateAlternateColorCodes('&', "&8&lxB&f&lxT &eWiki&6"));
+        BookMeta metaEN = (BookMeta) item.getItemMeta();
+        assert metaEN != null;
+        metaEN.setAuthor("Ceres");
+        metaEN.setTitle(ChatColor.translateAlternateColorCodes('&', "&8&lxB&f&lxT &eWiki&6"));
 
-        meta.addPage(ChatColor.translateAlternateColorCodes('&', "&lCommandos\n\nBoxPvpItems&r\n\n" + "here you can see most of the server commands and the pvp box items"));
-        meta.addPage(ChatColor.translateAlternateColorCodes('&',"&lCommandos\n" + Colorplayer + " /savekit or /sk &r\nThis command saves your inventory in a kit to" +
+        metaEN.addPage(ChatColor.translateAlternateColorCodes('&', "&lCommandos\n\nBoxPvpItems&r\n\n" + "here you can see most of the server commands and the pvp box items"));
+        metaEN.addPage(ChatColor.translateAlternateColorCodes('&',"&lCommandos\n" + Colorplayer + " /savekit or /sk &r\nThis command saves your inventory in a kit to" +
                 "use it first you have to put the name of the kit WITHOUT SPACES for example '/sk best_kit' can use minecraft color codes and also " +
                 "you can put an icon."));
 
-        meta.addPage(ChatColor.translateAlternateColorCodes('&',"&lCommandos\n" + Colorplayer + "/kitfavorite or /kf&r\nYou save a kit " +
+        metaEN.addPage(ChatColor.translateAlternateColorCodes('&',"&lCommandos\n" + Colorplayer + "/kitfavorite or /kf&r\nYou save a kit " +
                 "as a favorite so that when you die it respawns with the kit you selected to use it. You have to put " +
                 "The name of the kit WITH THE COLOR CODES and if you write the command it only loads the kit you had saved."));
 
-        meta.addPage(ChatColor.translateAlternateColorCodes('&',"&lCommandos\n" + Colorplayer + "/delkit or /dk\n&r" + "Delete the kit " +
+        metaEN.addPage(ChatColor.translateAlternateColorCodes('&',"&lCommandos\n" + Colorplayer + "/delkit or /dk\n&r" + "Delete the kit " +
                 "selected to use you have to put the name of your kit.\n" +
                 Colorplayer + "/lobby or /spawn\n&takes you to the main world.\n" +
                 Colorplayer + "/rank\n&rYou see the top kills and streaks of the players online"));
 
-        meta.addPage(ChatColor.translateAlternateColorCodes('&',"&lCommandos\n" + Colorplayer + "/spectator&r" + "You enter a duel arena" +
+        metaEN.addPage(ChatColor.translateAlternateColorCodes('&',"&lCommandos\n" + Colorplayer + "/spectator&r" + "You enter a duel arena" +
                 "To use it you have to put the name of the arena or you can do it on the duel announcement\n" +
                 Colorplayer + "/boxpvp\n&rtakes you to the boxpvp.\n" +
                 Colorplayer + "/vote\n&rgives you the link to the page to vote\n"));
 
-        meta.addPage(ChatColor.translateAlternateColorCodes('&',"&lBoxPvPItem\n" + Colorplayer + "Coins From The Material Mines&r\n" +
+        metaEN.addPage(ChatColor.translateAlternateColorCodes('&',"&lBoxPvPItem\n" + Colorplayer + "Coins From The Material Mines&r\n" +
                 "This currency is used to improve your equipment by trading with the villager below and with the villager above the coin is compacted\n"));
 
-        meta.addPage(ChatColor.translateAlternateColorCodes('&',"&lItem Del BoxPvP\n" + Colorplayer + "Coins From The Material Mines&r\n" +
+        metaEN.addPage(ChatColor.translateAlternateColorCodes('&',"&lItem Del BoxPvP\n" + Colorplayer + "Coins From The Material Mines&r\n" +
                 "The main currency is for trading with the villagers, it is obtained by mining from the mines that are near the center of the pvp box, " +
                 "so you can make a conversion of materials to the main currency"));
 
-        meta.addPage(ChatColor.translateAlternateColorCodes('&',"&lItem Del BoxPvP\n" + Colorplayer + "Helmet&r\n" +
+        metaEN.addPage(ChatColor.translateAlternateColorCodes('&',"&lItem Del BoxPvP\n" + Colorplayer + "Helmet&r\n" +
                 "The helmet increases your regeneration for each tier you regenerate one tick faster with a minimum of 2 ticks for 1 life point\n" +
                 Colorplayer + "Elytras&r\n" + "Increases your maximum life, one heart per tier"));
 
-        meta.addPage(ChatColor.translateAlternateColorCodes('&', "&lBoxPvPItem\n" + Colorplayer + "Pants&r\n" + "Increases your protection to general damage for each tier increases 1 level of the enchantment\n" +
+        metaEN.addPage(ChatColor.translateAlternateColorCodes('&', "&lBoxPvPItem\n" + Colorplayer + "Pants&r\n" + "Increases your protection to general damage for each tier increases 1 level of the enchantment\n" +
                 Colorplayer + "Boots&r\n" + "Increases your protection to explosion damage for each tier increases 2 levels of the enchantment"));
 
-        meta.addPage(ChatColor.translateAlternateColorCodes('&', "&lBoxPvPItem\n" +Colorplayer + "Damage Tear&r\n" + "Increases your damage 1.75x but for each " +
+        metaEN.addPage(ChatColor.translateAlternateColorCodes('&', "&lBoxPvPItem\n" +Colorplayer + "Damage Tear&r\n" + "Increases your damage 1.75x but for each " +
                 "hit but lowers your hunger bar significantly\n" +
                 Colorplayer + "Wither Blessing&r\n" + "If you are less than 8 hearts when attacking damage you give wither 3 for 20 seconds\n"));
 
-        meta.addPage(ChatColor.translateAlternateColorCodes('&', "&lItem Del BoxPvP\n" +Colorplayer + "Absorption Consumer&r\n" + "If the enemy has the absorption effect you take 3x damage but if they don't have it your damage is reduced" +
+        metaEN.addPage(ChatColor.translateAlternateColorCodes('&', "&lItem Del BoxPvP\n" +Colorplayer + "Absorption Consumer&r\n" + "If the enemy has the absorption effect you take 3x damage but if they don't have it your damage is reduced" +
                 " by 25%"));
-        item.setItemMeta(meta);
+        metaEN.addPage(ChatColor.translateAlternateColorCodes('&', "&lItem Del BoxPvP\n" +Colorplayer + "Vision Destroyer&r\n" + "You have a 30% chance of giving blindness for 10 for each hit"));
+
+        metaEN.addPage(ChatColor.translateAlternateColorCodes('&', "&lItem Del BoxPvP\n" +Colorplayer + "Attack&r\n" + "gives you slow 3 and resistance 3 for 30 seconds for each being you hit your enemy"));
+        item.setItemMeta(metaEN);
         wikis.add(item);
 
         ItemStack itemEs = new ItemStack(Material.WRITTEN_BOOK);
@@ -482,6 +485,9 @@ public record ItemManage(xBxTcore plugin) {
 
         metaEs.addPage(ChatColor.translateAlternateColorCodes('&', "&lItem Del BoxPvP\n" +Colorplayer + "Consumidor de Absorción&r\n" + "Si el enemigo tiene el efecto de absorción le sacas un 3x de daño pero sino lo tiene tu daño es reducido" +
                 " un 25%"));
+        metaEs.addPage(ChatColor.translateAlternateColorCodes('&', "&lItem Del BoxPvP\n" +Colorplayer + "Destructor de vision&r\n" + "Tienes una posibilidad de 30% de darle seguera por 10 por cada golpe"));
+
+        metaEs.addPage(ChatColor.translateAlternateColorCodes('&', "&lItem Del BoxPvP\n" +Colorplayer + "Taque&r\n" + "te da lentitud 3 y resistencia 3 por 30 segundo cada ser que golpeas a tu enemigo"));
 
         itemEs.setItemMeta(metaEs);
         wikis.add(itemEs);

@@ -3,12 +3,7 @@ package Plugin.Placeholder;
 import Plugin.BoxPvp.ItemsBoxPvp.BonusUpdate;
 import Plugin.xBxTcore;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
 public class Placeholder extends PlaceholderExpansion {
@@ -47,18 +42,13 @@ public class Placeholder extends PlaceholderExpansion {
 
         switch (identifier) {
             case "max_tier" -> {
-                int maxTier = 0;
-                for (ItemStack item : player.getInventory().getContents()) {
-                    if (item.getType().equals(Material.NETHERITE_SWORD)) {
-                        if (item.getItemMeta() != null) {
-                            int tier = item.getItemMeta().getPersistentDataContainer().get(new NamespacedKey(plugin, "tier"), PersistentDataType.INTEGER);
-                            maxTier = Math.max(tier, BonusUpdate.BoxPvpSection);
-                            Bukkit.getConsoleSender().sendMessage("Tier: " + maxTier);
-                            break;
-                        }
-                    }
+                String s;
+                if (BonusUpdate.playerTier.getOrDefault(player.getUniqueId(), 0) == 0){
+                    s = "";
+                }else{
+                    s = "&7 |&a Tier " + BonusUpdate.playerTier.getOrDefault(player.getUniqueId(), 0);
                 }
-                return String.valueOf(maxTier);
+                return s;
             }
             case "full_health" -> {
                 return String.valueOf(((int) Math.round(player.getHealth() + player.getAbsorptionAmount())));

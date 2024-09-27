@@ -60,8 +60,8 @@ public class ItemBonusListener implements Listener {
                     }
                 }
                 case BonusTank -> {
-                    event.setDamage(event.getDamage()*0.35);
-                    attacked.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20*30, 3));
+                    attacker.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20*30, 3));
+                    attacker.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20*30, 3));
                 }
             }
         }

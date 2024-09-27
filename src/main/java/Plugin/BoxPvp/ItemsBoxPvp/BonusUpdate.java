@@ -10,12 +10,15 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
 import java.util.Objects;
+import java.util.UUID;
 
 public class BonusUpdate {
 
     private static xBxTcore plugin;
-    public static int BoxPvpSection = 0;
+    public static int maxTier = 0;
+    public static HashMap<UUID, Integer> playerTier = new HashMap<>();
 
     public BonusUpdate(xBxTcore plugin) {
         BonusUpdate.plugin = plugin;
@@ -26,6 +29,7 @@ public class BonusUpdate {
         int tierChest = 0;
         int tierLegs = 0;
         int tierBoots = 0;
+        int tierSword = 0;
         ItemStack item;
         item = player.getInventory().getItem(EquipmentSlot.HEAD);
         if (item != null) {
@@ -76,6 +80,20 @@ public class BonusUpdate {
                 Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_KNOCKBACK_RESISTANCE)).setBaseValue(0);
             }
         }
-        BoxPvpSection = Math.max(Math.max(Math.max(tierHead, tierChest), tierLegs), tierBoots);
+        for (ItemStack itemContent : player.getInventory().getContents()) {
+            if (itemContent != null) {
+                if (itemContent.getType().equals(Material.NETHERITE_SWORD)) {
+                    if (itemContent.getItemMeta() != null) {
+                        try {
+                            tierSword = itemContent.getItemMeta().getPersistentDataContainer().get(new NamespacedKey(plugin, "tier"), PersistentDataType.INTEGER);
+                        }catch (Exception e) {
+                            tierHead = 0;
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+        playerTier.put(player.getUniqueId(), maxTier = Math.max(Math.max(Math.max(Math.max(tierHead, tierChest), tierLegs), tierBoots), tierSword));
     }
 }

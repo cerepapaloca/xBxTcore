@@ -17,7 +17,7 @@ public class ArmorBonusListener implements Listener {
     private static xBxTcore plugin;
 
     public ArmorBonusListener(xBxTcore plugin) {
-        this.plugin = plugin;
+        ArmorBonusListener.plugin = plugin;
     }
 
     @EventHandler
