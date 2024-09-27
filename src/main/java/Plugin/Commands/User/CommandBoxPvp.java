@@ -15,10 +15,8 @@ import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeoutException;
 
-import static Plugin.BoxPvp.ItemsBoxPvp.Listener.ArmorBonusListener.UpdateBonus;
+import static Plugin.BoxPvp.ItemsBoxPvp.BonusUpdate.UpdateBonus;
 import static Plugin.File.FileManagerSection.getPlayerFileManager;
 import static Plugin.Messages.MessageManager.MasterMessageLocated;
 import static Plugin.Utils.Utils.RewardBoxPvpCheck;

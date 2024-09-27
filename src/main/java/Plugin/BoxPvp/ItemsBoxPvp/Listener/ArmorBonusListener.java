@@ -2,22 +2,15 @@ package Plugin.BoxPvp.ItemsBoxPvp.Listener;
 
 import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryEvent;
-import org.bukkit.inventory.EquipmentSlot;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.jetbrains.annotations.NotNull;
 
-import java.util.Objects;
+import static Plugin.BoxPvp.ItemsBoxPvp.BonusUpdate.UpdateBonus;
 
 public class ArmorBonusListener implements Listener {
 
@@ -47,57 +40,6 @@ public class ArmorBonusListener implements Listener {
                 }
             }.runTaskLater(plugin, 1);
 
-        }
-    }
-
-    public static void UpdateBonus(@NotNull Player player) {
-        ItemStack item;
-        item = player.getInventory().getItem(EquipmentSlot.HEAD);
-        if (item != null) {
-            if (item.getType() == Material.LEATHER_HELMET){
-                int tier = item.getItemMeta().getPersistentDataContainer().get(
-                        new NamespacedKey(plugin, "tier"), PersistentDataType.INTEGER);
-                int i = 10 - tier;
-                if (i < 2) {
-                    i = 2;
-                }
-                player.setUnsaturatedRegenRate(80 - 2 * tier);
-                player.setSaturatedRegenRate(i);
-            } else {
-                player.setSaturatedRegenRate(10);
-                player.setUnsaturatedRegenRate(80);
-            }
-        }
-        item = player.getInventory().getItem(EquipmentSlot.CHEST);
-        if (item != null) {
-            if (item.getType() == Material.ELYTRA) {
-                Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(20 + 2 *
-                        item.getItemMeta().getPersistentDataContainer().get(
-                                new NamespacedKey(plugin, "tier"), PersistentDataType.INTEGER));
-            }else {
-                Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(20);
-            }
-        }
-        item = player.getInventory().getItem(EquipmentSlot.LEGS);
-        if (item != null){
-            if (item.getType() == Material.LEATHER_LEGGINGS) {
-                Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_ARMOR)).setBaseValue(1 + item.getItemMeta().getPersistentDataContainer().get(
-                        new NamespacedKey(plugin, "tier"), PersistentDataType.INTEGER));
-                Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_ARMOR_TOUGHNESS)).setBaseValue(1 + item.getItemMeta().getPersistentDataContainer().get(
-                        new NamespacedKey(plugin, "tier"), PersistentDataType.INTEGER));
-            }else {
-                Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_ARMOR)).setBaseValue(0);
-                Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_ARMOR_TOUGHNESS)).setBaseValue(0);
-            }
-        }
-        item = player.getInventory().getItem(EquipmentSlot.LEGS);
-        if (item != null){
-            if (item.getType() == Material.LEATHER_BOOTS) {
-                Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_KNOCKBACK_RESISTANCE)).setBaseValue(1 + item.getItemMeta().getPersistentDataContainer().get(
-                        new NamespacedKey(plugin, "tier"), PersistentDataType.INTEGER));
-            }else {
-                Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_KNOCKBACK_RESISTANCE)).setBaseValue(0);
-            }
         }
     }
 }

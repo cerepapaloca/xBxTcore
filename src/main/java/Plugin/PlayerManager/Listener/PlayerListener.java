@@ -27,7 +27,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
 import static Plugin.BoxPvp.BoxPvpSection.getZoneSafeBoxPvp;
-import static Plugin.BoxPvp.ItemsBoxPvp.Listener.ArmorBonusListener.UpdateBonus;
+import static Plugin.BoxPvp.ItemsBoxPvp.BonusUpdate.UpdateBonus;
 import static Plugin.File.FileManagerSection.getPlayerFileManager;
 import static Plugin.Messages.MessageManager.*;
 import static Plugin.PlayerManager.PlayerManager.playresInSafeZone;

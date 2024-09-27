@@ -158,9 +158,11 @@ public record ItemManage(xBxTcore plugin) {
         lore.add(ChatColor.translateAlternateColorCodes('&',Coloritem + " "));
         lore.add(ChatColor.translateAlternateColorCodes('&',"&8" + "Mas información con " + ColorLink + "/help"));
 
-        especialItems.add(newItemBoxPVP(Material.FERMENTED_SPIDER_EYE ,"<#FF2121>Desgarre de daño<#FF8585>", lore, "DañoBonus",true));
-        especialItems.add(newItemBoxPVP(Material.CHARCOAL ,"<##4A4A4A>Bendición de wither<#282828>", lore, "DañoPorWither",true));
-        especialItems.add(newItemBoxPVP(Material.SCUTE ,"<#29FB08>Consumidor de Absorción<#3B6600>", lore, "DañoBonusPorAbsorción",true));
+        especialItems.add(newItemBoxPVP(Material.FERMENTED_SPIDER_EYE ,"<#FF2121>Desgarre de daño<#FF8585>", lore, ItemBonus.DañoBonus,true));
+        especialItems.add(newItemBoxPVP(Material.CHARCOAL ,"<##4A4A4A>Bendición de wither<#282828>", lore, ItemBonus.DañoPorWither,true));
+        especialItems.add(newItemBoxPVP(Material.SCUTE ,"<#29FB08>Consumidor de Absorción<#3B6600>", lore, ItemBonus.DañoBonusPorAbsorción,true));
+        especialItems.add(newItemBoxPVP(Material.FLINT ,"<#FC4444>Destructor de vision<#FF0000>", lore, ItemBonus.BonusDeCeguera,true));
+        especialItems.add(newItemBoxPVP(Material.NETHERITE_SCRAP ,"<#BCBCBC>Taque<#696969>", lore, ItemBonus.BonusTank,true));
 
         //////////////
         //////////////
@@ -333,7 +335,7 @@ public record ItemManage(xBxTcore plugin) {
     }
 
     @NotNull
-    public ItemStack newItemBoxPVP(Material material, String tile, ArrayList<String> lore, String keyEspacial, Boolean enchant){
+    public ItemStack newItemBoxPVP(Material material, String tile, ArrayList<String> lore, ItemBonus keyEspacial, Boolean enchant){
         ItemStack item;
         item = new ItemStack(material);
         ItemMeta meta = item.getItemMeta();
@@ -346,7 +348,7 @@ public record ItemManage(xBxTcore plugin) {
         meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-        meta.getPersistentDataContainer().set(new NamespacedKey(plugin, "keyEspacial"), PersistentDataType.STRING, keyEspacial);
+        meta.getPersistentDataContainer().set(new NamespacedKey(plugin, "keyEspacial"), PersistentDataType.STRING, keyEspacial.name());
         if (enchant){
             meta.addEnchant(Enchantment.LUCK, 1, true);
         }

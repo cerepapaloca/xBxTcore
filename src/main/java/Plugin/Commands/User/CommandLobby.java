@@ -14,7 +14,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 
-import static Plugin.BoxPvp.ItemsBoxPvp.Listener.ArmorBonusListener.UpdateBonus;
+import static Plugin.BoxPvp.ItemsBoxPvp.BonusUpdate.UpdateBonus;
 import static Plugin.Messages.MessageManager.MasterMessageLocated;
 
 public class CommandLobby implements CommandExecutor {

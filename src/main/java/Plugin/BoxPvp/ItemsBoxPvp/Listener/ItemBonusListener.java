@@ -1,5 +1,6 @@
 package Plugin.BoxPvp.ItemsBoxPvp.Listener;
 
+import Plugin.BoxPvp.ItemsBoxPvp.ItemBonus;
 import Plugin.xBxTcore;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
@@ -23,7 +24,7 @@ public class ItemBonusListener implements Listener {
     }
 
     @EventHandler
-    public void damage(EntityDamageByEntityEvent event) {
+    public void damageEspacial(EntityDamageByEntityEvent event) {
         if(event.getEntity() instanceof Player attacked && event.getDamager() instanceof Player attacker){
 
             if (!attacked.getWorld().getName().equals(worldBoxPvp)){
@@ -32,24 +33,35 @@ public class ItemBonusListener implements Listener {
 
             ItemStack item = attacker.getInventory().getItemInOffHand();
             if (item.getItemMeta() == null) return;
-            PotionEffect Wither = new PotionEffect(PotionEffectType.WITHER, 20*10, 3);
             if (item.getItemMeta().getPersistentDataContainer().get(new NamespacedKey(plugin, "keyEspacial"), PersistentDataType.STRING) == null)return;
-            switch (requireNonNull(item.getItemMeta().getPersistentDataContainer().get(new NamespacedKey(plugin, "keyEspacial"), PersistentDataType.STRING))){
-                case "DañoBonus" -> {
+            String itemBonus = requireNonNull(item.getItemMeta().getPersistentDataContainer().get(new NamespacedKey(plugin, "keyEspacial"), PersistentDataType.STRING));
+            ItemBonus itemBonusEnum = ItemBonus.valueOf(itemBonus);
+            switch (itemBonusEnum){
+                case DañoBonus -> {
                     event.setDamage(event.getDamage()*1.75);
                     attacker.setFoodLevel(attacker.getFoodLevel() - 3);
                 }
-                case "DañoPorWither" -> {
+                case DañoPorWither -> {
                     if (attacker.getHealth() <= 16){
-                        attacked.addPotionEffect(Wither);
+                        attacked.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 20*10, 3));
                     }
                 }
-                case "DañoBonusPorAbsorción" -> {
+                case DañoBonusPorAbsorción -> {
                     if (attacked.hasPotionEffect(PotionEffectType.ABSORPTION)){
-                        event.setDamage(event.getDamage()*3);
+                        event.setDamage(event.getDamage()*2.25);
                     }else{
                         event.setDamage(event.getDamage()*0.75);
                     }
+                }
+                case BonusDeCeguera -> {
+                    double i = Math.random();
+                    if(i < 0.3D){
+                        attacked.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20*10, 1));
+                    }
+                }
+                case BonusTank -> {
+                    event.setDamage(event.getDamage()*0.35);
+                    attacked.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20*30, 3));
                 }
             }
         }

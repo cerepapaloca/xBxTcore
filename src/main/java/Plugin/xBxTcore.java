@@ -13,7 +13,7 @@ import Plugin.Messages.Enum.Messages;
 import Plugin.Messages.MessageSection;
 import Plugin.Messages.MessageManager;
 import Plugin.Duel.Model.PlayerDataUnique;
-import Plugin.Placeholder.HealthPlaceholder;
+import Plugin.Placeholder.Placeholder;
 import Plugin.PlayerManager.Listener.BlockerListener;
 import Plugin.PlayerManager.PlayerManagerSection;
 import Plugin.Security.SecuritySection;
@@ -189,7 +189,7 @@ public final class xBxTcore extends JavaPlugin {
             luckPerms = provider.getProvider();
         }
         if (getServer().getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            new HealthPlaceholder(this).register();
+            new Placeholder(this).register();
         } else {
             getLogger().warning("PlaceholderAPI no está instalado. El plugin no funcionará correctamente.");
         }
@@ -384,7 +384,7 @@ public final class xBxTcore extends JavaPlugin {
                     throw new RuntimeException(e);
                 }
             }
-        }.runTaskTimer(this, 20*30, 20*30);
+        }.runTaskTimer(this, 20*10, 20*10);
     }
 
     public void StarRequestPing(){

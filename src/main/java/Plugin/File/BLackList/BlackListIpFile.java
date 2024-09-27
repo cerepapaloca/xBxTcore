@@ -38,13 +38,7 @@ public class BlackListIpFile {
             }catch(IOException e){
                 e.printStackTrace();
             }
-        }/* else{
-            if(folderName != null){
-                plugin.saveResource(folderName+File.separator+fileName, false);
-            }else{
-                plugin.saveResource(fileName, false);
-            }
-        }*/
+        }
 
         fileConfiguration = new YamlConfiguration();
         try {
