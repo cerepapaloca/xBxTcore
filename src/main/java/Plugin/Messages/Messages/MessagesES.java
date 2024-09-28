@@ -1,12 +1,11 @@
 package Plugin.Messages.Messages;
 
-import Plugin.Messages.Enum.Messages;
 import net.md_5.bungee.api.ChatColor;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static Plugin.Messages.Enum.Messages.*;
+import static Plugin.Messages.Messages.Messages.*;
 import static Plugin.Messages.MessageManager.*;
 
 public record MessagesES() {
@@ -281,6 +280,7 @@ public record MessagesES() {
         esMessages.put(Inventory_TimeLimit_S1menos,"&c1S-");
         esMessages.put(Inventory_TimeLimit_M1menos,"&c1M-");
         //otros
+        esMessages.put(Others_AddVIPTitle, Coloritem + "Ahora Eres VIP");
         esMessages.put(Others_Chat_Cooldown, prefix + ColorError + "No puedes enviar mensajes durante &b%time%");
         esMessages.put(Others_Chat_BanWord, prefix + ColorError + "Tu mensaje contiene una palabra prohibida");
         esMessages.put(Others_Chat_Active, prefix + Colorinfo + "La moderación en el chat fue activada");

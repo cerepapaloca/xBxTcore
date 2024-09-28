@@ -2,7 +2,7 @@ package Plugin.Inventory;
 
 import Plugin.Inventory.Models.InvetoryPlayer;
 import Plugin.Inventory.Enum.InvetorySection;
-import Plugin.Messages.Enum.Messages;
+import Plugin.Messages.Messages.Messages;
 import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
@@ -487,7 +487,7 @@ public class InventoryMenu extends InventoryManager {
 
                 getPlayerFileManager().loadTimesRewords(invetoryPlayer.getPlayer().getUniqueId());
                 lore.clear();
-                lore.add(ChatColor.translateAlternateColorCodes('&',Colorinfo + "Puedes reclamarlo en: " + Utils.SecondToMinutes(getPlayerFileManager().daily - System.currentTimeMillis())));
+                lore.add(ChatColor.translateAlternateColorCodes('&',Colorinfo + "Puedes reclamarlo en: " + Utils.TimeToString(getPlayerFileManager().daily - System.currentTimeMillis(), 1)));
                 if (player.getLocale().contains("es")){//Hay que arreglar esto algún día (nunca lo arreglo)
                     lore.addAll(eslore1);
                 }else {
@@ -505,7 +505,7 @@ public class InventoryMenu extends InventoryManager {
                     Utils.NewitemInvetory(Messages.Reward_Daily, Material.MINECART, 20, inv, player, lore);
                 }
                 lore.clear();
-                lore.add(ChatColor.translateAlternateColorCodes('&',Colorinfo + "Puedes reclamarlo en: "+ Utils.SecondToMinutes(getPlayerFileManager().weekly - System.currentTimeMillis())));
+                lore.add(ChatColor.translateAlternateColorCodes('&',Colorinfo + "Puedes reclamarlo en: "+ Utils.TimeToString(getPlayerFileManager().weekly - System.currentTimeMillis(), 1)));
                 if (player.getLocale().contains("es")){
                     lore.addAll(eslore2);
                 }else {
@@ -523,7 +523,7 @@ public class InventoryMenu extends InventoryManager {
                     Utils.NewitemInvetory(Messages.Reward_Weekly, Material.MINECART, 22, inv, player, lore);
                 }
                 lore.clear();
-                lore.add(ChatColor.translateAlternateColorCodes('&',Colorinfo + "Puedes reclamarlo en: "+ Utils.SecondToMinutes(getPlayerFileManager().monthly - System.currentTimeMillis())));
+                lore.add(ChatColor.translateAlternateColorCodes('&',Colorinfo + "Puedes reclamarlo en: "+ Utils.TimeToString(getPlayerFileManager().monthly - System.currentTimeMillis(), 1)));
 
                 if (player.getLocale().contains("es")){
                     lore.addAll(eslore3);

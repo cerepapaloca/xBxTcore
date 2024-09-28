@@ -1,12 +1,12 @@
 package Plugin.Messages;
 
-import Plugin.Messages.Enum.Messages;
+import Plugin.Messages.Messages.Messages;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import static Plugin.Messages.Enum.Messages.*;
+import static Plugin.Messages.Messages.Messages.*;
 import static Plugin.Messages.Messages.MessagesEN.enMessages;
 import static Plugin.Messages.Messages.MessagesES.esMessages;
 

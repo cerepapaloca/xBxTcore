@@ -1,24 +1,30 @@
 package Plugin.Commands.OnlyOp;
 
-import Plugin.Messages.Enum.Messages;
+import Plugin.BoxPvp.BoxPvpSection;
+import Plugin.BoxPvp.ItemsBoxPvp.Enum.TagsRanges;
+import Plugin.Messages.Messages.Messages;
 import Plugin.BoxPvp.ItemsBoxPvp.ItemManage;
+import Plugin.Security.SystemBan.AutoBan;
 import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
-import static Plugin.Messages.MessageManager.MasterMessageLocated;
+import static Plugin.Messages.MessageManager.*;
+import static Plugin.Utils.ColorUtils.applyGradient;
 
 public class CommandItemBoxpvp implements CommandExecutor {
 
@@ -30,6 +36,7 @@ public class CommandItemBoxpvp implements CommandExecutor {
     }
 
     public boolean onCommand(@Nullable CommandSender sender,@Nullable Command cmd,@Nullable String label, String[] args) {
+        assert sender != null;
         if (sender instanceof Player p) {
             player = p;
             if (!p.isOp()) {
@@ -120,9 +127,37 @@ public class CommandItemBoxpvp implements CommandExecutor {
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', MasterMessageLocated(player, Messages.Reward_BuysTitel)));
             }
             return true;
+        }else if (args.length == 3 && args[0].equals("tag")){
+            AutoBan.checkDupes(player);
+            ArrayList<String> lore = new ArrayList<>();
+            lore.add(" ");
+            lore.add(applyGradient("<#19fbff>Tendras ese rango durante un<#2a7c7d>"));
+            lore.add(applyGradient("<#19fbff>tiempo si haces click en el<#2a7c7d>"));
+            lore.add(applyGradient("<#19fbff>aire con el tag en la mano<#2a7c7d>"));
+            lore.add(" ");
+            TagsRanges range = null;
+            String title = null;
+            try {
+                range = TagsRanges.valueOf(args[1]);
+            }catch (IllegalArgumentException e){
+                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorError + "Ese rango no existe"));
+            }
+            String time = Utils.TimeToString(Utils.StringToMilliseconds(args[2]), 2);
+
+            if (range == null)return false;
+            switch (range){
+                case vip -> title = String.format("<#19fbff>Rango VIP %s<#2a7c7d>", time);
+                case vote -> title = String.format("<#FDC661>Rango VOTE %s<#FF7302>", time);
+                case hacker -> title = String.format("<#FDC661>Rango HACKER %s<#FF7302>", time);
+            }
+
+            ItemStack tag = BoxPvpSection.getItemManage().newItemBoxPVP(Material.NAME_TAG ,title, lore,true);
+            ItemMeta tagMeta = tag.getItemMeta();
+            tagMeta.getPersistentDataContainer().set(new NamespacedKey(plugin, "range"), PersistentDataType.STRING, range.name());
+            tagMeta.getPersistentDataContainer().set(new NamespacedKey(plugin, "duration"), PersistentDataType.LONG, Utils.StringToMilliseconds(args[2]));
+            tag.setItemMeta(tagMeta);
+            Utils.additem(player, tag);
         }
-
-
         return true;
     }
 

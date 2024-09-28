@@ -2,7 +2,7 @@ package Plugin.PlayerManager.Listener;
 
 import Plugin.BoxPvp.BoxPvpSection;
 import Plugin.CombatLog.CombatSection;
-import Plugin.Messages.Enum.Messages;
+import Plugin.Messages.Messages.Messages;
 import Plugin.xBxTcore;
 import fr.xephi.authme.api.v3.AuthMeApi;
 import org.bukkit.*;

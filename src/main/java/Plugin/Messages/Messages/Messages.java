@@ -1,4 +1,4 @@
-package Plugin.Messages.Enum;
+package Plugin.Messages.Messages;
 
 public enum Messages {
     //Generico
@@ -274,6 +274,7 @@ public enum Messages {
     Inventory_TimeLimit_S1menos,
     Inventory_TimeLimit_M1menos,
     //otros
+    Others_AddVIPTitle,
     Others_Chat_Cooldown,
     Others_Chat_BanWord,
     Others_Chat_Active,

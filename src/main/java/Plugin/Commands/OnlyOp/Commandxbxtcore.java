@@ -3,7 +3,7 @@ package Plugin.Commands.OnlyOp;
 import Plugin.File.BLackList.BlackListIpManager;
 import Plugin.File.FileManagerSection;
 import Plugin.File.MySQLConnection;
-import Plugin.Messages.Enum.Messages;
+import Plugin.Messages.Messages.Messages;
 import Plugin.PlayerManager.PlayerManagerSection;
 import Plugin.Security.SystemBan.BanManager;
 import Plugin.Security.FireWall.FireWallLinux;
@@ -126,7 +126,7 @@ public class Commandxbxtcore implements CommandExecutor {
                             reason = reason.concat(args[i] + " ");
                         }
 
-                        long duration = Utils.convertToMilliseconds(args[3]);
+                        long duration = Utils.StringToMilliseconds(args[3]);
                         if (contexts.contains(args[2].toLowerCase())) {
 
                             BanManager.banPlayer(target, reason, duration, ContextBan.valueOf(args[2].toUpperCase()));

@@ -5,7 +5,7 @@ import Plugin.Commands.CommandSection;
 import Plugin.Duel.DuelSection;
 import Plugin.Duel.Enum.EndCombatCauses;
 import Plugin.Environment.EnvironmentsSection;
-import Plugin.Messages.Enum.Messages;
+import Plugin.Messages.Messages.Messages;
 import Plugin.PlayerManager.Model.PlayerDataGLobal;
 import Plugin.Duel.Model.Request;
 import Plugin.PlayerManager.PlayerManagerSection;
@@ -23,8 +23,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeoutException;
 
 import static Plugin.BoxPvp.BoxPvpSection.getZoneSafeBoxPvp;
 import static Plugin.BoxPvp.ItemsBoxPvp.BonusUpdate.UpdateBonus;

@@ -1,12 +1,11 @@
 package Plugin.Messages.Messages;
 
-import Plugin.Messages.Enum.Messages;
 import net.md_5.bungee.api.ChatColor;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static Plugin.Messages.Enum.Messages.*;
+import static Plugin.Messages.Messages.Messages.*;
 import static Plugin.Messages.MessageManager.*;
 
 public record MessagesEN() {

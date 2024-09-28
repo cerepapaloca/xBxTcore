@@ -1,6 +1,6 @@
 package Plugin.Commands.OnlyOp;
 
-import Plugin.Messages.Enum.Messages;
+import Plugin.Messages.Messages.Messages;
 import Plugin.xBxTcore;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

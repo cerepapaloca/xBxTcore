@@ -1,7 +1,7 @@
 package Plugin.Inventory;
 
 import Plugin.Duel.Enum.MapsDuel;
-import Plugin.Messages.Enum.Messages;
+import Plugin.Messages.Messages.Messages;
 import Plugin.Inventory.Models.InvetoryPlayer;
 import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
@@ -109,7 +109,7 @@ public class InventoryManager {
     public static ArrayList<String> secondsToMinutesLore(Player player){
         int time = xBxTcore.getPlayerDataUnique(player.getUniqueId()).getTimeDuel();
         ArrayList<String> lore = new ArrayList<>();
-        lore.add(MasterMessageLocated(player, Messages.Inventory_DuelTimeLore) + Utils.SecondToMinutes(time));
+        lore.add(MasterMessageLocated(player, Messages.Inventory_DuelTimeLore) + Utils.TimeToString(time, 1));
         return lore;
     }
 

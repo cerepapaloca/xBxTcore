@@ -2,7 +2,7 @@ package Plugin.Commands.User;
 
 import Plugin.Inventory.InventorySection;
 import Plugin.Inventory.Models.InvetoryPlayer;
-import Plugin.Messages.Enum.Messages;
+import Plugin.Messages.Messages.Messages;
 import Plugin.Messages.MessageManager;
 import Plugin.xBxTcore;
 import org.bukkit.command.Command;

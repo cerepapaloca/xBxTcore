@@ -1,10 +1,14 @@
 package Plugin.Security.SystemBan;
 
-import Plugin.Messages.Enum.Messages;
+import Plugin.Messages.Messages.Messages;
 import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.*;
@@ -138,4 +142,32 @@ public class AutoBan {
         return false;
     }
 
+    public static void checkDupes(Player player) {
+        Map<String, Integer> itemCounts = new HashMap<>();
+
+        // La clave personalizada que usas para almacenar el identificador único
+        NamespacedKey key = new NamespacedKey("uuid", "UUID.randomUUID().toString()");
+
+        // Recorre el inventario del jugador
+        for (ItemStack item : player.getInventory()) {
+            if (item == null) continue; // Saltar espacios vacíos
+
+            // Verificar si el ítem tiene un PersistentDataContainer
+            PersistentDataContainer dataContainer = item.getItemMeta().getPersistentDataContainer();
+            if (dataContainer.has(key, PersistentDataType.STRING)) {
+                String uniqueId = dataContainer.get(key, PersistentDataType.STRING);
+
+                // Contar cuántos ítems tienen el mismo identificador
+                itemCounts.put(uniqueId, itemCounts.getOrDefault(uniqueId, 0) + 1);
+            }
+        }
+
+        // Verifica si hay ítems duplicados
+        for (Map.Entry<String, Integer> entry : itemCounts.entrySet()) {
+            if (entry.getValue() > 1) {
+                Bukkit.getConsoleSender().sendMessage("Se encontraron " + entry.getValue() + " ítems duplicados con el identificador: " + entry.getKey());
+                // Puedes implementar lógica adicional, como eliminar los ítems duplicados o enviar una advertencia al jugador
+            }
+        }
+    }
 }

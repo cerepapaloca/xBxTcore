@@ -1,6 +1,6 @@
 package Plugin.Utils;
 
-import Plugin.Messages.Enum.Messages;
+import Plugin.Messages.Messages.Messages;
 import Plugin.xBxTcore;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
@@ -16,6 +16,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -24,10 +26,7 @@ import org.jetbrains.annotations.Nullable;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 import static Plugin.Messages.MessageManager.*;
@@ -171,26 +170,11 @@ public final class Utils {
         return items;
     }
 
-    @Contract(pure = true)
-    public static @NotNull String SecondToMinutes(int time){
-        int minutes = time/60;
-        int seconds = time%60;
-
-        String timeString = "";
-
-        if (minutes < 10){
-            timeString = "0" + minutes;
-        }
-
-        if (seconds < 10){
-            return timeString + ":0" + seconds;
-        }else{
-            return minutes + ":" + seconds;
-        }
+    public static String TimeToString(int second, int format){
+        return TimeToString(second*1000L, format);
     }
-
     @Contract(pure = true)
-    public static @NotNull String SecondToMinutes(long time){
+    public static String TimeToString(long time, int format) {
         long days = TimeUnit.MILLISECONDS.toDays(time);
         time -= TimeUnit.DAYS.toMillis(days);
         long hours = TimeUnit.MILLISECONDS.toHours(time);
@@ -198,7 +182,42 @@ public final class Utils {
         long minutes = TimeUnit.MILLISECONDS.toMinutes(time);
         time -= TimeUnit.MINUTES.toMillis(minutes);
         long seconds = TimeUnit.MILLISECONDS.toSeconds(time);
-        return days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+        switch (format) {
+            case 0 -> {
+                //time /= 1000;
+                //long minutes = time / 60;
+                //long seconds = time % 60;
+
+                String timeString = "";
+
+                if (minutes < 10) {
+                    timeString = "0" + minutes;
+                }
+
+                if (seconds < 10) {
+                    return timeString + ":0" + seconds;
+                } else {
+                    return minutes + ":" + seconds;
+                }
+            }
+            case 1 -> {
+                return days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+            }
+            case 2 -> {
+                String date = "";
+                if (days != 0) {
+                    date = date + days + " dias";
+                } else if (hours != 0) {
+                    date = date + hours + " horas";
+                } else if (minutes != 0) {
+                    date = date + minutes + " minutos";
+                } else if (seconds != 0) {
+                    date = date + seconds + " segundos";
+                }
+                return date;
+            }
+        }
+        return null;
     }
 
     public static void additem(@NotNull Player player, ItemStack item){
@@ -212,7 +231,7 @@ public final class Utils {
     }
 
     @Contract(pure = true)
-    public static long convertToMilliseconds(@NotNull String time) {
+    public static long StringToMilliseconds(@NotNull String time) {
         char unit = time.charAt(time.length() - 1);
         long value = Long.parseLong(time.substring(0, time.length() - 1));
 

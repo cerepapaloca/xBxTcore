@@ -1,6 +1,6 @@
 package Plugin.Commands.User;
 
-import Plugin.Messages.Enum.Messages;
+import Plugin.Messages.Messages.Messages;
 import Plugin.Security.SystemBan.BanManager;
 import Plugin.Security.SystemBan.ContextBan;
 import Plugin.xBxTcore;

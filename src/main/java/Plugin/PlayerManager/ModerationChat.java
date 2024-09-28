@@ -1,8 +1,7 @@
 package Plugin.PlayerManager;
 
-import Plugin.Messages.Enum.Messages;
+import Plugin.Messages.Messages.Messages;
 import Plugin.Security.SecuritySection;
-import Plugin.Security.SystemBan.AutoBan;
 import Plugin.Security.SystemBan.BanManager;
 import Plugin.Security.SystemBan.ContextBan;
 import Plugin.Utils.ColorUtils;
@@ -19,7 +18,6 @@ import java.util.UUID;
 
 import static Plugin.Messages.MessageManager.MasterMessageLocated;
 import static Plugin.PlayerManager.PlayerManagerSection.moderationChatEnabled;
-import static Plugin.xBxTcore.plugin;
 
 public class ModerationChat {
 

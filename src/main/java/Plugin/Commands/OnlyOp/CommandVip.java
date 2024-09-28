@@ -1,8 +1,7 @@
 package Plugin.Commands.OnlyOp;
 
-import Plugin.Messages.Enum.Messages;
+import Plugin.Messages.Messages.Messages;
 import Plugin.xBxTcore;
-import net.luckperms.api.node.Node;
 import net.luckperms.api.node.types.InheritanceNode;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
@@ -28,7 +27,7 @@ public class CommandVip implements CommandExecutor {
                 case "del" -> xBxTcore.getLuckPerms().getUserManager().modifyUser(player.getUniqueId(),
                         user -> user.data().remove(InheritanceNode.builder("vip").build()));
                 case "temp" -> xBxTcore.getLuckPerms().getUserManager().modifyUser(player.getUniqueId(),
-                        user -> user.data().add(InheritanceNode.builder("vip").expiry(3, TimeUnit.DAYS).build()));
+                        user -> user.data().add(InheritanceNode.builder("vip").expiry(2, TimeUnit.DAYS).build()));
             }
             if (args.length == 3 && args[2].equals("m")) {
                 BroadcastMessageBuy("Rango Vip",player,Messages.Reward_BuyGeneric);

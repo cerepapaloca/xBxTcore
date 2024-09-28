@@ -1,7 +1,7 @@
 package Plugin.Commands.OnlyOp;
 
 import Plugin.Environment.EnvironmentsSection;
-import Plugin.Messages.Enum.Messages;
+import Plugin.Messages.Messages.Messages;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

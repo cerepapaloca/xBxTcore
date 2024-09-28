@@ -1,7 +1,7 @@
 package Plugin.Inventory;
 
 import Plugin.Commands.CommandSection;
-import Plugin.Messages.Enum.Messages;
+import Plugin.Messages.Messages.Messages;
 import Plugin.Inventory.Enum.PlayerFileTimes;
 import Plugin.Inventory.Models.InvetoryPlayer;
 import Plugin.Utils.Utils;

@@ -1,6 +1,6 @@
 package Plugin.Security;
 
-import Plugin.Messages.Enum.Messages;
+import Plugin.Messages.Messages.Messages;
 import Plugin.Messages.MessageManager;
 import Plugin.xBxTcore;
 import fr.xephi.authme.api.v3.AuthMeApi;

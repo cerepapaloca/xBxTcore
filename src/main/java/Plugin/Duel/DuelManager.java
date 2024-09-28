@@ -4,7 +4,7 @@ import Plugin.Duel.Enum.EndCombatCauses;
 import Plugin.Environment.EnvironmentsSection;
 import Plugin.Messages.MessageManager;
 import Plugin.Inventory.Models.KitData;
-import Plugin.Messages.Enum.Messages;
+import Plugin.Messages.Messages.Messages;
 import Plugin.xBxTcore;
 import com.onarandombox.MultiverseCore.api.MultiverseWorld;
 import me.neznamy.tab.api.TabPlayer;

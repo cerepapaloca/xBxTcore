@@ -5,7 +5,7 @@ import Plugin.Duel.DuelSection;
 import Plugin.Inventory.InventorySection;
 import Plugin.Inventory.InventoryManager;
 import Plugin.Inventory.Models.InvetoryPlayer;
-import Plugin.Messages.Enum.Messages;
+import Plugin.Messages.Messages.Messages;
 import Plugin.Duel.Model.Request;
 import Plugin.xBxTcore;
 import com.onarandombox.MultiverseCore.api.MultiverseWorld;

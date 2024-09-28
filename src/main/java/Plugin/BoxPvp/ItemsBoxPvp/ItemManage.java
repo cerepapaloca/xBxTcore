@@ -48,7 +48,6 @@ public record ItemManage(xBxTcore plugin) {
     public static ArrayList<ItemStack> shurlkerBoxsPersonal = new ArrayList<>();
 
     public static ArrayList<ItemStack> keys = new ArrayList<>();
-    public static ArrayList<ItemStack> tags = new ArrayList<>();
 
     public static ArrayList<ItemStack> wikis = new ArrayList<>();
 
@@ -169,14 +168,6 @@ public record ItemManage(xBxTcore plugin) {
 
         //////////////
         //////////////
-
-        lore.clear();
-        lore.add(ChatColor.translateAlternateColorCodes('&',Coloritem + " "));
-        lore.add(applyGradient("<#19fbff>Tendras VIP Durante<#2a7c7d>"));
-        lore.add(applyGradient("<#19fbff>3 dias si te sale<#2a7c7d>"));
-        lore.add(ChatColor.translateAlternateColorCodes('&',Coloritem + " "));
-
-        tags.add(newItemBoxPVP(Material.NAME_TAG ,"<#FDC661>Rango VIP<#FF7302>", lore,0,true));
 
         lore.clear();
         lore.add(ChatColor.translateAlternateColorCodes('&',Coloritem + " "));
@@ -348,6 +339,27 @@ public record ItemManage(xBxTcore plugin) {
     }
 
     @NotNull
+    public ItemStack newItemBoxPVP(Material material, String tile, ArrayList<String> lore, Boolean enchant){
+        ItemStack item;
+        item = new ItemStack(material);
+        ItemMeta meta = item.getItemMeta();
+        if (meta == null){
+            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorError + "Hubo un problema con un item del box pvp"));
+            return item;
+        }
+        meta.setDisplayName(applyGradient(tile));
+        meta.setLore(lore);
+        meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        if (enchant){
+            meta.addEnchant(Enchantment.LUCK, 1, true);
+        }
+        item.setItemMeta(meta);
+        return item;
+    }
+
+    @NotNull
     public ItemStack newItemBoxPVP(Material material, String tile, ArrayList<String> lore, ItemBonus keyEspacial, Boolean enchant){
         ItemStack item;
         item = new ItemStack(material);
@@ -368,6 +380,8 @@ public record ItemManage(xBxTcore plugin) {
         item.setItemMeta(meta);
         return item;
     }
+
+
 
     @NotNull
     public ItemStack newItemBoxPVP(Material material, String tile, ArrayList<String> lore, int tier, String hexColor){

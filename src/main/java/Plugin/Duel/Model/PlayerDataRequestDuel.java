@@ -2,7 +2,7 @@ package Plugin.Duel.Model;
 
 import Plugin.Inventory.Models.KitData;
 import Plugin.Duel.Enum.MapsDuel;
-import Plugin.Messages.Enum.Messages;
+import Plugin.Messages.Messages.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

@@ -15,7 +15,7 @@ public class ItemframeListener implements Listener {
 
     @EventHandler
     public void PlayerInteractItemFrame(PlayerInteractEntityEvent event) {
-        if (!event.getPlayer().hasPermission("xBxTpvp.Op")) {
+        if (!event.getPlayer().isOp()) {
             Player player = event.getPlayer();
             Entity entity = event.getRightClicked();
             if (entity instanceof ItemFrame frame) {

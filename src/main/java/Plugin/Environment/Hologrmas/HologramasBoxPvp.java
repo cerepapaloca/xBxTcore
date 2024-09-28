@@ -46,7 +46,7 @@ public class HologramasBoxPvp extends Hologramas {
     public void updateHologramTimesMina(){
         for (MinaBoxPvp mina : AutoFillsBox.minas){
             ArmorStand armorStand = mina.getArmorStand();
-            armorStand.setCustomName(ChatColor.translateAlternateColorCodes('&',Colorinfo + "Tiempo Restante " + Colorplayer + Utils.SecondToMinutes(mina.getTimeLeft())));
+            armorStand.setCustomName(ChatColor.translateAlternateColorCodes('&',Colorinfo + "Tiempo Restante " + Colorplayer + Utils.TimeToString(mina.getTimeLeft(), 0)));
         }
     }
 }

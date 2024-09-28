@@ -9,7 +9,7 @@ import Plugin.Environment.*;
 import Plugin.File.FileManagerSection;
 import Plugin.File.PlayerData.PlayerfileManager;
 import Plugin.Inventory.InventorySection;
-import Plugin.Messages.Enum.Messages;
+import Plugin.Messages.Messages.Messages;
 import Plugin.Messages.MessageSection;
 import Plugin.Messages.MessageManager;
 import Plugin.Duel.Model.PlayerDataRequestDuel;
@@ -110,7 +110,6 @@ public final class xBxTcore extends JavaPlugin {
             case WINDOWS -> MessageONWindows();
             case LINUX -> MessageONLinux();
         }
-
     }
 
     public void onDisable() {
@@ -372,26 +371,22 @@ public final class xBxTcore extends JavaPlugin {
     }
 
     private void AutoUpdateDNS (){
-        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
-            new BukkitRunnable() {
-                public void run() {
-                    try {
-                        updateIP();
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
+        new BukkitRunnable() {
+            public void run() {
+                try {
+                    updateIP();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
                 }
-            }.runTaskTimer(this, 20*10, 20*10);
-        });
+            }
+        }.runTaskTimer(this, 20*10, 20*10);
     }
 
     public void StarRequestPing(){
-        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
-            new BukkitRunnable() {
-                public void run() {
-                    PingRequest.pingRequest();
-                }
-            }.runTaskTimer(this, 20, 20);
-        });
+        new BukkitRunnable() {
+            public void run() {
+                PingRequest.pingRequest();
+            }
+        }.runTaskTimer(this, 20, 20);
     }
 }

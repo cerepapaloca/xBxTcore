@@ -248,7 +248,7 @@ public class Hologramas{
                     ">");
 
             armorStand.setCustomName(ChatColor.translateAlternateColorCodes('&', "&l" + name + " " +
-                    Colorplayer + Utils.SecondToMinutes(mina.getTimeLeft()) + iconSafeZone));
+                    Colorplayer + Utils.TimeToString(mina.getTimeLeft(), 0) + iconSafeZone));
             i++;
         }
     }

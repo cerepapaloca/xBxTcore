@@ -1,5 +1,6 @@
 package Plugin.Service;
 
+import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.jetbrains.annotations.NotNull;
@@ -50,26 +51,29 @@ public final class DDNS_NameCheap {
     }
 
     public static void updateIP() {
-        if (!PingRequest.conected)return;
-        try {
-            if (IpNow == null) {
-                IpNow = getPublicIP();
-                Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',Colorinfo + "La ip publica es: " + IpNow));
-            }
-            if (!IpNow.equals(getPublicIP())) {
-                String url = DYNAMIC_DNS_URL + "?host=@&domain=" + domain + "&password=" + password + "&ip=" + getPublicIP();
-                HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-                connection.setRequestMethod("GET");
-                int responseCode = connection.getResponseCode();
-                if (responseCode == HttpURLConnection.HTTP_OK) {
-                    Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',prefixConsole + ColorSuccess + "IP actualizada correctamente. de " + IpNow + " a " + getPublicIP()));
+        Bukkit.getScheduler().runTaskAsynchronously(xBxTcore.getInstance(), () -> {
+            if (!PingRequest.conected)return;
+            try {
+                if (IpNow == null) {
                     IpNow = getPublicIP();
-                } else {
-                    Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',prefixConsole + ColorError + "Error al actualizar la IP. Código de respuesta: " + responseCode));
+                    Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',Colorinfo + "La ip publica es: " + IpNow));
                 }
+                if (!IpNow.equals(getPublicIP())) {
+                    String url = DYNAMIC_DNS_URL + "?host=@&domain=" + domain + "&password=" + password + "&ip=" + getPublicIP();
+                    HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+                    connection.setRequestMethod("GET");
+                    int responseCode = connection.getResponseCode();
+                    if (responseCode == HttpURLConnection.HTTP_OK) {
+                        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',prefixConsole + ColorSuccess + "IP actualizada correctamente. de " + IpNow + " a " + getPublicIP()));
+                        IpNow = getPublicIP();
+                    } else {
+                        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',prefixConsole + ColorError + "Error al actualizar la IP. Código de respuesta: " + responseCode));
+                    }
+                }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        });
+
     }
 }

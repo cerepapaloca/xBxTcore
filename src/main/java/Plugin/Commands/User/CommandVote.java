@@ -1,8 +1,7 @@
 package Plugin.Commands.User;
 
-import Plugin.Messages.Enum.Messages;
+import Plugin.Messages.Messages.Messages;
 import Plugin.xBxTcore;
-import fr.xephi.authme.api.v3.AuthMeApi;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -26,7 +25,6 @@ public class CommandVote implements CommandExecutor {
         if(commandSender instanceof Player player){
             player.sendMessage(MasterMessageLocated(player, Messages.Others_Vote));
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', ColorLink + "https://minecraft-mp.com/server-s334744"));
-            //player.sendMessage(ChatColor.translateAlternateColorCodes('&', ColorLink + "https://best-minecraft-servers.co/server-xbxtpvp.24633"));
         }else{
             plugin.messageOnlyPlayer();
         }

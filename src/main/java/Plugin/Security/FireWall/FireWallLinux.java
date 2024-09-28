@@ -89,6 +89,7 @@ public class FireWallLinux {
             writer.write("\n# Hacer los cambios permanentes\n");
             writer.write("sudo firewall-cmd --runtime-to-permanent\n");
             writer.write("sudo firewall-cmd --reload\n");
+            writer.write("read -p \"Presiona Enter para cerrar...\"");
         }
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',ColorSuccess + "Script generado exitosamente en: " + xBxTcore.getInstance().getDataFolder()));
     }
@@ -96,8 +97,7 @@ public class FireWallLinux {
     public static void executeFirewallScript() {
         // Construye el comando para abrir gnome-terminal y ejecutar el script con sudo
         ProcessBuilder processBuilder = new ProcessBuilder();
-        processBuilder.command("gnome-terminal", "--", "bash", "-c", "." + xBxTcore.getInstance().getDataFolder() + "/firewall_zone.sh");
-
+        processBuilder.command("gnome-terminal", "--", "bash", "-c", xBxTcore.getInstance().getDataFolder() + "/firewall_zone.sh; exec bash");
         // Ejecuta el comando en un nuevo hilo
         new Thread(() -> {
             try {

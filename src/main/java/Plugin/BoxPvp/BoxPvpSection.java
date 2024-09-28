@@ -2,6 +2,7 @@ package Plugin.BoxPvp;
 
 import Plugin.BoxPvp.ItemsBoxPvp.BonusUpdate;
 import Plugin.BoxPvp.ItemsBoxPvp.ItemManage;
+import Plugin.BoxPvp.ItemsBoxPvp.Listener.AddRangeListener;
 import Plugin.BoxPvp.ItemsBoxPvp.Listener.ArmorBonusListener;
 import Plugin.BoxPvp.ItemsBoxPvp.Listener.ItemBonusListener;
 import Plugin.Section;
@@ -24,6 +25,7 @@ public class BoxPvpSection implements Section {
     public void enable() {
         plugin.register(new ArmorBonusListener(plugin));
         plugin.register(new ItemBonusListener(plugin));
+        plugin.register(new AddRangeListener(plugin));
         autoFillsBox = new AutoFillsBox(plugin);
         zoneSafeBoxPvp = new ZoneSafeBoxPvp();
         itemManage = new ItemManage(plugin);

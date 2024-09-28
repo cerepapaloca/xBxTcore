@@ -1,6 +1,6 @@
 package Plugin.Commands.OnlyOp;
 
-import Plugin.Messages.Enum.Messages;
+import Plugin.Messages.Messages.Messages;
 import Plugin.Inventory.Enum.PlayerFileTimes;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;

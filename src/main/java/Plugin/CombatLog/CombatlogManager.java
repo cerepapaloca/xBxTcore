@@ -69,7 +69,7 @@ public class CombatlogManager {
 
     private void updateBossBars(int timeLeft, Player player, int timemax) {
         String title;
-        title = "En combate " + Utils.SecondToMinutes(timeLeft);
+        title = "En combate " + Utils.TimeToString(timeLeft, 0);
         BarStyle barStyle = BarStyle.PROGRESS;
         BarColor barColor = BarColor.RED;
         BossBar bossBar = Objects.requireNonNull(xBxTcore.getTabAPI().getBossBarManager()).getBossBar("timerBossBarCombat");
