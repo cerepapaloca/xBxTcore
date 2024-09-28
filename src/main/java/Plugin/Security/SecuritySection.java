@@ -45,8 +45,4 @@ public class SecuritySection implements Section {
     public static AutoBan getAutoBan() {
         return autoBan;
     }
-
-    public static BanManager getBanManager() {
-        return banManager;
-    }
 }

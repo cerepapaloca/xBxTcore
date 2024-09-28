@@ -1,11 +1,12 @@
 package Plugin.Inventory.Enum;
 
 public enum InvetorySection {
-    MENU,
+    MENUPREKIT,
     MENUKITS,
     PREVIEWKITS,
     MENUDUEL,
     TIMESELECT,
     REWARDTIMES,
-    REWARDKAY
+    REWARDKAY,
+    HELP,
 }

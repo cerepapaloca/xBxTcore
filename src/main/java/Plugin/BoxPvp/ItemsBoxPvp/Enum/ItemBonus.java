@@ -1,4 +1,4 @@
-package Plugin.BoxPvp.ItemsBoxPvp;
+package Plugin.BoxPvp.ItemsBoxPvp.Enum;
 
 public enum ItemBonus {
     DañoBonus,

@@ -38,7 +38,7 @@ public class FileManagerSection implements Section {
         playerfileManager = new PlayerfileManager(plugin);
         blacklistIpManager = new BlackListIpManager(plugin);
         mysql = new MySQLConnection(myIpMySql, "xbxtcore", "root", "");
-        mysql.connect();
+        MySQLConnection.connect();
         mySQLManager = new MySQLManager(mysql);
         mySQLManager.createBanTableIfNotExists();
         MySQLConnection.reloadBannedBans();

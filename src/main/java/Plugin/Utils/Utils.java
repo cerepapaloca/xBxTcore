@@ -34,7 +34,7 @@ import static Plugin.Messages.MessageManager.*;
 import static Plugin.Messages.MessageManager.ColorLink;
 import static org.bukkit.Bukkit.getServer;
 
-public class Utils {
+public final class Utils {
 
     private static xBxTcore plugin;
 

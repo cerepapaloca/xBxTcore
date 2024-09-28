@@ -1,6 +1,6 @@
 package Plugin.BoxPvp.ItemsBoxPvp.Listener;
 
-import Plugin.BoxPvp.ItemsBoxPvp.ItemBonus;
+import Plugin.BoxPvp.ItemsBoxPvp.Enum.ItemBonus;
 import Plugin.xBxTcore;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;

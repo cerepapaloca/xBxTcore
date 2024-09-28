@@ -13,7 +13,7 @@ import java.util.UUID;
 import static Plugin.Messages.MessageManager.ColorWarning;
 import static Plugin.Messages.MessageManager.MasterMessageLocated;
 
-public class PlayerDataUnique {
+public class PlayerDataRequestDuel {
 
     private final ArrayList<UUID> guestPlayers = new ArrayList<>();
     private final UUID playerUUID;
@@ -23,7 +23,7 @@ public class PlayerDataUnique {
     private Boolean Timelimit = false;
     private int indexMap = 0;
 
-    public PlayerDataUnique(UUID playerUUID) {
+    public PlayerDataRequestDuel(UUID playerUUID) {
         this.playerUUID = playerUUID;
     }
 

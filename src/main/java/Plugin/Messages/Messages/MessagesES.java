@@ -97,14 +97,14 @@ public record MessagesES() {
         esMessages.put(Reward_GiveDaily, prefix + ColorSuccess + "Haz reclamado la recompensa diaria");
         esMessages.put(Reward_GiveWeekly, prefix + ColorSuccess + "Haz reclamado la recompensa semanal");
         esMessages.put(Reward_GiveMonthly, prefix + ColorSuccess + "Haz reclamado la recompensa mensual");
-        esMessages.put(Reward_CrateNotPermission, prefix + ColorError + "No eres vip lo puede conseguir aquí " + ColorLink + "En revision");
+        esMessages.put(Reward_CrateNotPermission, prefix + ColorError + "No eres vip lo puede conseguir aquí " + LinkTienda);
         esMessages.put(Reward_ClaimReward, prefix + ColorSuccess + "Haz reclamado una recompensa");
         //tienda
         esMessages.put(Reward_StoreLink, prefix + Colorinfo + "Puedes comprar Aquí!!");
         esMessages.put(Reward_BuysTitel,ColorSuccess + "Gracias por comprar!!!");
         esMessages.put(Reward_BuysTitelLower,ColorSuccess + "Espero que lo disfrutes: " + Colorplayer + "%compra%");
         esMessages.put(Reward_BuyGeneric,prefix + "\n \n" + Coloritem + Colorplayer + "%player% " + Colorinfo + "ha comprado " + Colorplayer + "%compra%\n \n"
-                + Colorinfo + "También puedes comprarlo!!\n" + "En Tienda: " + ColorLink + "https://xbxtshop.tebex.io/\n&r" + " \n");
+                + Colorinfo + "También puedes comprarlo!!\n" + "En Tienda: " + LinkTienda + "\n&r" + " \n");
         //login
         esMessages.put(Login_Registration_RegisterRequest, prefix + prefixLogin + Colorinfo + "Por favor, regístrese en el servidor con el comando: /register <password> <ConfirmPassword>");
         esMessages.put(Login_Registration_CommandUsage, prefix + prefixLogin + Colorinfo + "Usage: /register <contraseña> <ConfirmPassword>");

@@ -51,17 +51,13 @@ public class FireWallWindows {
 
     private static File batFile;
 
-    // Método para crear el archivo .bat dinámicamente
     public static void createBatFile(StringBuilder ipString) throws IOException {
-        // Ruta donde se creará el archivo .bat
         batFile = new File(xBxTcore.getInstance().getDataFolder(), "firewall_rule.bat");
 
-        // Crear el archivo si no existe
         if (!batFile.exists()) {
             batFile.createNewFile();
         }
 
-        // Crear el contenido del archivo .bat con los parámetros dinámicos
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(batFile))) {
             writer.write("@echo off\n");
 
@@ -78,7 +74,6 @@ public class FireWallWindows {
             // Eliminar la regla existente llamada "Bloquear_IPs"
             writer.write("netsh advfirewall firewall delete rule name=\"Bloquear_IPs\"\n");
 
-            // Crear una nueva regla "Bloquear_IPs" con la lista de IPs
 
             // Agregar la nueva regla al firewall
             writer.write("netsh advfirewall firewall add rule name=\"Bloquear_IPs\" dir=in action=block remoteip=" + ipString + " protocol=any\n");
@@ -88,7 +83,6 @@ public class FireWallWindows {
         }
     }
 
-    // Método para ejecutar el archivo .bat
     public static void runBatFile() {
         if (batFile == null)batFile = new File(xBxTcore.getInstance().getDataFolder(), "firewall_rule.bat");
         new Thread(() -> {

@@ -1,6 +1,7 @@
 package Plugin.BoxPvp.ItemsBoxPvp;
 
 import Plugin.BoxPvp.AutoFillsBox;
+import Plugin.BoxPvp.ItemsBoxPvp.Enum.ItemBonus;
 import Plugin.BoxPvp.Model.MinaBoxPvp;
 import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
@@ -47,6 +48,7 @@ public record ItemManage(xBxTcore plugin) {
     public static ArrayList<ItemStack> shurlkerBoxsPersonal = new ArrayList<>();
 
     public static ArrayList<ItemStack> keys = new ArrayList<>();
+    public static ArrayList<ItemStack> tags = new ArrayList<>();
 
     public static ArrayList<ItemStack> wikis = new ArrayList<>();
 
@@ -56,6 +58,7 @@ public record ItemManage(xBxTcore plugin) {
 
         //////////////
         //////////////
+
         ArrayList<String> lore = new ArrayList<>();
         lore.add(ChatColor.translateAlternateColorCodes('&',Coloritem + " "));
         lore.add(applyGradient("<#19fbff>Usalo para tradear con<#2a7c7d>"));
@@ -169,6 +172,14 @@ public record ItemManage(xBxTcore plugin) {
 
         lore.clear();
         lore.add(ChatColor.translateAlternateColorCodes('&',Coloritem + " "));
+        lore.add(applyGradient("<#19fbff>Tendras VIP Durante<#2a7c7d>"));
+        lore.add(applyGradient("<#19fbff>3 dias si te sale<#2a7c7d>"));
+        lore.add(ChatColor.translateAlternateColorCodes('&',Coloritem + " "));
+
+        tags.add(newItemBoxPVP(Material.NAME_TAG ,"<#FDC661>Rango VIP<#FF7302>", lore,0,true));
+
+        lore.clear();
+        lore.add(ChatColor.translateAlternateColorCodes('&',Coloritem + " "));
         lore.add(applyGradient("<#19fbff>Con esta llave puedes<#2a7c7d>"));
         lore.add(applyGradient("<#19fbff>abrir una caja<#2a7c7d>"));
         lore.add(ChatColor.translateAlternateColorCodes('&',Coloritem + " "));
@@ -178,6 +189,8 @@ public record ItemManage(xBxTcore plugin) {
         keys.add(newItemBoxPVP(Material.TRIPWIRE_HOOK ,"<#66FFF3>Llave Especial<#307D96>", lore, 1,true));
         keys.add(newItemBoxPVP(Material.TRIPWIRE_HOOK ,"<#CB66FF>Llave Epica<#5F3096>", lore, 2,true));
         keys.add(newItemBoxPVP(Material.TRIPWIRE_HOOK ,"<#F58100>Llave VIP<#F1B674>", lore, 3,true));
+
+
         /////////
         int i = 0;
         ItemStack itemStack;
@@ -387,7 +400,7 @@ public record ItemManage(xBxTcore plugin) {
         return colorLeatherArmor(item, hexColor);
     }
 
-    public ArrayList<ItemStack> wiki(){
+    public @NotNull ArrayList<ItemStack> wiki(){
         ArrayList<ItemStack> wikis = new ArrayList<>();
         ItemStack item = new ItemStack(Material.WRITTEN_BOOK);
         BookMeta metaEN = (BookMeta) item.getItemMeta();

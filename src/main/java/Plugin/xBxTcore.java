@@ -12,7 +12,7 @@ import Plugin.Inventory.InventorySection;
 import Plugin.Messages.Enum.Messages;
 import Plugin.Messages.MessageSection;
 import Plugin.Messages.MessageManager;
-import Plugin.Duel.Model.PlayerDataUnique;
+import Plugin.Duel.Model.PlayerDataRequestDuel;
 import Plugin.Placeholder.Placeholder;
 import Plugin.PlayerManager.Listener.BlockerListener;
 import Plugin.PlayerManager.PlayerManagerSection;
@@ -95,7 +95,7 @@ public final class xBxTcore extends JavaPlugin {
                 throw new RuntimeException(e);
             }
         }
-        updateIP();
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, DDNS_NameCheap::updateIP);
         serverStartTime = System.currentTimeMillis();
         String os = System.getProperty("os.name").toLowerCase();
         if (os.contains("win")) {
@@ -228,10 +228,6 @@ public final class xBxTcore extends JavaPlugin {
     ///////////////////////////////////////////////////
     ///////////////////////////////////////////////////
 
-    public static GrimAbstractAPI getGrimAPI() {
-        return grimAPI;
-    }
-
     public static xBxTcore getInstance(){
         return plugin;
     }
@@ -336,11 +332,11 @@ public final class xBxTcore extends JavaPlugin {
 
     }
 
-    private static final HashMap<UUID, PlayerDataUnique> playerDataUnique = new HashMap<>();
+    private static final HashMap<UUID, PlayerDataRequestDuel> playerDataUnique = new HashMap<>();
 
-    public static PlayerDataUnique getPlayerDataUnique(UUID uuid){
+    public static PlayerDataRequestDuel getPlayerDataUnique(UUID uuid){
         if (!playerDataUnique.containsKey(uuid)){
-            PlayerDataUnique playerDataUnique1 = new PlayerDataUnique(uuid);
+            PlayerDataRequestDuel playerDataUnique1 = new PlayerDataRequestDuel(uuid);
             playerDataUnique.put(uuid, playerDataUnique1);
         }
         return playerDataUnique.get(uuid);
@@ -376,22 +372,26 @@ public final class xBxTcore extends JavaPlugin {
     }
 
     private void AutoUpdateDNS (){
-        new BukkitRunnable() {
-            public void run() {
-                try {
-                    updateIP();
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+            new BukkitRunnable() {
+                public void run() {
+                    try {
+                        updateIP();
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
                 }
-            }
-        }.runTaskTimer(this, 20*10, 20*10);
+            }.runTaskTimer(this, 20*10, 20*10);
+        });
     }
 
     public void StarRequestPing(){
-        new BukkitRunnable() {
-            public void run() {
-                PingRequest.pingRequest();
-            }
-        }.runTaskTimer(this, 20, 20);
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+            new BukkitRunnable() {
+                public void run() {
+                    PingRequest.pingRequest();
+                }
+            }.runTaskTimer(this, 20, 20);
+        });
     }
 }

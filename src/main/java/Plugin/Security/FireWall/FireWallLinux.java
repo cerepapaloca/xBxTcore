@@ -58,33 +58,18 @@ public class FireWallLinux {
 
     }
 
-    // Método para ejecutar comandos en el sistema
-    private static void executeCommand(String command) throws IOException {
-        Process process = Runtime.getRuntime().exec(command);
-        try {
-            int exitCode = process.waitFor();
-            if (exitCode == 0) {
-                Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', ColorSuccess + "Comando ejecutado exitosamente: " + command));
-            } else {
-                Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', ColorError + "Error al ejecutar el comando. Código de salida: " + exitCode));
-            }
-        } catch (InterruptedException e) {
-            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', ColorError + "El comando fue interrumpido: " + e.getMessage()));
-        }
-    }
-
     private static File shFile;
 
     public static void createBlockIPScript(List<String> ips) throws IOException {
 
         shFile = new File(xBxTcore.getInstance().getDataFolder(), "firewall_zone.sh");
 
-        // Crear el archivo si no existe
         if (!shFile.exists()) {
             shFile.createNewFile();
         }
-        // Ruta del archivo .sh que vamos a generar
+
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(shFile))) {
+            writer.write("sudo -v\n");
             writer.write("#!/bin/bash\n");
             writer.write("# Script para actualizar las IPs bloqueadas en firewalld\n\n");
 
@@ -109,30 +94,31 @@ public class FireWallLinux {
     }
 
     public static void executeFirewallScript() {
+        // Construye el comando para abrir gnome-terminal y ejecutar el script con sudo
         ProcessBuilder processBuilder = new ProcessBuilder();
-        processBuilder.command("bash", "-c", "sudo /home/ceres/Desktop/xBxTpvp.xyz/plugins/xBxTcore/firewall_zone.sh");
+        processBuilder.command("gnome-terminal", "--", "bash", "-c", "." + xBxTcore.getInstance().getDataFolder() + "/firewall_zone.sh");
+
+        // Ejecuta el comando en un nuevo hilo
         new Thread(() -> {
             try {
-                // Ejecutar el comando
                 Process process = processBuilder.start();
 
-                // Leer la salida del comando
+                // Lee la salida del proceso
                 BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',Colorinfo +  "Salida De FireWall: " + line)); // Imprimir la salida en la consola
+                    Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', Colorinfo + "Salida De FireWall: " + line));
                 }
 
-                // Esperar a que el proceso termine y obtener el código de salida
+                // Espera a que el proceso termine
                 int exitCode = process.waitFor();
                 Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorSuccess +
-                        "Comando ejecutado con éxito, código de salida: " + exitCode + " recuerda que puedes usar 'firewall-cmd --zone=public --list-all' para ver las ips"));
+                        "Comando ejecutado con éxito, código de salida: " + exitCode + " recuerda que puedes usar 'firewall-cmd --zone=public --list-all' para ver las IPs"));
 
             } catch (IOException | InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }).start();
-
     }
 
 }

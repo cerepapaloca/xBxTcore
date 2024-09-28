@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 
 import static Plugin.Utils.Utils.processFormattingTags;
 
-public class ColorUtils {
+public final class ColorUtils {
 
     public static @NotNull String modifyColorHexWithHLS(@NotNull String hexColor, float hueDelta, float lightnessDelta, float saturationDelta) {
         if(!hexColor.contains("#")){

@@ -1,6 +1,5 @@
 package Plugin.Duel.Model;
 
-import com.onarandombox.MultiverseCore.api.MultiverseWorld;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

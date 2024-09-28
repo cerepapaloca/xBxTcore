@@ -8,7 +8,6 @@ import java.util.Map;
 
 import static Plugin.Messages.Enum.Messages.*;
 import static Plugin.Messages.MessageManager.*;
-import static Plugin.Messages.Messages.MessagesES.esMessages;
 
 public record MessagesEN() {
 
@@ -98,14 +97,14 @@ public record MessagesEN() {
         enMessages.put(Reward_GiveDaily, prefix + ColorSuccess + "You have claimed the daily reward");
         enMessages.put(Reward_GiveWeekly, prefix + ColorSuccess + "You have claimed the weekly reward");
         enMessages.put(Reward_GiveMonthly, prefix + ColorSuccess +  "You have claimed the monthly reward");
-        enMessages.put(Reward_CrateNotPermission, prefix + ColorError + "You are not VIP you can get it here " + ColorLink + "Under review");
+        enMessages.put(Reward_CrateNotPermission, prefix + ColorError + "You are not VIP you can get it here " + LinkTienda);
         enMessages.put(Reward_ClaimReward, prefix + ColorSuccess + "I have claimed a reward");
         //tienda
         enMessages.put(Reward_StoreLink, prefix + Colorinfo + "You can buy here!!");
         enMessages.put(Reward_BuysTitel,ColorSuccess + "Thanks for the purchase!!");
         enMessages.put(Reward_BuysTitelLower,ColorSuccess + "I hope you enjoy it: " + Colorplayer + "%compra%");
         enMessages.put(Reward_BuyGeneric,prefix + "\n" + " \n" + Colorplayer + "%player% " + Colorinfo + "has Buying " + Colorplayer + "%compra%\n \n"
-                + Colorinfo + "You can also buy!!\n" + "In the store: " + ColorLink + "https://xbxtshop.tebex.io/\n&r" + " \n");
+                + Colorinfo + "You can also buy!!\n" + "In the store: " + LinkTienda + "\n&r" + " \n");
         //login
         enMessages.put(Login_Registration_RegisterRequest, prefix + prefixLogin + Colorinfo + "Please, register to the server with the command: /register <password> <ConfirmPassword>");
         enMessages.put(Login_Registration_CommandUsage, prefix + prefixLogin +Colorinfo + "Usage: /register <password> <ConfirmPassword>");

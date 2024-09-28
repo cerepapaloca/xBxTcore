@@ -45,7 +45,7 @@ public class InventoryClick extends InventoryManager {
         }
 
         switch (invetoryPlayer.getSection()){
-            case MENU -> {
+            case MENUPREKIT -> {
                 switch(item.getType()){
                     case ENDER_CHEST:
                         invetoryPlayer.setuuidkit(UUID.fromString("00000000-0000-0000-0000-000000000000"));
@@ -245,6 +245,10 @@ public class InventoryClick extends InventoryManager {
                         }
                     }
                 }
+            }
+
+            case HELP -> {
+
             }
         }
     }

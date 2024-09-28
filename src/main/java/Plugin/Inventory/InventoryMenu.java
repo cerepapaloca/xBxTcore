@@ -110,7 +110,7 @@ public class InventoryMenu extends InventoryManager {
     public void OpenMenuInvetory(InvetoryPlayer invetoryplayer) {
         invetoryplayer.setPreviewMode(false);
         Player player = invetoryplayer.getPlayer();
-        invetoryplayer.setSection(InvetorySection.MENU);
+        invetoryplayer.setSection(InvetorySection.MENUPREKIT);
         ItemMeta meta;
         Inventory inv;
         int SlotENDER_CHEST;
@@ -488,7 +488,7 @@ public class InventoryMenu extends InventoryManager {
                 getPlayerFileManager().loadTimesRewords(invetoryPlayer.getPlayer().getUniqueId());
                 lore.clear();
                 lore.add(ChatColor.translateAlternateColorCodes('&',Colorinfo + "Puedes reclamarlo en: " + Utils.SecondToMinutes(getPlayerFileManager().daily - System.currentTimeMillis())));
-                if (player.getLocale().contains("es")){
+                if (player.getLocale().contains("es")){//Hay que arreglar esto algún día (nunca lo arreglo)
                     lore.addAll(eslore1);
                 }else {
                     lore.addAll(enlore1);
@@ -546,4 +546,14 @@ public class InventoryMenu extends InventoryManager {
         player.openInventory(inv);
         getInvetoryManager().addplayer(invetoryPlayer);
     }
+
+    public void OpenHelp(InvetoryPlayer invetoryPlayer){
+        Player player = invetoryPlayer.getPlayer();
+        invetoryPlayer.setSection(InvetorySection.HELP);
+        Inventory inv = Bukkit.createInventory(null, 27, "MasterMessageLocated(player, Messages.Inventory_KitMenu)");
+
+        player.openInventory(inv);
+        getInvetoryManager().addplayer(invetoryPlayer);
+    }
+
 }

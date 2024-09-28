@@ -45,7 +45,7 @@ public class AutoBan {
                             for (Player player : ChatBotTime) {
                                 assert player != null;
                                 BanManager.banPlayer(player, MasterMessageLocated(player, Messages.Ban_BotsChat), 1000 * 60 * 60 * 24 * 5L);
-                                blackListedIps.add(player.getAddress().getAddress().getAddress());
+                                blackListedIps.add(Objects.requireNonNull(player.getAddress()).getAddress().getAddress());
                             }
                             Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole +
                                     ColorSuccess + "Purga terminada"));
