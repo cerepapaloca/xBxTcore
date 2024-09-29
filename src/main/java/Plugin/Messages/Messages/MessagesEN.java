@@ -280,6 +280,7 @@ public record MessagesEN() {
         enMessages.put(Inventory_TimeLimit_S1menos,"&c1S-");
         enMessages.put(Inventory_TimeLimit_M1menos,"&c1M-");
         //otros
+        enMessages.put(Others_AddVIPTitle, Coloritem + "You Are Now VIP");
         enMessages.put(Others_Chat_Cooldown, prefix + ColorError + "You cannot send messages for &b%time%");
         enMessages.put(Others_Chat_BanWord, prefix + ColorError + "Your message contains a forbidden word");
         enMessages.put(Others_Chat_Active, prefix + Colorinfo + "Chat moderation has been activated");
@@ -308,5 +309,6 @@ public record MessagesEN() {
         enMessages.put(Ban_AutoMessages, prefixBanAuto + "use of automated messages");
         enMessages.put(Ban_HacksBoxPvp, prefixBanAuto + "use of hacks in the pvp box");
         enMessages.put(Ban_KickBoxPvp, prefixBanAuto + "please do not use hacks in the pvp box");
+        enMessages.put(Ban_Dupe, prefixBanAuto + "You have two items with the same UUID, that is, you have duplicated");
     }
 }

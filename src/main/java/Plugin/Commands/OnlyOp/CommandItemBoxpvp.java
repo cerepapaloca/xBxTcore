@@ -22,6 +22,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.UUID;
 
 import static Plugin.Messages.MessageManager.*;
 import static Plugin.Utils.ColorUtils.applyGradient;
@@ -153,6 +154,7 @@ public class CommandItemBoxpvp implements CommandExecutor {
 
             ItemStack tag = BoxPvpSection.getItemManage().newItemBoxPVP(Material.NAME_TAG ,title, lore,true);
             ItemMeta tagMeta = tag.getItemMeta();
+            tagMeta.getPersistentDataContainer().set(new NamespacedKey(plugin, "uuid"),  PersistentDataType.STRING, UUID.randomUUID().toString());
             tagMeta.getPersistentDataContainer().set(new NamespacedKey(plugin, "range"), PersistentDataType.STRING, range.name());
             tagMeta.getPersistentDataContainer().set(new NamespacedKey(plugin, "duration"), PersistentDataType.LONG, Utils.StringToMilliseconds(args[2]));
             tag.setItemMeta(tagMeta);
@@ -160,9 +162,6 @@ public class CommandItemBoxpvp implements CommandExecutor {
         }
         return true;
     }
-
-
-
 
     public void addItems(ArrayList<ItemStack> itemStacks){
         for (ItemStack item : itemStacks){

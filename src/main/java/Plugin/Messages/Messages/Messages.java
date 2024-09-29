@@ -301,6 +301,7 @@ public enum Messages {
     Ban_AutoMessages,
     Ban_HacksBoxPvp,
     Ban_KickBoxPvp,
+    Ban_Dupe,
 
 
 }

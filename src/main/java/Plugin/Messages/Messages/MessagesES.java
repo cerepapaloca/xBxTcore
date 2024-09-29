@@ -309,6 +309,7 @@ public record MessagesES() {
         esMessages.put(Ban_AutoMessages, prefixBanAuto + "uso de mensajes automatizado");
         esMessages.put(Ban_HacksBoxPvp, prefixBanAuto + "uso de hacks en el box pvp");
         esMessages.put(Ban_KickBoxPvp, prefixBanAuto + "por favor no uses hacks en el box pvp");
+        esMessages.put(Ban_Dupe, prefixBanAuto + "Tienes dos items con la misma UUID es decir que haz duplicado");
 
     }
 }
