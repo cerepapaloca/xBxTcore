@@ -16,8 +16,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -146,7 +144,7 @@ public final class Utils {
         i.setItem(slot, itemStack);
     }
 
-    public static void NewitemInvetory(@NotNull Messages m, Material ma, int slot, Inventory i, @NotNull Player p, @NotNull ArrayList<String> lore){
+    public static void NewitemInvetory(@NotNull String titile, Material ma, int slot, Inventory i, @NotNull Player p, @NotNull ArrayList<String> lore){
         ItemStack itemStack = new ItemStack(ma);
         ItemMeta itemMeta = itemStack.getItemMeta();
         assert itemMeta != null;
@@ -155,9 +153,13 @@ public final class Utils {
             colorlore.add(ChatColor.translateAlternateColorCodes('&',  s));
         }
         itemMeta.setLore(colorlore);
-        itemMeta.setDisplayName(MasterMessageLocated(p, m));
+        itemMeta.setDisplayName(org.bukkit.ChatColor.translateAlternateColorCodes('&',titile));
         itemStack.setItemMeta(itemMeta);
         i.setItem(slot, itemStack);
+    }
+
+    public static void NewitemInvetory(@NotNull Messages m, Material ma, int slot, Inventory i, @NotNull Player p, @NotNull ArrayList<String> lore){
+        NewitemInvetory(MasterMessageLocated(p, m), ma, slot, i, p, lore);
     }
 
     public static @NotNull ArrayList<ItemStack> getItensInvetory(@NotNull Player player){
@@ -246,6 +248,25 @@ public final class Utils {
                     value * 1000 * 60 * 60 * 24;
             default -> throw new IllegalArgumentException("Unidad de tiempo no válida: " + unit);
         };
+    }
+
+    public static ArrayList<String> StringToLoreString(@NotNull String texto, boolean space) {
+        return StringToLoreString(texto, 40, space);
+    }
+
+    public static ArrayList<String> StringToLoreString(@NotNull String texto, int longitud, boolean space) {
+        ArrayList<String> lineas = new ArrayList<>();
+        if (space)lineas.add(" ");
+
+        // Dividir el texto en fragmentos de longitud dada (por defecto 40)
+        for (int i = 0; i < texto.length(); i += longitud) {
+            // Evitar que el substring exceda la longitud del texto
+            int fin = Math.min(i + longitud, texto.length());
+            lineas.add(texto.substring(i, fin));
+        }
+
+        if (space)lineas.add(" ");
+        return lineas;
     }
 
     public static void additem(@NotNull Player player, ItemStack item, int cantidad){

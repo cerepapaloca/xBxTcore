@@ -45,7 +45,7 @@ public class InventoryClick extends InventoryManager {
         }
 
         switch (invetoryPlayer.getSection()){
-            case MENUPREKIT -> {
+            case MENU_PREKIT -> {
                 switch(item.getType()){
                     case ENDER_CHEST:
                         invetoryPlayer.setuuidkit(UUID.fromString("00000000-0000-0000-0000-000000000000"));
@@ -72,7 +72,7 @@ public class InventoryClick extends InventoryManager {
                         break;
                 }
             }
-            case MENUKITS -> {
+            case MENU_KITS -> {
                 if (slot >= 0 && slot <= max && item != null) {
 
                     if (invetoryPlayer.getPreviewMode()) {
@@ -141,19 +141,17 @@ public class InventoryClick extends InventoryManager {
                     togglePreview(item, invetoryPlayer);
                 }
             }
-            case PREVIEWKITS -> {
-                switch (slot){
-                    case 53:
-                        invetorymenu().OpenInvetoryKitsList(invetoryPlayer, invetoryPlayer.getPage());
-                        break;
-                    case 45:
+            case PREVIEW_KITS -> {
+                switch (slot) {
+                    case 53 -> invetorymenu().OpenInvetoryKitsList(invetoryPlayer, invetoryPlayer.getPage());
+                    case 45 -> {
                         invetoryPlayer.getPlayer().closeInventory();
-                        getPlayerFileManager().loadKit(invetoryPlayer.getuuidkit(), Objects.requireNonNull(item.getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(plugin, "kitName"), PersistentDataType.STRING),null, invetoryPlayer.getPlayer());
-                        break;
+                        getPlayerFileManager().loadKit(invetoryPlayer.getuuidkit(), Objects.requireNonNull(item.getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(plugin, "kitName"), PersistentDataType.STRING), null, invetoryPlayer.getPlayer());
+                    }
                 }
             }
 
-            case MENUDUEL -> {
+            case MENU_DUEL -> {
                 switch (slot) {
                     case 10 -> {
                         invetoryPlayer.getPlayer().sendTitle(MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.Others_IvnPlayers1), MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.Others_IvnPlayers2), 10, 70, 20);
@@ -175,7 +173,7 @@ public class InventoryClick extends InventoryManager {
                 }
             }
 
-            case TIMESELECT -> {
+            case TIME_SELECT -> {
                 switch (slot) {
                     case 11 -> {
                         if (xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).getTimeDuel() > 60){
@@ -209,7 +207,7 @@ public class InventoryClick extends InventoryManager {
                     case 22 -> invetorymenu().OpenDuel(invetoryPlayer);
                 }
             }
-            case REWARDTIMES -> {
+            case REWARD_TIMES -> {
                 switch (slot) {
                     case 20 -> {
                         getPlayerFileManager().loadTimesRewords(invetoryPlayer.getPlayer().getUniqueId());
@@ -248,7 +246,9 @@ public class InventoryClick extends InventoryManager {
             }
 
             case HELP -> {
-
+                switch (slot){
+                    case 16 -> invetorymenu().OpenHelpRules(invetoryPlayer);
+                }
             }
         }
     }

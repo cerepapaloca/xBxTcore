@@ -310,6 +310,19 @@ public record MessagesES() {
         esMessages.put(Ban_HacksBoxPvp, prefixBanAuto + "uso de hacks en el box pvp");
         esMessages.put(Ban_KickBoxPvp, prefixBanAuto + "por favor no uses hacks en el box pvp");
         esMessages.put(Ban_Dupe, prefixBanAuto + "Tienes dos items con la misma UUID es decir que haz duplicado");
+        //rules
+        esMessages.put(Rule_1, "No esta permito el uso de bots ni uso indebido de multicuentas solo se permite si se esta usando el baritone y " +
+                "se puede tener varias cuentas pero tiene que tener una justification de ser");
+        esMessages.put(Rule_2, "No se permite uso de dupes ni otro exploit sera vetado de manera automática. si tiene conocimiento de dupes " +
+                "o posibles dupes habré ticket en el servidor de discord");
+        esMessages.put(Rule_3, "No se permite uso de mensajes automatizado en el servidor ni Link externos si se incumples sera vetado de manera automática");
+        esMessages.put(Rule_4, "No se permite uso hack en el box pvp esto, solo aplica para el box pvp para el FFA esta permitido");
+        esMessages.put(Rule_5, "No se permite entrar a las cuentas de otros usuarios si llegas a entrar a través de un bug, exploit o bypass habré ticket en el discord " +
+                "si no se analizara todo tu comportamiento para solucionarlo y sera permaBaneado");
+        esMessages.put(Rule_6, "No se permite tener OP ni Creativo en el servidor si lo consigues habré ticket en el discord si no se analizara todo tu comportamiento " +
+                "para solucionarlo y no seras vetado");
+        esMessages.put(Rule_7, "No se permite el bulling ni el acoso entre mis usuarios si eres una victima de esos actos habré ticket en el discord. la victima decide la gravedad del baneo " +
+                "si llega a dar el caso que la victima da pruebas inconsistentes esta sera vetada del chat permanente");
 
     }
 }

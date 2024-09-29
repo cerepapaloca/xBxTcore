@@ -1,6 +1,7 @@
 package Plugin.Commands.OnlyOp;
 
 import Plugin.BoxPvp.BoxPvpSection;
+import Plugin.BoxPvp.ItemsBoxPvp.BonusUpdate;
 import Plugin.BoxPvp.ItemsBoxPvp.Enum.TagsRanges;
 import Plugin.Messages.Messages.Messages;
 import Plugin.BoxPvp.ItemsBoxPvp.ItemManage;
@@ -128,8 +129,7 @@ public class CommandItemBoxpvp implements CommandExecutor {
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', MasterMessageLocated(player, Messages.Reward_BuysTitel)));
             }
             return true;
-        }else if (args.length == 3 && args[0].equals("tag")){
-            AutoBan.checkDupes(player);
+        }else if (args.length == 4 && args[0].equals("tag")){
             ArrayList<String> lore = new ArrayList<>();
             lore.add(" ");
             lore.add(applyGradient("<#19fbff>Tendras ese rango durante un<#2a7c7d>"));
@@ -147,9 +147,9 @@ public class CommandItemBoxpvp implements CommandExecutor {
 
             if (range == null)return false;
             switch (range){
-                case vip -> title = String.format("<#19fbff>Rango VIP %s<#2a7c7d>", time);
-                case vote -> title = String.format("<#FDC661>Rango VOTE %s<#FF7302>", time);
-                case hacker -> title = String.format("<#FDC661>Rango HACKER %s<#FF7302>", time);
+                case vip -> title = String.format("<#FDC661>Rango VIP %s<#FF7302>", time);
+                case vote -> title = String.format("<#FFE50E>Rango VOTE %s<#FDF192>", time);
+                case hacker -> title = String.format("<#690000>Rango HACKER %s<#FF0000>", time);
             }
 
             ItemStack tag = BoxPvpSection.getItemManage().newItemBoxPVP(Material.NAME_TAG ,title, lore,true);
@@ -158,7 +158,13 @@ public class CommandItemBoxpvp implements CommandExecutor {
             tagMeta.getPersistentDataContainer().set(new NamespacedKey(plugin, "range"), PersistentDataType.STRING, range.name());
             tagMeta.getPersistentDataContainer().set(new NamespacedKey(plugin, "duration"), PersistentDataType.LONG, Utils.StringToMilliseconds(args[2]));
             tag.setItemMeta(tagMeta);
-            Utils.additem(player, tag);
+            Player player = Bukkit.getPlayer(args[3]);
+            if (player != null) {
+                Utils.additem(player, tag);
+            }else {
+                Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorError + "El jugador no existe"));
+            }
+
         }
         return true;
     }

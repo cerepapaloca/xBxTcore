@@ -9,6 +9,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -57,6 +59,12 @@ public class BanManager implements Listener {
             event.setResult(PlayerLoginEvent.Result.KICK_BANNED);
             event.setKickMessage(reason);
         }
+
+    }
+
+    @EventHandler
+    public void onInventoryClick(@NotNull InventoryClickEvent event) {
+        AutoBan.checkDupes((Player) event.getWhoClicked());
     }
 
     public static void unbanPlayer(String name) {

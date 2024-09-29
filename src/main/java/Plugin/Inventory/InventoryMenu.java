@@ -110,7 +110,7 @@ public class InventoryMenu extends InventoryManager {
     public void OpenMenuInvetory(InvetoryPlayer invetoryplayer) {
         invetoryplayer.setPreviewMode(false);
         Player player = invetoryplayer.getPlayer();
-        invetoryplayer.setSection(InvetorySection.MENUPREKIT);
+        invetoryplayer.setSection(InvetorySection.MENU_PREKIT);
         ItemMeta meta;
         Inventory inv;
         int SlotENDER_CHEST;
@@ -172,7 +172,7 @@ public class InventoryMenu extends InventoryManager {
 
     public void OpenInvetoryKitsList(InvetoryPlayer invetoryplayer, int page) {
         ItemMeta itemMeta;
-        invetoryplayer.setSection(InvetorySection.MENUKITS);
+        invetoryplayer.setSection(InvetorySection.MENU_KITS);
         Inventory inv;
         int MaxKits;
         if (invetoryplayer.getPlayer().getName().contains(bedrockPrefix)) {
@@ -336,7 +336,7 @@ public class InventoryMenu extends InventoryManager {
     }
 
     public void OpenPreviewKit (Player player, String namekit, InvetoryPlayer invetoryplayer){
-        invetoryplayer.setSection(InvetorySection.PREVIEWKITS);
+        invetoryplayer.setSection(InvetorySection.PREVIEW_KITS);
         Inventory inv = Bukkit.createInventory(null, 54, MasterMessageLocated(player, Messages.Inventory_InvPreview));
         player.openInventory(inv);
         getPlayerFileManager().loadKit(invetoryplayer.getuuidkit(), namekit, inv, invetoryplayer.getPlayer());
@@ -358,7 +358,7 @@ public class InventoryMenu extends InventoryManager {
     }
 
     public void OpenDuel(InvetoryPlayer invetoryPlayer){
-        invetoryPlayer.setSection(InvetorySection.MENUDUEL);
+        invetoryPlayer.setSection(InvetorySection.MENU_DUEL);
         Player player = invetoryPlayer.getPlayer();
         ArrayList<String> lore = new ArrayList<>();
         Inventory inv = Bukkit.createInventory(null, 27, MasterMessageLocated(player, Messages.Inventory_KitMenu));
@@ -414,7 +414,7 @@ public class InventoryMenu extends InventoryManager {
     }
 
     public void OpenTimeSelect(InvetoryPlayer invetoryPlayer){
-        invetoryPlayer.setSection(InvetorySection.TIMESELECT);
+        invetoryPlayer.setSection(InvetorySection.TIME_SELECT);
         Player player = invetoryPlayer.getPlayer();
         ArrayList<String> lore = new ArrayList<>();
         Inventory inv = Bukkit.createInventory(null, 27, MasterMessageLocated(player, Messages.Inventory_KitMenu));
@@ -448,7 +448,7 @@ public class InventoryMenu extends InventoryManager {
 
     public void OpenRewardTimes(InvetoryPlayer invetoryPlayer){
         Player player = invetoryPlayer.getPlayer();
-        invetoryPlayer.setSection(InvetorySection.REWARDTIMES);
+        invetoryPlayer.setSection(InvetorySection.REWARD_TIMES);
         Inventory inv;
         if (invetoryPlayer.getPlayer().getName().contains(bedrockPrefix)) {
             inv = Bukkit.createInventory(null, 54, " ");
@@ -550,8 +550,44 @@ public class InventoryMenu extends InventoryManager {
     public void OpenHelp(InvetoryPlayer invetoryPlayer){
         Player player = invetoryPlayer.getPlayer();
         invetoryPlayer.setSection(InvetorySection.HELP);
-        Inventory inv = Bukkit.createInventory(null, 27, "MasterMessageLocated(player, Messages.Inventory_KitMenu)");
+        Inventory inv = Bukkit.createInventory(null, 27, "ayuda");
+        ArrayList<String> lore = new ArrayList<>();
+        lore.add(" ");
+        lore.add("Puedes ber que hace cada comando del servidor");
+        lore.add(" ");
+        Utils.NewitemInvetory(Messages.Inventory_TimeLimit_M1mas, Material.COMMAND_BLOCK, 10, inv, player, lore);
+        lore.clear();
+        lore.add(" ");
+        lore.add("Puedes saber información Cada Item Del Box Pvp");
+        lore.add(" ");
+        Utils.NewitemInvetory(Messages.Inventory_TimeLimit_M1mas, Material.DIAMOND_SWORD, 12, inv, player);
+        lore.clear();
+        lore.add(" ");
+        lore.add("Puedes saber las reglase de este servidor");
+        lore.add(" ");
+        Utils.NewitemInvetory(Messages.Inventory_TimeLimit_M1mas, Material.WRITABLE_BOOK, 14, inv, player);
+        lore.clear();
+        lore.add(" ");
+        lore.add("Puedes saber información genera del server");
+        lore.add(" ");
+        Utils.NewitemInvetory(Messages.Inventory_TimeLimit_M1mas, Material.SPYGLASS, 16, inv, player);
+        player.openInventory(inv);
+        getInvetoryManager().addplayer(invetoryPlayer);
+    }
 
+    public void OpenHelpRules(InvetoryPlayer invetoryPlayer){
+        Player player = invetoryPlayer.getPlayer();
+        invetoryPlayer.setSection(InvetorySection.HELP);
+        Inventory inv = Bukkit.createInventory(null, 27, "ayuda");
+        ArrayList<String> lore = new ArrayList<>();
+
+        for (int i = 0; 7 > i; i++){
+            lore.addAll(Utils.StringToLoreString("", true));
+            Utils.NewitemInvetory("&c&lRegla #" + i, Material.BARRIER, i, inv,
+                    player,Utils.StringToLoreString(MasterMessageLocated(player ,Messages.valueOf("Rule_" + i)), true));
+            lore.clear();
+        }
+        Utils.NewitemInvetory(Messages.Inventory_InvExit, Material.BARRIER, 26, inv, player);
         player.openInventory(inv);
         getInvetoryManager().addplayer(invetoryPlayer);
     }
