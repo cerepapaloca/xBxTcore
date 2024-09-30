@@ -1,7 +1,7 @@
 package Plugin.Commands.User;
 
-import Plugin.BoxPvp.ItemsBoxPvp.ItemManage;
-import Plugin.Utils.Utils;
+import Plugin.Inventory.InventorySection;
+import Plugin.Inventory.Models.InvetoryPlayer;
 import Plugin.xBxTcore;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -18,12 +18,7 @@ public class CommandHelp implements CommandExecutor {
     }
     public boolean onCommand(@NotNull CommandSender sender,@NotNull Command cmd,@NotNull String label, String[] args) {
         if(sender instanceof Player p){
-            if (p.getLocale().contains("es")){
-                Utils.additem(p, ItemManage.wikis.get(1));
-            } else{
-                Utils.additem(p, ItemManage.wikis.get(0));
-            }
-
+            InventorySection.getInventoryMenu().OpenHelp(new InvetoryPlayer(p));
         }else{
             plugin.messageOnlyPlayer();
         }

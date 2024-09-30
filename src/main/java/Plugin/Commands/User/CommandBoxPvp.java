@@ -1,5 +1,6 @@
 package Plugin.Commands.User;
 
+import Plugin.File.FileManagerSection;
 import Plugin.Messages.Messages.Messages;
 import Plugin.Security.SystemBan.BanManager;
 import Plugin.Security.SystemBan.ContextBan;
@@ -17,7 +18,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Objects;
 
 import static Plugin.BoxPvp.ItemsBoxPvp.BonusUpdate.UpdateBonus;
-import static Plugin.File.FileManagerSection.getPlayerFileManager;
 import static Plugin.Messages.MessageManager.MasterMessageLocated;
 import static Plugin.Utils.Utils.RewardBoxPvpCheck;
 
@@ -41,7 +41,7 @@ public class CommandBoxPvp implements CommandExecutor {
                 }
                 if (!player.getWorld().getName().equals("boxpvp")) {
                     player.getInventory().clear();
-                    getPlayerFileManager().loadInventoryBoxPvp(player);
+                    FileManagerSection.getPlayerFileManager().loadInventoryBoxPvp(player);
                 }
                 player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 999999, 1));
                 player.teleport(Objects.requireNonNull(Bukkit.getWorld("boxpvp")).getSpawnLocation());

@@ -280,6 +280,7 @@ public record MessagesEN() {
         enMessages.put(Inventory_TimeLimit_S1menos,"&c1S-");
         enMessages.put(Inventory_TimeLimit_M1menos,"&c1M-");
         //otros
+        enMessages.put(Rule_Title, "Rule %#%");
         enMessages.put(Others_AddVIPTitle, Coloritem + "You Are Now VIP");
         enMessages.put(Others_Chat_Cooldown, prefix + ColorError + "You cannot send messages for &b%time%");
         enMessages.put(Others_Chat_BanWord, prefix + ColorError + "Your message contains a forbidden word");

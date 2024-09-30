@@ -16,11 +16,11 @@ public class InventoryListener implements Listener {
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
         Player player = (Player)event.getWhoClicked();
-        InvetoryPlayer invetoryPlayer = InventorySection.getInvetoryManager().getInvetoryPlayer(player);
+        InvetoryPlayer invetoryPlayer = InventorySection.getInventoryManager().getInvetoryPlayer(player);
         if (invetoryPlayer != null) {
             event.setCancelled(true);
             if(event.getCurrentItem() != null && Objects.equals(event.getClickedInventory(), player.getOpenInventory().getTopInventory())){
-                InventorySection.getInvetoryManager().inventoryClick().onClickInv(invetoryPlayer, event.getSlot(), event.getCurrentItem(), event.getClick());
+                InventorySection.getInventoryManager().inventoryClick().onClickInv(invetoryPlayer, event.getSlot(), event.getCurrentItem(), event.getClick());
             }
         }
     }
@@ -28,6 +28,6 @@ public class InventoryListener implements Listener {
     @EventHandler
     public void onInventoryClose(InventoryCloseEvent event) {
        Player player = (Player)event.getPlayer();
-        InventorySection.getInvetoryManager().removerPlayer(player);
+        InventorySection.getInventoryManager().removerPlayer(player);
     }
 }

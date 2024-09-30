@@ -1,7 +1,10 @@
 package Plugin.Security.SystemBan;
 
+import lombok.Getter;
+
 import java.util.UUID;
 
+@Getter
 public class DataBan {
 
     private final UUID uuid;
@@ -19,24 +22,4 @@ public class DataBan {
         this.banTime = System.currentTimeMillis();
     }
 
-    public long getBanTime() {
-        return banTime;
-    }
-
-    public ContextBan getContext() {
-        return context;
-    }
-
-    public long getUnbanTime() {
-        return unbanTime;
-    }
-
-
-    public String getReason() {
-        return reason;
-    }
-
-    public UUID getUuid() {
-        return uuid;
-    }
 }

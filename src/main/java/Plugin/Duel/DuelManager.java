@@ -2,6 +2,7 @@ package Plugin.Duel;
 
 import Plugin.Duel.Enum.EndCombatCauses;
 import Plugin.Environment.EnvironmentsSection;
+import Plugin.File.FileManagerSection;
 import Plugin.Messages.MessageManager;
 import Plugin.Inventory.Models.KitData;
 import Plugin.Messages.Messages.Messages;
@@ -22,7 +23,6 @@ import org.bukkit.scheduler.BukkitTask;
 
 import java.util.*;
 
-import static Plugin.File.FileManagerSection.getPlayerFileManager;
 import static Plugin.Messages.MessageManager.MasterMessageLocated;
 
 public class DuelManager{
@@ -61,15 +61,15 @@ public class DuelManager{
 
         for (Player player : players){
             if (kitData.getName() != null && kitData.getUuid() != null){
-                getPlayerFileManager().loadKit(kitData.getUuid(),kitData.getName(),null, player);
+                FileManagerSection.getPlayerFileManager().loadKit(kitData.getUuid(),kitData.getName(),null, player);
             }else{
-                getPlayerFileManager().loadkitfavorite(player);
+                FileManagerSection.getPlayerFileManager().loadkitfavorite(player);
             }
             player.teleport(locations.get(i));
             i++;
         }
 
-        startCountdown(world.getName(), xBxTcore.getPlayerDataUnique(players.get(0).getUniqueId()).getTimelimit());
+        startCountdown(world.getName(), xBxTcore.getPlayerDataUnique(players.get(0).getUniqueId()).getTimeLimit());
         EnvironmentsSection.getCleaner().clearArea(world.getName());
         TextComponent tp = new TextComponent();
         tp.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/spectator " + world.getName()));

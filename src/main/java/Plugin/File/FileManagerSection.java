@@ -4,20 +4,20 @@ import Plugin.File.BLackList.BlackListIpManager;
 import Plugin.File.PlayerData.PlayerfileManager;
 import Plugin.Section;
 import Plugin.xBxTcore;
+import lombok.Getter;
 
 import java.net.SocketException;
 import java.util.Objects;
 
 import static Plugin.Service.DDNS_NameCheap.getPrivateIP;
 
+@Getter
 public class FileManagerSection implements Section {
-
     private final xBxTcore plugin;
-
-    private static PlayerfileManager playerfileManager;
-    private static BlackListIpManager blacklistIpManager;
-    private static MySQLConnection mysql;
-    private static MySQLManager mySQLManager;
+    @Getter private static PlayerfileManager playerFileManager;
+    @Getter private static BlackListIpManager blacklistIpManager;
+    @Getter private static MySQLConnection mysql;
+    @Getter private static MySQLManager mySQLManager;
 
     public FileManagerSection(xBxTcore plugin) {
         this.plugin = plugin;
@@ -35,7 +35,7 @@ public class FileManagerSection implements Section {
         } catch (SocketException e) {
             throw new RuntimeException(e);
         }
-        playerfileManager = new PlayerfileManager(plugin);
+        playerFileManager = new PlayerfileManager(plugin);
         blacklistIpManager = new BlackListIpManager(plugin);
         mysql = new MySQLConnection(myIpMySql, "xbxtcore", "root", "");
         MySQLConnection.connect();
@@ -59,21 +59,5 @@ public class FileManagerSection implements Section {
     public void reloadConfig() {
         MySQLConnection.reloadBannedBans();
         blacklistIpManager.ReloadIpBlacklist();
-    }
-
-    public static PlayerfileManager getPlayerFileManager() {
-        return playerfileManager;
-    }
-
-    public static BlackListIpManager getBlacklistIpManager() {
-        return blacklistIpManager;
-    }
-
-    public static MySQLManager getMySQLManager() {
-        return mySQLManager;
-    }
-
-    public static MySQLConnection getMySQLConnection() {
-        return mysql;
     }
 }

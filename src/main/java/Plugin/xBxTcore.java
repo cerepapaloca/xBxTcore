@@ -44,7 +44,6 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 import static Plugin.Service.DDNS_NameCheap.updateIP;
-import static Plugin.File.FileManagerSection.getPlayerFileManager;
 import static Plugin.Messages.MessageManager.*;
 
 public final class xBxTcore extends JavaPlugin {
@@ -118,7 +117,7 @@ public final class xBxTcore extends JavaPlugin {
         }
 
         for (Player p : Objects.requireNonNull(Bukkit.getWorld(worldBoxPvp)).getPlayers()) {
-            getPlayerFileManager().SaveInventoryBoxPvp(p.getUniqueId(), Utils.getItensInvetory(p));
+            FileManagerSection.getPlayerFileManager().SaveInventoryBoxPvp(p.getUniqueId(), Utils.getItensInvetory(p));
         }
         sections.forEach(Section::disable);
         sections.clear();
@@ -363,7 +362,7 @@ public final class xBxTcore extends JavaPlugin {
                     }
                     Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorSuccess +
                             "Se guardo exitosamente el inventario del Box PvP del jugador " + Colorplayer + players.get(i).getName()));
-                    getPlayerFileManager().SaveInventoryBoxPvp(players.get(i).getUniqueId(), Utils.getItensInvetory(players.get(i)));
+                    FileManagerSection.getPlayerFileManager().SaveInventoryBoxPvp(players.get(i).getUniqueId(), Utils.getItensInvetory(players.get(i)));
                     i++;
                 }
             }.runTaskTimer(this, 0, 2);

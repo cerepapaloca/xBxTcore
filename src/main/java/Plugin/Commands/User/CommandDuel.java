@@ -137,7 +137,7 @@ public class CommandDuel implements CommandExecutor {
             yes.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(MasterMessageLocated(player,Messages.RequestDuel_HoverYes)).create()));
             deny.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(MasterMessageLocated(player,Messages.RequestDuel_HoverDeny)).create()));
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + Colorinfo + "&l⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊⚊>"));
-            if (xBxTcore.getPlayerDataUnique(requesterId).getTimelimit()){
+            if (xBxTcore.getPlayerDataUnique(requesterId).getTimeLimit()){
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', "-" + InventoryManager.secondsToMinutesLore(requester).get(0)));
             }else {
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', "-" + MasterMessageLocated(player,Messages.RequestDuel_TimeLimit) + Colorplayer + "No"));
@@ -270,7 +270,7 @@ public class CommandDuel implements CommandExecutor {
         try{
             xBxTcore.getPlayerDataUnique(uuid).getKitData();
             xBxTcore.getPlayerDataUnique(uuid).setIndexMap(0);
-            xBxTcore.getPlayerDataUnique(uuid).setTimelimit(false);
+            xBxTcore.getPlayerDataUnique(uuid).setTimeLimit(false);
         }catch (Exception ignored){
 
         }

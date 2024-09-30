@@ -303,6 +303,7 @@ public enum Messages {
     Ban_KickBoxPvp,
     Ban_Dupe,
     //rule
+    Rule_Title,
     Rule_1,
     Rule_2,
     Rule_3,

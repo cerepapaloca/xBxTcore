@@ -5,14 +5,15 @@ import Plugin.Inventory.Listener.ItemframeListener;
 import Plugin.Inventory.Listener.ShulkerBoxInventoryListener;
 import Plugin.Section;
 import Plugin.xBxTcore;
+import lombok.Getter;
 
 public class InventorySection implements Section {
 
     private final xBxTcore plugin;
 
-    private static InventoryClick inventoryClick;
-    private static InventoryMenu inventoryMenu;
-    public static InventoryManager inventoryManager;
+    @Getter private static InventoryClick inventoryClick;
+    @Getter private static InventoryMenu inventoryMenu;
+    @Getter public static InventoryManager inventoryManager;
 
     public InventorySection(xBxTcore xBxTcore) {
         plugin = xBxTcore;
@@ -41,17 +42,4 @@ public class InventorySection implements Section {
     public void reloadConfig() {
 
     }
-
-    public static InventoryClick getInventoryClick() {
-        return inventoryClick;
-    }
-
-    public static InventoryMenu getInventoryMenu() {
-        return inventoryMenu;
-    }
-
-    public static InventoryManager getInvetoryManager() {
-        return inventoryManager;
-    }
-
 }

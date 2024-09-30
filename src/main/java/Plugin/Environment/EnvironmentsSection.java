@@ -4,14 +4,16 @@ import Plugin.Environment.Hologrmas.Hologramas;
 import Plugin.Environment.Hologrmas.HologramasBoxPvp;
 import Plugin.Section;
 import Plugin.xBxTcore;
+import lombok.Getter;
 
+@Getter
 public class EnvironmentsSection implements Section {
 
     private static xBxTcore plugin;
 
-    public static Hologramas hologramas;
-    private static HologramasBoxPvp hologramasBoxPvp;
-    private static Cleaner cleaner;
+    @Getter public static Hologramas hologramas;
+    @Getter private static HologramasBoxPvp hologramasBoxPvp;
+    @Getter private static Cleaner cleaner;
 
     public EnvironmentsSection(xBxTcore xBxTcore) {
         plugin = xBxTcore;
@@ -36,17 +38,5 @@ public class EnvironmentsSection implements Section {
     @Override
     public void reloadConfig() {
 
-    }
-
-    public static Cleaner getCleaner() {
-        return cleaner;
-    }
-
-    public static HologramasBoxPvp getHologramasBoxPvp() {
-        return hologramasBoxPvp;
-    }
-
-    public static Hologramas getHologramas() {
-        return hologramas;
     }
 }

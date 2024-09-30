@@ -2,6 +2,7 @@ package Plugin.Utils;
 
 import Plugin.Messages.Messages.Messages;
 import Plugin.xBxTcore;
+import lombok.experimental.UtilityClass;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
 import net.luckperms.api.model.user.User;
@@ -255,6 +256,7 @@ public final class Utils {
     }
 
     public static ArrayList<String> StringToLoreString(@NotNull String texto, int longitud, boolean space) {
+        texto = ChatColor.translateAlternateColorCodes('&', texto);
         ArrayList<String> lineas = new ArrayList<>();
         if (space)lineas.add(" ");
 

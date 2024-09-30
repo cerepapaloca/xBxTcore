@@ -55,7 +55,6 @@ public class CommandSpectator implements CommandExecutor {
                         p.setGameMode(GameMode.SPECTATOR);
                         Utils.ClickExecuteCommand("lobby", Messages.SpectatorMode_SpectatorSuccess, p);
                     }
-
                 }
             }else{
                 p.sendMessage(MasterMessageLocated(p, Messages.Generic_InArea));

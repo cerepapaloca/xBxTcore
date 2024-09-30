@@ -5,7 +5,6 @@ import Plugin.Security.SystemBan.DataBan;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
-import java.net.UnknownHostException;
 import java.sql.*;
 import java.util.UUID;
 

@@ -5,15 +5,14 @@ import Plugin.Commands.Tab.*;
 import Plugin.Commands.User.*;
 import Plugin.File.PlayerData.PlayerfileManager;
 import Plugin.Section;
-import Plugin.Security.SecuritySection;
 import Plugin.xBxTcore;
+import lombok.Getter;
 
 import java.util.Objects;
 
 public class CommandSection implements Section {
-
-    private final xBxTcore plugin;
-    public static CommandDuel commandDuel;
+    @Getter private final xBxTcore plugin;
+    @Getter public static CommandDuel commandDuel;
 
     public CommandSection(xBxTcore plugin) {
         this.plugin = plugin;
@@ -65,10 +64,6 @@ public class CommandSection implements Section {
         Objects.requireNonNull(plugin.getCommand("sk")).setTabCompleter(new TabCompleterSaveKit());
         Objects.requireNonNull(plugin.getCommand("dk")).setTabCompleter(new TabCompleterDelKit());
         Objects.requireNonNull(plugin.getCommand("kf")).setTabCompleter(new TabCompleterKitFavorite());
-    }
-
-    public static CommandDuel getCommandDuel(){
-        return commandDuel;
     }
 
     @Override

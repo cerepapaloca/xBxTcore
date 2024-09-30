@@ -1,11 +1,15 @@
 package Plugin.BoxPvp.Model;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
 
 import java.util.ArrayList;
 
+@Getter
+@Setter
 public class MinaBoxPvp {
 
     private final String name;
@@ -29,52 +33,9 @@ public class MinaBoxPvp {
         this.isSafeZone = isSafeZone;
     }
 
-    public ArmorStand getArmorStand() {
-        return armorStand;
+    public void resetTimeLeft() {
+        TimeLeft = timeReset;
     }
 
-    public Location getLocationTimis() {
-        return locationTimis;
-    }
-
-    public Location getLocationB() {
-        return locationB;
-    }
-
-    public Location getLocationA() {
-        return locationA;
-    }
-
-    public Material getMaterial() {
-        return material;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int resetTimeLeft() {
-        return TimeLeft = timeReset;
-    }
-
-    public int getTimeLeft() {
-        return TimeLeft;
-    }
-
-    public ArrayList<String> getHexColor() {
-        return hexColor;
-    }
-
-    public Boolean isSafeZone() {
-        return isSafeZone;
-    }
-
-    public void setTimeLeft(int timeLeft) {
-        TimeLeft = timeLeft;
-    }
-
-    public void setArmorStand(ArmorStand armorStand) {
-        this.armorStand = armorStand;
-    }
 
 }

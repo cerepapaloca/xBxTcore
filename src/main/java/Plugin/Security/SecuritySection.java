@@ -5,14 +5,16 @@ import Plugin.Section;
 import Plugin.Security.SystemBan.AutoBan;
 import Plugin.Security.SystemBan.BanManager;
 import Plugin.xBxTcore;
+import lombok.Getter;
 
+@Getter
 public class SecuritySection implements Section {
 
     private
     final xBxTcore plugin;
     public static Boolean ActiveAntiBot = true;
-    private static BanManager banManager;
-    public static AutoBan autoBan;
+    @Getter private static BanManager banManager;
+    @Getter public static AutoBan autoBan;
 
     public SecuritySection(xBxTcore xBxTcore) {
         this.plugin = xBxTcore;
@@ -22,7 +24,7 @@ public class SecuritySection implements Section {
     public void enable() {
         plugin.register(new AntiBotListener());
         plugin.register(new GrimAC());
-        plugin.register(banManager = new BanManager(FileManagerSection.getMySQLConnection(), plugin));
+        plugin.register(banManager = new BanManager(FileManagerSection.getMysql(), plugin));
         new AntiTwoPlayer();
         autoBan = new AutoBan(plugin);
     }
@@ -42,7 +44,4 @@ public class SecuritySection implements Section {
 
     }
 
-    public static AutoBan getAutoBan() {
-        return autoBan;
-    }
 }

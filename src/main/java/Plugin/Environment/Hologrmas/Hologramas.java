@@ -238,7 +238,7 @@ public class Hologramas{
         String iconSafeZone;
         for (ArmorStand armorStand : armorStandsTimes){
             MinaBoxPvp mina = minas.get(i);
-            if (mina.isSafeZone()){
+            if (mina.getIsSafeZone()){
                 iconSafeZone = ChatColor.translateAlternateColorCodes('&', " &6[&2☮&6]");
             } else {
                 iconSafeZone = ChatColor.translateAlternateColorCodes('&', " &6[&c⚔&6]");

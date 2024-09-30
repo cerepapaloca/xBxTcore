@@ -1,5 +1,6 @@
 package Plugin.Inventory;
 
+import Plugin.File.FileManagerSection;
 import Plugin.Inventory.Models.InvetoryPlayer;
 import Plugin.Inventory.Enum.InvetorySection;
 import Plugin.Messages.Messages.Messages;
@@ -20,8 +21,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.ArrayList;
 import java.util.List;
 
-import static Plugin.File.FileManagerSection.getPlayerFileManager;
-import static Plugin.Inventory.InventorySection.getInvetoryManager;
+import static Plugin.Inventory.InventorySection.*;
 import static Plugin.Messages.MessageManager.*;
 import static Plugin.xBxTcore.*;
 
@@ -143,7 +143,7 @@ public class InventoryMenu extends InventoryManager {
         ENDER_CHEST.setItemMeta(meta);
         inv.setItem(SlotENDER_CHEST,ENDER_CHEST);
         /////////////////////////////////////////
-        getPlayerFileManager().loadNameKit(player.getUniqueId());
+        FileManagerSection.getPlayerFileManager().loadNameKit(player.getUniqueId());
         ItemStack MINECART = new ItemStack(Material.MINECART);
         meta = MINECART.getItemMeta();
         assert meta != null;
@@ -154,7 +154,7 @@ public class InventoryMenu extends InventoryManager {
         }
         MINECART.setItemMeta(meta);
 
-        if(!getPlayerFileManager().nameskits.isEmpty()) {
+        if(!FileManagerSection.getPlayerFileManager().nameskits.isEmpty()) {
             ItemStack CHEST = new ItemStack(Material.CHEST);
             meta = CHEST.getItemMeta();
             assert meta != null;
@@ -167,7 +167,7 @@ public class InventoryMenu extends InventoryManager {
         }
         /////////////////////////////////////////
         player.openInventory(inv);
-        getInvetoryManager().addplayer(invetoryplayer);
+        getInventoryManager().addplayer(invetoryplayer);
     }
 
     public void OpenInvetoryKitsList(InvetoryPlayer invetoryplayer, int page) {
@@ -205,7 +205,7 @@ public class InventoryMenu extends InventoryManager {
         ///////////////////////////////////////////////////
         ItemStack CHEST_MINECART;
         Messages messages;
-        if (invetoryplayer.getuuidkit().equals(invetoryplayer.getPlayer().getUniqueId())){
+        if (invetoryplayer.getUUIDKit().equals(invetoryplayer.getPlayer().getUniqueId())){
             CHEST_MINECART = new ItemStack(Material.ENDER_CHEST);
             messages = Messages.Inventory_InvGlobal;
         }else{
@@ -226,13 +226,13 @@ public class InventoryMenu extends InventoryManager {
             STRUCTURE_VOID = new ItemStack(Material.STRUCTURE_VOID);
         }
         ///////////////////////////////////////////////////
-        getPlayerFileManager().loadNameKit(invetoryplayer.getuuidkit());
+        FileManagerSection.getPlayerFileManager().loadNameKit(invetoryplayer.getUUIDKit());
         int posicion = 0;
         int start = page * MaxKits;
-        int end = Math.min(start + MaxKits, getPlayerFileManager().nameskits.size());
+        int end = Math.min(start + MaxKits, FileManagerSection.getPlayerFileManager().nameskits.size());
 
         if(invetoryplayer.getPlayer().getName().contains(bedrockPrefix)){
-            if (end < getPlayerFileManager().nameskits.size()) {
+            if (end < FileManagerSection.getPlayerFileManager().nameskits.size()) {
                 inv.setItem(53, ARROW);
             }
 
@@ -302,7 +302,7 @@ public class InventoryMenu extends InventoryManager {
                 inv.setItem(32, STRUCTURE_VOID);
             }
 
-            if (end < getPlayerFileManager().nameskits.size()) {
+            if (end < FileManagerSection.getPlayerFileManager().nameskits.size()) {
                 inv.setItem(35, ARROW);
             }
 
@@ -315,8 +315,8 @@ public class InventoryMenu extends InventoryManager {
 
         for (int i = start; i < end; i++) {
             List<String> lore = new ArrayList<>();
-            String nameskit = getPlayerFileManager().nameskits.get(i);
-            Material material = getPlayerFileManager().materials.get(i);
+            String nameskit = FileManagerSection.getPlayerFileManager().nameskits.get(i);
+            Material material = FileManagerSection.getPlayerFileManager().materials.get(i);
             ItemStack kit = new ItemStack(material);
             ItemMeta kitmeta = kit.getItemMeta();
             assert kitmeta != null;
@@ -329,18 +329,18 @@ public class InventoryMenu extends InventoryManager {
             inv.setItem(posicion, kit);
             posicion++;
         }
-        getPlayerFileManager().loadNameKit(invetoryplayer.getuuidkit());
+        FileManagerSection.getPlayerFileManager().loadNameKit(invetoryplayer.getUUIDKit());
         //////////////////////////////////////////////////
         player.openInventory(inv);
-        getInvetoryManager().addplayer(invetoryplayer);
+        getInventoryManager().addplayer(invetoryplayer);
     }
 
     public void OpenPreviewKit (Player player, String namekit, InvetoryPlayer invetoryplayer){
         invetoryplayer.setSection(InvetorySection.PREVIEW_KITS);
         Inventory inv = Bukkit.createInventory(null, 54, MasterMessageLocated(player, Messages.Inventory_InvPreview));
         player.openInventory(inv);
-        getPlayerFileManager().loadKit(invetoryplayer.getuuidkit(), namekit, inv, invetoryplayer.getPlayer());
-        getInvetoryManager().addplayer(invetoryplayer);
+        FileManagerSection.getPlayerFileManager().loadKit(invetoryplayer.getUUIDKit(), namekit, inv, invetoryplayer.getPlayer());
+        getInventoryManager().addplayer(invetoryplayer);
     }
 
     public void OpenItemframe(Player player, ItemStack item) {
@@ -398,7 +398,7 @@ public class InventoryMenu extends InventoryManager {
         Utils.NewitemInvetory(Messages.Inventory_DuelSendQuest, Material.BLAZE_POWDER, 22, inv, player);
         ///////////////////////////////////////////////////
         lore.clear();
-        if(xBxTcore.getPlayerDataUnique(player.getUniqueId()).getTimelimit()){
+        if(xBxTcore.getPlayerDataUnique(player.getUniqueId()).getTimeLimit()){
             lore.add(MasterMessageLocated(player, Messages.Inventory_DuelLoreTimeLimit));
             lore.addAll(secondsToMinutesLore(player));
         }else{
@@ -408,7 +408,7 @@ public class InventoryMenu extends InventoryManager {
         Utils.NewitemInvetory(Messages.Inventory_DuelTimeLimit, Material.CLOCK, 14, inv, player, lore);
         ///////////////////////////////////////////////////
         player.openInventory(inv);
-        getInvetoryManager().addplayer(invetoryPlayer);
+        getInventoryManager().addplayer(invetoryPlayer);
         SelectMapDuel(invetoryPlayer, false);
 
     }
@@ -437,13 +437,13 @@ public class InventoryMenu extends InventoryManager {
         Utils.NewitemInvetory(Messages.Inventory_InvExit, Material.BARRIER, 22, inv, player);
 
 
-        if (xBxTcore.getPlayerDataUnique(player.getUniqueId()).getTimelimit()){
+        if (xBxTcore.getPlayerDataUnique(player.getUniqueId()).getTimeLimit()){
             Utils.NewitemInvetory(Messages.Inventory_DuelTimeLimitOn, Material.ENDER_EYE, 13, inv, player, secondsToMinutesLore(player));
         }else{
             Utils.NewitemInvetory(Messages.Inventory_DuelTimeLimitOff, Material.ENDER_PEARL, 13, inv, player, secondsToMinutesLore(player));
         }
         player.openInventory(inv);
-        getInvetoryManager().addplayer(invetoryPlayer);
+        getInventoryManager().addplayer(invetoryPlayer);
     }
 
     public void OpenRewardTimes(InvetoryPlayer invetoryPlayer){
@@ -485,16 +485,16 @@ public class InventoryMenu extends InventoryManager {
                     return;
                 }
 
-                getPlayerFileManager().loadTimesRewords(invetoryPlayer.getPlayer().getUniqueId());
+                FileManagerSection.getPlayerFileManager().loadTimesRewords(invetoryPlayer.getPlayer().getUniqueId());
                 lore.clear();
-                lore.add(ChatColor.translateAlternateColorCodes('&',Colorinfo + "Puedes reclamarlo en: " + Utils.TimeToString(getPlayerFileManager().daily - System.currentTimeMillis(), 1)));
+                lore.add(ChatColor.translateAlternateColorCodes('&',Colorinfo + "Puedes reclamarlo en: " + Utils.TimeToString(FileManagerSection.getPlayerFileManager().daily - System.currentTimeMillis(), 1)));
                 if (player.getLocale().contains("es")){//Hay que arreglar esto algún día (nunca lo arreglo)
                     lore.addAll(eslore1);
                 }else {
                     lore.addAll(enlore1);
                 }
 
-                if (getPlayerFileManager().daily <= System.currentTimeMillis()){
+                if (FileManagerSection.getPlayerFileManager().daily <= System.currentTimeMillis()){
                     if (player.getLocale().contains("es")){
                         Utils.NewitemInvetory(Messages.Reward_Daily, Material.CHEST_MINECART, 20, inv, player, eslore1);
                     }else {
@@ -505,14 +505,14 @@ public class InventoryMenu extends InventoryManager {
                     Utils.NewitemInvetory(Messages.Reward_Daily, Material.MINECART, 20, inv, player, lore);
                 }
                 lore.clear();
-                lore.add(ChatColor.translateAlternateColorCodes('&',Colorinfo + "Puedes reclamarlo en: "+ Utils.TimeToString(getPlayerFileManager().weekly - System.currentTimeMillis(), 1)));
+                lore.add(ChatColor.translateAlternateColorCodes('&',Colorinfo + "Puedes reclamarlo en: "+ Utils.TimeToString(FileManagerSection.getPlayerFileManager().weekly - System.currentTimeMillis(), 1)));
                 if (player.getLocale().contains("es")){
                     lore.addAll(eslore2);
                 }else {
                     lore.addAll(enlore2);
                 }
 
-                if (getPlayerFileManager().weekly <= System.currentTimeMillis()){
+                if (FileManagerSection.getPlayerFileManager().weekly <= System.currentTimeMillis()){
                     if (player.getLocale().contains("es")){
                         Utils.NewitemInvetory(Messages.Reward_Weekly, Material.CHEST_MINECART, 22, inv, player, eslore2);
                     }else {
@@ -523,7 +523,7 @@ public class InventoryMenu extends InventoryManager {
                     Utils.NewitemInvetory(Messages.Reward_Weekly, Material.MINECART, 22, inv, player, lore);
                 }
                 lore.clear();
-                lore.add(ChatColor.translateAlternateColorCodes('&',Colorinfo + "Puedes reclamarlo en: "+ Utils.TimeToString(getPlayerFileManager().monthly - System.currentTimeMillis(), 1)));
+                lore.add(ChatColor.translateAlternateColorCodes('&',Colorinfo + "Puedes reclamarlo en: "+ Utils.TimeToString(FileManagerSection.getPlayerFileManager().monthly - System.currentTimeMillis(), 1)));
 
                 if (player.getLocale().contains("es")){
                     lore.addAll(eslore3);
@@ -531,7 +531,7 @@ public class InventoryMenu extends InventoryManager {
                     lore.addAll(enlore3);
                 }
 
-                if (getPlayerFileManager().monthly <= System.currentTimeMillis()){
+                if (FileManagerSection.getPlayerFileManager().monthly <= System.currentTimeMillis()){
                     if (player.getLocale().contains("es")){
                         Utils.NewitemInvetory(Messages.Reward_Monthly, Material.CHEST_MINECART, 24, inv, player, eslore3);
                     }else {
@@ -544,35 +544,23 @@ public class InventoryMenu extends InventoryManager {
             }
         }.runTaskTimer(plugin, 0, 20);
         player.openInventory(inv);
-        getInvetoryManager().addplayer(invetoryPlayer);
+        getInventoryManager().addplayer(invetoryPlayer);
     }
 
     public void OpenHelp(InvetoryPlayer invetoryPlayer){
         Player player = invetoryPlayer.getPlayer();
         invetoryPlayer.setSection(InvetorySection.HELP);
         Inventory inv = Bukkit.createInventory(null, 27, "ayuda");
-        ArrayList<String> lore = new ArrayList<>();
-        lore.add(" ");
-        lore.add("Puedes ber que hace cada comando del servidor");
-        lore.add(" ");
-        Utils.NewitemInvetory(Messages.Inventory_TimeLimit_M1mas, Material.COMMAND_BLOCK, 10, inv, player, lore);
-        lore.clear();
-        lore.add(" ");
-        lore.add("Puedes saber información Cada Item Del Box Pvp");
-        lore.add(" ");
-        Utils.NewitemInvetory(Messages.Inventory_TimeLimit_M1mas, Material.DIAMOND_SWORD, 12, inv, player);
-        lore.clear();
-        lore.add(" ");
-        lore.add("Puedes saber las reglase de este servidor");
-        lore.add(" ");
-        Utils.NewitemInvetory(Messages.Inventory_TimeLimit_M1mas, Material.WRITABLE_BOOK, 14, inv, player);
-        lore.clear();
-        lore.add(" ");
-        lore.add("Puedes saber información genera del server");
-        lore.add(" ");
-        Utils.NewitemInvetory(Messages.Inventory_TimeLimit_M1mas, Material.SPYGLASS, 16, inv, player);
+        String lore = "Puedes ber que hace cada comando del servidor";
+        Utils.NewitemInvetory(Messages.Inventory_TimeLimit_M1mas, Material.COMMAND_BLOCK, 10, inv, player, Utils.StringToLoreString(lore, true));
+        lore = "Puedes saber información Cada Item Del Box Pvp";
+        Utils.NewitemInvetory(Messages.Inventory_TimeLimit_M1mas, Material.DIAMOND_SWORD, 12, inv, player, Utils.StringToLoreString(lore, true));
+        lore = "Puedes saber las reglase de este servidor";
+        Utils.NewitemInvetory(Messages.Inventory_TimeLimit_M1mas, Material.WRITABLE_BOOK, 14, inv, player, Utils.StringToLoreString(lore, true));
+        lore = "Puedes saber información genera del server";
+        Utils.NewitemInvetory(Messages.Inventory_TimeLimit_M1mas, Material.SPYGLASS, 16, inv, player, Utils.StringToLoreString(lore, true));
         player.openInventory(inv);
-        getInvetoryManager().addplayer(invetoryPlayer);
+        InventorySection.getInventoryManager().addplayer(invetoryPlayer);
     }
 
     public void OpenHelpRules(InvetoryPlayer invetoryPlayer){
@@ -583,13 +571,32 @@ public class InventoryMenu extends InventoryManager {
 
         for (int i = 0; 7 > i; i++){
             lore.addAll(Utils.StringToLoreString("", true));
-            Utils.NewitemInvetory("&c&lRegla #" + i, Material.BARRIER, i, inv,
+            Utils.NewitemInvetory(MasterMessageLocated(player, Messages.Rule_Title).replace("%#%", String.valueOf(i)), Material.BARRIER, i, inv,
                     player,Utils.StringToLoreString(MasterMessageLocated(player ,Messages.valueOf("Rule_" + i)), true));
             lore.clear();
         }
         Utils.NewitemInvetory(Messages.Inventory_InvExit, Material.BARRIER, 26, inv, player);
         player.openInventory(inv);
-        getInvetoryManager().addplayer(invetoryPlayer);
+        getInventoryManager().addplayer(invetoryPlayer);
+    }
+
+    public void OpenHelpInfo(InvetoryPlayer invetoryPlayer){
+        Player player = invetoryPlayer.getPlayer();
+        invetoryPlayer.setSection(InvetorySection.HELP_INFO);
+        Inventory inv = Bukkit.createInventory(null, 27, "ayuda");
+        String lore = "Ping: %ping% (En relación google.com)\n" +
+                "Temperatura: %temp% C° \n" +
+                "CPU: algo\n" +
+                "RAM: algo\n" +
+                "ROM: algo\n";
+        Utils.NewitemInvetory("Hardware/Sistema", Material.COMMAND_BLOCK_MINECART, 10, inv, player, Utils.StringToLoreString(lore , true));
+        lore = Colorinfo + "El plugin xBxT Core es un plugin privado encargado del funcionamiento principal del servidor este se encargar de casi todo del servidor como las traducciones, inventarios " +
+                "baneos y entre muchas cosas más. el motivo de su existencia es para tener un control absoluto del servidor y no estar limitado a los plugins de terceros " +
+                "aún que hay plugins que son necesarios pero estos tiene un api que maneja XBXT Core";
+        Utils.NewitemInvetory("xBxT Core", Material.REDSTONE_BLOCK, 14, inv, player, Utils.StringToLoreString(lore , true));
+        Utils.NewitemInvetory(Messages.Inventory_InvExit, Material.BARRIER, 26, inv, player);
+        player.openInventory(inv);
+        getInventoryManager().addplayer(invetoryPlayer);
     }
 
 }

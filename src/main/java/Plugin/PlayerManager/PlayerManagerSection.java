@@ -6,15 +6,16 @@ import Plugin.PlayerManager.Listener.RewardsListener;
 import Plugin.PlayerManager.Model.PlayerDataGLobal;
 import Plugin.Section;
 import Plugin.xBxTcore;
+import lombok.Getter;
 
+@Getter
 public class PlayerManagerSection implements Section {
 
-    private final xBxTcore plugin;
-
-    private static PlayerManager playerManager;
-    public static PlayerDataGLobal playerDataGLobal;
-    private static ModerationChat moderationChat;
-    public static boolean moderationChatEnabled = true;
+    @Getter private final xBxTcore plugin;
+    @Getter private static PlayerManager playerManager;
+    @Getter private static PlayerDataGLobal playerDataGLobal;
+    @Getter private static ModerationChat moderationChat;
+    @Getter public static boolean moderationChatEnabled = true;
 
     public PlayerManagerSection(xBxTcore xBxTcore) {
         plugin = xBxTcore;
@@ -43,17 +44,5 @@ public class PlayerManagerSection implements Section {
     @Override
     public void reloadConfig() {
 
-    }
-
-    public static PlayerDataGLobal getPlayerDataGLobal() {
-        return playerDataGLobal;
-    }
-
-    public static PlayerManager getPlayerManager() {
-        return playerManager;
-    }
-
-    public static ModerationChat getModerationChat() {
-        return moderationChat;
     }
 }

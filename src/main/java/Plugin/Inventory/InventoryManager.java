@@ -115,7 +115,7 @@ public class InventoryManager {
 
     protected void UpdateEnderPearl(Player player, ArrayList<String> lore){
         Inventory inv = player.getOpenInventory().getTopInventory();
-        if (xBxTcore.getPlayerDataUnique(player.getUniqueId()).getTimelimit()){
+        if (xBxTcore.getPlayerDataUnique(player.getUniqueId()).getTimeLimit()){
             Utils.NewitemInvetory(Messages.Inventory_DuelTimeLimitOn, Material.ENDER_EYE, 13, inv, player, lore);
         }else{
             Utils.NewitemInvetory(Messages.Inventory_DuelTimeLimitOff, Material.ENDER_PEARL, 13, inv, player, lore);

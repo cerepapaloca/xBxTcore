@@ -10,4 +10,5 @@ public enum InvetorySection {
     REWARD_TIMES,
     HELP,
     HELP_RULE,
+    HELP_INFO,
 }

@@ -1,5 +1,6 @@
 package Plugin.File.PlayerData;
 
+import Plugin.File.FileManagerSection;
 import Plugin.Inventory.Enum.PlayerFileTimes;
 import Plugin.Messages.Messages.Messages;
 import Plugin.xBxTcore;
@@ -15,7 +16,7 @@ import org.bukkit.persistence.PersistentDataType;
 
 import java.util.*;
 
-import static Plugin.File.FileManagerSection.getPlayerFileManager;
+import static Plugin.File.FileManagerSection.*;
 import static Plugin.Messages.MessageManager.*;
 
 
@@ -157,11 +158,11 @@ public class PlayerfileManager {
         loadNameKit(player.getUniqueId());
         if (target != null) {
             if (nameskits.contains(target)){
-                getPlayerFileManager().loadKit(player.getUniqueId(), target, null, player);
+                FileManagerSection.getPlayerFileManager().loadKit(player.getUniqueId(), target, null, player);
                 return;
             }
             if (nameskitsglobal.contains(target)){
-                getPlayerFileManager().loadKit(UUID.fromString("00000000-0000-0000-0000-000000000000"), target, null, player);
+                FileManagerSection.getPlayerFileManager().loadKit(UUID.fromString("00000000-0000-0000-0000-000000000000"), target, null, player);
                 return;
             }
             player.sendMessage(MasterMessageLocated(player,Messages.Kit_KitNotExist));

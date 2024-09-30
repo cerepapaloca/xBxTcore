@@ -2,12 +2,14 @@ package Plugin.Utils;
 
 import Plugin.Section;
 import Plugin.xBxTcore;
+import lombok.Getter;
 
+@Getter
 public class UtilsMain implements Section {
 
     private static xBxTcore plugin;
 
-    private static Utils utils;
+    @Getter private static Utils utils;
 
     public UtilsMain(xBxTcore xBxTcore) {
         plugin = xBxTcore;
@@ -34,7 +36,4 @@ public class UtilsMain implements Section {
 
     }
 
-    public static Utils getUtils() {
-        return utils;
-    }
 }

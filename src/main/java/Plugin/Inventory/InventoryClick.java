@@ -1,6 +1,7 @@
 package Plugin.Inventory;
 
 import Plugin.Commands.CommandSection;
+import Plugin.File.FileManagerSection;
 import Plugin.Messages.Messages.Messages;
 import Plugin.Inventory.Enum.PlayerFileTimes;
 import Plugin.Inventory.Models.InvetoryPlayer;
@@ -17,7 +18,7 @@ import org.bukkit.persistence.PersistentDataType;
 import java.util.Objects;
 import java.util.UUID;
 
-import static Plugin.File.FileManagerSection.getPlayerFileManager;
+import static Plugin.File.FileManagerSection.*;
 import static Plugin.Messages.MessageManager.MasterMessageLocated;
 
 public class InventoryClick extends InventoryManager {
@@ -48,7 +49,7 @@ public class InventoryClick extends InventoryManager {
             case MENU_PREKIT -> {
                 switch(item.getType()){
                     case ENDER_CHEST:
-                        invetoryPlayer.setuuidkit(UUID.fromString("00000000-0000-0000-0000-000000000000"));
+                        invetoryPlayer.setUUIDKit(UUID.fromString("00000000-0000-0000-0000-000000000000"));
                         invetoryPlayer.setPage(0);
                         invetorymenu().OpenInvetoryKitsList(invetoryPlayer, 0);
                         break;
@@ -67,7 +68,7 @@ public class InventoryClick extends InventoryManager {
                         }
                         break;
                     case CHEST:
-                        invetoryPlayer.setuuidkit(invetoryPlayer.getPlayer().getUniqueId());
+                        invetoryPlayer.setUUIDKit(invetoryPlayer.getPlayer().getUniqueId());
                         invetorymenu().OpenInvetoryKitsList(invetoryPlayer, 0);
                         break;
                 }
@@ -84,14 +85,14 @@ public class InventoryClick extends InventoryManager {
                         invetorymenu().OpenPreviewKit(invetoryPlayer.getPlayer(), Objects.requireNonNull(item.getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(plugin, "kitName"), PersistentDataType.STRING), invetoryPlayer);
                         return;
                     } else if (invetoryPlayer.getKitSelectMode()) {
-                        xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).getKitData().setUuid(invetoryPlayer.getuuidkit());
+                        xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).getKitData().setUuid(invetoryPlayer.getUUIDKit());
                         xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).getKitData().setName(Objects.requireNonNull(item.getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(plugin, "kitName"), PersistentDataType.STRING));
                         invetorymenu().OpenDuel(invetoryPlayer);
                         invetoryPlayer.setPreviewMode(false);
                         return;
                     } else {
                         invetoryPlayer.getPlayer().closeInventory();
-                        getPlayerFileManager().loadKit(invetoryPlayer.getuuidkit(), Objects.requireNonNull(item.getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(plugin, "kitName"), PersistentDataType.STRING), null,invetoryPlayer.getPlayer());
+                        FileManagerSection.getPlayerFileManager().loadKit(invetoryPlayer.getUUIDKit(), Objects.requireNonNull(item.getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(plugin, "kitName"), PersistentDataType.STRING), null,invetoryPlayer.getPlayer());
                         return;
                     }
                 } else if (slot == back) {
@@ -123,11 +124,11 @@ public class InventoryClick extends InventoryManager {
                         return;
                     }else if (slot == mid - 1){
                         if (item.getType() == Material.CHEST){
-                            invetoryPlayer.setuuidkit(invetoryPlayer.getPlayer().getUniqueId());
+                            invetoryPlayer.setUUIDKit(invetoryPlayer.getPlayer().getUniqueId());
                             invetorymenu().OpenInvetoryKitsList(invetoryPlayer, 0);
                             return;
                         }else if(item.getType() == Material.ENDER_CHEST){
-                            invetoryPlayer.setuuidkit(UUID.fromString("00000000-0000-0000-0000-000000000000"));
+                            invetoryPlayer.setUUIDKit(UUID.fromString("00000000-0000-0000-0000-000000000000"));
                             invetorymenu().OpenInvetoryKitsList(invetoryPlayer, 0);
                             return;
                         }
@@ -146,7 +147,7 @@ public class InventoryClick extends InventoryManager {
                     case 53 -> invetorymenu().OpenInvetoryKitsList(invetoryPlayer, invetoryPlayer.getPage());
                     case 45 -> {
                         invetoryPlayer.getPlayer().closeInventory();
-                        getPlayerFileManager().loadKit(invetoryPlayer.getuuidkit(), Objects.requireNonNull(item.getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(plugin, "kitName"), PersistentDataType.STRING), null, invetoryPlayer.getPlayer());
+                        getPlayerFileManager().loadKit(invetoryPlayer.getUUIDKit(), Objects.requireNonNull(item.getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(plugin, "kitName"), PersistentDataType.STRING), null, invetoryPlayer.getPlayer());
                     }
                 }
             }
@@ -159,7 +160,7 @@ public class InventoryClick extends InventoryManager {
                     }
                     case 12 -> {
                         invetoryPlayer.setKitSelectMode(true);
-                        invetoryPlayer.setuuidkit(UUID.fromString("00000000-0000-0000-0000-000000000000"));
+                        invetoryPlayer.setUUIDKit(UUID.fromString("00000000-0000-0000-0000-000000000000"));
                         invetorymenu().OpenInvetoryKitsList(invetoryPlayer, 0);
                     }
                     case 14 -> invetorymenu().OpenTimeSelect(invetoryPlayer);
@@ -188,11 +189,11 @@ public class InventoryClick extends InventoryManager {
                         }
                     }
                     case 13 -> {
-                        if (xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).getTimelimit()){
-                            xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).setTimelimit(false);
+                        if (xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).getTimeLimit()){
+                            xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).setTimeLimit(false);
                             Utils.NewitemInvetory(Messages.Inventory_DuelTimeLimitOff, Material.ENDER_PEARL, 13, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer(), secondsToMinutesLore(invetoryPlayer.getPlayer()));
                         }else{
-                            xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).setTimelimit(true);
+                            xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).setTimeLimit(true);
                             Utils.NewitemInvetory(Messages.Inventory_DuelTimeLimitOn, Material.ENDER_EYE, 13, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer(), secondsToMinutesLore(invetoryPlayer.getPlayer()));
                         }
                     }
@@ -247,10 +248,16 @@ public class InventoryClick extends InventoryManager {
 
             case HELP -> {
                 switch (slot){
-                    case 16 -> invetorymenu().OpenHelpRules(invetoryPlayer);
+                    case 14 -> invetorymenu().OpenHelpRules(invetoryPlayer);
+                    case 16 -> invetorymenu().OpenHelpInfo(invetoryPlayer);
+                }
+            }
+
+            case HELP_RULE, HELP_INFO -> {
+                switch (slot){
+                    case 26 -> invetorymenu().OpenHelp(invetoryPlayer);
                 }
             }
         }
     }
-
 }

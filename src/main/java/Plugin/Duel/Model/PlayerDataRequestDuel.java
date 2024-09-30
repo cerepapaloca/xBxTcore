@@ -3,6 +3,8 @@ package Plugin.Duel.Model;
 import Plugin.Inventory.Models.KitData;
 import Plugin.Duel.Enum.MapsDuel;
 import Plugin.Messages.Messages.Messages;
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -19,9 +21,9 @@ public class PlayerDataRequestDuel {
     private final UUID playerUUID;
     private final ArrayList<Player> players = new ArrayList<>();
     private KitData kitData = new KitData();
-    private int timeDuel = 0;
-    private Boolean Timelimit = false;
-    private int indexMap = 0;
+    @Getter @Setter private int timeDuel = 0;
+    @Setter private Boolean TimeLimit = false;
+    @Setter @Getter private int indexMap = 0;
 
     public PlayerDataRequestDuel(UUID playerUUID) {
         this.playerUUID = playerUUID;
@@ -58,40 +60,19 @@ public class PlayerDataRequestDuel {
         guestPlayers.clear();
     }
 
-    public int getTimeDuel() {
-        return timeDuel;
-    }
-
-    public void setTimeDuel(int timeDuel) {
-        this.timeDuel = timeDuel;
-    }
-
     public KitData getKitData() {
         if (kitData == null) {
             kitData = new KitData();
         }
-
         return kitData;
     }
 
-    public Boolean getTimelimit() {
-        return Objects.requireNonNullElse(Timelimit, false);
-    }
-
-    public void setTimelimit(Boolean timelimit) {
-        Timelimit = timelimit;
+    public Boolean getTimeLimit() {
+        return Objects.requireNonNullElse(TimeLimit, false);
     }
 
     public void clearKitdata() {
         kitData = null;
-    }
-
-    public void setIndexMap(int indexMap) {
-        this.indexMap = indexMap;
-    }
-
-    public int getIndexMap() {
-        return indexMap;
     }
 
     public String getNameWolrd() {

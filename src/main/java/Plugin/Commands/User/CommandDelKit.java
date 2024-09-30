@@ -1,5 +1,6 @@
 package Plugin.Commands.User;
 
+import Plugin.File.FileManagerSection;
 import Plugin.Messages.Messages.Messages;
 import Plugin.xBxTcore;
 import org.bukkit.command.Command;
@@ -11,7 +12,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 
-import static Plugin.File.FileManagerSection.getPlayerFileManager;
 import static Plugin.Messages.MessageManager.MasterMessageLocated;
 
 
@@ -45,10 +45,10 @@ public class CommandDelKit implements CommandExecutor {
     public void GetItemInvetort(Player player) {
         for (int i = 0; i < player.getInventory().getContents().length; i++) {
             ItemStack itemstack = player.getInventory().getItem(i);
-            getPlayerFileManager().itemStacks.add(itemstack);
+            FileManagerSection.getPlayerFileManager().itemStacks.add(itemstack);
         }
 
-        getPlayerFileManager().DeleteKitConfig(player.getUniqueId(), namekit);
+        FileManagerSection.getPlayerFileManager().DeleteKitConfig(player.getUniqueId(), namekit);
         items.clear();
     }
 }

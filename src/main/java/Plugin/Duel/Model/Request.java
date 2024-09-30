@@ -1,11 +1,13 @@
 package Plugin.Duel.Model;
 
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.UUID;
 
+@Getter
 public class Request {
 
     private final UUID requesterId;
@@ -22,23 +24,4 @@ public class Request {
         acceptPlayers.add(Bukkit.getPlayer(requesterId));
     }
 
-    public ArrayList<Player> getPlayers() {
-        return players;
-    }
-
-    public UUID getRequesterId() {
-        return requesterId;
-    }
-
-    public long getExpirationTime() {
-        return expirationTime;
-    }
-
-    public String getWorldType() {
-        return WorldType;
-    }
-
-    public ArrayList<Player> getAcceptPlayers() {
-        return acceptPlayers;
-    }
 }

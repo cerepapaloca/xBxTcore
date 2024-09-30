@@ -1,15 +1,12 @@
 package Plugin.BoxPvp.Model;
 
+import lombok.RequiredArgsConstructor;
 import org.bukkit.Location;
 
+@RequiredArgsConstructor
 public class SafeArea {
     private final Location corner1;
     private final Location corner2;
-
-    public SafeArea(Location corner1, Location corner2) {
-        this.corner1 = corner1;
-        this.corner2 = corner2;
-    }
 
     public boolean isInside(Location loc) {
         return loc.getX() >= Math.min(corner1.getX(), corner2.getX()) &&

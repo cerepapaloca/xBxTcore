@@ -5,6 +5,7 @@ import Plugin.Commands.CommandSection;
 import Plugin.Duel.DuelSection;
 import Plugin.Duel.Enum.EndCombatCauses;
 import Plugin.Environment.EnvironmentsSection;
+import Plugin.File.FileManagerSection;
 import Plugin.Messages.Messages.Messages;
 import Plugin.PlayerManager.Model.PlayerDataGLobal;
 import Plugin.Duel.Model.Request;
@@ -26,7 +27,6 @@ import java.util.*;
 
 import static Plugin.BoxPvp.BoxPvpSection.getZoneSafeBoxPvp;
 import static Plugin.BoxPvp.ItemsBoxPvp.BonusUpdate.UpdateBonus;
-import static Plugin.File.FileManagerSection.getPlayerFileManager;
 import static Plugin.Messages.MessageManager.*;
 import static Plugin.PlayerManager.PlayerManager.playresInSafeZone;
 import static Plugin.PlayerManager.PlayerManager.punishedTiemer;
@@ -71,7 +71,7 @@ public class PlayerListener implements Listener {
         if (player.getWorld().getName().equals(xBxTcore.worldBoxPvp)){
             player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 999999, 1));
         }else{
-            getPlayerFileManager().loadkitfavorite(player);
+            FileManagerSection.getPlayerFileManager().loadkitfavorite(player);
             DelayTeleport(player);
         }
     }
@@ -102,7 +102,7 @@ public class PlayerListener implements Listener {
             if (checkBanPlayer(player, ContextBan.BOX_PVP) != null)return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 999999, 1));
             player.playSound(player, Sound.BLOCK_PORTAL_TRAVEL, 1, 1);
-            getPlayerFileManager().loadInventoryBoxPvp(player);
+            FileManagerSection.getPlayerFileManager().loadInventoryBoxPvp(player);
             player.teleport(Objects.requireNonNull(Bukkit.getWorld(xBxTcore.worldBoxPvp)).getSpawnLocation());
             UpdateBonus(player);
             player.setGameMode(GameMode.SURVIVAL);
@@ -118,7 +118,7 @@ public class PlayerListener implements Listener {
         PlayerManagerSection.getPlayerManager().RestartStats(player);
         ///////////////////////////////////////////////////
         BroadcastMessagejoin(event.getPlayer());
-        getPlayerFileManager().SaveUUIDplayer(event.getPlayer().getUniqueId());
+        FileManagerSection.getPlayerFileManager().SaveUUIDplayer(event.getPlayer().getUniqueId());
         event.setJoinMessage(null);
         ///////////////////////////////////////////////////
         EnvironmentsSection.getHologramas().ResetKills(player.getUniqueId());
@@ -158,7 +158,7 @@ public class PlayerListener implements Listener {
             event.getPlayer().setOp(false);
         }
         if(event.getPlayer().getWorld().getName().equals("boxpvp")){
-            getPlayerFileManager().SaveInventoryBoxPvp(event.getPlayer().getUniqueId(), Utils.getItensInvetory(player));
+            FileManagerSection.getPlayerFileManager().SaveInventoryBoxPvp(event.getPlayer().getUniqueId(), Utils.getItensInvetory(player));
         }
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + Colorinfo
          + "EL ping del jugador es: " + Colorplayer + event.getPlayer().getPing()));

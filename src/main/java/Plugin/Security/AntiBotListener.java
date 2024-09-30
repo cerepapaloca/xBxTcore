@@ -1,5 +1,6 @@
 package Plugin.Security;
 
+import Plugin.File.FileManagerSection;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
@@ -13,7 +14,6 @@ import java.util.HashMap;
 import java.util.UUID;
 
 import static Plugin.File.BLackList.BlackListIpManager.blackListedIps;
-import static Plugin.File.FileManagerSection.getPlayerFileManager;
 import static Plugin.Messages.MessageManager.*;
 import static Plugin.Messages.MessageManager.ColorWarning;
 
@@ -53,7 +53,7 @@ public class AntiBotListener implements Listener {
             }
         }
 
-        if (getPlayerFileManager().UuidsPlayres.contains(uuid)) {
+        if (FileManagerSection.getPlayerFileManager().UuidsPlayres.contains(uuid)) {
             if (!listAntiBot.containsKey(uuid)) return;
 
             if (listAntiBot.get(uuid) >= System.currentTimeMillis()) {

@@ -1,5 +1,6 @@
 package Plugin.Commands.User;
 
+import Plugin.File.FileManagerSection;
 import Plugin.Messages.Messages.Messages;
 import Plugin.Messages.MessageManager;
 import Plugin.xBxTcore;
@@ -14,7 +15,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import static Plugin.File.FileManagerSection.getPlayerFileManager;
 import static Plugin.Messages.MessageManager.MasterMessageLocated;
 import static Plugin.Utils.Utils.AntiSpam;
 
@@ -67,7 +67,7 @@ public class CommandSaveKit implements CommandExecutor {
             items.add(itemstack);
             i++;
         }
-        getPlayerFileManager().SaveKit(player.getUniqueId(), namekit, Objects.requireNonNullElse(material, Material.WHITE_SHULKER_BOX), items);
+        FileManagerSection.getPlayerFileManager().SaveKit(player.getUniqueId(), namekit, Objects.requireNonNullElse(material, Material.WHITE_SHULKER_BOX), items);
         items.clear();
         material = null;
         AntiSpam(player, Messages.Kick_SpamCommand, plugin);

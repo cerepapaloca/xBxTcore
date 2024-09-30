@@ -1,5 +1,6 @@
 package Plugin.Commands.OnlyOp;
 
+import Plugin.File.FileManagerSection;
 import Plugin.Messages.Messages.Messages;
 import Plugin.Inventory.Enum.PlayerFileTimes;
 import org.bukkit.Bukkit;
@@ -10,7 +11,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
-import static Plugin.File.FileManagerSection.getPlayerFileManager;
 import static Plugin.Messages.MessageManager.BroadcastMessageBuy;
 import static Plugin.Messages.MessageManager.MasterMessageLocated;
 
@@ -22,15 +22,15 @@ public class CommandTimeRewardSkip implements CommandExecutor {
         if (player != null) {
             switch (args[0]) {
                 case "d" -> {
-                    getPlayerFileManager().SaveTimesRewords(player.getUniqueId(), PlayerFileTimes.daily,1);
+                    FileManagerSection.getPlayerFileManager().SaveTimesRewords(player.getUniqueId(), PlayerFileTimes.daily,1);
                     nameCompra = "Omitir tiempo de la recompensa Diaria";
                 }
                 case "w" -> {
-                    getPlayerFileManager().SaveTimesRewords(player.getUniqueId(), PlayerFileTimes.weekly,1);
+                    FileManagerSection.getPlayerFileManager().SaveTimesRewords(player.getUniqueId(), PlayerFileTimes.weekly,1);
                     nameCompra = "Omitir tiempo de la recompensa Semanal";
                 }
                 case "m" -> {
-                    getPlayerFileManager().SaveTimesRewords(player.getUniqueId(), PlayerFileTimes.monthly,1);
+                    FileManagerSection.getPlayerFileManager().SaveTimesRewords(player.getUniqueId(), PlayerFileTimes.monthly,1);
                     nameCompra = "Omitir tiempo de la recompensa Mensual";
                 }
             }

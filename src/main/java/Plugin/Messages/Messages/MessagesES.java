@@ -311,6 +311,7 @@ public record MessagesES() {
         esMessages.put(Ban_KickBoxPvp, prefixBanAuto + "por favor no uses hacks en el box pvp");
         esMessages.put(Ban_Dupe, prefixBanAuto + "Tienes dos items con la misma UUID es decir que haz duplicado");
         //rules
+        esMessages.put(Rule_Title, "Regla %#%");
         esMessages.put(Rule_1, "No esta permito el uso de bots ni uso indebido de multicuentas solo se permite si se esta usando el baritone y " +
                 "se puede tener varias cuentas pero tiene que tener una justification de ser");
         esMessages.put(Rule_2, "No se permite uso de dupes ni otro exploit sera vetado de manera automática. si tiene conocimiento de dupes " +
