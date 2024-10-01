@@ -1,9 +1,11 @@
 package Plugin.Commands.User;
 
+import Plugin.Commands.BaseCommand;
 import Plugin.Inventory.InventorySection;
 import Plugin.Inventory.Models.InvetoryPlayer;
 import Plugin.Messages.Messages.Messages;
 import Plugin.Messages.MessageManager;
+import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -11,34 +13,34 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
 
+import javax.print.attribute.ResolutionSyntax;
+
 import static Plugin.Messages.MessageManager.MasterMessageLocated;
 
-public class CommandKit implements CommandExecutor {
+public class CommandKit extends BaseCommand {
 
-    private final xBxTcore plugin;
-
-    public CommandKit(xBxTcore plugin){
-        this.plugin = plugin;
+    public CommandKit(){
+        super("kit",
+                "/kit",
+                "xbxtcore.command.user",
+                false,
+                "se abrirá un inventario donde puedes seleccionar tu kit");
     }
 
     @Override
-    public boolean onCommand(@Nullable CommandSender commandSender,@Nullable Command command,@Nullable String s, String[] strings) {
-        if(commandSender instanceof Player player){
+    public void execute(CommandSender sender, String[] args) {
+        if(sender instanceof Player player){
             if(player.getLocation().getY() >= 30 && xBxTcore.getWorldProtec().contains(player.getWorld())){
                 if (player.getWorld().getName().equals(xBxTcore.worldBoxPvp)) {
-                    player.sendMessage(MessageManager.MasterMessageLocated(player, Messages.Generic_InArea));
-                    return false;
+                    Utils.sendMessage(sender, Messages.Generic_InArea);
+                    return ;
                 }
                 InventorySection.getInventoryMenu().OpenMenuInvetory(new InvetoryPlayer(player));
-                return true;
             }else{
-                player.sendMessage(MasterMessageLocated(player, Messages.Generic_InArea));
-                return false;
+                Utils.sendMessage(sender, Messages.Generic_InArea);
             }
         }else{
-            plugin.messageOnlyPlayer();
+            Utils.sendMessage(sender, Messages.Generic_OnlyPlayers);
         }
-        return false;
     }
-
 }

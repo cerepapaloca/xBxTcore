@@ -1,5 +1,6 @@
 package Plugin.Commands.User;
 
+import Plugin.Commands.BaseCommand;
 import Plugin.Commands.CommandSection;
 import Plugin.Duel.DuelSection;
 import Plugin.Inventory.InventorySection;
@@ -7,36 +8,41 @@ import Plugin.Inventory.InventoryManager;
 import Plugin.Inventory.Models.InvetoryPlayer;
 import Plugin.Messages.Messages.Messages;
 import Plugin.Duel.Model.Request;
+import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
-import com.onarandombox.MultiverseCore.api.MultiverseWorld;
+import lombok.Getter;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
 import static Plugin.Messages.MessageManager.*;
 import static Plugin.Utils.Utils.AntiSpam;
 
-public class CommandDuel implements CommandExecutor {
+public class CommandDuel extends BaseCommand {
 
-    private final Map<UUID, Request> pendingRequests = new HashMap<>();
+    @Getter private final Map<UUID, Request> pendingRequests = new HashMap<>();
     private final ArrayList<Player> players = new ArrayList<>();
     private final xBxTcore plugin;
-    MultiverseWorld world;
     private final TextComponent yes;
     private final TextComponent deny;
     private Request requestlast;
 
     public CommandDuel(xBxTcore plugin){
+        super("duel",
+                "/duel <yes | deny | invFast | nombre del jugador> <flat_world | flat_bedrock | bedrock> | /duel",
+                "xbxtcore.command.user",
+                false,
+                "este comando se usa pare tener un duelo con otro jugador se puede usar sin argumento esto hace que se abrá un inventario con opciones avanzada " +
+                        " para modificar los duelos como limite de tiempo, kits a jugar o invitar a varios jugadores. pero si se ejecuta con argumento puedes invitar a un " +
+                        "solo jugador y seleccionar el mundo. com los primeros argumento puedes aceptar o denegar duelos recibidos y crear una invitación rápida a otros " +
+                        "usando tu configuration para los duelos");
         this.plugin = plugin;
 
         yes = new TextComponent(ChatColor.translateAlternateColorCodes('&', "&a&l/Duel Yes"));
@@ -46,7 +52,7 @@ public class CommandDuel implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
+    public void execute(CommandSender sender, String[] args) {
         if (sender instanceof Player playareSender) {
             players.clear();
             if (xBxTcore.getWorldProtec().contains(playareSender.getWorld())) {
@@ -55,17 +61,17 @@ public class CommandDuel implements CommandExecutor {
                 switch (args.length) {
                     case 0:
                         InventorySection.getInventoryMenu().OpenDuel(new InvetoryPlayer(playareSender));
-                        return true;
+                        return;
                     case 1:
                         if (args[0].equalsIgnoreCase("deny")) {
                             denyRequest((Player) sender, requestlast.getRequesterId(), true);
-                            return true;
+                            return;
                         } else if (args[0].equalsIgnoreCase("yes")){
                             acceptRequest((Player) sender, requestlast.getRequesterId());
-                            return true;
+                            return;
                         } else if (args[0].equalsIgnoreCase("fast_inv")){
                             CommandSection.getCommandDuel().sendRequest(xBxTcore.getPlayerDataUnique(playareSender.getUniqueId()).getGuestPlayers(false), xBxTcore.getPlayerDataUnique(playareSender.getUniqueId()).getNameWolrd(), playareSender.getUniqueId());
-                            return true;
+                            return;
                         }
 
                         if (target != null) {
@@ -75,20 +81,20 @@ public class CommandDuel implements CommandExecutor {
                                 players.add(target);
                                 sendRequest(players, "bedrock", (playareSender).getUniqueId());
                             }else{
-                                playareSender.sendMessage(MasterMessageLocated(playareSender, Messages.RequestDuel_SendSelf));
+                                Utils.sendMessage(sender, Messages.RequestDuel_SendSelf);
                             }
                         }else{
-                            playareSender.sendMessage(MasterMessageLocated(playareSender, Messages.RequestDuel_PlayerOffTarget));
+                            Utils.sendMessage(sender, Messages.RequestDuel_PlayerOffTarget);
                         }
-                        return true;
+                        return;
                     case 2:
                         UUID uuid = Objects.requireNonNull(Bukkit.getPlayer(args[1])).getUniqueId();
                         if (args[0].equalsIgnoreCase("deny") && pendingRequests.containsKey(uuid)){
                             denyRequest((Player) sender, uuid, true);
-                            return true;
+                            return;
                         } else if (args[0].equalsIgnoreCase("yes") && pendingRequests.containsKey(uuid)){
                             acceptRequest((Player) sender, uuid);
-                            return true;
+                            return;
                         }
                         if (target != null) {
                             if(target != playareSender){
@@ -99,23 +105,22 @@ public class CommandDuel implements CommandExecutor {
                                     sendRequest(players, args[1].toLowerCase(), (playareSender).getUniqueId());
 
                                 }else{
-                                    playareSender.sendMessage(MasterMessageLocated(playareSender, Messages.RequestDuel_WorldType));
+                                    Utils.sendMessage(sender, Messages.RequestDuel_WorldType);
                                 }
                             }else{
-                                playareSender.sendMessage(MasterMessageLocated(playareSender, Messages.RequestDuel_SendSelf));
+                                Utils.sendMessage(sender, Messages.RequestDuel_SendSelf);
                             }
                         }else{
-                            playareSender.sendMessage(MasterMessageLocated(playareSender, Messages.RequestDuel_PlayerOffTarget));
+                            Utils.sendMessage(sender, Messages.RequestDuel_PlayerOffTarget);
                         }
                 }
             }else{
-                playareSender.sendMessage(MasterMessageLocated(playareSender, Messages.RequestDuel_OnDuel));
+                Utils.sendMessage(sender, Messages.RequestDuel_OnDuel);
             }
 
         } else {
-            plugin.messageOnlyPlayer();
+            Utils.sendMessage(sender, Messages.Generic_OnlyPlayers);
         }
-        return false;
     }
 
     public void sendRequest(ArrayList<Player> players1, String worldType, UUID requesterId) {
@@ -276,7 +281,5 @@ public class CommandDuel implements CommandExecutor {
         }
     }
 
-    public Map<UUID, Request> getPendingRequests() {
-        return pendingRequests;
-    }
+
 }

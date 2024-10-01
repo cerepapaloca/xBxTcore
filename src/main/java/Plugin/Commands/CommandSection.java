@@ -13,6 +13,7 @@ import java.util.Objects;
 public class CommandSection implements Section {
     @Getter private final xBxTcore plugin;
     @Getter public static CommandDuel commandDuel;
+    @Getter public static CommandHandler commandHandler;
 
     public CommandSection(xBxTcore plugin) {
         this.plugin = plugin;
@@ -20,36 +21,38 @@ public class CommandSection implements Section {
 
     @Override
     public void enable() {
-        Objects.requireNonNull(plugin.getCommand("kit")).setExecutor(new CommandKit(plugin));
-        Objects.requireNonNull(plugin.getCommand("savekit")).setExecutor(new CommandSaveKit(plugin));
-        Objects.requireNonNull(plugin.getCommand("delkit")).setExecutor(new CommandDelKit(plugin));
-        Objects.requireNonNull(plugin.getCommand("kitfavorite")).setExecutor(new CommandKitFavorite(plugin));
+        commandHandler = new CommandHandler(this);
+        commandHandler.registerCommands();
+        //Objects.requireNonNull(plugin.getCommand("kit")).setExecutor(new CommandKit(plugin));
+        //Objects.requireNonNull(plugin.getCommand("savekit")).setExecutor(new CommandSaveKit(plugin));
+        //Objects.requireNonNull(plugin.getCommand("delkit")).setExecutor(new CommandDelKit(plugin));
+        //Objects.requireNonNull(plugin.getCommand("kitfavorite")).setExecutor(new CommandKitFavorite(plugin));
         Objects.requireNonNull(plugin.getCommand("Cleaner")).setExecutor(new CommandCleaner());
         Objects.requireNonNull(plugin.getCommand("info")).setExecutor(new Commandinfo(plugin));
-        Objects.requireNonNull(plugin.getCommand("lobby")).setExecutor(new CommandLobby(plugin));
-        Objects.requireNonNull(plugin.getCommand("help")).setExecutor(new CommandHelp(plugin));
-        Objects.requireNonNull(plugin.getCommand("kill")).setExecutor(new CommandKill(plugin));
-        Objects.requireNonNull(plugin.getCommand("duel")).setExecutor(commandDuel = new CommandDuel(plugin));
-        Objects.requireNonNull(plugin.getCommand("discord")).setExecutor(new CommandDiscord(plugin));
-        Objects.requireNonNull(plugin.getCommand("spectator")).setExecutor(new CommandSpectator(plugin));
+        //Objects.requireNonNull(plugin.getCommand("lobby")).setExecutor(new CommandLobby(plugin));
+        //Objects.requireNonNull(plugin.getCommand("help")).setExecutor(new CommandHelp(plugin));
+        //Objects.requireNonNull(plugin.getCommand("kill")).setExecutor(new CommandKill(plugin));
+        //Objects.requireNonNull(plugin.getCommand("duel")).setExecutor(commandDuel = new CommandDuel(plugin));
+        //Objects.requireNonNull(plugin.getCommand("discord")).setExecutor(new CommandDiscord(plugin));
+        //Objects.requireNonNull(plugin.getCommand("spectator")).setExecutor(new CommandSpectator(plugin));
         Objects.requireNonNull(plugin.getCommand("ping")).setExecutor(new CommandPing());
         Objects.requireNonNull(plugin.getCommand("debugkit")).setExecutor(new CommandDebugKit());
-        Objects.requireNonNull(plugin.getCommand("rank")).setExecutor(new CommandRank(plugin));
-        Objects.requireNonNull(plugin.getCommand("vote")).setExecutor(new CommandVote(plugin));
-        Objects.requireNonNull(plugin.getCommand("donate")).setExecutor(new CommandDonate(plugin));
-        Objects.requireNonNull(plugin.getCommand("inv")).setExecutor(new CommandInv(plugin));
-        Objects.requireNonNull(plugin.getCommand("boxpvp")).setExecutor(new CommandBoxPvp(plugin));
+        //Objects.requireNonNull(plugin.getCommand("rank")).setExecutor(new CommandRank(plugin));
+        //Objects.requireNonNull(plugin.getCommand("vote")).setExecutor(new CommandVote(plugin));
+        //Objects.requireNonNull(plugin.getCommand("donate")).setExecutor(new CommandDonate(plugin));
+        //Objects.requireNonNull(plugin.getCommand("inv")).setExecutor(new CommandInv(plugin));
+        //Objects.requireNonNull(plugin.getCommand("boxpvp")).setExecutor(new CommandBoxPvp(plugin));
         Objects.requireNonNull(plugin.getCommand("ReloadDataPlayares")).setExecutor(new CommandReloadDataPlayares());
         Objects.requireNonNull(plugin.getCommand("itemboxpvp")).setExecutor(new CommandItemBoxpvp(plugin));
         Objects.requireNonNull(plugin.getCommand("timerewardskip")).setExecutor(new CommandTimeRewardSkip());
         Objects.requireNonNull(plugin.getCommand("vip")).setExecutor(new CommandVip());
-        Objects.requireNonNull(plugin.getCommand("shop")).setExecutor(new CommandShop(plugin));
+        //.requireNonNull(plugin.getCommand("shop")).setExecutor(new CommandShop(plugin));
         Objects.requireNonNull(plugin.getCommand("xbxtcore")).setExecutor(new Commandxbxtcore());
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-        Objects.requireNonNull(plugin.getCommand("sk")).setExecutor(new CommandSaveKit(plugin));
-        Objects.requireNonNull(plugin.getCommand("dk")).setExecutor(new CommandDelKit(plugin));
-        Objects.requireNonNull(plugin.getCommand("kf")).setExecutor(new CommandKitFavorite(plugin));
-        Objects.requireNonNull(plugin.getCommand("spawn")).setExecutor(new CommandLobby(plugin));
+        //Objects.requireNonNull(plugin.getCommand("sk")).setExecutor(new CommandSaveKit(plugin));
+        //Objects.requireNonNull(plugin.getCommand("dk")).setExecutor(new CommandDelKit(plugin));
+        //Objects.requireNonNull(plugin.getCommand("kf")).setExecutor(new CommandKitFavorite(plugin));
+        //Objects.requireNonNull(plugin.getCommand("spawn")).setExecutor(new CommandLobby(plugin));
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////
         Objects.requireNonNull(plugin.getCommand("savekit")).setTabCompleter(new TabCompleterSaveKit());

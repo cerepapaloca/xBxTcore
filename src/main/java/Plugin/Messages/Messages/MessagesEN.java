@@ -18,6 +18,7 @@ public record MessagesEN() {
         enMessages.put(Generic_NotAllowed,prefix + ColorError + "it's not allowed");
         enMessages.put(Generic_InArea,prefix + ColorError + "It is not allowed to use here");
         enMessages.put(Generic_HoverExecute,"Execute this command");
+        enMessages.put(Generic_OnlyPlayers, prefixConsole + ColorError +  "only be executed by players");
         //Vote y prefix
         enMessages.put(Vote_Voted,prefix + ColorSuccess + "Thank you for voting");
         enMessages.put(Vote_NotBoxPvp, prefix + Colorinfo + "You have to enter the pvp box to receive the rewards");

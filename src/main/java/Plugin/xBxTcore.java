@@ -25,6 +25,7 @@ import Plugin.Vote.VoteSection;
 import Plugin.Service.PingRequest;
 import ac.grim.grimac.api.GrimAbstractAPI;
 import com.onarandombox.MultiverseCore.MultiverseCore;
+import lombok.Getter;
 import me.neznamy.tab.api.TabAPI;
 import net.luckperms.api.LuckPerms;
 import org.bukkit.Bukkit;
@@ -49,9 +50,9 @@ import static Plugin.Messages.MessageManager.*;
 public final class xBxTcore extends JavaPlugin {
 
     private static PlayerfileManager playerfileManager;
-    private static MultiverseCore multiverseCore;
-    private static TabAPI tabAPI;
-    private static LuckPerms luckPerms;
+    @Getter private static MultiverseCore multiverseCore;
+    @Getter private static TabAPI tabAPI;
+    @Getter private static LuckPerms luckPerms;
     public static xBxTcore plugin;
     public static GrimAbstractAPI grimAPI;
     public static SystemOperative getSystemOperative;
@@ -230,20 +231,8 @@ public final class xBxTcore extends JavaPlugin {
         return plugin;
     }
 
-    public static MultiverseCore getMultiverseCore() {
-        return multiverseCore;
-    }
-
     public static ArrayList<World> getWorldProtec(){
         return worlds;
-    }
-
-    public static TabAPI getTabAPI(){
-        return tabAPI;
-    }
-
-    public static LuckPerms getLuckPerms(){
-        return luckPerms;
     }
 
     ///////////////////////////////////////////////////

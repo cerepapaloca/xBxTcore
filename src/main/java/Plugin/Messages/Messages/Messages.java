@@ -6,6 +6,7 @@ public enum Messages {
     Generic_NotAllowed,
     Generic_InArea,
     Generic_HoverExecute,
+    Generic_OnlyPlayers,
     //Vote y prefix
     Vote_NotVote,
     Vote_TooLengthName,
@@ -304,13 +305,14 @@ public enum Messages {
     Ban_Dupe,
     //rule
     Rule_Title,
+    Rule_0,
     Rule_1,
     Rule_2,
     Rule_3,
     Rule_4,
     Rule_5,
     Rule_6,
-    Rule_7,
+
 
 
 }

@@ -1,7 +1,9 @@
 package Plugin.Commands.User;
 
+import Plugin.Commands.BaseCommand;
 import Plugin.File.FileManagerSection;
 import Plugin.Messages.Messages.Messages;
+import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -15,31 +17,33 @@ import java.util.ArrayList;
 import static Plugin.Messages.MessageManager.MasterMessageLocated;
 
 
-public class CommandDelKit implements CommandExecutor {
+public class CommandDelKit extends BaseCommand {
 
-    private final xBxTcore plugin;
     private String namekit;
     private final ArrayList<ItemStack> items = new ArrayList<>();
 
 
-    public CommandDelKit(xBxTcore plugin) {
-        this.plugin = plugin;
-        }
+    public CommandDelKit() {
+        super(new String[]{"delkit", "dk"},
+                "/delkit <Nombre Del Kit>",
+                "xbxtcore.command.user",
+                false,
+                "borras un kit tengas guardado escribiendo el nombre del kit");
+    }
 
     @Override
-    public boolean onCommand(@Nullable CommandSender commandSender,@Nullable Command command,@Nullable String s, String[] args) {
-        if (commandSender instanceof Player player) {
+    public void execute(CommandSender sender, String[] args) {
+        if (sender instanceof Player player) {
             if (args.length != 0) {
                 namekit = args[0];
                 GetItemInvetort(player);
 
             }else{
-                player.sendMessage(MasterMessageLocated(player, Messages.Kit_DelError));
+                Utils.sendMessage(sender , Messages.Kit_DelError);
             }
         }else{
-            plugin.messageOnlyPlayer();
+            Utils.sendMessage(sender , Messages.Generic_OnlyPlayers);
         }
-        return false;
     }
 
     public void GetItemInvetort(Player player) {

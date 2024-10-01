@@ -1,9 +1,11 @@
 package Plugin.Commands.User;
 
+import Plugin.Commands.BaseCommand;
 import Plugin.File.FileManagerSection;
 import Plugin.Messages.Messages.Messages;
 import Plugin.Security.SystemBan.BanManager;
 import Plugin.Security.SystemBan.ContextBan;
+import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -21,19 +23,21 @@ import static Plugin.BoxPvp.ItemsBoxPvp.BonusUpdate.UpdateBonus;
 import static Plugin.Messages.MessageManager.MasterMessageLocated;
 import static Plugin.Utils.Utils.RewardBoxPvpCheck;
 
-public class CommandBoxPvp implements CommandExecutor {
+public class CommandBoxPvp extends BaseCommand {
 
-    private final xBxTcore plugin;
-
-    public CommandBoxPvp(xBxTcore plugin){
-        this.plugin = plugin;
+    public CommandBoxPvp(){
+        super("boxpvp",
+                "/boxpvp ",
+                "xbxtcore.command.user",
+                false,
+                "viajas al box pvp");
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, String[] strings) {
-        if(commandSender instanceof Player player){
+    public void execute(CommandSender sender, String[] args) {
+        if(sender instanceof Player player){
             if (xBxTcore.getWorldProtec().contains(player.getWorld()) || player.getGameMode().equals(GameMode.SPECTATOR) || player.isOp() || player.getWorld().getPlayers().size() == 1) {
-                if (BanManager.checkBanPlayer(player, ContextBan.BOX_PVP) != null)return false;
+                if (BanManager.checkBanPlayer(player, ContextBan.BOX_PVP) != null)return;
 
                 if (!player.getWorld().getName().equals("lobby") && !player.getWorld().getName().equals("boxpvp")) {
                     player.setLevel(0);
@@ -49,13 +53,11 @@ public class CommandBoxPvp implements CommandExecutor {
                 RewardBoxPvpCheck(player.getName());
                 player.setGameMode(GameMode.SURVIVAL);
             }else{
-                player.sendMessage(MasterMessageLocated(player, Messages.Generic_InArea));
+                Utils.sendMessage(sender, Messages.Generic_InArea);
             }
 
         }else{
-            plugin.messageOnlyPlayer();
+            Utils.sendMessage(sender, Messages.Generic_OnlyPlayers);
         }
-        return false;
     }
-
 }

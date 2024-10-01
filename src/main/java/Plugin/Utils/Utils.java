@@ -1,7 +1,9 @@
 package Plugin.Utils;
 
+import Plugin.Messages.MessageManager;
 import Plugin.Messages.Messages.Messages;
 import Plugin.xBxTcore;
+import com.comphenix.protocol.PacketType;
 import lombok.experimental.UtilityClass;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
@@ -13,6 +15,7 @@ import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.*;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -109,6 +112,18 @@ public final class Utils {
                 Bukkit.getConsoleSender().sendMessage(org.bukkit.ChatColor.translateAlternateColorCodes('&', prefixConsole + Colorinfo + "Se ha echo un voto por adelantado de parte del jugador: " + Colorplayer + name));
             }
         }
+    }
+
+    public static void sendMessage(@NotNull CommandSender sender, @NotNull Messages messages) {
+        if (sender instanceof Player player) {
+            sendMessage(sender, MasterMessageLocated(player, messages));
+        }else{
+            MessageManager.sendMessageConsole(messages);
+        }
+    }
+
+    public static void sendMessage(@NotNull CommandSender sender, @NotNull String message) {
+        sender.sendMessage(message);
     }
 
     public static void RewardBoxPvpCheck(String name){
@@ -251,25 +266,39 @@ public final class Utils {
         };
     }
 
-    public static ArrayList<String> StringToLoreString(@NotNull String texto, boolean space) {
-        return StringToLoreString(texto, 40, space);
+    public static @NotNull ArrayList<String> StringToLoreString(@NotNull String texto, boolean space, char color) {
+        return StringToLoreString(texto, 40, space, color);
     }
 
-    public static ArrayList<String> StringToLoreString(@NotNull String texto, int longitud, boolean space) {
+    public static @NotNull ArrayList<String> StringToLoreString(@NotNull String texto, int longitud, boolean space, char color) {
         texto = ChatColor.translateAlternateColorCodes('&', texto);
         ArrayList<String> lineas = new ArrayList<>();
-        if (space)lineas.add(" ");
+        if (space) lineas.add(" ");
 
-        // Dividir el texto en fragmentos de longitud dada (por defecto 40)
-        for (int i = 0; i < texto.length(); i += longitud) {
-            // Evitar que el substring exceda la longitud del texto
-            int fin = Math.min(i + longitud, texto.length());
-            lineas.add(texto.substring(i, fin));
+        String[] partes = texto.split("\n"); // Dividimos el texto en líneas si contiene \n
+
+        for (String parte : partes) {
+            int inicio = 0;
+            while (inicio < parte.length()) {
+                int fin = Math.min(inicio + longitud, parte.length());
+
+                // Si el substring no termina en espacio, buscar el último espacio dentro del rango
+                if (fin < parte.length() && parte.charAt(fin) != ' ') {
+                    int ultimoEspacio = parte.lastIndexOf(' ', fin);
+                    if (ultimoEspacio > inicio) {
+                        fin = ultimoEspacio; // Ajusta el fin al último espacio encontrado
+                    }
+                }
+
+                lineas.add(ChatColor.translateAlternateColorCodes('&', "&" + color + parte.substring(inicio, fin).trim()));
+                inicio = fin + 1; // Salta el espacio
+            }
         }
 
-        if (space)lineas.add(" ");
+        if (space && !lineas.isEmpty()) lineas.add(" ");
         return lineas;
     }
+
 
     public static void additem(@NotNull Player player, ItemStack item, int cantidad){
         player.playSound(player, Sound.ENTITY_ITEM_PICKUP, 1,1);

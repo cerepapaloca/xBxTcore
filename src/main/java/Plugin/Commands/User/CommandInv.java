@@ -1,6 +1,8 @@
 package Plugin.Commands.User;
 
+import Plugin.Commands.BaseCommand;
 import Plugin.Messages.Messages.Messages;
+import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -14,14 +16,17 @@ import java.util.Objects;
 
 import static Plugin.Messages.MessageManager.*;
 
-public class CommandInv implements CommandExecutor {
+public class CommandInv extends BaseCommand {
 
-    private final xBxTcore plugin;
-
-    public CommandInv(xBxTcore plugin){
-        this.plugin = plugin;
+    public CommandInv(){
+        super("inv",
+                "/inv <nombre del jugador> <nombre del jugador>...",
+                "xbxtcore.command.user",
+                false,
+                "es un comando que se usa para agrega a los jugadores a una lista de invitación para un duelo");
     }
-    public boolean onCommand(@NotNull CommandSender sender,@NotNull Command cmd,@NotNull String label, String[] args) {
+    @Override
+    public void execute(CommandSender sender, String[] args) {
         if(sender instanceof Player p){
             if (xBxTcore.getPlayerDataUnique(p.getUniqueId()) != null){
                 xBxTcore.getPlayerDataUnique(p.getUniqueId()).clearGuestPlayers();
@@ -32,15 +37,13 @@ public class CommandInv implements CommandExecutor {
                         xBxTcore.getPlayerDataUnique(p.getUniqueId()).addGuestPlayer(Objects.requireNonNull(Bukkit.getPlayer(name)));
                     }
                 }else{
-                    p.sendMessage(MasterMessageLocated(p, Messages.Others_WarningGetGuestPlayers));
+                    Utils.sendMessage(sender, Messages.Others_WarningGetGuestPlayers);
                 }
             }
-            p.sendMessage(MasterMessageLocated(p,Messages.RequestDuel_Inv));
+            Utils.sendMessage(sender, Messages.RequestDuel_Inv);
             Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',   prefixConsole + Colorplayer + xBxTcore.getPlayerDataUnique(p.getUniqueId()).getGuestPlayers(false).size() + Colorinfo + " Catidad de ivn"));
         }else{
-            plugin.messageOnlyPlayer();
+            Utils.sendMessage(sender, Messages.Generic_OnlyPlayers);
         }
-
-        return false;
     }
 }

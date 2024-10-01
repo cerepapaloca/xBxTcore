@@ -1,5 +1,6 @@
 package Plugin.Commands.User;
 
+import Plugin.Commands.BaseCommand;
 import Plugin.File.FileManagerSection;
 import Plugin.Messages.Messages.Messages;
 import Plugin.Utils.Utils;
@@ -12,22 +13,25 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 
 import static Plugin.BoxPvp.ItemsBoxPvp.BonusUpdate.UpdateBonus;
 import static Plugin.Messages.MessageManager.MasterMessageLocated;
 
-public class CommandLobby implements CommandExecutor {
+public class CommandLobby extends BaseCommand {
 
-    private final xBxTcore plugin;
-
-    public CommandLobby(xBxTcore plugin){
-        this.plugin = plugin;
+    public CommandLobby(){
+        super(new String[]{"lobby", "spawn"},
+                "/lobby",
+                "xbxtcore.command.user",
+                false,
+                "regresas al lobby del servidor");
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, String[] strings) {
-        if(commandSender instanceof Player player){
+    public void execute(CommandSender sender, String[] args) {
+        if(sender instanceof Player player){
             if (xBxTcore.getWorldProtec().contains(player.getWorld()) || player.getGameMode().equals(GameMode.SPECTATOR) || player.isOp() || player.getWorld().getPlayers().size() == 1) {
                 if (!player.getWorld().getName().equals("lobby") && !player.getWorld().getName().equals("boxpvp")) {
                     player.setLevel(0);
@@ -42,13 +46,11 @@ public class CommandLobby implements CommandExecutor {
                 player.teleport(new Location(Bukkit.getWorld("lobby"), 0 , 68, 0));
                 player.setGameMode(GameMode.SURVIVAL);
             }else{
-                player.sendMessage(MasterMessageLocated(player, Messages.Generic_InArea));
+                Utils.sendMessage(sender, Messages.Generic_InArea);
             }
 
         }else{
-            plugin.messageOnlyPlayer();
+            Utils.sendMessage(sender, Messages.Generic_OnlyPlayers);
         }
-        return false;
     }
-
 }

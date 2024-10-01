@@ -1,29 +1,29 @@
 package Plugin.Commands.User;
 
+import Plugin.Commands.BaseCommand;
 import Plugin.xBxTcore;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import static Plugin.Messages.MessageManager.*;
 
-public class CommandDiscord implements CommandExecutor {
+public class CommandDiscord extends BaseCommand {
 
-    private final xBxTcore plugin;
-
-    public CommandDiscord(xBxTcore plugin){
-        this.plugin = plugin;
+    public CommandDiscord(){
+        super("discord",
+                "/discord",
+                "xbxtcore.command.user",
+                false,
+                "te envia un lick de discord");
     }
-    public boolean onCommand(@Nullable CommandSender sender,@Nullable Command cmd,@Nullable String label, String[] args) {
-        if(sender instanceof Player p){
-            p.sendMessage(ChatColor.translateAlternateColorCodes( '&',prefix + Colorinfo + "Discord:&a&ohttps://discord.gg/QYBwEFvnsG"));
-            return true;
-        }else{
-            plugin.messageOnlyPlayer();
-            return false;
-        }
+
+    @Override
+    public void execute(@NotNull CommandSender sender, String[] args) {
+        sender.sendMessage(ChatColor.translateAlternateColorCodes( '&',prefix + ColorLink + "Discord:&a&ohttps://discord.gg/QYBwEFvnsG"));
     }
 }

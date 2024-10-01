@@ -1,5 +1,7 @@
 package Plugin.Inventory;
 
+import Plugin.Commands.BaseCommand;
+import Plugin.Commands.CommandSection;
 import Plugin.File.FileManagerSection;
 import Plugin.Inventory.Models.InvetoryPlayer;
 import Plugin.Inventory.Enum.InvetorySection;
@@ -19,6 +21,7 @@ import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static Plugin.Inventory.InventorySection.*;
@@ -552,28 +555,25 @@ public class InventoryMenu extends InventoryManager {
         invetoryPlayer.setSection(InvetorySection.HELP);
         Inventory inv = Bukkit.createInventory(null, 27, "ayuda");
         String lore = "Puedes ber que hace cada comando del servidor";
-        Utils.NewitemInvetory(Messages.Inventory_TimeLimit_M1mas, Material.COMMAND_BLOCK, 10, inv, player, Utils.StringToLoreString(lore, true));
+        Utils.NewitemInvetory(Messages.Inventory_TimeLimit_M1mas, Material.COMMAND_BLOCK, 10, inv, player, Utils.StringToLoreString(lore, true, '3'));
         lore = "Puedes saber información Cada Item Del Box Pvp";
-        Utils.NewitemInvetory(Messages.Inventory_TimeLimit_M1mas, Material.DIAMOND_SWORD, 12, inv, player, Utils.StringToLoreString(lore, true));
+        Utils.NewitemInvetory(Messages.Inventory_TimeLimit_M1mas, Material.DIAMOND_SWORD, 12, inv, player, Utils.StringToLoreString(lore, true, '3'));
         lore = "Puedes saber las reglase de este servidor";
-        Utils.NewitemInvetory(Messages.Inventory_TimeLimit_M1mas, Material.WRITABLE_BOOK, 14, inv, player, Utils.StringToLoreString(lore, true));
+        Utils.NewitemInvetory(Messages.Inventory_TimeLimit_M1mas, Material.WRITABLE_BOOK, 14, inv, player, Utils.StringToLoreString(lore, true, '3'));
         lore = "Puedes saber información genera del server";
-        Utils.NewitemInvetory(Messages.Inventory_TimeLimit_M1mas, Material.SPYGLASS, 16, inv, player, Utils.StringToLoreString(lore, true));
+        Utils.NewitemInvetory(Messages.Inventory_TimeLimit_M1mas, Material.SPYGLASS, 16, inv, player, Utils.StringToLoreString(lore, true, '3'));
         player.openInventory(inv);
         InventorySection.getInventoryManager().addplayer(invetoryPlayer);
     }
 
     public void OpenHelpRules(InvetoryPlayer invetoryPlayer){
         Player player = invetoryPlayer.getPlayer();
-        invetoryPlayer.setSection(InvetorySection.HELP);
+        invetoryPlayer.setSection(InvetorySection.HELP_RULE);
         Inventory inv = Bukkit.createInventory(null, 27, "ayuda");
-        ArrayList<String> lore = new ArrayList<>();
 
         for (int i = 0; 7 > i; i++){
-            lore.addAll(Utils.StringToLoreString("", true));
             Utils.NewitemInvetory(MasterMessageLocated(player, Messages.Rule_Title).replace("%#%", String.valueOf(i)), Material.BARRIER, i, inv,
-                    player,Utils.StringToLoreString(MasterMessageLocated(player ,Messages.valueOf("Rule_" + i)), true));
-            lore.clear();
+                    player,Utils.StringToLoreString(MasterMessageLocated(player ,Messages.valueOf("Rule_" + i)), true, '8'));
         }
         Utils.NewitemInvetory(Messages.Inventory_InvExit, Material.BARRIER, 26, inv, player);
         player.openInventory(inv);
@@ -584,16 +584,36 @@ public class InventoryMenu extends InventoryManager {
         Player player = invetoryPlayer.getPlayer();
         invetoryPlayer.setSection(InvetorySection.HELP_INFO);
         Inventory inv = Bukkit.createInventory(null, 27, "ayuda");
-        String lore = "Ping: %ping% (En relación google.com)\n" +
-                "Temperatura: %temp% C° \n" +
-                "CPU: algo\n" +
-                "RAM: algo\n" +
-                "ROM: algo\n";
-        Utils.NewitemInvetory("Hardware/Sistema", Material.COMMAND_BLOCK_MINECART, 10, inv, player, Utils.StringToLoreString(lore , true));
+        String lore = """
+                &f-&6 Ping: %ping% (En relación google.com)
+                &f-&6 Temperatura: %temp% C°\s
+                &f-&6 CPU: algo
+                &f-&6 RAM: algo
+                &f-&6 ROM: algo
+                """;
+        Utils.NewitemInvetory("Hardware/Sistema", Material.COMMAND_BLOCK_MINECART, 12, inv, player, Utils.StringToLoreString(lore , true, '8'));
         lore = Colorinfo + "El plugin xBxT Core es un plugin privado encargado del funcionamiento principal del servidor este se encargar de casi todo del servidor como las traducciones, inventarios " +
                 "baneos y entre muchas cosas más. el motivo de su existencia es para tener un control absoluto del servidor y no estar limitado a los plugins de terceros " +
-                "aún que hay plugins que son necesarios pero estos tiene un api que maneja XBXT Core";
-        Utils.NewitemInvetory("xBxT Core", Material.REDSTONE_BLOCK, 14, inv, player, Utils.StringToLoreString(lore , true));
+                "aún que hay plugins que son necesarios pero estos tiene un api que maneja xBxT Core";
+        Utils.NewitemInvetory("xBxT Core", Material.REDSTONE_BLOCK, 14, inv, player, Utils.StringToLoreString(lore , true, '8'));
+        Utils.NewitemInvetory(Messages.Inventory_InvExit, Material.BARRIER, 26, inv, player);
+        player.openInventory(inv);
+        getInventoryManager().addplayer(invetoryPlayer);
+    }
+
+    public void OpenHelpCommands(InvetoryPlayer invetoryPlayer){
+        Player player = invetoryPlayer.getPlayer();
+        invetoryPlayer.setSection(InvetorySection.HELP_COMMANDS);
+        Inventory inv = Bukkit.createInventory(null, 27, "ayuda");
+        int i = 0;
+        for (BaseCommand baseCommand : CommandSection.getCommandHandler().getCommands()){
+            ArrayList<String> lore = new ArrayList<>();
+            lore.add("&f- &6Uso: &r" + formatUsesCommand(baseCommand.getUsage()));
+            lore.addAll(Utils.StringToLoreString("&6- &bDescripción: " + baseCommand.getDescription(), false, '8'));
+            Utils.NewitemInvetory(Arrays.toString(baseCommand.getName()).replace("[","").replace("]",""),
+                    Material.COMMAND_BLOCK, i, inv, player, lore);
+            i++;
+        }
         Utils.NewitemInvetory(Messages.Inventory_InvExit, Material.BARRIER, 26, inv, player);
         player.openInventory(inv);
         getInventoryManager().addplayer(invetoryPlayer);

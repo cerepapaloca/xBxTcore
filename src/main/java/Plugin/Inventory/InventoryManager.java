@@ -61,6 +61,15 @@ public class InventoryManager {
         ButtoPreviewOn = new ItemStack(Material.ENDER_EYE);
     }
 
+    public String formatUsesCommand(String command){
+        return ChatColor.translateAlternateColorCodes('&',command
+                .replace("/", "&d/")
+                .replace("<", "&9<&7")
+                .replace(">", "&9>&d")
+                .replace("!", "&8!"));
+
+    }
+
     public void removerPlayer(Player player){
         if(!players.isEmpty()){
             players.removeIf(invetoryPlayer -> invetoryPlayer.getPlayer().equals(player));

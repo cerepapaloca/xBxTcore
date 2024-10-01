@@ -18,6 +18,7 @@ public record MessagesES() {
         esMessages.put(Generic_NotAllowed,prefix + ColorError + "No esta permitido");
         esMessages.put(Generic_InArea,prefix + ColorError + "No se puede usar aquí");
         esMessages.put(Generic_HoverExecute,"Ejecutar este comando");
+        esMessages.put(Generic_OnlyPlayers, prefixConsole + ColorError + "solo ser ejecutado por jugadores");
         //Vote
         esMessages.put(Vote_Voted,prefix + ColorSuccess + "Gracias Por votar");
         esMessages.put(Vote_NotBoxPvp, prefix + Colorinfo + "Tienes que entrar al box pvp para recibir las recompensas");
@@ -312,6 +313,8 @@ public record MessagesES() {
         esMessages.put(Ban_Dupe, prefixBanAuto + "Tienes dos items con la misma UUID es decir que haz duplicado");
         //rules
         esMessages.put(Rule_Title, "Regla %#%");
+        esMessages.put(Rule_0, "No se permite el bulling ni el acoso entre mis usuarios si eres una victima de esos actos habré ticket en el discord. la victima decide la gravedad del baneo " +
+                "si llega a dar el caso que la victima da pruebas inconsistentes esta sera vetada del chat permanente");
         esMessages.put(Rule_1, "No esta permito el uso de bots ni uso indebido de multicuentas solo se permite si se esta usando el baritone y " +
                 "se puede tener varias cuentas pero tiene que tener una justification de ser");
         esMessages.put(Rule_2, "No se permite uso de dupes ni otro exploit sera vetado de manera automática. si tiene conocimiento de dupes " +
@@ -322,8 +325,6 @@ public record MessagesES() {
                 "si no se analizara todo tu comportamiento para solucionarlo y sera permaBaneado");
         esMessages.put(Rule_6, "No se permite tener OP ni Creativo en el servidor si lo consigues habré ticket en el discord si no se analizara todo tu comportamiento " +
                 "para solucionarlo y no seras vetado");
-        esMessages.put(Rule_7, "No se permite el bulling ni el acoso entre mis usuarios si eres una victima de esos actos habré ticket en el discord. la victima decide la gravedad del baneo " +
-                "si llega a dar el caso que la victima da pruebas inconsistentes esta sera vetada del chat permanente");
 
     }
 }

@@ -1,5 +1,6 @@
 package Plugin.Commands.User;
 
+import Plugin.Commands.BaseCommand;
 import Plugin.File.FileManagerSection;
 import Plugin.Messages.Messages.Messages;
 import Plugin.Messages.MessageManager;
@@ -18,25 +19,28 @@ import java.util.Objects;
 import static Plugin.Messages.MessageManager.MasterMessageLocated;
 import static Plugin.Utils.Utils.AntiSpam;
 
-public class CommandSaveKit implements CommandExecutor {
+public class CommandSaveKit extends BaseCommand {
 
     private final xBxTcore plugin;
-    private final ArrayList<ItemStack> items;
+    private final ArrayList<ItemStack> items = new ArrayList<>();
     private String namekit;
     private Material material;
 
     public CommandSaveKit(xBxTcore plugin){
+        super(new String[]{"savekit","sk"},
+                "/savekit <Nombre del Kit> <!item de minecraft>",
+                "xbxtcore.command.user",
+                false,
+                "puedes gurdar tu inventario en un kit para que más tar de lo puedas usar");
         this.plugin = plugin;
-        this.items = new ArrayList<>();
     }
 
     @Override
-    public boolean onCommand(@Nullable CommandSender commandSender,@Nullable Command command,@Nullable String s, String[] args) {
-
-        if(commandSender instanceof Player player){
+    public void execute(CommandSender sender, String[] args) {
+        if(sender instanceof Player player){
             if (player.getWorld().getName().equals(xBxTcore.worldBoxPvp)) {
                 player.sendMessage(MessageManager.MasterMessageLocated(player, Messages.Generic_InArea));
-                return false;
+                return;
             }
 
             if (args.length == 1) {
@@ -52,7 +56,6 @@ public class CommandSaveKit implements CommandExecutor {
         }else{
             plugin.messageOnlyPlayer();
         }
-        return false;
     }
 
     private void GetItemInvetort(Player player){

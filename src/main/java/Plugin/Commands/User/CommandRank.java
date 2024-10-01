@@ -1,5 +1,6 @@
 package Plugin.Commands.User;
 
+import Plugin.Commands.BaseCommand;
 import Plugin.Environment.EnvironmentsSection;
 import Plugin.PlayerManager.Model.PlayerDataGLobal;
 import Plugin.PlayerManager.PlayerManagerSection;
@@ -15,16 +16,23 @@ import java.util.List;
 
 import static Plugin.Messages.MessageManager.*;
 
-public class CommandRank implements CommandExecutor {
+public class CommandRank extends BaseCommand {
 
     private final xBxTcore plugin;
     private final PlayerDataGLobal playerDataGLobal;
 
     public CommandRank(xBxTcore plugin){
+        super("rank",
+                "/rank",
+                "xbxtcore.command.user",
+                false,
+                "puedes ver las kills de los jugadores conectados y sus rachas");
         this.plugin = plugin;
         playerDataGLobal = PlayerManagerSection.getPlayerDataGLobal();
     }
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
+
+    @Override
+    public void execute(CommandSender sender, String[] args) {
         if(sender instanceof Player p){
             int top;
             p.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + Colorinfo + "Top Kills -------------->"));
@@ -63,6 +71,5 @@ public class CommandRank implements CommandExecutor {
             plugin.messageOnlyPlayer();
         }
 
-        return false;
     }
 }

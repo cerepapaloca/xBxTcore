@@ -1,6 +1,8 @@
 package Plugin.Commands.User;
 
+import Plugin.Commands.BaseCommand;
 import Plugin.Messages.Messages.Messages;
+import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -12,23 +14,19 @@ import org.jetbrains.annotations.Nullable;
 import static Plugin.Messages.MessageManager.ColorLink;
 import static Plugin.Messages.MessageManager.MasterMessageLocated;
 
-public class CommandVote implements CommandExecutor {
+public class CommandVote extends BaseCommand {
 
-    private final xBxTcore plugin;
-
-    public CommandVote(xBxTcore plugin){
-        this.plugin = plugin;
+    public CommandVote() {
+        super("vote",
+                "/vote",
+                "xbxtcore.command.user",
+                false,
+                "puedes ver la página donde se vota el servidor para obtener recompensa");
     }
 
     @Override
-    public boolean onCommand(@Nullable CommandSender commandSender,@Nullable Command command,@Nullable String s, String[] strings) {
-        if(commandSender instanceof Player player){
-            player.sendMessage(MasterMessageLocated(player, Messages.Others_Vote));
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', ColorLink + "https://minecraft-mp.com/server-s334744"));
-        }else{
-            plugin.messageOnlyPlayer();
-        }
-        return false;
+    public void execute(CommandSender sender, String[] args) {
+        Utils.sendMessage(sender, Messages.Others_Vote);
+        Utils.sendMessage(sender, ChatColor.translateAlternateColorCodes('&', ColorLink + "https://minecraft-mp.com/server-s334744"));
     }
-
 }

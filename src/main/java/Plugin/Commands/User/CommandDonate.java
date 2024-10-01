@@ -1,6 +1,8 @@
 package Plugin.Commands.User;
 
+import Plugin.Commands.BaseCommand;
 import Plugin.Messages.Messages.Messages;
+import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -10,22 +12,18 @@ import org.jetbrains.annotations.Nullable;
 
 import static Plugin.Messages.MessageManager.MasterMessageLocated;
 
-public class CommandDonate implements CommandExecutor {
+public class CommandDonate extends BaseCommand {
 
-    private final xBxTcore plugin;
-
-    public CommandDonate(xBxTcore plugin){
-        this.plugin = plugin;
+    public CommandDonate(){
+        super("donate",
+                "/donate",
+                "xbxtcore.command.user",
+                false,
+                "te enviara mi paypal por si quieres aportar");
     }
 
     @Override
-    public boolean onCommand(@Nullable CommandSender commandSender,@Nullable Command command,@Nullable String s, String[] strings) {
-        if(commandSender instanceof Player player){
-            player.sendMessage(MasterMessageLocated(player, Messages.Others_Donate));
-        }else{
-            plugin.messageOnlyPlayer();
-        }
-        return false;
+    public void execute(CommandSender sender, String[] args) {
+        Utils.sendMessage(sender, Messages.Others_Donate);
     }
-
 }

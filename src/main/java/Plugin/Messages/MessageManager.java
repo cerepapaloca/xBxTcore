@@ -58,6 +58,14 @@ public class MessageManager {
         }
     }
 
+    public static void sendMessageConsole(@NotNull Messages message){
+        if (esMessages.get(message) != null){
+            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',prefixConsole + esMessages.get(message)));
+        }else{
+            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', esErrorMensaje).replace("%message%", message.name()));
+        }
+    }
+
     public static void BroadcastMessage(Messages message){
         for(Player p : Bukkit.getOnlinePlayers()){
             p.sendMessage(ChatColor.translateAlternateColorCodes('&', MasterMessageLocated(p,message)));
