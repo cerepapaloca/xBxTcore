@@ -1,6 +1,7 @@
 package Plugin.Service;
 
 import Plugin.xBxTcore;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
@@ -14,6 +15,7 @@ public final class PingRequest {
 
     private static long cooldown = System.currentTimeMillis();
     public static boolean conected = true;
+    @Getter private static float ping;
 
     public static void pingRequest() {
         Bukkit.getScheduler().runTaskAsynchronously(xBxTcore.getInstance(), () -> {
@@ -54,6 +56,7 @@ public final class PingRequest {
                             cooldown = System.currentTimeMillis();
                         }
                         String time = line.split(timeLoc)[1].split(regex)[0];
+                        ping = Float.parseFloat(time);
                         if (Float.parseFloat(time) > 150F) {
                             Bukkit.getLogger().warning("****************************************");
                             Bukkit.getLogger().warning(line);
