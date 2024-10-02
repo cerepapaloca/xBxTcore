@@ -45,7 +45,7 @@ public class ModerationChat {
 
     public void CheckMessage(AsyncPlayerChatEvent event){
         Player player = event.getPlayer();
-        String prefix = ColorUtils.applyGradient(Utils.getPlayerPrefix(player).replace("&l", ""), "l");
+        String prefix = ColorUtils.applyGradient(Utils.getPlayerPrefix(player).replace("&l", ""), 'l');
 
         if (BanManager.checkBanPlayer(player, ContextBan.CHAT) != null) {
             Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',

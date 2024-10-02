@@ -23,6 +23,7 @@ public class CommandSection implements Section {
     public void enable() {
         commandHandler = new CommandHandler(this);
         commandHandler.registerCommands();
+        commandDuel = commandHandler.getCommandDuel();
         //Objects.requireNonNull(plugin.getCommand("kit")).setExecutor(new CommandKit(plugin));
         //Objects.requireNonNull(plugin.getCommand("savekit")).setExecutor(new CommandSaveKit(plugin));
         //Objects.requireNonNull(plugin.getCommand("delkit")).setExecutor(new CommandDelKit(plugin));

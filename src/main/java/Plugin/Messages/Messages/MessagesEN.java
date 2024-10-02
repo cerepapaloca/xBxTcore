@@ -256,7 +256,7 @@ public record MessagesEN() {
         enMessages.put(Inventory_InvClear,"&b&l Clear Inventory");
         enMessages.put(Inventory_CreteKit,"&b&lCreate your kit");
         enMessages.put(Inventory_KitList,"&bKits List&r - &6&lClick Right&r&6 To see the preview");
-        enMessages.put(Inventory_KitMenu,"&bMenu");
+        enMessages.put(Inventory_KitMenu,"&bMenu Kit");
         enMessages.put(Inventory_KitListBedrock, "&bKits List");
         enMessages.put(Inventory_PreviewOn, "&bPreview:&2&l Enabled");
         enMessages.put(Inventory_PreviewOff, "&bPreview:&c&l Disabled");
@@ -280,8 +280,49 @@ public record MessagesEN() {
         enMessages.put(Inventory_TimeLimit_S1mas,"&21S+");
         enMessages.put(Inventory_TimeLimit_S1menos,"&c1S-");
         enMessages.put(Inventory_TimeLimit_M1menos,"&c1M-");
+        enMessages.put(Inventory_Help_Command,"<#FCD05C>Commands<#FFE7A7>");
+        enMessages.put(Inventory_Help_Command_Lore,"You can see what each server command does\n \n" + ColorWarning + "⚠ limited translation into english ⚠");
+        enMessages.put(Inventory_Help_Item,"<#19fbff>Items Box PvP<#2a7c7d>");
+        enMessages.put(Inventory_Help_Item_Lore,"You can see what each server command does");
+        enMessages.put(Inventory_Help_Item_EspecialItem_FERMENTED_SPIDER_EYE_Lore, "When you carry it in your secondary hand you do 75% more damage but " +
+                "for each hit you give your hunger goes down");
+        enMessages.put(Inventory_Help_Item_EspecialItem_CHARCOAL_Lore, "When you carry it in your secondary hand and if you are less than 16 health (8 hearts) you deal with 3 " +
+                "for 10 seconds");
+        enMessages.put(Inventory_Help_Item_EspecialItem_SCUTE_Lore, "When you carry it in your secondary hand you do 125% more damage only when it has absorption if not" +
+                " you do -25% damage");
+        enMessages.put(Inventory_Help_Item_EspecialItem_FLINT_Lore, "When you carry this in your offhand there is a 30% chance that you will be blinded for 10 seconds");
+        enMessages.put(Inventory_Help_Item_EspecialItem_NETHERITE_SCRAP_Lore, "When you carry this in your offhand you gain slow 3 for 30 seconds and damage resistance " +
+                " 3 for 30 seconds");
+        enMessages.put(Inventory_Help_Item_ArmorItem_Title, "<#19fbff>Armor/Tools<#2a7c7d>");
+        enMessages.put(Inventory_Help_Item_ArmorItem_Lore,
+                "&l" + Coloritem + "Helmet: &7Increases your generation speed up to tier 10, from there it does not increase further.\n \n" +
+                "&l" + Coloritem + "Elytra: &7Increases your maximum life for each tier increases by one heart.\n \n" +
+                "&l" + Coloritem + "Pants: &7Increases your overall resistance to damage and resistance to penetration by this and increases by one level for each tier.\n \n" +
+                "&l" + Coloritem + "Boots: &7Increases your resistance to pushback and explosions for each tier increases by one enchantment level.\n \n" +
+                "&l" + Coloritem + "Sword: &7Increases the enchantment level of the blade for each tier increases 2 levels of enchantment.\n \n" +
+                "&l" + Coloritem + "Pickaxe: &7for each tier increases the chance of getting a duplicate item when mining increases 3% for each tier.");
+        enMessages.put(Inventory_Help_Item_CoinP_Title, "<#19fbff>Principal Coin<#2a7c7d>");
+        enMessages.put(Inventory_Help_Item_CoinP_Lore, "The main coin is used to buy from the villagers on the surface and improve your equipment. To have " +
+                "this coin you have to exchange it with the converter villagers who exchange the gold ore, iron ore... for the main coin with its respective value. The " +
+                "main coins have different values, fragment, normal and compact. You can compact or fragment the coin as many times as you want with " +
+                "the same villagers");
+        enMessages.put(Inventory_Help_Item_CoinS_Title, "<#19fbff>Ore Coin<#2a7c7d>");
+        enMessages.put(Inventory_Help_Item_CoinS_Lore, "This coin is obtained by mining materials such as gold, iron, copper ... these are found " +
+                "around the center of the Box PvP. According to their value, these mines take longer to regenerate. The one that takes the longest is the special mine, which has the " +
+                "highest value of all and is located right in the center of the Box PvP. With this coin you can trade with the villagers on the surface to have the " +
+                "main currency");
+        enMessages.put(Inventory_Help_Item_CoinT_Title, "<#19fbff>Tier Coin<#2a7c7d>");
+        enMessages.put(Inventory_Help_Item_CoinT_Lore, "The tier currency is only used to upgrade your armor, pickaxe, and sword. It is obtained in each tower where " +
+                "each mine of each tier is located. With this you trade with a villager who is in the same mine to compact it to improve your equipment");
+        enMessages.put(Inventory_Help_Rules,"<#FC5C5C>Rules<#FFDD91>");
+        enMessages.put(Inventory_Help_Rules_Lore,"You can know the rules of this server");
+        enMessages.put(Inventory_Help_Info,"<#19fbff>info<#2a7c7d>");
+        enMessages.put(Inventory_Help_Info_Lore,"You can find out general information about the server\n \n" + ColorWarning + "⚠ limited translation into english ⚠");
+        enMessages.put(Inventory_Help_Info_xBxTCore_lore, "The xBxT Core plugin is a private plugin in charge of the main operation of the server" +
+                " it takes care of almost everything on the server such as translations, inventories, bans and many other things. The reason for its existence " +
+                "is to have absolute control of the server and not be limited to third-party plugins even though there are plugins that are necessary but " +
+                "these have an api that handles xBxT Core and thanks to 8b8tCore for their project organization system.");
         //otros
-        enMessages.put(Rule_Title, "Rule %#%");
         enMessages.put(Others_AddVIPTitle, Coloritem + "You Are Now VIP");
         enMessages.put(Others_Chat_Cooldown, prefix + ColorError + "You cannot send messages for &b%time%");
         enMessages.put(Others_Chat_BanWord, prefix + ColorError + "Your message contains a forbidden word");
@@ -312,5 +353,18 @@ public record MessagesEN() {
         enMessages.put(Ban_HacksBoxPvp, prefixBanAuto + "use of hacks in the pvp box");
         enMessages.put(Ban_KickBoxPvp, prefixBanAuto + "please do not use hacks in the pvp box");
         enMessages.put(Ban_Dupe, prefixBanAuto + "You have two items with the same UUID, that is, you have duplicated");
+        //rule
+        //rules
+        enMessages.put(Rule_Title, "Rule %#%");
+        enMessages.put(Rule_0, "Bullying and harassment between my users is not allowed. If you are a victim of these acts, I will open a ticket on the discord. The victim decides the severity of the ban. " +
+                "If it turns out that the victim gives inconsistent evidence, they will be permanently banned from the chat.");
+        enMessages.put(Rule_1, "The use of bots and improper use of multiple accounts is not allowed. It is only allowed if the baritone is being used and " +
+                "You can have multiple accounts, but there must be a justification for it.");
+        enMessages.put(Rule_2, "The use of dupes or other exploits is not allowed. You will be automatically banned. If you have knowledge of dupes or possible dupes, I will open a ticket on the discord server.");
+        enMessages.put(Rule_3, "The use of automated messages on the server or external links is not allowed. If you break them, you will be automatically banned.");
+        enMessages.put(Rule_4, "The use of hacks in the pvp box is not allowed. This only applies to the pvp box. For the FFA, it is allowed.");
+        enMessages.put(Rule_5, "It is not allowed to enter other users' accounts. If you get in through a bug, exploit, or bypass, I will open a ticket on discord " +
+                "If not, all your behavior will be analyzed to solve it and you will be permanently banned.");
+        enMessages.put(Rule_6, "It is not allowed to have OP or Creative on the server. If you get it, I will open a ticket on discord. If not, all your behavior will be analyzed to solve it and you will not be banned.");
     }
 }

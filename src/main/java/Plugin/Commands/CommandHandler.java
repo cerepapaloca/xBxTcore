@@ -5,7 +5,6 @@ import Plugin.Messages.MessageManager;
 import Plugin.Messages.Messages.Messages;
 import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
-import jdk.jshell.execution.Util;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
@@ -23,6 +22,7 @@ import java.util.stream.Collectors;
 public class CommandHandler implements TabExecutor {
     @Getter private final HashSet<BaseCommand> commands = new HashSet<>();
     private final CommandSection commandSection;
+    @Getter private CommandDuel commandDuel;
 
     public void registerCommands() {
         xBxTcore plugin = commandSection.getPlugin();
@@ -37,7 +37,7 @@ public class CommandHandler implements TabExecutor {
         addCommand(new CommandKill());
         addCommand(new CommandInv());
         addCommand(new CommandHelp());
-        addCommand(new CommandDuel(plugin));
+        addCommand(commandDuel = new CommandDuel(plugin));
         addCommand(new CommandDonate());
         addCommand(new CommandDiscord());
         addCommand(new CommandDelKit());

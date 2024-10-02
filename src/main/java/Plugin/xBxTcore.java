@@ -60,7 +60,7 @@ public final class xBxTcore extends JavaPlugin {
 
     public static String bedrockPrefix = ".";
 
-    private long serverStartTime;
+    public long serverStartTime;
 
     public static ArrayList<World> worlds;
     private static final List<Section> sections = new ArrayList<>();
@@ -143,14 +143,14 @@ public final class xBxTcore extends JavaPlugin {
     }
 
     private void MessageONLinux(){
-        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',ColorUtils.applyGradient("<#61CAFD> ___    ___ ________     ___    ___ _________   <#B378CB>","l") + ColorUtils.applyGradient("<#FEAA41> ________  ________  ________  _______      <#FF7302>","l")));
-        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',ColorUtils.applyGradient("<#61CAFD>|\\  \\  /  /|\\   __  \\   |\\  \\  /  /|\\___   ___\\ <#B378CB>","l") + ColorUtils.applyGradient("<#FEAA41>|\\   ____\\|\\   __  \\|\\   __  \\|\\  ___ \\     <#FF7302>","l")));
-        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',ColorUtils.applyGradient("<#61CAFD>\\ \\  \\/  / | \\  \\|\\ /_  \\ \\  \\/  / ||___ \\  \\_| <#B378CB>","l") + ColorUtils.applyGradient("<#FEAA41>\\ \\  \\___|\\ \\  \\|\\  \\ \\  \\|\\  \\ \\   __/|    <#FF7302>","l")));
-        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',ColorUtils.applyGradient("<#61CAFD> \\ \\    / / \\ \\   __  \\  \\ \\    / /     \\ \\  \\  <#B378CB>","l") + ColorUtils.applyGradient("<#FEAA41> \\ \\  \\    \\ \\  \\\\\\  \\ \\   _  _\\ \\  \\_|/__  <#FF7302>","l")));
-        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',ColorUtils.applyGradient("<#61CAFD>  /     \\/   \\ \\  \\|\\  \\  /     \\/       \\ \\  \\ <#B378CB>","l") + ColorUtils.applyGradient("<#FEAA41>  \\ \\  \\____\\ \\  \\\\\\  \\ \\  \\\\  \\\\ \\  \\_|\\ \\ <#FF7302>","l")));
-        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',ColorUtils.applyGradient("<#61CAFD> /  /\\   \\    \\ \\_______\\/  /\\   \\        \\ \\__\\<#B378CB>","l") + ColorUtils.applyGradient("<#FEAA41>   \\ \\_______\\ \\_______\\ \\__\\\\ _\\\\ \\_______\\<#FF7302>","l")));
-        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',ColorUtils.applyGradient("<#61CAFD>/__/ /\\ __\\    \\|_______/__/ /\\ __\\        \\|__|<#B378CB>","l") + ColorUtils.applyGradient("<#FEAA41>    \\|_______|\\|_______|\\|__|\\|__|\\|_______|<#FF7302>","l")));
-        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',ColorUtils.applyGradient("<#61CAFD>|__|/ \\|__|             |__|/ \\|__|             <#B378CB>","l")));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',ColorUtils.applyGradient("<#61CAFD> ___    ___ ________     ___    ___ _________   <#B378CB>",'l') + ColorUtils.applyGradient("<#FEAA41> ________  ________  ________  _______      <#FF7302>",'l')));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',ColorUtils.applyGradient("<#61CAFD>|\\  \\  /  /|\\   __  \\   |\\  \\  /  /|\\___   ___\\ <#B378CB>",'l') + ColorUtils.applyGradient("<#FEAA41>|\\   ____\\|\\   __  \\|\\   __  \\|\\  ___ \\     <#FF7302>",'l')));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',ColorUtils.applyGradient("<#61CAFD>\\ \\  \\/  / | \\  \\|\\ /_  \\ \\  \\/  / ||___ \\  \\_| <#B378CB>",'l') + ColorUtils.applyGradient("<#FEAA41>\\ \\  \\___|\\ \\  \\|\\  \\ \\  \\|\\  \\ \\   __/|    <#FF7302>",'l')));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',ColorUtils.applyGradient("<#61CAFD> \\ \\    / / \\ \\   __  \\  \\ \\    / /     \\ \\  \\  <#B378CB>",'l') + ColorUtils.applyGradient("<#FEAA41> \\ \\  \\    \\ \\  \\\\\\  \\ \\   _  _\\ \\  \\_|/__  <#FF7302>",'l')));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',ColorUtils.applyGradient("<#61CAFD>  /     \\/   \\ \\  \\|\\  \\  /     \\/       \\ \\  \\ <#B378CB>",'l') + ColorUtils.applyGradient("<#FEAA41>  \\ \\  \\____\\ \\  \\\\\\  \\ \\  \\\\  \\\\ \\  \\_|\\ \\ <#FF7302>",'l')));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',ColorUtils.applyGradient("<#61CAFD> /  /\\   \\    \\ \\_______\\/  /\\   \\        \\ \\__\\<#B378CB>",'l') + ColorUtils.applyGradient("<#FEAA41>   \\ \\_______\\ \\_______\\ \\__\\\\ _\\\\ \\_______\\<#FF7302>",'l')));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',ColorUtils.applyGradient("<#61CAFD>/__/ /\\ __\\    \\|_______/__/ /\\ __\\        \\|__|<#B378CB>",'l') + ColorUtils.applyGradient("<#FEAA41>    \\|_______|\\|_______|\\|__|\\|__|\\|_______|<#FF7302>",'l')));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',ColorUtils.applyGradient("<#61CAFD>|__|/ \\|__|             |__|/ \\|__|             <#B378CB>",'l')));
         Bukkit.getConsoleSender().sendMessage("");
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&7   ╔═══════════════════════════════════════════════════════════════════════════╗"));
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&7   ║                     &fxBxT Core Las Bases Del Servidor&7                      ║"));

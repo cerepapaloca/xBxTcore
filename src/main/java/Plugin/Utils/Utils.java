@@ -3,8 +3,6 @@ package Plugin.Utils;
 import Plugin.Messages.MessageManager;
 import Plugin.Messages.Messages.Messages;
 import Plugin.xBxTcore;
-import com.comphenix.protocol.PacketType;
-import lombok.experimental.UtilityClass;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
 import net.luckperms.api.model.user.User;
@@ -18,6 +16,7 @@ import org.bukkit.*;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -151,32 +150,39 @@ public final class Utils {
         p.spigot().sendMessage(executefinal);
     }
 
-    public static void NewitemInvetory(Messages m, Material ma, int slot, @NotNull Inventory i, Player p){
-        ItemStack itemStack = new ItemStack(ma);
-        ItemMeta itemMeta = itemStack.getItemMeta();
-        assert itemMeta != null;
-        itemMeta.setDisplayName(MasterMessageLocated(p, m));
-        itemStack.setItemMeta(itemMeta);
-        i.setItem(slot, itemStack);
+    public static void newItemInventory(String titile, Material ma, int slot, Inventory i){
+        newItemInventory(titile, ma, slot, i, null);
     }
 
-    public static void NewitemInvetory(@NotNull String titile, Material ma, int slot, Inventory i, @NotNull Player p, @NotNull ArrayList<String> lore){
+    public static void newItemInventory(Messages m, Material ma, int slot, Inventory i, Player p){
+        newItemInventory(MasterMessageLocated(p, m), ma, slot, i, null);
+    }
+
+    public static void newItemInventory(Messages m, Material ma, int slot, Inventory i, Player p, @Nullable ArrayList<String> lore){
+        newItemInventory(MasterMessageLocated(p, m), ma, slot, i, lore);
+    }
+
+    public static void newItemInventory(String titile, Material ma, int slot, Inventory i, @Nullable ArrayList<String> lore){
         ItemStack itemStack = new ItemStack(ma);
         ItemMeta itemMeta = itemStack.getItemMeta();
         assert itemMeta != null;
-        ArrayList<String> colorlore = new ArrayList<>();
-        for (String s : lore){
-            colorlore.add(ChatColor.translateAlternateColorCodes('&',  s));
+        if (lore != null) {
+            ArrayList<String> colorlore = new ArrayList<>();
+            for (String s : lore){
+                colorlore.add(ChatColor.translateAlternateColorCodes('&', s));
+            }
+            itemMeta.setLore(colorlore);
         }
-        itemMeta.setLore(colorlore);
+        itemMeta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+        itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        itemMeta.addItemFlags(ItemFlag.HIDE_DYE);
+
         itemMeta.setDisplayName(org.bukkit.ChatColor.translateAlternateColorCodes('&',titile));
         itemStack.setItemMeta(itemMeta);
         i.setItem(slot, itemStack);
     }
 
-    public static void NewitemInvetory(@NotNull Messages m, Material ma, int slot, Inventory i, @NotNull Player p, @NotNull ArrayList<String> lore){
-        NewitemInvetory(MasterMessageLocated(p, m), ma, slot, i, p, lore);
-    }
 
     public static @NotNull ArrayList<ItemStack> getItensInvetory(@NotNull Player player){
         ArrayList<ItemStack> items = new ArrayList<>();
@@ -264,6 +270,14 @@ public final class Utils {
                     value * 1000 * 60 * 60 * 24;
             default -> throw new IllegalArgumentException("Unidad de tiempo no válida: " + unit);
         };
+    }
+
+    public static @NotNull ArrayList<String> StringToLoreString(@NotNull String texto, boolean space) {
+        return StringToLoreString(texto, 40, space, '7');
+    }
+
+    public static @NotNull ArrayList<String> StringToLoreString(@NotNull String texto, int longitud, boolean space) {
+        return StringToLoreString(texto, longitud, space, '7');
     }
 
     public static @NotNull ArrayList<String> StringToLoreString(@NotNull String texto, boolean space, char color) {

@@ -13,7 +13,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.*;
 
-import static Plugin.Messages.MessageManager.MasterMessageLocated;
+import static Plugin.Messages.MessageManager.*;
 
 public class InventoryManager {
 
@@ -63,10 +63,10 @@ public class InventoryManager {
 
     public String formatUsesCommand(String command){
         return ChatColor.translateAlternateColorCodes('&',command
-                .replace("/", "&d/")
+                .replace("/", Colorinfo + "/")
                 .replace("<", "&9<&7")
-                .replace(">", "&9>&d")
-                .replace("!", "&8!"));
+                .replace(">", "&9>" + Colorinfo)
+                .replace("!", "&8"));
 
     }
 
@@ -74,6 +74,30 @@ public class InventoryManager {
         if(!players.isEmpty()){
             players.removeIf(invetoryPlayer -> invetoryPlayer.getPlayer().equals(player));
         }
+    }
+
+    public Messages loreOfItemEspecial(Material material){
+        Messages messages = null;
+        switch (material){
+            case FERMENTED_SPIDER_EYE -> messages = Messages.Inventory_Help_Item_EspecialItem_FERMENTED_SPIDER_EYE_Lore;
+            case CHARCOAL -> messages = Messages.Inventory_Help_Item_EspecialItem_CHARCOAL_Lore;
+            case SCUTE -> messages = Messages.Inventory_Help_Item_EspecialItem_SCUTE_Lore;
+            case FLINT -> messages = Messages.Inventory_Help_Item_EspecialItem_FLINT_Lore;
+            case NETHERITE_SCRAP -> messages = Messages.Inventory_Help_Item_EspecialItem_NETHERITE_SCRAP_Lore;
+
+        }
+        return messages;
+    }
+
+    public String permissionToRange(String[] permission){
+        for (String s : permission){
+            switch(s){
+                case "xbxtcore.command.user" -> {
+                    return "Usuario";
+                }
+            }
+        }
+        return "Desconocido";
     }
 
     public void togglePreview(ItemStack item, InvetoryPlayer invetoryPlayer){
@@ -112,7 +136,7 @@ public class InventoryManager {
             lore.add(ChatColor.translateAlternateColorCodes('&',"&7" + s));
         }
         lore.set(xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).getIndexMap(),MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.Inventory_DuelLoreSelectWorld) + lore.get(xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).getIndexMap()));
-        Utils.NewitemInvetory(Messages.Inventory_DuelSelectWorld, Material.FILLED_MAP, 16, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer(), lore);
+        Utils.newItemInventory(Messages.Inventory_DuelSelectWorld, Material.FILLED_MAP, 16, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer(), lore);
     }
 
     public static ArrayList<String> secondsToMinutesLore(Player player){
@@ -125,9 +149,9 @@ public class InventoryManager {
     protected void UpdateEnderPearl(Player player, ArrayList<String> lore){
         Inventory inv = player.getOpenInventory().getTopInventory();
         if (xBxTcore.getPlayerDataUnique(player.getUniqueId()).getTimeLimit()){
-            Utils.NewitemInvetory(Messages.Inventory_DuelTimeLimitOn, Material.ENDER_EYE, 13, inv, player, lore);
+            Utils.newItemInventory(Messages.Inventory_DuelTimeLimitOn, Material.ENDER_EYE, 13, inv, player, lore);
         }else{
-            Utils.NewitemInvetory(Messages.Inventory_DuelTimeLimitOff, Material.ENDER_PEARL, 13, inv, player, lore);
+            Utils.newItemInventory(Messages.Inventory_DuelTimeLimitOff, Material.ENDER_PEARL, 13, inv, player, lore);
         }
     }
 

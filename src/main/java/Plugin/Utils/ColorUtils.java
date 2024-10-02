@@ -167,7 +167,7 @@ public final class ColorUtils {
         return gradientText.toString();
     }
 
-    public static @NotNull String applyGradient(String input, String in) {
+    public static @NotNull String applyGradient(String input, char in) {
         if (input.contains("</#"))input = input.replace("/","");
         // Procesar etiquetas de formato (negrita, cursiva)
 

@@ -12,4 +12,5 @@ public enum InvetorySection {
     HELP_RULE,
     HELP_INFO,
     HELP_COMMANDS,
+    HELP_ITEM,
 }
