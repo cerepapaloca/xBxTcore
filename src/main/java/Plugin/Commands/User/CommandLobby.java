@@ -22,7 +22,7 @@ import static Plugin.Messages.MessageManager.MasterMessageLocated;
 public class CommandLobby extends BaseCommand {
 
     public CommandLobby(){
-        super(new String[]{"lobby", "spawn"},
+        super(new String[]{"lobby", "spawn", "sw"},
                 "/lobby",
                 "xbxtcore.command.user",
                 false,

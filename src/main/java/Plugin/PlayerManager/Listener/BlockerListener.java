@@ -88,6 +88,7 @@ public class BlockerListener implements Listener {
         AlloedCommands.add("prefix");
         AlloedCommands.add("plugins");
         AlloedCommands.add("inv");
+        AlloedCommands.add("menu");
         AlloedCommands.add("boxpvp");
         AlloedCommands.add("shop");
         AlloedCommands.add("login");

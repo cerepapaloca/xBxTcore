@@ -40,6 +40,7 @@ commands:
   vip:
   timerewardskip:
   shop:
+  menu:
   xbxtcore:
 permissions:
   xbxtcore.vote:
