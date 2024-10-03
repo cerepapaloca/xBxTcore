@@ -1,6 +1,5 @@
 package Plugin.Inventory.Listener;
 
-import Plugin.File.FileManagerSection;
 import Plugin.Inventory.InventorySection;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.ItemFrame;
@@ -21,7 +20,7 @@ public class ItemframeListener implements Listener {
             Entity entity = event.getRightClicked();
             if (entity instanceof ItemFrame frame) {
                 event.setCancelled(true);
-                InventorySection.getInventoryManager().invetorymenu().OpenItemframe(player, frame.getItem());
+                InventorySection.getInventoryManager().invetorymenu().OpenItemFrame(player, frame.getItem());
             }
         }
     }

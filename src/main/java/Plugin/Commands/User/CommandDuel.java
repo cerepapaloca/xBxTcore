@@ -60,7 +60,7 @@ public class CommandDuel extends BaseCommand {
                 if (args.length != 0) target = Bukkit.getPlayer(args[0]);
                 switch (args.length) {
                     case 0:
-                        InventorySection.getInventoryMenu().OpenDuel(new InvetoryPlayer(playareSender));
+                        InventorySection.getInventoryMenu().OpenMenuDuel(new InvetoryPlayer(playareSender));
                         return;
                     case 1:
                         if (args[0].equalsIgnoreCase("deny")) {

@@ -4,6 +4,7 @@ import net.md_5.bungee.api.ChatColor;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import static Plugin.Messages.Messages.Messages.*;
 import static Plugin.Messages.MessageManager.*;
@@ -242,83 +243,86 @@ public record MessagesEN() {
         enMessages.put(Teams_Tag_MaxLength, prefix + prefixTeam + ColorError + "Your tag is too long");
         enMessages.put(Teams_Tag_NoPerm, prefix + prefixTeam + ColorError + "You do not have permission to change the team tag");
         //Invetarios
-        enMessages.put(Inventory_InvGlobal,"&a&lGlobal Kits");
-        enMessages.put(Inventory_InvCustom,"&e&lCustom Kits");
-        enMessages.put(Inventory_TpLobby,"&b&lReturn to the lobby");
-        enMessages.put(Inventory_TpCreatorKits,"&b&lCreate your kit");
-        enMessages.put(Inventory_InvPreview,"&bPreview");
-        enMessages.put(Inventory_InvItemFrame,"&b&ltake what you want");
-        enMessages.put(Inventory_InvExit,"&c&lExit");
-        enMessages.put(Inventory_InvLoad,"&a&lLoad Kit");
-        enMessages.put(Inventory_lore,"Name: ");
-        enMessages.put(Inventory_Previous,"Previous page");
-        enMessages.put(Inventory_Next,"Next page");
-        enMessages.put(Inventory_InvClear,"&b&l Clear Inventory");
-        enMessages.put(Inventory_CreteKit,"&b&lCreate your kit");
-        enMessages.put(Inventory_KitList,"&bKits List&r - &6&lClick Right&r&6 To see the preview");
-        enMessages.put(Inventory_KitMenu,"&bMenu Kit");
-        enMessages.put(Inventory_KitListBedrock, "&bKits List");
+        enMessages.put(Inventory_Menu_Generic_Lore,ColorWarning + "⚠ Can't be opened in pvp box ⚠");
+        enMessages.put(Inventory_Menu_Title,ColorWarning + "<#61CAFD>xBxT<#B378CB>:<#FDC661>Menu<#FF7302>");
+        enMessages.put(Inventory_MenuKit_InvGlobal,"&a&lGlobal Kits");
+        enMessages.put(Inventory_MenuKit_InvCustom,"&e&lCustom Kits");
+        enMessages.put(Inventory_MenuKit_TpLobby,"&b&lReturn to the lobby");
+        enMessages.put(Inventory_MenuKit_TpCreatorKits,"&b&lCreate your kit");
+        enMessages.put(Inventory_PreviewKit_Title,"&b&lPreview");
+        enMessages.put(Inventory_InvItemFrame_Title,"&b&ltake what you want");
+        enMessages.put(Inventory_Generic_Exit,"&c&lExit");
+        enMessages.put(Inventory_PreviewKit_Load_Title,"&a&lLoad Kit");
+        enMessages.put(Inventory_PreviewKit_Load_lore,"Name: ");
+        enMessages.put(Inventory_Generic_Previous,"Previous page");
+        enMessages.put(Inventory_Generic_Next,"Next page");
+        enMessages.put(Inventory_KitList_InvClear,"&b&l Clear Inventory");
+        enMessages.put(Inventory_KitList_Title,"&bKits List&r - &6&lClick Right&r&6 To see the preview");
+        enMessages.put(Inventory_KitMenu_Title,"&b&lMenu Kit");
+        enMessages.put(Inventory_KitListBedrock_Title, "&bKits List");
         enMessages.put(Inventory_PreviewOn, "&bPreview:&2&l Enabled");
         enMessages.put(Inventory_PreviewOff, "&bPreview:&c&l Disabled");
-        enMessages.put(Inventory_DuelSendQuest, "&2&lSend Request");
-        enMessages.put(Inventory_DuelInvPlayers, Coloritem + "&lList of invited players");
-        enMessages.put(Inventory_DuelSelectKit, Coloritem + "&lThe selected kit");
-        enMessages.put(Inventory_DuelTimeLimit, Coloritem + "&lTime limit");
-        enMessages.put(Inventory_DuelSelectWorld, Coloritem + "&lSelected world");
-        enMessages.put(Inventory_DuelLoreInvPlayers, Colorinfo + "Selected players");
-        enMessages.put(Inventory_DuelLoreInvPlayersEmpty, Colorinfo + "Invite your friends!");
-        enMessages.put(Inventory_DuelLoreSelectKit, Colorinfo + "The selected kit is: &e");
-        enMessages.put(Inventory_DuelLoreSelectKitEmpty, Colorinfo + "The selected kit is the favorite");
-        enMessages.put(Inventory_DuelLoreTimeLimit, Colorinfo + "Active time limit");
-        enMessages.put(Inventory_DuelLoreTimeLimitDisabled, Colorinfo + "No time limit");
-        enMessages.put(Inventory_DuelLoreSelectWorld, Colorplayer + "Selected: ");
-        enMessages.put(Inventory_DuelTimeLimitOn,Coloritem + "Time limit activated");
-        enMessages.put(Inventory_DuelTimeLimitOff,Coloritem + "Time limit disabled");
-        enMessages.put(Inventory_DuelTimeLore, Colorinfo + "Maximum time: " + Colorplayer);
-        enMessages.put(Inventory_SelectKitFavorite,Coloritem  + "&lSelect favorite kit");
-        enMessages.put(Inventory_TimeLimit_M1mas,"&21M+");
-        enMessages.put(Inventory_TimeLimit_S1mas,"&21S+");
-        enMessages.put(Inventory_TimeLimit_S1menos,"&c1S-");
-        enMessages.put(Inventory_TimeLimit_M1menos,"&c1M-");
-        enMessages.put(Inventory_Help_Command,"<#FCD05C>Commands<#FFE7A7>");
-        enMessages.put(Inventory_Help_Command_Lore,"You can see what each server command does\n \n" + ColorWarning + "⚠ limited translation into english ⚠");
-        enMessages.put(Inventory_Help_Item,"<#19fbff>Items Box PvP<#2a7c7d>");
-        enMessages.put(Inventory_Help_Item_Lore,"You can see what each server command does");
-        enMessages.put(Inventory_Help_Item_EspecialItem_FERMENTED_SPIDER_EYE_Lore, "When you carry it in your secondary hand you do 75% more damage but " +
+        enMessages.put(Inventory_MenuDuel_Title, "&bMenu Duels");
+        enMessages.put(Inventory_MenuDuel_SendQuest, "&2&lSend Request");
+        enMessages.put(Inventory_MenuDuel_InvPlayers_title, Coloritem + "&lList of invited players");
+        enMessages.put(Inventory_MenuDuel_SelectKit, Coloritem + "&lThe selected kit");
+        enMessages.put(Inventory_MenuDuel_TimeLimit_Title, Coloritem + "&lTime limit");
+        enMessages.put(Inventory_MenuDuel_SelectWorld_Title, Coloritem + "&lSelected world");
+        enMessages.put(Inventory_MenuDuel_InvPlayers_Lore, Colorinfo + "Selected players");
+        enMessages.put(Inventory_MenuDuel_InvPlayersEmpty_Lore, Colorinfo + "Invite your friends!");
+        enMessages.put(Inventory_MenuDuel_SelectKit_Lore, Colorinfo + "The selected kit is: &e");
+        enMessages.put(Inventory_MenuDuel_SelectKitEmpty_Lore, Colorinfo + "The selected kit is the favorite");
+        enMessages.put(Inventory_MenuDuel_TimeLimit_Lore, Colorinfo + "Active time limit");
+        enMessages.put(Inventory_MenuDuel_TimeLimitDisabled_Lore, Colorinfo + "No time limit");
+        enMessages.put(Inventory_MenuDuel_SelectWorld_Lore, Colorplayer + "Selected: ");
+        enMessages.put(Inventory_MenuDuel_TimeLimit_On,Coloritem + "Time limit activated");
+        enMessages.put(Inventory_MenuDuel_TimeLimit_Off,Coloritem + "Time limit disabled");
+        enMessages.put(Inventory_MenuDuel_TimeLimit_ItemLore, Colorinfo + "Maximum time: " + Colorplayer);
+        enMessages.put(Inventory_MenuKit_SeleMode_SelectKitFavorite,Coloritem  + "&lSelect favorite kit");
+        enMessages.put(Inventory_MenuDuel_TimeLimit_M1mas,"&21M+");
+        enMessages.put(Inventory_MenuDuel_TimeLimit_S1mas,"&21S+");
+        enMessages.put(Inventory_MenuDuel_TimeLimit_S1menos,"&c1S-");
+        enMessages.put(Inventory_MenuDuel_TimeLimit_M1menos,"&c1M-");
+        enMessages.put(Inventory_MenuHelp_Title,"&b&lMenu Help");
+        enMessages.put(Inventory_MenuHelp_Command,"<#FCD05C>Commands<#FFE7A7>");
+        enMessages.put(Inventory_MenuHelp_Command_Lore,"You can see what each server command does\n \n" + ColorWarning + "⚠ limited translation into english ⚠");
+        enMessages.put(Inventory_MenuHelp_Item,"<#19fbff>Items Box PvP<#2a7c7d>");
+        enMessages.put(Inventory_MenuHelp_Item_Lore,"You can see what each server command does");
+        enMessages.put(Inventory_MenuHelp_Item_EspecialItem_FERMENTED_SPIDER_EYE_Lore, "When you carry it in your secondary hand you do 75% more damage but " +
                 "for each hit you give your hunger goes down");
-        enMessages.put(Inventory_Help_Item_EspecialItem_CHARCOAL_Lore, "When you carry it in your secondary hand and if you are less than 16 health (8 hearts) you deal with 3 " +
+        enMessages.put(Inventory_MenuHelp_Item_EspecialItem_CHARCOAL_Lore, "When you carry it in your secondary hand and if you are less than 16 health (8 hearts) you deal with 3 " +
                 "for 10 seconds");
-        enMessages.put(Inventory_Help_Item_EspecialItem_SCUTE_Lore, "When you carry it in your secondary hand you do 125% more damage only when it has absorption if not" +
+        enMessages.put(Inventory_MenuHelp_Item_EspecialItem_SCUTE_Lore, "When you carry it in your secondary hand you do 125% more damage only when it has absorption if not" +
                 " you do -25% damage");
-        enMessages.put(Inventory_Help_Item_EspecialItem_FLINT_Lore, "When you carry this in your offhand there is a 30% chance that you will be blinded for 10 seconds");
-        enMessages.put(Inventory_Help_Item_EspecialItem_NETHERITE_SCRAP_Lore, "When you carry this in your offhand you gain slow 3 for 30 seconds and damage resistance " +
+        enMessages.put(Inventory_MenuHelp_Item_EspecialItem_FLINT_Lore, "When you carry this in your offhand there is a 30% chance that you will be blinded for 10 seconds");
+        enMessages.put(Inventory_MenuHelp_Item_EspecialItem_NETHERITE_SCRAP_Lore, "When you carry this in your offhand you gain slow 3 for 30 seconds and damage resistance " +
                 " 3 for 30 seconds");
-        enMessages.put(Inventory_Help_Item_ArmorItem_Title, "<#19fbff>Armor/Tools<#2a7c7d>");
-        enMessages.put(Inventory_Help_Item_ArmorItem_Lore,
+        enMessages.put(Inventory_MenuHelp_Item_ArmorItem_Title, "<#19fbff>Armor/Tools<#2a7c7d>");
+        enMessages.put(Inventory_MenuHelp_Item_ArmorItem_Lore,
                 "&l" + Coloritem + "Helmet: &7Increases your generation speed up to tier 10, from there it does not increase further.\n \n" +
                 "&l" + Coloritem + "Elytra: &7Increases your maximum life for each tier increases by one heart.\n \n" +
                 "&l" + Coloritem + "Pants: &7Increases your overall resistance to damage and resistance to penetration by this and increases by one level for each tier.\n \n" +
                 "&l" + Coloritem + "Boots: &7Increases your resistance to pushback and explosions for each tier increases by one enchantment level.\n \n" +
                 "&l" + Coloritem + "Sword: &7Increases the enchantment level of the blade for each tier increases 2 levels of enchantment.\n \n" +
                 "&l" + Coloritem + "Pickaxe: &7for each tier increases the chance of getting a duplicate item when mining increases 3% for each tier.");
-        enMessages.put(Inventory_Help_Item_CoinP_Title, "<#19fbff>Principal Coin<#2a7c7d>");
-        enMessages.put(Inventory_Help_Item_CoinP_Lore, "The main coin is used to buy from the villagers on the surface and improve your equipment. To have " +
+        enMessages.put(Inventory_MenuHelp_Item_CoinP_Title, "<#19fbff>Principal Coin<#2a7c7d>");
+        enMessages.put(Inventory_MenuHelp_Item_CoinP_Lore, "The main coin is used to buy from the villagers on the surface and improve your equipment. To have " +
                 "this coin you have to exchange it with the converter villagers who exchange the gold ore, iron ore... for the main coin with its respective value. The " +
                 "main coins have different values, fragment, normal and compact. You can compact or fragment the coin as many times as you want with " +
                 "the same villagers");
-        enMessages.put(Inventory_Help_Item_CoinS_Title, "<#19fbff>Ore Coin<#2a7c7d>");
-        enMessages.put(Inventory_Help_Item_CoinS_Lore, "This coin is obtained by mining materials such as gold, iron, copper ... these are found " +
+        enMessages.put(Inventory_MenuHelp_Item_CoinS_Title, "<#19fbff>Ore Coin<#2a7c7d>");
+        enMessages.put(Inventory_MenuHelp_Item_CoinS_Lore, "This coin is obtained by mining materials such as gold, iron, copper ... these are found " +
                 "around the center of the Box PvP. According to their value, these mines take longer to regenerate. The one that takes the longest is the special mine, which has the " +
                 "highest value of all and is located right in the center of the Box PvP. With this coin you can trade with the villagers on the surface to have the " +
                 "main currency");
-        enMessages.put(Inventory_Help_Item_CoinT_Title, "<#19fbff>Tier Coin<#2a7c7d>");
-        enMessages.put(Inventory_Help_Item_CoinT_Lore, "The tier currency is only used to upgrade your armor, pickaxe, and sword. It is obtained in each tower where " +
+        enMessages.put(Inventory_MenuHelp_Item_CoinT_Title, "<#19fbff>Tier Coin<#2a7c7d>");
+        enMessages.put(Inventory_MenuHelp_Item_CoinT_Lore, "The tier currency is only used to upgrade your armor, pickaxe, and sword. It is obtained in each tower where " +
                 "each mine of each tier is located. With this you trade with a villager who is in the same mine to compact it to improve your equipment");
-        enMessages.put(Inventory_Help_Rules,"<#FC5C5C>Rules<#FFDD91>");
-        enMessages.put(Inventory_Help_Rules_Lore,"You can know the rules of this server");
-        enMessages.put(Inventory_Help_Info,"<#19fbff>info<#2a7c7d>");
-        enMessages.put(Inventory_Help_Info_Lore,"You can find out general information about the server\n \n" + ColorWarning + "⚠ limited translation into english ⚠");
-        enMessages.put(Inventory_Help_Info_xBxTCore_lore, "The xBxT Core plugin is a private plugin in charge of the main operation of the server" +
+        enMessages.put(Inventory_MenuHelp_Rules,"<#FC5C5C>Rules<#FFDD91>");
+        enMessages.put(Inventory_MenuHelp_Rules_Lore,"You can know the rules of this server");
+        enMessages.put(Inventory_MenuHelp_Info,"<#19fbff>info<#2a7c7d>");
+        enMessages.put(Inventory_MenuHelp_Info_Lore,"You can find out general information about the server\n \n" + ColorWarning + "⚠ limited translation into english ⚠");
+        enMessages.put(Inventory_MenuHelp_Info_xBxTCore_lore, "The xBxT Core plugin is a private plugin in charge of the main operation of the server" +
                 " it takes care of almost everything on the server such as translations, inventories, bans and many other things. The reason for its existence " +
                 "is to have absolute control of the server and not be limited to third-party plugins even though there are plugins that are necessary but " +
                 "these have an api that handles xBxT Core and thanks to 8b8tCore for their project organization system.");

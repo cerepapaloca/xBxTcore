@@ -79,11 +79,11 @@ public class InventoryManager {
     public Messages loreOfItemEspecial(Material material){
         Messages messages = null;
         switch (material){
-            case FERMENTED_SPIDER_EYE -> messages = Messages.Inventory_Help_Item_EspecialItem_FERMENTED_SPIDER_EYE_Lore;
-            case CHARCOAL -> messages = Messages.Inventory_Help_Item_EspecialItem_CHARCOAL_Lore;
-            case SCUTE -> messages = Messages.Inventory_Help_Item_EspecialItem_SCUTE_Lore;
-            case FLINT -> messages = Messages.Inventory_Help_Item_EspecialItem_FLINT_Lore;
-            case NETHERITE_SCRAP -> messages = Messages.Inventory_Help_Item_EspecialItem_NETHERITE_SCRAP_Lore;
+            case FERMENTED_SPIDER_EYE -> messages = Messages.Inventory_MenuHelp_Item_EspecialItem_FERMENTED_SPIDER_EYE_Lore;
+            case CHARCOAL -> messages = Messages.Inventory_MenuHelp_Item_EspecialItem_CHARCOAL_Lore;
+            case SCUTE -> messages = Messages.Inventory_MenuHelp_Item_EspecialItem_SCUTE_Lore;
+            case FLINT -> messages = Messages.Inventory_MenuHelp_Item_EspecialItem_FLINT_Lore;
+            case NETHERITE_SCRAP -> messages = Messages.Inventory_MenuHelp_Item_EspecialItem_NETHERITE_SCRAP_Lore;
 
         }
         return messages;
@@ -135,23 +135,23 @@ public class InventoryManager {
         for(String s : nameMapsDuel){
             lore.add(ChatColor.translateAlternateColorCodes('&',"&7" + s));
         }
-        lore.set(xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).getIndexMap(),MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.Inventory_DuelLoreSelectWorld) + lore.get(xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).getIndexMap()));
-        Utils.newItemInventory(Messages.Inventory_DuelSelectWorld, Material.FILLED_MAP, 16, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer(), lore);
+        lore.set(xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).getIndexMap(),MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.Inventory_MenuDuel_SelectWorld_Lore) + lore.get(xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).getIndexMap()));
+        Utils.newItemInventory(Messages.Inventory_MenuDuel_SelectWorld_Title, Material.FILLED_MAP, 16, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer(), lore);
     }
 
     public static ArrayList<String> secondsToMinutesLore(Player player){
         int time = xBxTcore.getPlayerDataUnique(player.getUniqueId()).getTimeDuel();
         ArrayList<String> lore = new ArrayList<>();
-        lore.add(MasterMessageLocated(player, Messages.Inventory_DuelTimeLore) + Utils.TimeToString(time, 1));
+        lore.add(MasterMessageLocated(player, Messages.Inventory_MenuDuel_TimeLimit_ItemLore) + Utils.TimeToString(time, 1));
         return lore;
     }
 
     protected void UpdateEnderPearl(Player player, ArrayList<String> lore){
         Inventory inv = player.getOpenInventory().getTopInventory();
         if (xBxTcore.getPlayerDataUnique(player.getUniqueId()).getTimeLimit()){
-            Utils.newItemInventory(Messages.Inventory_DuelTimeLimitOn, Material.ENDER_EYE, 13, inv, player, lore);
+            Utils.newItemInventory(Messages.Inventory_MenuDuel_TimeLimit_On, Material.ENDER_EYE, 13, inv, player, lore);
         }else{
-            Utils.newItemInventory(Messages.Inventory_DuelTimeLimitOff, Material.ENDER_PEARL, 13, inv, player, lore);
+            Utils.newItemInventory(Messages.Inventory_MenuDuel_TimeLimit_Off, Material.ENDER_PEARL, 13, inv, player, lore);
         }
     }
 

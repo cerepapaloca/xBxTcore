@@ -21,10 +21,8 @@ import static Plugin.Messages.MessageManager.MasterMessageLocated;
 public class CombatlogListener implements Listener {
 
     private final List<String> restrictedCommands = new ArrayList<>();
-    private final xBxTcore plugin;
 
-    public CombatlogListener(xBxTcore plugin) {
-        this.plugin = plugin;
+    public CombatlogListener() {
         restrictedCommands.add("lobby");
         restrictedCommands.add("kill");
         restrictedCommands.add("spectator");
@@ -73,12 +71,5 @@ public class CombatlogListener implements Listener {
             }
         }
     }
-
-
-
-
-
-
-
 }
 

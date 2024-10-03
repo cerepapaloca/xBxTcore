@@ -105,14 +105,14 @@ public class PlayerfileManager {
             ItemStack Exit = new ItemStack(Material.BARRIER);
             ItemMeta exitItemMeta = Exit.getItemMeta();
             assert exitItemMeta != null;
-            exitItemMeta.setDisplayName(MasterMessageLocated(player, Messages.Inventory_InvExit));
+            exitItemMeta.setDisplayName(MasterMessageLocated(player, Messages.Inventory_Generic_Exit));
             Exit.setItemMeta(exitItemMeta);
             inv.setItem(53,Exit);
             ///////////////////////////////////////////////////////
             List<String> lore = new ArrayList<>();
             ItemStack selec = new ItemStack(Material.BLAZE_POWDER);
             ItemMeta selecitemmeta = Exit.getItemMeta();
-            selecitemmeta.setDisplayName(MasterMessageLocated(player, Messages.Inventory_InvLoad));
+            selecitemmeta.setDisplayName(MasterMessageLocated(player, Messages.Inventory_PreviewKit_Load_Title));
             lore.add(ChatColor.translateAlternateColorCodes('&', namekit));
             selecitemmeta.setLore(lore);
             selecitemmeta.getPersistentDataContainer().set(new NamespacedKey(plugin, "kitName"), PersistentDataType.STRING, namekit);

@@ -242,83 +242,86 @@ public record MessagesES() {
         esMessages.put(Teams_Tag_MaxLength, prefix + prefixTeam + ColorError + "Tu etiqueta es demasiado larga");
         esMessages.put(Teams_Tag_NoPerm, prefix + prefixTeam + ColorError + "No tienes permiso para cambiar la etiqueta del equipo");
         //Invetarios
-        esMessages.put(Inventory_InvGlobal,"&a&lKits Globales");
-        esMessages.put(Inventory_InvCustom,"&e&lKits Personalizado");
-        esMessages.put(Inventory_TpLobby,"&b&lRegresar al lobby");
-        esMessages.put(Inventory_TpCreatorKits,"&b&lCrea tu kit");
-        esMessages.put(Inventory_InvPreview,"&bVista previa");
-        esMessages.put(Inventory_InvItemFrame,"&b&lToma lo que quieras");
-        esMessages.put(Inventory_InvExit,"&c&lSalir");
-        esMessages.put(Inventory_InvLoad,"&a&lCargar Kit");
-        esMessages.put(Inventory_lore,"Nombre: ");
-        esMessages.put(Inventory_Previous,"Pagina anterior");
-        esMessages.put(Inventory_Next,"Siguiente página");
-        esMessages.put(Inventory_InvClear,"&b&lLimpiar inventario");
-        esMessages.put(Inventory_CreteKit,"&b&lCrea tu kit");
-        esMessages.put(Inventory_KitList,"&bLista de kits&r - &6&lHaga clic derecho&r&6 Para ver la vista previa");
-        esMessages.put(Inventory_KitMenu,"&bMenu Kit");
-        esMessages.put(Inventory_KitListBedrock, "&bLista de kits");
+        esMessages.put(Inventory_Menu_Generic_Lore,ColorWarning + "⚠ no se puede abrir en el Box pvp ⚠");
+        esMessages.put(Inventory_Menu_Title,ColorWarning + "<#61CAFD>xBxT<#B378CB>:<#FDC661>Menu<#FF7302>");
+        esMessages.put(Inventory_MenuKit_InvGlobal,"&a&lKits Globales");
+        esMessages.put(Inventory_MenuKit_InvCustom,"&e&lKits Personalizado");
+        esMessages.put(Inventory_MenuKit_TpLobby,"&b&lRegresar al lobby");
+        esMessages.put(Inventory_MenuKit_TpCreatorKits,"&b&lCrea tu kit");
+        esMessages.put(Inventory_PreviewKit_Title,"&bVista previa");
+        esMessages.put(Inventory_InvItemFrame_Title,"&b&lToma lo que quieras");
+        esMessages.put(Inventory_Generic_Exit,"&c&lSalir");
+        esMessages.put(Inventory_PreviewKit_Load_Title,"&a&lCargar Kit");
+        esMessages.put(Inventory_PreviewKit_Load_lore,"Nombre: ");
+        esMessages.put(Inventory_Generic_Previous,"Pagina anterior");
+        esMessages.put(Inventory_Generic_Next,"Siguiente página");
+        esMessages.put(Inventory_KitList_InvClear,"&b&lLimpiar inventario");
+        esMessages.put(Inventory_KitList_Title,"&bLista de kits&r - &6&lHaga clic derecho&r&6 Para ver la vista previa");
+        esMessages.put(Inventory_KitMenu_Title,"&bMenu Kit");
+        esMessages.put(Inventory_KitListBedrock_Title, "&bLista de kits");
         esMessages.put(Inventory_PreviewOn, "&bPrevisualización:&2&l Activada");
         esMessages.put(Inventory_PreviewOff, "&bPrevisualización:&c&l Desactivada");
-        esMessages.put(Inventory_DuelSendQuest, "&2&lEnviar Petición");
-        esMessages.put(Inventory_DuelInvPlayers, "&b&lLista de jugadores invitado");
-        esMessages.put(Inventory_DuelSelectKit, "&b&lEl kit seleccionado");
-        esMessages.put(Inventory_DuelTimeLimit, "&b&lLimite de tiempo");
-        esMessages.put(Inventory_DuelSelectWorld, "&b&lMundo seleccionado");
-        esMessages.put(Inventory_DuelLoreInvPlayers, Colorinfo + "Jugadores seleccionado ");
-        esMessages.put(Inventory_DuelLoreInvPlayersEmpty, Colorinfo + "Invita a tus amigos!");
-        esMessages.put(Inventory_DuelLoreSelectKit, Colorinfo + "El kit seleccionado es: &e");
-        esMessages.put(Inventory_DuelLoreSelectKitEmpty, Colorinfo + "El kit seleccionado es el favorito");
-        esMessages.put(Inventory_DuelLoreTimeLimit, Colorinfo + "Limite de tiempo activo");
-        esMessages.put(Inventory_DuelLoreTimeLimitDisabled, Colorinfo + "Sin limite de tiempo");
-        esMessages.put(Inventory_DuelLoreSelectWorld, Colorplayer + "Seleccionado: ");
-        esMessages.put(Inventory_DuelTimeLimitOn,Coloritem + "Limite de tiempo activado");
-        esMessages.put(Inventory_DuelTimeLimitOff,Coloritem + "Limite de tiempo desactivado");
-        esMessages.put(Inventory_DuelTimeLore, Colorinfo + "Tiempo máximo: " + Colorplayer);
-        esMessages.put(Inventory_SelectKitFavorite,Coloritem  + "&lSeleccionar kit favorito");
-        esMessages.put(Inventory_TimeLimit_M1mas,"&21M+");
-        esMessages.put(Inventory_TimeLimit_S1mas,"&21S+");
-        esMessages.put(Inventory_TimeLimit_S1menos,"&c1S-");
-        esMessages.put(Inventory_TimeLimit_M1menos,"&c1M-");
-        esMessages.put(Inventory_Help_Command,"<#FCD05C>Commandos<#FFE7A7>");
-        esMessages.put(Inventory_Help_Command_Lore,"Puedes ber que hace cada comando del servidor\n \n" + ColorWarning + "⚠ Traducción limitada en Ingles ⚠");
-        esMessages.put(Inventory_Help_Item,"<#19fbff>Items Box PvP<#2a7c7d>");
-        esMessages.put(Inventory_Help_Item_Lore,"Puedes saber información Cada Item Del Box Pvp");
-        esMessages.put(Inventory_Help_Item_EspecialItem_FERMENTED_SPIDER_EYE_Lore, "Cuando lo llevas en la mano secundaria haces un 75% más de daño pero " +
+        esMessages.put(Inventory_MenuDuel_Title,"&b&lMenu Duelos");
+        esMessages.put(Inventory_MenuDuel_SendQuest, "&2&lEnviar Petición");
+        esMessages.put(Inventory_MenuDuel_InvPlayers_title, "&b&lLista de jugadores invitado");
+        esMessages.put(Inventory_MenuDuel_SelectKit, "&b&lEl kit seleccionado");
+        esMessages.put(Inventory_MenuDuel_TimeLimit_Title, "&b&lLimite de tiempo");
+        esMessages.put(Inventory_MenuDuel_SelectWorld_Title, "&b&lMundo seleccionado");
+        esMessages.put(Inventory_MenuDuel_InvPlayers_Lore, Colorinfo + "Jugadores seleccionado ");
+        esMessages.put(Inventory_MenuDuel_InvPlayersEmpty_Lore, Colorinfo + "Invita a tus amigos!");
+        esMessages.put(Inventory_MenuDuel_SelectKit_Lore, Colorinfo + "El kit seleccionado es: &e");
+        esMessages.put(Inventory_MenuDuel_SelectKitEmpty_Lore, Colorinfo + "El kit seleccionado es el favorito");
+        esMessages.put(Inventory_MenuDuel_TimeLimit_Lore, Colorinfo + "Limite de tiempo activo");
+        esMessages.put(Inventory_MenuDuel_TimeLimitDisabled_Lore, Colorinfo + "Sin limite de tiempo");
+        esMessages.put(Inventory_MenuDuel_SelectWorld_Lore, Colorplayer + "Seleccionado: ");
+        esMessages.put(Inventory_MenuDuel_TimeLimit_On,Coloritem + "Limite de tiempo activado");
+        esMessages.put(Inventory_MenuDuel_TimeLimit_Off,Coloritem + "Limite de tiempo desactivado");
+        esMessages.put(Inventory_MenuDuel_TimeLimit_ItemLore, Colorinfo + "Tiempo máximo: " + Colorplayer);
+        esMessages.put(Inventory_MenuKit_SeleMode_SelectKitFavorite,Coloritem  + "&lSeleccionar kit favorito");
+        esMessages.put(Inventory_MenuDuel_TimeLimit_M1mas,"&21M+");
+        esMessages.put(Inventory_MenuDuel_TimeLimit_S1mas,"&21S+");
+        esMessages.put(Inventory_MenuDuel_TimeLimit_S1menos,"&c1S-");
+        esMessages.put(Inventory_MenuDuel_TimeLimit_M1menos,"&c1M-");
+        esMessages.put(Inventory_MenuHelp_Title,"&b&lMenu Ayuda");
+        esMessages.put(Inventory_MenuHelp_Command,"<#FCD05C>Commandos<#FFE7A7>");
+        esMessages.put(Inventory_MenuHelp_Command_Lore,"Puedes ber que hace cada comando del servidor\n \n" + ColorWarning + "⚠ Traducción limitada en Ingles ⚠");
+        esMessages.put(Inventory_MenuHelp_Item,"<#19fbff>Items Box PvP<#2a7c7d>");
+        esMessages.put(Inventory_MenuHelp_Item_Lore,"Puedes saber información Cada Item Del Box Pvp");
+        esMessages.put(Inventory_MenuHelp_Item_EspecialItem_FERMENTED_SPIDER_EYE_Lore, "Cuando lo llevas en la mano secundaria haces un 75% más de daño pero " +
                 "por cada golpe que das te baja el hambre");
-        esMessages.put(Inventory_Help_Item_EspecialItem_CHARCOAL_Lore, "Cuando lo llevas en la mano secundaria y si estas menos de 16 de vida (8 corazones) das whither 3 " +
+        esMessages.put(Inventory_MenuHelp_Item_EspecialItem_CHARCOAL_Lore, "Cuando lo llevas en la mano secundaria y si estas menos de 16 de vida (8 corazones) das whither 3 " +
                 "durante 10 segundos");
-        esMessages.put(Inventory_Help_Item_EspecialItem_SCUTE_Lore, "Cuando lo lleves en la mano secundaria le haces un 125% más de daño solo cuando tiene absorción si no" +
+        esMessages.put(Inventory_MenuHelp_Item_EspecialItem_SCUTE_Lore, "Cuando lo lleves en la mano secundaria le haces un 125% más de daño solo cuando tiene absorción si no" +
                 " le hace un -25% de daño");
-        esMessages.put(Inventory_Help_Item_EspecialItem_FLINT_Lore, "Cuando lo lleves en la mano secundaria hay una posibilidad del 30% que le des ceguera por 10 segundos");
-        esMessages.put(Inventory_Help_Item_EspecialItem_NETHERITE_SCRAP_Lore, "Cuando lo llevas en la mano secundaria recibes lentitud 3 por 30 segundos y resistencia al " +
+        esMessages.put(Inventory_MenuHelp_Item_EspecialItem_FLINT_Lore, "Cuando lo lleves en la mano secundaria hay una posibilidad del 30% que le des ceguera por 10 segundos");
+        esMessages.put(Inventory_MenuHelp_Item_EspecialItem_NETHERITE_SCRAP_Lore, "Cuando lo llevas en la mano secundaria recibes lentitud 3 por 30 segundos y resistencia al " +
                 " al daño 3 por 30 segundos");
-        esMessages.put(Inventory_Help_Item_ArmorItem_Title, "<#19fbff>Armadura/Herramientas<#2a7c7d>");
-        esMessages.put(Inventory_Help_Item_ArmorItem_Lore,
+        esMessages.put(Inventory_MenuHelp_Item_ArmorItem_Title, "<#19fbff>Armadura/Herramientas<#2a7c7d>");
+        esMessages.put(Inventory_MenuHelp_Item_ArmorItem_Lore,
                 "&l" + Coloritem + "Casco: &7aumenta tu velocidad de generación hasta el tier 10, de hay no aumenta más.\n \n" +
                 "&l" + Coloritem + "Elytra: &7aumenta tu vida maxima por cada tier aumenta un corazon.\n \n" +
                 "&l" + Coloritem + "Pantalón: &7aumenta tu resistencia general a los daños y resistencia a la penetración de este y aumenta un nivel por cada tier.\n \n" +
                 "&l" + Coloritem + "Botas: &7aumenta tu resistencia a los empujes y a explosiones por cada tier sube un nivel de encantamiento.\n \n" +
                 "&l" + Coloritem + "Espada: &7aumenta el nivel de encantamiento de filo por cada tier aumenta 2 niveles de encantamiento.\n \n" +
                 "&l" + Coloritem + "Pico: &7por cada tier aumenta la posibilidad de que te un item duplicado al minar aumenta 3% por cada tier");
-        esMessages.put(Inventory_Help_Item_CoinP_Title, "<#19fbff>Moneda Principal<#2a7c7d>");
-        esMessages.put(Inventory_Help_Item_CoinP_Lore, "Las moneda principal se usa para comprar con los aldeanos de la superficie y mejorar tu equipo. para tener " +
+        esMessages.put(Inventory_MenuHelp_Item_CoinP_Title, "<#19fbff>Moneda Principal<#2a7c7d>");
+        esMessages.put(Inventory_MenuHelp_Item_CoinP_Lore, "Las moneda principal se usa para comprar con los aldeanos de la superficie y mejorar tu equipo. para tener " +
                 "esta moneda tienes que cambiarla con los aldenos conversor que te cambian la mena de oro, hierro... por la principal con su respetivo valor. las " +
                 "monedas principales tienes diferentes valores, fragmento, normal y compacta tu puedes compactar o fragmentar la moneda cuantas veces quieras con " +
                 " los mismo aldeanos");
-        esMessages.put(Inventory_Help_Item_CoinS_Title, "<#19fbff>Moneda Menas<#2a7c7d>");
-        esMessages.put(Inventory_Help_Item_CoinS_Lore, "Esta monda se consigue minada de las mina de materiales como el oro, hierro, cobre... estas se encuentra " +
+        esMessages.put(Inventory_MenuHelp_Item_CoinS_Title, "<#19fbff>Moneda Menas<#2a7c7d>");
+        esMessages.put(Inventory_MenuHelp_Item_CoinS_Lore, "Esta monda se consigue minada de las mina de materiales como el oro, hierro, cobre... estas se encuentra " +
                 "alrededor del centro del BoxPvP. Según su valor estas minas tarda más en regenerarse la que más tarda es mina especial donde esta tiene el valor " +
                 "más alto de todos y se ubica justo en el centro del Box PvP. Con esta monedas puede comercializar con los aldeanos de la superficie para tener la " +
                 "moneda principal");
-        esMessages.put(Inventory_Help_Item_CoinT_Title, "<#19fbff>Moneda De Tier<#2a7c7d>");
-        esMessages.put(Inventory_Help_Item_CoinT_Lore, "La moneda tier esta solo se usa para mejorar tu armadura y pico y espada. Esta se consigue en cada torre donde " +
+        esMessages.put(Inventory_MenuHelp_Item_CoinT_Title, "<#19fbff>Moneda De Tier<#2a7c7d>");
+        esMessages.put(Inventory_MenuHelp_Item_CoinT_Lore, "La moneda tier esta solo se usa para mejorar tu armadura y pico y espada. Esta se consigue en cada torre donde " +
                 "se ubica cada mina de cada tier. con esta se tradea con un aldeano que está en la misma mina para compactarla para mejorar tu equipo");
-        esMessages.put(Inventory_Help_Rules,"<#FC5C5C>Reglas<#FFDD91>");
-        esMessages.put(Inventory_Help_Rules_Lore,"Puedes saber las reglas de este servidor");
-        esMessages.put(Inventory_Help_Info,"<#19fbff>info<#2a7c7d>");
-        esMessages.put(Inventory_Help_Info_Lore,"Puedes saber información general del server\n \n" + ColorWarning + "⚠ Traducción limitada en Ingles ⚠");
-        esMessages.put(Inventory_Help_Info_xBxTCore_lore, "El plugin xBxT Core es un plugin privado encargado del funcionamiento principal del servidor" +
+        esMessages.put(Inventory_MenuHelp_Rules,"<#FC5C5C>Reglas<#FFDD91>");
+        esMessages.put(Inventory_MenuHelp_Rules_Lore,"Puedes saber las reglas de este servidor");
+        esMessages.put(Inventory_MenuHelp_Info,"<#19fbff>info<#2a7c7d>");
+        esMessages.put(Inventory_MenuHelp_Info_Lore,"Puedes saber información general del server\n \n" + ColorWarning + "⚠ Traducción limitada en Ingles ⚠");
+        esMessages.put(Inventory_MenuHelp_Info_xBxTCore_lore, "El plugin xBxT Core es un plugin privado encargado del funcionamiento principal del servidor" +
                 " este se encargar de casi todo del servidor como las traducciones, inventarios baneos y entre muchas cosas más. el motivo de su existencia " +
                 "es para tener un control absoluto del servidor y no estar limitado a los plugins de terceros aún que hay plugins que son necesarios pero " +
                 "estos tiene un api que maneja xBxT Core y gracias 8b8tCore por su sistema de organización del proyecto.");

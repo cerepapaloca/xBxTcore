@@ -4,18 +4,10 @@ import Plugin.Commands.BaseCommand;
 import Plugin.Inventory.InventorySection;
 import Plugin.Inventory.Models.InvetoryPlayer;
 import Plugin.Messages.Messages.Messages;
-import Plugin.Messages.MessageManager;
 import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.Nullable;
-
-import javax.print.attribute.ResolutionSyntax;
-
-import static Plugin.Messages.MessageManager.MasterMessageLocated;
 
 public class CommandKit extends BaseCommand {
 
@@ -35,7 +27,7 @@ public class CommandKit extends BaseCommand {
                     Utils.sendMessage(sender, Messages.Generic_InArea);
                     return ;
                 }
-                InventorySection.getInventoryMenu().OpenMenuInvetory(new InvetoryPlayer(player));
+                InventorySection.getInventoryMenu().OpenMenuKit(new InvetoryPlayer(player));
             }else{
                 Utils.sendMessage(sender, Messages.Generic_InArea);
             }

@@ -16,7 +16,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.util.Objects;
-import java.util.Optional;
 import java.util.UUID;
 
 import static Plugin.File.FileManagerSection.*;
@@ -49,12 +48,13 @@ public class InventoryClick extends InventoryManager {
         switch (invetoryPlayer.getSection()){
             case MENU_PREKIT -> {
                 switch(item.getType()){
-                    case ENDER_CHEST:
+                    case ENDER_CHEST -> {
                         invetoryPlayer.setUUIDKit(UUID.fromString("00000000-0000-0000-0000-000000000000"));
                         invetoryPlayer.setPage(0);
                         invetorymenu().OpenInvetoryKitsList(invetoryPlayer, 0);
-                        break;
-                    case MINECART:
+                    }
+
+                    case MINECART -> {
                         MultiverseWorld mvWorld = xBxTcore.getMultiverseCore().getMVWorldManager().getMVWorld("creatorkits");
                         if (!Objects.equals(invetoryPlayer.getPlayer().getWorld().getName(), "creatorkits")) {
                             World world = mvWorld.getCBWorld();
@@ -67,11 +67,12 @@ public class InventoryClick extends InventoryManager {
                             invetoryPlayer.setPage(0);
                             invetoryPlayer.getPlayer().setLevel(0);
                         }
-                        break;
-                    case CHEST:
+                    }
+                    case CHEST -> {
                         invetoryPlayer.setUUIDKit(invetoryPlayer.getPlayer().getUniqueId());
                         invetorymenu().OpenInvetoryKitsList(invetoryPlayer, 0);
-                        break;
+                    }
+                    case BARRIER -> invetorymenu().OpenMenu(invetoryPlayer);
                 }
             }
             case MENU_KITS -> {
@@ -88,7 +89,7 @@ public class InventoryClick extends InventoryManager {
                     } else if (invetoryPlayer.getKitSelectMode()) {
                         xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).getKitData().setUuid(invetoryPlayer.getUUIDKit());
                         xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).getKitData().setName(Objects.requireNonNull(item.getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(plugin, "kitName"), PersistentDataType.STRING));
-                        invetorymenu().OpenDuel(invetoryPlayer);
+                        invetorymenu().OpenMenuDuel(invetoryPlayer);
                         invetoryPlayer.setPreviewMode(false);
                         return;
                     } else {
@@ -99,10 +100,10 @@ public class InventoryClick extends InventoryManager {
                 } else if (slot == back) {
                     if(invetoryPlayer.getPage() == 0){
                         if(invetoryPlayer.getKitSelectMode()){
-                            invetorymenu().OpenDuel(invetoryPlayer);
+                            invetorymenu().OpenMenuDuel(invetoryPlayer);
                             return;
                         }else{
-                            invetorymenu().OpenMenuInvetory(invetoryPlayer);
+                            invetorymenu().OpenMenuKit(invetoryPlayer);
                             return;
                         }
                     }else{
@@ -121,7 +122,7 @@ public class InventoryClick extends InventoryManager {
                 } else if (invetoryPlayer.getKitSelectMode()) {
                     if (slot == mid + 1){
                         xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).clearKitdata();
-                        invetorymenu().OpenDuel(invetoryPlayer);
+                        invetorymenu().OpenMenuDuel(invetoryPlayer);
                         return;
                     }else if (slot == mid - 1){
                         if (item.getType() == Material.CHEST){
@@ -172,6 +173,7 @@ public class InventoryClick extends InventoryManager {
                         CommandSection.getCommandDuel().sendRequest(xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).getGuestPlayers(false), xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).getNameWolrd(), invetoryPlayer.getPlayer().getUniqueId());
                         invetoryPlayer.getPlayer().closeInventory();
                     }
+                    case 27 -> invetorymenu().OpenMenuDuel(invetoryPlayer);
                 }
             }
 
@@ -192,10 +194,10 @@ public class InventoryClick extends InventoryManager {
                     case 13 -> {
                         if (xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).getTimeLimit()){
                             xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).setTimeLimit(false);
-                            Utils.newItemInventory(Messages.Inventory_DuelTimeLimitOff, Material.ENDER_PEARL, 13, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer(), secondsToMinutesLore(invetoryPlayer.getPlayer()));
+                            Utils.newItemInventory(Messages.Inventory_MenuDuel_TimeLimit_Off, Material.ENDER_PEARL, 13, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer(), secondsToMinutesLore(invetoryPlayer.getPlayer()));
                         }else{
                             xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).setTimeLimit(true);
-                            Utils.newItemInventory(Messages.Inventory_DuelTimeLimitOn, Material.ENDER_EYE, 13, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer(), secondsToMinutesLore(invetoryPlayer.getPlayer()));
+                            Utils.newItemInventory(Messages.Inventory_MenuDuel_TimeLimit_On, Material.ENDER_EYE, 13, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer(), secondsToMinutesLore(invetoryPlayer.getPlayer()));
                         }
                     }
                     case 14 -> {
@@ -206,7 +208,7 @@ public class InventoryClick extends InventoryManager {
                         xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).setTimeDuel(xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).getTimeDuel() + 60);
                         UpdateEnderPearl(invetoryPlayer.getPlayer(), secondsToMinutesLore(invetoryPlayer.getPlayer()));
                     }
-                    case 22 -> invetorymenu().OpenDuel(invetoryPlayer);
+                    case 22 -> invetorymenu().OpenMenuDuel(invetoryPlayer);
                 }
             }
             case REWARD_TIMES -> {
@@ -249,16 +251,29 @@ public class InventoryClick extends InventoryManager {
 
             case HELP -> {
                 switch (slot){
-                    case 10 -> invetorymenu().OpenHelpCommands(invetoryPlayer);
+                    case 10 -> invetorymenu().OpenMenuHelp(invetoryPlayer);
                     case 12 -> invetorymenu().OpenHelpItem(invetoryPlayer);
                     case 14 -> invetorymenu().OpenHelpRules(invetoryPlayer);
                     case 16 -> invetorymenu().OpenHelpInfo(invetoryPlayer);
+                    case 27 -> invetorymenu().OpenMenuDuel(invetoryPlayer);
                 }
             }
 
             case HELP_RULE, HELP_INFO, HELP_COMMANDS, HELP_ITEM -> {
                 switch (slot){
                     case 26, 53 -> invetorymenu().OpenHelp(invetoryPlayer);
+                }
+            }
+
+            case MENU -> {
+                switch (slot){
+                    case 11 -> {
+                        if(!invetoryPlayer.getPlayer().getWorld().getName().equals(xBxTcore.worldBoxPvp)) invetorymenu().OpenMenuKit(invetoryPlayer);
+                    }
+                    case 13 -> {
+                        if(!invetoryPlayer.getPlayer().getWorld().getName().equals(xBxTcore.worldBoxPvp)) invetorymenu().OpenMenuDuel(invetoryPlayer);
+                    }
+                    case 15 -> invetorymenu().OpenMenuHelp(invetoryPlayer);
                 }
             }
         }

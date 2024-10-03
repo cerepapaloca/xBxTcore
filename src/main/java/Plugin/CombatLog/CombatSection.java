@@ -17,7 +17,7 @@ public class CombatSection implements Section {
 
     @Override
     public void enable() {
-        plugin.register(new CombatlogListener(plugin));
+        plugin.register(new CombatlogListener());
     }
 
     @Override
