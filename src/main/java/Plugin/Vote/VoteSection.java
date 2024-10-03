@@ -13,7 +13,7 @@ public class VoteSection implements Section {
 
     @Override
     public void enable() {
-        plugin.register(new VoteListener());
+        plugin.register(new VoteListener(plugin));
     }
 
     @Override

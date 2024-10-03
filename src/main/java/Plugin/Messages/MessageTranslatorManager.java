@@ -109,7 +109,6 @@ public class MessageTranslatorManager {
                     }else {
                         event.getPlayer().sendMessage(MasterMessageLocated(event.getPlayer(), Messages.valueOf(messageId)));
                     }
-
                     if (messageId.equals("Login_Login_Success")){
                         event.getPlayer().setGravity(true);
                         event.getPlayer().teleport(new Location(Bukkit.getWorld("lobby"), 0 , 68, 0));

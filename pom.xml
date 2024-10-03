@@ -42,14 +42,10 @@
         </repository>
 
         <repository>
-            <id>codemc-repo</id>
-            <url>https://repo.codemc.org/repository/maven-public/</url>
+            <id>BenCodez Repo</id>
+            <url>https://nexus.bencodez.com/repository/maven-public/</url>
         </repository>
 
-        <repository>
-            <id>origami-repo</id>
-            <url>https://repo.minebench.de/</url>
-        </repository>
     </repositories>
 
     <dependencies>
@@ -82,11 +78,12 @@
             <version>4.1.8</version>
             <scope>provided</scope>
         </dependency>
-        <!-- nuvotifier-universal -->
+
         <dependency>
-            <groupId>com.github.NuVotifier</groupId>
-            <artifactId>NuVotifier</artifactId>
-            <version>2.7.2</version>
+            <groupId>com.bencodez</groupId>
+            <artifactId>votingplugin</artifactId>
+            <version>LATEST</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>

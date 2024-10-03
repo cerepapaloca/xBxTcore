@@ -4,7 +4,7 @@ author: Ceres
 description: Las Bases Del servidor
 version: 2.5.1
 api-version: 1.20
-depend: [Multiverse-Core, TAB, Votifier, AuthMe, GrimAC, ProtocolLib]
+depend: [Multiverse-Core, TAB, Votifier, VotingPlugin, AuthMe, GrimAC, ProtocolLib]
 
 commands:
   kit:
@@ -34,6 +34,7 @@ commands:
   vote:
   donate:
   inv:
+  getop:
   boxpvp:
   ReloadDataPlayares:
   itemboxpvp:

@@ -82,7 +82,6 @@ public class CommandHandler implements TabExecutor {
             }else{
                 Utils.sendMessage(sender, Messages.Generic_NotOp);
             }
-
             break;
         }
         return true;

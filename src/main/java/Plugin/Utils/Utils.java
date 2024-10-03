@@ -80,20 +80,22 @@ public final class Utils {
                 Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',prefixConsole + ColorWarning + "El jugador&r " + name
                         + ColorWarning + " no existe o no esta conectado"));
             }else{
-                if (player.getWorld().getName().equals(xBxTcore.worldBoxPvp)){
-                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key0 10".replace("%player%", player.getName()));
-                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key1 5".replace("%player%", player.getName()));
-                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key1 2".replace("%player%", player.getName()));
-                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key3 2".replace("%player%", player.getName()));
-                }else{
-                    playersNotBoxPvpReward.add(name);
-                    player.sendMessage(MasterMessageLocated(player, Messages.Vote_NotBoxPvp));
-                }
-                xBxTcore.getLuckPerms().getUserManager().modifyUser(player.getUniqueId(), user -> {
-                    user.data().add(InheritanceNode.builder("vote").build());
+                Bukkit.getScheduler().runTask(plugin, () -> {
+                    if (player.getWorld().getName().equals(xBxTcore.worldBoxPvp)){
+                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key0 10".replace("%player%", player.getName()));
+                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key1 5".replace("%player%", player.getName()));
+                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key1 2".replace("%player%", player.getName()));
+                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "excellentcrates:crate key give %player% key3 2".replace("%player%", player.getName()));
+                    }else{
+                        playersNotBoxPvpReward.add(name);
+                        player.sendMessage(MasterMessageLocated(player, Messages.Vote_NotBoxPvp));
+                    }
+                    xBxTcore.getLuckPerms().getUserManager().modifyUser(player.getUniqueId(), user -> {
+                        user.data().add(InheritanceNode.builder("vote").build());
+                    });
+                    player.sendMessage(MasterMessageLocated(player, Messages.Vote_Voted));
+                    Bukkit.getConsoleSender().sendMessage(org.bukkit.ChatColor.translateAlternateColorCodes('&', prefixConsole + Colorinfo + "Ha votado el jugador: " + Colorplayer + name));
                 });
-                player.sendMessage(MasterMessageLocated(player, Messages.Vote_Voted));
-                Bukkit.getConsoleSender().sendMessage(org.bukkit.ChatColor.translateAlternateColorCodes('&', prefixConsole + Colorinfo + "Ha votado el jugador: " + Colorplayer + name));
             }
         }else{
             if(player == null && playersOfflineReward.contains(name)) {
@@ -109,20 +111,9 @@ public final class Utils {
                     user.data().add(InheritanceNode.builder("vote").build());
                 });
                 Bukkit.getConsoleSender().sendMessage(org.bukkit.ChatColor.translateAlternateColorCodes('&', prefixConsole + Colorinfo + "Se ha echo un voto por adelantado de parte del jugador: " + Colorplayer + name));
+                playersNotBoxPvpReward.add(name);
             }
         }
-    }
-
-    public static void sendMessage(@NotNull CommandSender sender, @NotNull Messages messages) {
-        if (sender instanceof Player player) {
-            sendMessage(sender, MasterMessageLocated(player, messages));
-        }else{
-            MessageManager.sendMessageConsole(messages);
-        }
-    }
-
-    public static void sendMessage(@NotNull CommandSender sender, @NotNull String message) {
-        sender.sendMessage(message);
     }
 
     public static void RewardBoxPvpCheck(String name){
@@ -137,6 +128,18 @@ public final class Utils {
                 }
             }.runTaskLater(plugin, 20);
         }
+    }
+
+    public static void sendMessage(@NotNull CommandSender sender, @NotNull Messages messages) {
+        if (sender instanceof Player player) {
+            sendMessage(sender, MasterMessageLocated(player, messages));
+        }else{
+            MessageManager.sendMessageConsole(messages);
+        }
+    }
+
+    public static void sendMessage(@NotNull CommandSender sender, @NotNull String message) {
+        sender.sendMessage(message);
     }
 
     public static void ClickExecuteCommand(String command,@NotNull Messages messages,@NotNull Player p) {
