@@ -35,18 +35,9 @@ public class CommandSection implements Section {
         Objects.requireNonNull(plugin.getCommand("xbxtcore")).setExecutor(new Commandxbxtcore());
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-        Objects.requireNonNull(plugin.getCommand("savekit")).setTabCompleter(new TabCompleterSaveKit());
-        Objects.requireNonNull(plugin.getCommand("delKit")).setTabCompleter(new TabCompleterDelKit());
-        Objects.requireNonNull(plugin.getCommand("kitfavorite")).setTabCompleter(new TabCompleterKitFavorite());
-        Objects.requireNonNull(plugin.getCommand("duel")).setTabCompleter(new TabCompleterDuel());
-        Objects.requireNonNull(plugin.getCommand("spectator")).setTabCompleter(new TabCompleterSpectator());
-        Objects.requireNonNull(plugin.getCommand("debugkit")).setTabCompleter(new TabCompleterDebugKit());
         Objects.requireNonNull(plugin.getCommand("itemboxpvp")).setTabCompleter(new TabItemBoxpvp());
         Objects.requireNonNull(plugin.getCommand("xbxtcore")).setTabCompleter(new TabxBxTcore());
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-        Objects.requireNonNull(plugin.getCommand("sk")).setTabCompleter(new TabCompleterSaveKit());
-        Objects.requireNonNull(plugin.getCommand("dk")).setTabCompleter(new TabCompleterDelKit());
-        Objects.requireNonNull(plugin.getCommand("kf")).setTabCompleter(new TabCompleterKitFavorite());
     }
 
     @Override

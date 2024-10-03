@@ -1,25 +1,24 @@
 package Plugin.Commands.User;
 
-import Plugin.Commands.BaseCommand;
+import Plugin.Commands.BaseTabCommand;
 import Plugin.File.FileManagerSection;
 import Plugin.Messages.Messages.Messages;
 import Plugin.Messages.MessageManager;
 import Plugin.xBxTcore;
 import org.bukkit.Material;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static Plugin.Messages.MessageManager.MasterMessageLocated;
 import static Plugin.Utils.Utils.AntiSpam;
 
-public class CommandSaveKit extends BaseCommand {
+public class CommandSaveKit extends BaseTabCommand {
 
     private final xBxTcore plugin;
     private final ArrayList<ItemStack> items = new ArrayList<>();
@@ -74,5 +73,22 @@ public class CommandSaveKit extends BaseCommand {
         items.clear();
         material = null;
         AntiSpam(player, Messages.Kick_SpamCommand, plugin);
+    }
+
+    @Override
+    public List<String> onTab(CommandSender sender, String[] args) {
+        List<String> blockNames = new ArrayList<>();
+        for (Material material : Material.values()) {
+            blockNames.add(material.name().toLowerCase());
+        }
+
+        if (args.length == 2) {
+            String currentArg = args[1].toLowerCase();
+            return blockNames.stream()
+                    .filter(name -> name.startsWith(currentArg))
+                    .collect(Collectors.toList());
+        }
+
+        return null;
     }
 }

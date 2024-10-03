@@ -1,5 +1,7 @@
 package Plugin.Commands;
 
+import org.bukkit.command.CommandSender;
+
 import java.util.List;
 
 public abstract class BaseTabCommand extends BaseCommand {
@@ -21,5 +23,5 @@ public abstract class BaseTabCommand extends BaseCommand {
         super(name, usage, permission, onlyOP, description, subCommands);
     }
 
-    public abstract List<String> onTab(String[] args);
+    public abstract List<String> onTab(CommandSender sender, String[] args);
 }

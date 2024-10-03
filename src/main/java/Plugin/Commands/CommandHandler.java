@@ -27,6 +27,7 @@ public class CommandHandler implements TabExecutor {
     public void registerCommands() {
         xBxTcore plugin = commandSection.getPlugin();
         addCommand(new CommandVote());
+        addCommand(new CommandMenu());
         addCommand(new CommandShop(plugin));
         addCommand(new CommandSpectator(plugin));
         addCommand(new CommandSaveKit(plugin));
@@ -56,12 +57,7 @@ public class CommandHandler implements TabExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
         for (BaseCommand command : commands) {
-            boolean isName = false;
-            for (String name : command.getName()){
-                if (name.equalsIgnoreCase(cmd.getName()))isName = true; break;
-            }
-            if (!isName) continue;
-
+            if (!isName(cmd, command)) continue;
             boolean hasPermission = false;
             for (String permission : command.getPermissions()) {
                 if (sender.hasPermission(permission)) {
@@ -75,7 +71,6 @@ public class CommandHandler implements TabExecutor {
                     command.execute(sender, args);
                 } else {
                     if (sender instanceof Player p) {
-                        Bukkit.getConsoleSender().sendMessage("A");
                         sender.sendMessage(MessageManager.MasterMessageLocated(p, Messages.Generic_NotOp));
                     }
                 }
@@ -85,7 +80,6 @@ public class CommandHandler implements TabExecutor {
             if (hasPermission) {
                 command.execute(sender, args);
             }else{
-                Bukkit.getConsoleSender().sendMessage("B");
                 Utils.sendMessage(sender, Messages.Generic_NotOp);
             }
 
@@ -97,12 +91,9 @@ public class CommandHandler implements TabExecutor {
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String alias, String[] args) {
         for (BaseCommand command : commands) {
-            boolean isName = false;
-            for (String name : command.getName()){
-                if (!name.equalsIgnoreCase(cmd.getName()))isName = true; break;
-            }
-            if (!isName) continue;
-            if (command instanceof BaseTabCommand tabCommand) return tabCommand.onTab(args);
+            isName(cmd, command);
+            if (!isName(cmd, command)) continue;
+            if (command instanceof BaseTabCommand tabCommand)return tabCommand.onTab(sender, args);
             if (command.getSubCommands() != null && args.length == 1) {
                 return Arrays.stream(command.getSubCommands()).map(s -> s.split("::")[0]).filter(s -> s.startsWith(args[0].toLowerCase())).collect(Collectors.toList());
             } else if (args.length > 1) {
@@ -110,5 +101,20 @@ public class CommandHandler implements TabExecutor {
             } else return Bukkit.getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toList());
         }
         return Collections.singletonList("");
+    }
+
+    private boolean isName(@NotNull Command cmd, BaseCommand command) {
+        boolean isName = false;
+        for (String name : command.getName()){
+            if (cmd.getAliases().contains(name)){
+                isName = true;
+                break;
+            }
+            if (name.equalsIgnoreCase(cmd.getName())){
+                isName = true;
+                break;
+            }
+        }
+        return isName;
     }
 }

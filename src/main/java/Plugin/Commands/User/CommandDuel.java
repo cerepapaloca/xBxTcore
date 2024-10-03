@@ -1,8 +1,9 @@
 package Plugin.Commands.User;
 
-import Plugin.Commands.BaseCommand;
+import Plugin.Commands.BaseTabCommand;
 import Plugin.Commands.CommandSection;
 import Plugin.Duel.DuelSection;
+import Plugin.Duel.Enum.MapsDuel;
 import Plugin.Inventory.InventorySection;
 import Plugin.Inventory.InventoryManager;
 import Plugin.Inventory.Models.InvetoryPlayer;
@@ -21,11 +22,12 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static Plugin.Messages.MessageManager.*;
 import static Plugin.Utils.Utils.AntiSpam;
 
-public class CommandDuel extends BaseCommand {
+public class CommandDuel extends BaseTabCommand {
 
     @Getter private final Map<UUID, Request> pendingRequests = new HashMap<>();
     private final ArrayList<Player> players = new ArrayList<>();
@@ -282,4 +284,34 @@ public class CommandDuel extends BaseCommand {
     }
 
 
+    @Override
+    public List<String> onTab(CommandSender sender, String[] args) {
+        List<String> worldtype = new ArrayList<>();
+        for(MapsDuel s : MapsDuel.values()){
+            worldtype.add(s.name());
+        }
+
+        List<String> player = new ArrayList<>();
+        for (Player p : Bukkit.getOnlinePlayers()){
+            player.add(p.getName());
+        }
+        player.add("yes");
+        player.add("deny");
+        player.add("fast_inv");
+
+        if (args.length == 1){
+            String currentArg = args[0].toLowerCase();
+            return player.stream()
+                    .filter(name -> name.startsWith(currentArg))
+                    .collect(Collectors.toList());
+        }else if (args.length == 2){
+            if (!args[0].equalsIgnoreCase("yes") && !args[0].equalsIgnoreCase("deny")) {
+                String currentArg = args[1].toLowerCase();
+                return worldtype.stream()
+                        .filter(name -> name.startsWith(currentArg))
+                        .collect(Collectors.toList());
+            }
+        }
+        return null;
+    }
 }

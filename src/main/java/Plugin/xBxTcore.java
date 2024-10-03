@@ -73,6 +73,7 @@ public final class xBxTcore extends JavaPlugin {
         APIs();
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', Colorinfo + "Registro iniciado..."));
         register(new FileManagerSection(this));
+        register(new CommandSection(this));
         register(new PlayerManagerSection(this));
         register(new MessageSection(this));
         register(new InventorySection(this));
@@ -83,7 +84,6 @@ public final class xBxTcore extends JavaPlugin {
         register(new CombatSection(this));
         register(new VoteSection(this));
         register(new SecuritySection(this));
-        register(new CommandSection(this));
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', ColorSuccess + "Registro completado"));
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',Colorinfo + "iniciando..."));
         for (Section section : sections) {

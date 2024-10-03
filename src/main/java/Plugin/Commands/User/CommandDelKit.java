@@ -1,23 +1,18 @@
 package Plugin.Commands.User;
 
-import Plugin.Commands.BaseCommand;
+import Plugin.Commands.BaseTabCommand;
 import Plugin.File.FileManagerSection;
 import Plugin.Messages.Messages.Messages;
 import Plugin.Utils.Utils;
-import Plugin.xBxTcore;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
-import static Plugin.Messages.MessageManager.MasterMessageLocated;
-
-
-public class CommandDelKit extends BaseCommand {
+public class CommandDelKit extends BaseTabCommand {
 
     private String namekit;
     private final ArrayList<ItemStack> items = new ArrayList<>();
@@ -54,5 +49,23 @@ public class CommandDelKit extends BaseCommand {
 
         FileManagerSection.getPlayerFileManager().DeleteKitConfig(player.getUniqueId(), namekit);
         items.clear();
+    }
+
+    @Override
+    public List<String> onTab(CommandSender sender, String[] args) {
+        if (sender instanceof Player player) {
+            List<String> namekits;
+            FileManagerSection.getPlayerFileManager().loadNameKit(player.getUniqueId());
+            namekits = FileManagerSection.getPlayerFileManager().nameskits;
+
+            if (args.length == 1) {
+                String currentArg = args[0].toLowerCase();
+                return namekits.stream()
+                        .filter(name -> name.startsWith(currentArg))
+                        .collect(Collectors.toList());
+            }
+
+        }
+        return null;
     }
 }

@@ -579,6 +579,7 @@ public class InventoryMenu extends InventoryManager {
         lore = MasterMessageLocated(player, Messages.Inventory_MenuHelp_Info_Lore);
         Utils.newItemInventory(ColorUtils.applyGradient(MasterMessageLocated(player, Messages.Inventory_MenuHelp_Info),'l'), Material.SPYGLASS,
                 16, inv, Utils.StringToLoreString(lore, true, '3'));
+        Utils.newItemInventory(Messages.Inventory_Generic_Exit, Material.BARRIER, 26, inv, player);
         player.openInventory(inv);
         InventorySection.getInventoryManager().addplayer(invetoryPlayer);
     }
@@ -592,7 +593,6 @@ public class InventoryMenu extends InventoryManager {
                 Utils.newItemInventory(" ", Material.GRAY_STAINED_GLASS_PANE, i, inv);
             }
         }
-
         for (int i = 0; 7 > i; i++){
             Utils.newItemInventory(ColorUtils.applyGradient("<#FC5C5C>" + MasterMessageLocated(player, Messages.Rule_Title).replace("%#%", String.valueOf(i)) + "<#FFDD91>"),
                     Material.WRITABLE_BOOK, i, inv, Utils.StringToLoreString(MasterMessageLocated(player ,Messages.valueOf("Rule_" + i)), true, '7'));

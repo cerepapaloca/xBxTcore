@@ -2,6 +2,8 @@ package Plugin.PlayerManager.Listener;
 
 import Plugin.BoxPvp.BoxPvpSection;
 import Plugin.CombatLog.CombatSection;
+import Plugin.Commands.BaseCommand;
+import Plugin.Commands.CommandSection;
 import Plugin.Messages.Messages.Messages;
 import Plugin.xBxTcore;
 import fr.xephi.authme.api.v3.AuthMeApi;
@@ -64,19 +66,15 @@ public class BlockerListener implements Listener {
 
     public BlockerListener(xBxTcore plugin) {
         this.plugin = plugin;
-        AlloedCommands.add("kill");
+        /*AlloedCommands.add("kill");
         AlloedCommands.add("sk");
         AlloedCommands.add("kf");
         AlloedCommands.add("dk");
         AlloedCommands.add("kit");
         AlloedCommands.add("lobby");
         AlloedCommands.add("delkit");
-        AlloedCommands.add("tell");
         AlloedCommands.add("savekit");
         AlloedCommands.add("kitfavorite");
-        AlloedCommands.add("w");
-        AlloedCommands.add("r");
-        AlloedCommands.add("msg");
         AlloedCommands.add("help");
         AlloedCommands.add("duel");
         AlloedCommands.add("discord");
@@ -85,17 +83,23 @@ public class BlockerListener implements Listener {
         AlloedCommands.add("rank");
         AlloedCommands.add("vote");
         AlloedCommands.add("donate");
-        AlloedCommands.add("prefix");
         AlloedCommands.add("plugins");
         AlloedCommands.add("inv");
         AlloedCommands.add("menu");
         AlloedCommands.add("boxpvp");
-        AlloedCommands.add("shop");
+        AlloedCommands.add("shop");*/
         AlloedCommands.add("login");
         AlloedCommands.add("log");
         AlloedCommands.add("register");
         AlloedCommands.add("team");
+        AlloedCommands.add("w");
+        AlloedCommands.add("r");
+        AlloedCommands.add("tell");
+        AlloedCommands.add("msg");
         AlloedCommandsWithPermissions.put("skin", "xbxtcore.vip");
+        for (BaseCommand command : CommandSection.getCommandHandler().getCommands()){
+            AlloedCommands.addAll(Arrays.asList(command.getName()));
+        }
         //////////////////////////////////////
     }
 

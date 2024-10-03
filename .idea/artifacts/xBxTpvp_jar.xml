@@ -3,6 +3,23 @@
     <output-path>$USER_HOME$/Desktop/Servidores/xBxTpvp.xyz/plugins</output-path>
     <root id="archive" name="xBxTpvp.jar">
       <element id="module-output" name="xBxTpvp" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/github/NuVotifier/NuVotifier/nuvotifier-api/2.7.2/nuvotifier-api-2.7.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/netty/netty-handler/4.1.49.Final/netty-handler-4.1.49.Final.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/netty/netty-transport/4.1.49.Final/netty-transport-4.1.49.Final.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/github/NuVotifier/NuVotifier/nuvotifier-velocity/2.7.2/nuvotifier-velocity-2.7.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/github/NuVotifier/NuVotifier/nuvotifier-bukkit/2.7.2/nuvotifier-bukkit-2.7.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/netty/netty-codec/4.1.49.Final/netty-codec-4.1.49.Final.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/github/NuVotifier/NuVotifier/2.7.2/NuVotifier-2.7.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/github/NuVotifier/NuVotifier/nuvotifier-bungeecord/2.7.2/nuvotifier-bungeecord-2.7.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/netty/netty-buffer/4.1.49.Final/netty-buffer-4.1.49.Final.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/github/NuVotifier/NuVotifier/nuvotifier-sponge/2.7.2/nuvotifier-sponge-2.7.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/github/NuVotifier/NuVotifier/nuvotifier-common/2.7.2/nuvotifier-common-2.7.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/netty/netty-common/4.1.49.Final/netty-common-4.1.49.Final.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/netty/netty-transport-native-unix-common/4.1.49.Final/netty-transport-native-unix-common-4.1.49.Final.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/netty/netty-resolver/4.1.49.Final/netty-resolver-4.1.49.Final.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/netty/netty-transport-native-epoll/4.1.49.Final/netty-transport-native-epoll-4.1.49.Final-linux-x86_64.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/github/NuVotifier/NuVotifier/nuvotifier-universal/2.7.2/nuvotifier-universal-2.7.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/github/GrimAnticheat/GrimAPI/-1193c4fa41-1/GrimAPI--1193c4fa41-1.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>

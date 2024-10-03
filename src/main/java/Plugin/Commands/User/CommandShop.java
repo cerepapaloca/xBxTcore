@@ -19,9 +19,7 @@ public class CommandShop extends BaseCommand {
                 "/shop",
                 "xbxtcore.command.user",
                 false,
-                "Te manda un link para ver la tienda",
-                new String[]{"reload::Reload the config file", "version::Show the version of the plugin", "help::Shows the help for the plugin",
-        });
+                "Te manda un link para ver la tienda");
         this.plugin = plugin;
     }
 

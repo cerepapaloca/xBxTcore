@@ -1,21 +1,22 @@
 package Plugin.Commands.User;
 
-import Plugin.Commands.BaseCommand;
+import Plugin.Commands.BaseTabCommand;
 import Plugin.Messages.Messages.Messages;
 import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
 import org.bukkit.*;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static Plugin.Messages.MessageManager.MasterMessageLocated;
 
-public class CommandSpectator extends BaseCommand {
+public class CommandSpectator extends BaseTabCommand {
 
     private final xBxTcore plugin;
 
@@ -70,5 +71,25 @@ public class CommandSpectator extends BaseCommand {
         }else{
             Utils.sendMessage(sender, Messages.Generic_InArea);
         }
+    }
+
+    @Override
+    public List<String> onTab(CommandSender sender, String[] args) {
+        List<String> nameworlds = new ArrayList<>();
+        List<World> worlds = new ArrayList<>(Bukkit.getWorlds());
+        worlds.removeAll(xBxTcore.getWorldProtec());
+        worlds.removeIf(w -> w.getPlayers().isEmpty());
+        for (World w : worlds) {
+            nameworlds.add(w.getName());
+        }
+
+        if (args.length == 1) {
+            String currentArg = args[0].toLowerCase();
+            return nameworlds.stream()
+                    .filter(name -> name.startsWith(currentArg))
+                    .collect(Collectors.toList());
+        }
+
+        return null;
     }
 }

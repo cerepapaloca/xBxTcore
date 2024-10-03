@@ -1,20 +1,21 @@
 package Plugin.Commands.User;
 
-import Plugin.Commands.BaseCommand;
+import Plugin.Commands.BaseTabCommand;
 import Plugin.File.FileManagerSection;
 import Plugin.Messages.Messages.Messages;
 import Plugin.Messages.MessageManager;
 import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static Plugin.Utils.Utils.AntiSpam;
 
-public class CommandKitFavorite extends BaseCommand {
+public class CommandKitFavorite extends BaseTabCommand {
 
     private final xBxTcore plugin;
 
@@ -49,5 +50,20 @@ public class CommandKitFavorite extends BaseCommand {
         }else{
             Utils.sendMessage(sender, Messages.Generic_OnlyPlayers);
         }
+    }
+
+    @Override
+    public List<String> onTab(CommandSender sender, String[] args) {
+        if (sender instanceof Player player) {
+            FileManagerSection.getPlayerFileManager().loadNameKit(player.getUniqueId());
+            List<String> namekitsall = new ArrayList<>(FileManagerSection.getPlayerFileManager().nameskitsboth);
+            if (args.length == 1) {
+                String currentArg = args[0].toLowerCase();
+                return namekitsall.stream()
+                        .filter(name -> name.toLowerCase().contains(currentArg))
+                        .collect(Collectors.toList());
+            }
+        }
+        return null;
     }
 }
