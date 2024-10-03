@@ -46,7 +46,6 @@ public class MessageTranslatorManager {
                     PacketContainer packet = event.getPacket();
                     WrappedChatComponent chatComponent = packet.getChatComponents().read(0);
                     message = normalizeChatMessage(chatComponent.getJson());
-                    //Bukkit.getConsoleSender().sendMessage(message);
 
                 } catch (Exception exception) {
                     try {

@@ -558,7 +558,7 @@ public class InventoryMenu extends InventoryManager {
         getInventoryManager().addplayer(invetoryPlayer);
     }
 
-    public void OpenHelp(InvetoryPlayer invetoryPlayer){
+    public void OpenMenuHelp(InvetoryPlayer invetoryPlayer){
         Player player = invetoryPlayer.getPlayer();
         invetoryPlayer.setSection(InvetorySection.HELP);
         Inventory inv = Bukkit.createInventory(null, 27, MasterMessageLocated(player, Messages.Inventory_MenuDuel_Title));
@@ -639,7 +639,7 @@ public class InventoryMenu extends InventoryManager {
         getInventoryManager().addplayer(invetoryPlayer);
     }
 
-    public void OpenMenuHelp(InvetoryPlayer invetoryPlayer){
+    public void OpenMenuCommands(InvetoryPlayer invetoryPlayer){
         Player player = invetoryPlayer.getPlayer();
         invetoryPlayer.setSection(InvetorySection.HELP_COMMANDS);
         Inventory inv = Bukkit.createInventory(null, 27, ColorUtils.applyGradient(MasterMessageLocated(player, Messages.Inventory_MenuHelp_Command)));
@@ -650,6 +650,7 @@ public class InventoryMenu extends InventoryManager {
         }
         int i = 0;
         for (BaseCommand baseCommand : CommandSection.getCommandHandler().getCommands()){
+            if(baseCommand.getOnlyOP())continue;
             ArrayList<String> lore = new ArrayList<>();
             lore.add("&f- " + Coloritem + "Uso: &r" + formatUsesCommand(baseCommand.getUsage()));
             lore.add("&f- " + Coloritem + "Rango Mínimo: " + Colorinfo + permissionToRange(baseCommand.getPermissions()));

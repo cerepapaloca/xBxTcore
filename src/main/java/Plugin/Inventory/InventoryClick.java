@@ -251,17 +251,17 @@ public class InventoryClick extends InventoryManager {
 
             case HELP -> {
                 switch (slot){
-                    case 10 -> invetorymenu().OpenMenuHelp(invetoryPlayer);
+                    case 10 -> invetorymenu().OpenMenuCommands(invetoryPlayer);
                     case 12 -> invetorymenu().OpenHelpItem(invetoryPlayer);
                     case 14 -> invetorymenu().OpenHelpRules(invetoryPlayer);
                     case 16 -> invetorymenu().OpenHelpInfo(invetoryPlayer);
-                    case 27 -> invetorymenu().OpenMenuDuel(invetoryPlayer);
+                    case 27 -> invetorymenu().OpenMenu(invetoryPlayer);
                 }
             }
 
             case HELP_RULE, HELP_INFO, HELP_COMMANDS, HELP_ITEM -> {
                 switch (slot){
-                    case 26, 53 -> invetorymenu().OpenHelp(invetoryPlayer);
+                    case 26, 53 -> invetorymenu().OpenMenuHelp(invetoryPlayer);
                 }
             }
 
