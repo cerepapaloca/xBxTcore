@@ -4,7 +4,6 @@ import net.md_5.bungee.api.ChatColor;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 import static Plugin.Messages.Messages.Messages.*;
 import static Plugin.Messages.MessageManager.*;
@@ -243,7 +242,11 @@ public record MessagesEN() {
         enMessages.put(Teams_Tag_MaxLength, prefix + prefixTeam + ColorError + "Your tag is too long");
         enMessages.put(Teams_Tag_NoPerm, prefix + prefixTeam + ColorError + "You do not have permission to change the team tag");
         //Invetarios
-        enMessages.put(Inventory_Menu_Generic_Lore,ColorWarning + "⚠ Can't be opened in pvp box ⚠");
+        enMessages.put(Inventory_Menu_MenuDuel_Lore,"This menu is used to customize duels between one or more people to have a " +
+                "private combat\n \n " + ColorWarning + "⚠ can not be opened in the pvp Box ⚠");
+        enMessages.put(Inventory_Menu_MenuKit_Lore,"In this menu you can see and load the kits you want. You can see the global kits or your own " +
+                "\n \n" + ColorWarning + "⚠ can not be opened in the pvp Box ⚠");
+        enMessages.put(Inventory_Menu_MenuHelp_Lore,"Here you can see extra information about the server ");
         enMessages.put(Inventory_Menu_Title,ColorWarning + "<#61CAFD>xBxT<#B378CB>:<#FDC661>Menu<#FF7302>");
         enMessages.put(Inventory_MenuKit_InvGlobal,"&a&lGlobal Kits");
         enMessages.put(Inventory_MenuKit_InvCustom,"&e&lCustom Kits");
@@ -262,7 +265,7 @@ public record MessagesEN() {
         enMessages.put(Inventory_KitListBedrock_Title, "&bKits List");
         enMessages.put(Inventory_PreviewOn, "&bPreview:&2&l Enabled");
         enMessages.put(Inventory_PreviewOff, "&bPreview:&c&l Disabled");
-        enMessages.put(Inventory_MenuDuel_Title, "&bMenu Duels");
+        enMessages.put(Inventory_MenuDuel_Title, "&b&lMenu Duels");
         enMessages.put(Inventory_MenuDuel_SendQuest, "&2&lSend Request");
         enMessages.put(Inventory_MenuDuel_InvPlayers_title, Coloritem + "&lList of invited players");
         enMessages.put(Inventory_MenuDuel_SelectKit, Coloritem + "&lThe selected kit");

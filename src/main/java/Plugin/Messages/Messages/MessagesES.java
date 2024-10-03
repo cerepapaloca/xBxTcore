@@ -242,8 +242,12 @@ public record MessagesES() {
         esMessages.put(Teams_Tag_MaxLength, prefix + prefixTeam + ColorError + "Tu etiqueta es demasiado larga");
         esMessages.put(Teams_Tag_NoPerm, prefix + prefixTeam + ColorError + "No tienes permiso para cambiar la etiqueta del equipo");
         //Invetarios
-        esMessages.put(Inventory_Menu_Generic_Lore,ColorWarning + "⚠ no se puede abrir en el Box pvp ⚠");
-        esMessages.put(Inventory_Menu_Title,ColorWarning + "<#61CAFD>xBxT<#B378CB>:<#FDC661>Menu<#FF7302>");
+        esMessages.put(Inventory_Menu_MenuDuel_Lore,"En este menu se usa para personalizar los duelos entre una o varias persona para tener un " +
+                "combate privado\n \n " + ColorWarning + "⚠ no se puede abrir en el Box pvp ⚠");
+        esMessages.put(Inventory_Menu_MenuKit_Lore,"En este menu puedes ver y cargar los kit que tu quieras. puedes ver los kit global o los tuyos " +
+                "\n \n⚠ " + ColorWarning + "no se puede abrir en el Box pvp ⚠");
+        esMessages.put(Inventory_Menu_MenuHelp_Lore,"Aquí puedes ver información extra del servidor ");
+        esMessages.put(Inventory_Menu_Title,"<#61CAFD>xBxT<#B378CB>:<#FDC661>Menu<#FF7302>");
         esMessages.put(Inventory_MenuKit_InvGlobal,"&a&lKits Globales");
         esMessages.put(Inventory_MenuKit_InvCustom,"&e&lKits Personalizado");
         esMessages.put(Inventory_MenuKit_TpLobby,"&b&lRegresar al lobby");

@@ -236,7 +236,9 @@ public enum Messages {
     Teams_Tag_MaxLength,
     Teams_Tag_NoPerm,
     //Invetarios
-    Inventory_Menu_Generic_Lore,
+    Inventory_Menu_MenuDuel_Lore,
+    Inventory_Menu_MenuKit_Lore,
+    Inventory_Menu_MenuHelp_Lore,
     Inventory_Menu_Title,
     Inventory_MenuKit_InvGlobal,
     Inventory_MenuKit_InvCustom,

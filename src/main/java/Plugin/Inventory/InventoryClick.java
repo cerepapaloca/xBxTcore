@@ -173,7 +173,7 @@ public class InventoryClick extends InventoryManager {
                         CommandSection.getCommandDuel().sendRequest(xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).getGuestPlayers(false), xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).getNameWolrd(), invetoryPlayer.getPlayer().getUniqueId());
                         invetoryPlayer.getPlayer().closeInventory();
                     }
-                    case 27 -> invetorymenu().OpenMenuDuel(invetoryPlayer);
+                    case 26 -> invetorymenu().OpenMenu(invetoryPlayer);
                 }
             }
 
@@ -255,7 +255,7 @@ public class InventoryClick extends InventoryManager {
                     case 12 -> invetorymenu().OpenHelpItem(invetoryPlayer);
                     case 14 -> invetorymenu().OpenHelpRules(invetoryPlayer);
                     case 16 -> invetorymenu().OpenHelpInfo(invetoryPlayer);
-                    case 27 -> invetorymenu().OpenMenu(invetoryPlayer);
+                    case 26 -> invetorymenu().OpenMenu(invetoryPlayer);
                 }
             }
 

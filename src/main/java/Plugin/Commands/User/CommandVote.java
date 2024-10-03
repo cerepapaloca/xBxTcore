@@ -3,16 +3,10 @@ package Plugin.Commands.User;
 import Plugin.Commands.BaseCommand;
 import Plugin.Messages.Messages.Messages;
 import Plugin.Utils.Utils;
-import Plugin.xBxTcore;
 import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-import org.jetbrains.annotations.Nullable;
 
 import static Plugin.Messages.MessageManager.ColorLink;
-import static Plugin.Messages.MessageManager.MasterMessageLocated;
 
 public class CommandVote extends BaseCommand {
 

@@ -133,11 +133,10 @@ public class InventoryMenu extends InventoryManager {
             SlotMINECART = 4 + 9;
         }else{
             inv = Bukkit.createInventory(null, 18, MasterMessageLocated(player, Messages.Inventory_KitMenu_Title));
-            Utils.newItemInventory(Messages.Inventory_Generic_Exit, Material.BARRIER, 13, inv, player);
             SlotENDER_CHEST = 1;
             SlotCHEST = 7;
             SlotMINECART = 4;
-            ItemStack PANEL_GLASS = new ItemStack(Material.LIGHT_BLUE_STAINED_GLASS_PANE);
+            ItemStack PANEL_GLASS = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
             ItemMeta PanelMeta = PANEL_GLASS.getItemMeta();
             assert PanelMeta != null;
             PanelMeta.setDisplayName(" ");
@@ -145,6 +144,7 @@ public class InventoryMenu extends InventoryManager {
             for(int i = 0; i < inv.getSize(); i++){
                 inv.setItem(i,PANEL_GLASS);
             }
+            Utils.newItemInventory(Messages.Inventory_Generic_Exit, Material.BARRIER, 13, inv, player);
         }
         /////////////////////////////////////////
         ItemStack ENDER_CHEST = new ItemStack(Material.ENDER_CHEST);
@@ -418,6 +418,7 @@ public class InventoryMenu extends InventoryManager {
 
         Utils.newItemInventory(Messages.Inventory_MenuDuel_TimeLimit_Title, Material.CLOCK, 14, inv, player, lore);
         ///////////////////////////////////////////////////
+        Utils.newItemInventory(Messages.Inventory_Generic_Exit, Material.BARRIER, 26, inv, player);
         player.openInventory(inv);
         getInventoryManager().addplayer(invetoryPlayer);
         SelectMapDuel(invetoryPlayer, false);
@@ -427,7 +428,6 @@ public class InventoryMenu extends InventoryManager {
     public void OpenTimeSelect(InvetoryPlayer invetoryPlayer){
         invetoryPlayer.setSection(InvetorySection.TIME_SELECT);
         Player player = invetoryPlayer.getPlayer();
-        ArrayList<String> lore = new ArrayList<>();
         Inventory inv = Bukkit.createInventory(null, 27, MasterMessageLocated(player, Messages.Inventory_KitMenu_Title));
         ///////////////////////////////////////////////////
         ItemStack PANEL_GLASS = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
@@ -561,7 +561,7 @@ public class InventoryMenu extends InventoryManager {
     public void OpenMenuHelp(InvetoryPlayer invetoryPlayer){
         Player player = invetoryPlayer.getPlayer();
         invetoryPlayer.setSection(InvetorySection.HELP);
-        Inventory inv = Bukkit.createInventory(null, 27, MasterMessageLocated(player, Messages.Inventory_MenuDuel_Title));
+        Inventory inv = Bukkit.createInventory(null, 27, MasterMessageLocated(player, Messages.Inventory_MenuHelp_Title));
         if (!player.getName().contains(bedrockPrefix)){
             for (int i = 0; inv.getSize() > i ; i++){
                 Utils.newItemInventory(" ", Material.GRAY_STAINED_GLASS_PANE, i, inv);
@@ -626,7 +626,7 @@ public class InventoryMenu extends InventoryManager {
                 &f-&6 RAM:&3 %ram%% &8(DDR3L 8GB)
                 """.replace("%ping%", PingRequest.getPing() + "ms")
                         .replace("%ram%",String.valueOf(Math.round((float) Runtime.getRuntime().totalMemory() / Runtime.getRuntime().freeMemory() * 10)))
-                        .replace("%pro%", String.valueOf(osBean.getAvailableProcessors()))
+                        .replace("%pro%", String.valueOf(osBean.getSystemLoadAverage()))
                         .replace("%tiempo%", Objects.requireNonNull(Utils.TimeToString(System.currentTimeMillis() - plugin.serverStartTime, 1)));
                 Utils.newItemInventory("Hardware/Sistema", Material.COMMAND_BLOCK_MINECART, 12, inv, Utils.StringToLoreString(lore, 1000, true, '8'));
             }
@@ -698,7 +698,7 @@ public class InventoryMenu extends InventoryManager {
         invetoryPlayer.setSection(InvetorySection.MENU);
         String title1 = ColorUtils.applyGradient(MasterMessageLocated(player, Messages.Inventory_Menu_Title).split(":")[0], 'l');
         String title2 = ColorUtils.applyGradient(MasterMessageLocated(player, Messages.Inventory_Menu_Title).split(":")[1], 'l');
-        Inventory inv = Bukkit.createInventory(null, 54, title1 + " " + title2);
+        Inventory inv = Bukkit.createInventory(null, 27, ChatColor.translateAlternateColorCodes('&',title1 + " " + title2));
         if (!player.getName().contains(bedrockPrefix)) {
             for (int i = 0; inv.getSize() > i; i++) {
                 Utils.newItemInventory(" ", Material.GRAY_STAINED_GLASS_PANE, i, inv);
@@ -706,12 +706,12 @@ public class InventoryMenu extends InventoryManager {
         }
 
         Utils.newItemInventory(Messages.Inventory_KitMenu_Title, Material.SHULKER_BOX, 11, inv, player,
-                Utils.StringToLoreString(MasterMessageLocated(player , Messages.Inventory_Menu_Generic_Lore), false));
+                Utils.StringToLoreString(MasterMessageLocated(player , Messages.Inventory_Menu_MenuKit_Lore), true));
         Utils.newItemInventory(Messages.Inventory_MenuDuel_Title, Material.NETHERITE_SWORD, 13, inv, player,
-                Utils.StringToLoreString(MasterMessageLocated(player , Messages.Inventory_Menu_Generic_Lore), false));
-        Utils.newItemInventory(Messages.Inventory_MenuHelp_Title, Material.WRITABLE_BOOK, 15, inv, player);
+                Utils.StringToLoreString(MasterMessageLocated(player , Messages.Inventory_Menu_MenuDuel_Lore), true));
+        Utils.newItemInventory(Messages.Inventory_MenuHelp_Title, Material.WRITABLE_BOOK, 15, inv, player,
+                Utils.StringToLoreString(MasterMessageLocated(player , Messages.Inventory_Menu_MenuHelp_Lore), true));
 
-        Utils.newItemInventory(Messages.Inventory_Generic_Exit, Material.BARRIER, 53, inv, player);
         player.openInventory(inv);
         getInventoryManager().addplayer(invetoryPlayer);
     }
