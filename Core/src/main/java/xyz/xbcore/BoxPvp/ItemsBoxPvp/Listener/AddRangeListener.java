@@ -1,7 +1,7 @@
 package xyz.xbcore.BoxPvp.ItemsBoxPvp.Listener;
 
-import xyz.xbcore.Messages.MessageManager;
-import xyz.xbcore.Messages.Messages.Messages;
+import xyz.xbcommun.Messages.MessageManager;
+import xyz.xbcommun.Messages.Messages.Messages;
 import xyz.xbcore.xBxTcore;
 import net.luckperms.api.node.types.InheritanceNode;
 import org.bukkit.*;
@@ -15,7 +15,7 @@ import org.bukkit.persistence.PersistentDataType;
 
 import java.util.concurrent.TimeUnit;
 
-import static xyz.xbcore.Messages.MessageManager.*;
+import static xyz.xbcommun.Messages.MessageManager.*;
 
 public class AddRangeListener implements Listener {
 

@@ -5,8 +5,8 @@ import xyz.xbcore.File.PlayerData.PlayerfileManager;
 import xyz.xbcore.BoxPvp.Model.MinaBoxPvp;
 import xyz.xbcore.PlayerManager.Model.PlayerDataGLobal;
 import xyz.xbcore.PlayerManager.PlayerManagerSection;
-import xyz.xbcore.Utils.ColorUtils;
-import xyz.xbcore.Utils.Utils;
+import xyz.xbcommun.Utils.ColorUtils;
+import xyz.xbcommun.Utils.UtilsGlobal;
 import xyz.xbcore.xBxTcore;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -19,8 +19,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.*;
 
 import static xyz.xbcore.BoxPvp.AutoFillsBox.minas;
-import static xyz.xbcore.Messages.MessageManager.*;
-import static xyz.xbcore.Utils.ColorUtils.applyGradient;
+import static xyz.xbcommun.Messages.MessageManager.*;
+import static xyz.xbcommun.Utils.ColorUtils.applyGradient;
 
 
 public class Hologramas{
@@ -243,12 +243,12 @@ public class Hologramas{
             } else {
                 iconSafeZone = ChatColor.translateAlternateColorCodes('&', " &6[&c⚔&6]");
             }
-            name = applyGradient("<#" + ColorUtils.blockToHex(mina.getMaterial()) + ">" + Utils.arabicToRoman(i + 1) + " " + mina.getName() + "<#" +
+            name = applyGradient("<#" + ColorUtils.blockToHex(mina.getMaterial()) + ">" + UtilsGlobal.arabicToRoman(i + 1) + " " + mina.getName() + "<#" +
                     ColorUtils.modifyColorHexWithHLS(ColorUtils.blockToHex(mina.getMaterial()), 0.1f, 0.3f, -0.3f) +
                     ">");
 
             armorStand.setCustomName(ChatColor.translateAlternateColorCodes('&', "&l" + name + " " +
-                    Colorplayer + Utils.TimeToString(mina.getTimeLeft(), 0) + iconSafeZone));
+                    Colorplayer + UtilsGlobal.TimeToString(mina.getTimeLeft(), 0) + iconSafeZone));
             i++;
         }
     }

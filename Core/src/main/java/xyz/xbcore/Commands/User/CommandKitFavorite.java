@@ -2,9 +2,9 @@ package xyz.xbcore.Commands.User;
 
 import xyz.xbcommun.Command.BaseTabCommand;
 import xyz.xbcore.File.FileManagerSection;
-import xyz.xbcore.Messages.Messages.Messages;
-import xyz.xbcore.Messages.MessageManager;
-import xyz.xbcore.Utils.Utils;
+import xyz.xbcommun.Messages.Messages.Messages;
+import xyz.xbcommun.Messages.MessageManager;
+import xyz.xbcommun.Utils.UtilsGlobal;
 import xyz.xbcore.xBxTcore;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static xyz.xbcore.Utils.Utils.AntiSpam;
+import static xyz.xbcommun.Utils.UtilsGlobal.AntiSpam;
 
 public class CommandKitFavorite extends BaseTabCommand {
 
@@ -48,7 +48,7 @@ public class CommandKitFavorite extends BaseTabCommand {
                 AntiSpam(player, Messages.Kick_SpamCommand, plugin);
             }
         }else{
-            Utils.sendMessage(sender, Messages.Generic_OnlyPlayers);
+            UtilsGlobal.sendMessage(sender, Messages.Generic_OnlyPlayers);
         }
     }
 

@@ -1,14 +1,14 @@
 package xyz.xbcore.Commands.User;
 
 import xyz.xbcommun.Command.BaseCommand;
-import xyz.xbcore.Messages.Messages.Messages;
+import xyz.xbcommun.Messages.Messages.Messages;
 import xyz.xbcore.xBxTcore;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import static xyz.xbcore.Messages.MessageManager.ColorLink;
-import static xyz.xbcore.Messages.MessageManager.MasterMessageLocated;
+import static xyz.xbcommun.Messages.MessageManager.ColorLink;
+import static xyz.xbcommun.Messages.MessageManager.MasterMessageLocated;
 
 public class CommandShop extends BaseCommand {
 

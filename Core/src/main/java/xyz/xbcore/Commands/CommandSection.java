@@ -1,20 +1,18 @@
 package xyz.xbcore.Commands;
 
-import org.bukkit.command.PluginCommand;
-import xyz.xbcommun.Command.BaseCommand;
-import xyz.xbcommun.Command.CommandHandler;
 import xyz.xbcore.Commands.OnlyOp.*;
 import xyz.xbcore.Commands.User.*;
 import xyz.xbcore.File.FileManagerSection;
 import xyz.xbcore.File.PlayerData.PlayerfileManager;
-import xyz.xbcore.Section;
+import xyz.xbcommun.Section;
 import xyz.xbcore.xBxTcore;
 import lombok.Getter;
+
+import static xyz.xbcommun.RegisterManager.register;
 
 public class CommandSection implements Section {
     @Getter private final xBxTcore plugin;
     @Getter public static CommandDuel commandDuel;
-    @Getter public static CommandHandler commandHandler;
 
     public CommandSection(xBxTcore plugin) {
         this.plugin = plugin;
@@ -22,32 +20,31 @@ public class CommandSection implements Section {
 
     @Override
     public void enable() {
-        commandHandler = new CommandHandler();
-        addCommand(new CommandVote());
-        addCommand(new CommandMenu());
-        addCommand(new CommandShop(plugin));
-        addCommand(new CommandSpectator(plugin));
-        addCommand(new CommandSaveKit(plugin));
-        addCommand(new CommandRank(plugin));
-        addCommand(new CommandLobby());
-        addCommand(new CommandKitFavorite(plugin));
-        addCommand(new CommandKit());
-        addCommand(new CommandKill());
-        addCommand(new CommandInv());
-        addCommand(new CommandHelp());
-        addCommand(commandDuel = new CommandDuel(plugin));
-        addCommand(new CommandDonate());
-        addCommand(new CommandDiscord());
-        addCommand(new CommandDelKit());
-        addCommand(new CommandBoxPvp());
+        register(new CommandVote());
+        register(new CommandMenu());
+        register(new CommandShop(plugin));
+        register(new CommandSpectator(plugin));
+        register(new CommandSaveKit(plugin));
+        register(new CommandRank(plugin));
+        register(new CommandLobby());
+        register(new CommandKitFavorite(plugin));
+        register(new CommandKit());
+        register(new CommandKill());
+        register(new CommandInv());
+        register(new CommandHelp());
+        register(commandDuel = new CommandDuel(plugin));
+        register(new CommandDonate());
+        register(new CommandDiscord());
+        register(new CommandDelKit());
+        register(new CommandBoxPvp());
         //////////////
-        addCommand(new CommandCleaner());
-        addCommand(new CommandDebugKit());
-        addCommand(new Commandinfo(plugin));
-        addCommand(new CommandItemBoxpvp(plugin));
-        addCommand(new CommandTimeRewardSkip());
-        addCommand(new CommandVip());
-        addCommand(new Commandxbxtcore());
+        register(new CommandCleaner());
+        register(new CommandDebugKit());
+        register(new Commandinfo(plugin));
+        register(new CommandItemBoxpvp(plugin));
+        register(new CommandTimeRewardSkip());
+        register(new CommandVip());
+        register(new Commandxbxtcore());
     }
 
     @Override
@@ -64,15 +61,6 @@ public class CommandSection implements Section {
     public void reloadConfig() {
         FileManagerSection.getBlacklistIpManager().ReloadIpBlacklist();
         PlayerfileManager.getPlayesfiles().reloadConfigs();
-    }
-
-    private void addCommand(BaseCommand command) {
-        commandHandler.getCommands().add(command);
-        for (String name : command.getName()){
-            PluginCommand pluginCommand = this.getPlugin().getCommand(name);
-            pluginCommand.setExecutor(commandHandler);
-            pluginCommand.setTabCompleter(commandHandler);
-        }
     }
 
 }

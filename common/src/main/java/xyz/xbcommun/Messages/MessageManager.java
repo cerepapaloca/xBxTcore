@@ -1,14 +1,14 @@
-package xyz.xbcore.Messages;
+package xyz.xbcommun.Messages;
 
-import xyz.xbcore.Messages.Messages.Messages;
+import xyz.xbcommun.Messages.Messages.Messages;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import static xyz.xbcore.Messages.Messages.Messages.*;
-import static xyz.xbcore.Messages.Messages.MessagesEN.enMessages;
-import static xyz.xbcore.Messages.Messages.MessagesES.esMessages;
+import static xyz.xbcommun.Messages.Messages.Messages.*;
+import static xyz.xbcommun.Messages.Messages.MessagesEN.enMessages;
+import static xyz.xbcommun.Messages.Messages.MessagesES.esMessages;
 
 public class MessageManager {
 

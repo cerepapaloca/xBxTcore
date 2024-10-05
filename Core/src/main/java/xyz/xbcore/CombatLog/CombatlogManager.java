@@ -1,6 +1,6 @@
 package xyz.xbcore.CombatLog;
 
-import xyz.xbcore.Utils.Utils;
+import xyz.xbcommun.Utils.UtilsGlobal;
 import xyz.xbcore.xBxTcore;
 import me.neznamy.tab.api.TabPlayer;
 import me.neznamy.tab.api.bossbar.BarColor;
@@ -69,7 +69,7 @@ public class CombatlogManager {
 
     private void updateBossBars(int timeLeft, Player player, int timemax) {
         String title;
-        title = "En combate " + Utils.TimeToString(timeLeft, 0);
+        title = "En combate " + UtilsGlobal.TimeToString(timeLeft, 0);
         BarStyle barStyle = BarStyle.PROGRESS;
         BarColor barColor = BarColor.RED;
         BossBar bossBar = Objects.requireNonNull(xBxTcore.getTabAPI().getBossBarManager()).getBossBar("timerBossBarCombat");

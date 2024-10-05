@@ -1,7 +1,9 @@
 package xyz.xbcore.Vote;
 
-import xyz.xbcore.Section;
+import xyz.xbcommun.Section;
 import xyz.xbcore.xBxTcore;
+
+import static xyz.xbcommun.RegisterManager.register;
 
 public class VoteSection implements Section {
 
@@ -13,7 +15,7 @@ public class VoteSection implements Section {
 
     @Override
     public void enable() {
-        plugin.register(new VoteListener(plugin));
+        register(new VoteListener(plugin));
     }
 
     @Override

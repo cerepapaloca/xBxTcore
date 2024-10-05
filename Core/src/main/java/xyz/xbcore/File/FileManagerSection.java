@@ -2,7 +2,7 @@ package xyz.xbcore.File;
 
 import xyz.xbcore.File.BLackList.BlackListIpManager;
 import xyz.xbcore.File.PlayerData.PlayerfileManager;
-import xyz.xbcore.Section;
+import xyz.xbcommun.Section;
 import xyz.xbcore.xBxTcore;
 import lombok.Getter;
 

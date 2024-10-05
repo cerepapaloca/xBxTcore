@@ -2,14 +2,14 @@ package xyz.xbcore.Commands.OnlyOp;
 
 import xyz.xbcommun.Command.BaseTabCommand;
 import xyz.xbcore.Environment.EnvironmentsSection;
-import xyz.xbcore.Messages.Messages.Messages;
+import xyz.xbcommun.Messages.Messages.Messages;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.List;
 
-import static xyz.xbcore.Messages.MessageManager.BroadcastMessage;
-import static xyz.xbcore.Messages.MessageManager.MasterMessageLocated;
+import static xyz.xbcommun.Messages.MessageManager.BroadcastMessage;
+import static xyz.xbcommun.Messages.MessageManager.MasterMessageLocated;
 
 public class CommandCleaner extends BaseTabCommand {
 
@@ -18,7 +18,7 @@ public class CommandCleaner extends BaseTabCommand {
                 "/cleaner",
                 "xbxtcore.command.cleaner",
                 true,
-                "limpia el FFA");
+                "");
     }
 
     @Override

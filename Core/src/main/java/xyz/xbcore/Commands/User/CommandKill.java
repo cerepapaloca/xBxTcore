@@ -1,8 +1,8 @@
 package xyz.xbcore.Commands.User;
 
 import xyz.xbcommun.Command.BaseCommand;
-import xyz.xbcore.Messages.Messages.Messages;
-import xyz.xbcore.Utils.Utils;
+import xyz.xbcommun.Messages.Messages.Messages;
+import xyz.xbcommun.Utils.UtilsGlobal;
 import xyz.xbcore.xBxTcore;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -24,11 +24,11 @@ public class CommandKill extends BaseCommand {
             if (xBxTcore.getWorldProtec().contains(p.getWorld())){
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "minecraft:kill " + p.getName());
             }else{
-                Utils.sendMessage(sender, Messages.Generic_InArea);
+                UtilsGlobal.sendMessage(sender, Messages.Generic_InArea);
             }
 
         }else{
-            Utils.sendMessage(sender, Messages.Generic_OnlyPlayers);
+            UtilsGlobal.sendMessage(sender, Messages.Generic_OnlyPlayers);
         }
     }
 }

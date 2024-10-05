@@ -3,8 +3,8 @@ package xyz.xbcore.Commands.User;
 import xyz.xbcommun.Command.BaseCommand;
 import xyz.xbcore.Inventory.InventorySection;
 import xyz.xbcore.Inventory.Models.InvetoryPlayer;
-import xyz.xbcore.Messages.Messages.Messages;
-import xyz.xbcore.Utils.Utils;
+import xyz.xbcommun.Messages.Messages.Messages;
+import xyz.xbcommun.Utils.UtilsGlobal;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -23,7 +23,7 @@ public class CommandMenu extends BaseCommand {
         if(sender instanceof Player p){
             InventorySection.getInventoryMenu().OpenMenu(new InvetoryPlayer(p));
         }else{
-            Utils.sendMessage(sender, Messages.Generic_OnlyPlayers);
+            UtilsGlobal.sendMessage(sender, Messages.Generic_OnlyPlayers);
         }
     }
 }

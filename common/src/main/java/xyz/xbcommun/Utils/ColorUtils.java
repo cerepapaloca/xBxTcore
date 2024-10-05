@@ -1,4 +1,4 @@
-package xyz.xbcore.Utils;
+package xyz.xbcommun.Utils;
 
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Color;
@@ -8,7 +8,7 @@ import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-import static xyz.xbcore.Utils.Utils.processFormattingTags;
+import static xyz.xbcommun.Utils.UtilsGlobal.processFormattingTags;
 
 public final class ColorUtils {
 

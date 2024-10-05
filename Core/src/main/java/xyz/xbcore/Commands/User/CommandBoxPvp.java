@@ -2,9 +2,10 @@ package xyz.xbcore.Commands.User;
 
 import xyz.xbcommun.Command.BaseCommand;
 import xyz.xbcore.File.FileManagerSection;
-import xyz.xbcore.Messages.Messages.Messages;
+import xyz.xbcommun.Messages.Messages.Messages;
 import xyz.xbcore.Security.SystemBan.BanManager;
 import xyz.xbcore.Security.SystemBan.ContextBan;
+import xyz.xbcommun.Utils.UtilsGlobal;
 import xyz.xbcore.Utils.Utils;
 import xyz.xbcore.xBxTcore;
 import org.bukkit.Bukkit;
@@ -17,7 +18,6 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.Objects;
 
 import static xyz.xbcore.BoxPvp.ItemsBoxPvp.BonusUpdate.UpdateBonus;
-import static xyz.xbcore.Utils.Utils.RewardBoxPvpCheck;
 
 public class CommandBoxPvp extends BaseCommand {
 
@@ -46,14 +46,14 @@ public class CommandBoxPvp extends BaseCommand {
                 player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 999999, 1));
                 player.teleport(Objects.requireNonNull(Bukkit.getWorld("boxpvp")).getSpawnLocation());
                 UpdateBonus(player);
-                RewardBoxPvpCheck(player.getName());
+                Utils.RewardBoxPvpCheck(player.getName());
                 player.setGameMode(GameMode.SURVIVAL);
             }else{
-                Utils.sendMessage(sender, Messages.Generic_InArea);
+                UtilsGlobal.sendMessage(sender, Messages.Generic_InArea);
             }
 
         }else{
-            Utils.sendMessage(sender, Messages.Generic_OnlyPlayers);
+            UtilsGlobal.sendMessage(sender, Messages.Generic_OnlyPlayers);
         }
     }
 }

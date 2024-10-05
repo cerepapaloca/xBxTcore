@@ -3,7 +3,7 @@ package xyz.xbcore.BoxPvp.ItemsBoxPvp;
 import xyz.xbcore.BoxPvp.AutoFillsBox;
 import xyz.xbcore.BoxPvp.ItemsBoxPvp.Enum.ItemBonus;
 import xyz.xbcore.BoxPvp.Model.MinaBoxPvp;
-import xyz.xbcore.Utils.Utils;
+import xyz.xbcommun.Utils.UtilsGlobal;
 import xyz.xbcore.xBxTcore;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -19,9 +19,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-import static xyz.xbcore.Messages.MessageManager.*;
-import static xyz.xbcore.Utils.ColorUtils.*;
-import static xyz.xbcore.Utils.Utils.additem;
+import static xyz.xbcommun.Messages.MessageManager.*;
+import static xyz.xbcommun.Utils.ColorUtils.*;
+import static xyz.xbcommun.Utils.UtilsGlobal.additem;
 
 public record ItemManage(xBxTcore plugin) {
 
@@ -193,22 +193,22 @@ public record ItemManage(xBxTcore plugin) {
             lore.add(ChatColor.translateAlternateColorCodes('&',Coloritem + " "));
             lore.add(ChatColor.translateAlternateColorCodes('&',"&8" + "Mas información con " + ColorLink + "/help"));
 
-            coinNormal.add(newItemBoxPVP(Utils.colorToMaterial(mina.getMaterial(), Material.BLACK_DYE),"<#" + blockToHex(mina.getMaterial()) + ">Moneda Tier " + Utils.arabicToRoman(i) + "<#" + modifyColorHexWithHLS(blockToHex(mina.getMaterial()), 0.1f, 0.3f, -0.3f) + ">", lore, i, true));
-            coinCompact.add(newItemBoxPVP(mina.getMaterial(),"<#" + blockToHex(mina.getMaterial()) + ">Moneda Compacta Tier " + Utils.arabicToRoman(i) + "<#" + modifyColorHexWithHLS(blockToHex(mina.getMaterial()), 0.1f, 0.3f, -0.3f) + ">", lore, i, true));
+            coinNormal.add(newItemBoxPVP(UtilsGlobal.colorToMaterial(mina.getMaterial(), Material.BLACK_DYE),"<#" + blockToHex(mina.getMaterial()) + ">Moneda Tier " + UtilsGlobal.arabicToRoman(i) + "<#" + modifyColorHexWithHLS(blockToHex(mina.getMaterial()), 0.1f, 0.3f, -0.3f) + ">", lore, i, true));
+            coinCompact.add(newItemBoxPVP(mina.getMaterial(),"<#" + blockToHex(mina.getMaterial()) + ">Moneda Compacta Tier " + UtilsGlobal.arabicToRoman(i) + "<#" + modifyColorHexWithHLS(blockToHex(mina.getMaterial()), 0.1f, 0.3f, -0.3f) + ">", lore, i, true));
 
             lore.clear();
             lore.add(ChatColor.translateAlternateColorCodes('&',Coloritem + " "));
             lore.add(applyGradient("<#19fbff>Aumenta la regeneración<#2a7c7d>"));
             lore.add(ChatColor.translateAlternateColorCodes('&',Coloritem + " "));
             lore.add(ChatColor.translateAlternateColorCodes('&',"&8" + "Mas información con " + ColorLink + "/help"));
-            helmets.add(newItemBoxPVP(Material.LEATHER_HELMET ,"<#" + blockToHex(mina.getMaterial()) + ">Casco Tier " + Utils.arabicToRoman(i) + "<#" + modifyColorHexWithHLS(blockToHex(mina.getMaterial()), 0.1f, 0.3f, -0.3f) + ">", lore, i, blockToHex(mina.getMaterial())));
+            helmets.add(newItemBoxPVP(Material.LEATHER_HELMET ,"<#" + blockToHex(mina.getMaterial()) + ">Casco Tier " + UtilsGlobal.arabicToRoman(i) + "<#" + modifyColorHexWithHLS(blockToHex(mina.getMaterial()), 0.1f, 0.3f, -0.3f) + ">", lore, i, blockToHex(mina.getMaterial())));
 
             lore.clear();
             lore.add(ChatColor.translateAlternateColorCodes('&',Coloritem + " "));
             lore.add(applyGradient("<#19fbff>Aumenta la vida maxima<#2a7c7d>"));
             lore.add(ChatColor.translateAlternateColorCodes('&',Coloritem + " "));
             lore.add(ChatColor.translateAlternateColorCodes('&',"&8" + "Mas información con " + ColorLink + "/help"));
-            elytras.add(newItemBoxPVP(Material.ELYTRA ,"<#" + blockToHex(mina.getMaterial()) + ">Elytra Tier " + Utils.arabicToRoman(i) + "<#" + modifyColorHexWithHLS(blockToHex(mina.getMaterial()), 0.1f, 0.3f, -0.3f) + ">", lore, i,true));
+            elytras.add(newItemBoxPVP(Material.ELYTRA ,"<#" + blockToHex(mina.getMaterial()) + ">Elytra Tier " + UtilsGlobal.arabicToRoman(i) + "<#" + modifyColorHexWithHLS(blockToHex(mina.getMaterial()), 0.1f, 0.3f, -0.3f) + ">", lore, i,true));
 
             lore.clear();
             lore.add(ChatColor.translateAlternateColorCodes('&',Coloritem + " "));
@@ -216,7 +216,7 @@ public record ItemManage(xBxTcore plugin) {
             lore.add(applyGradient("<#19fbff>a daño normal<#2a7c7d>"));
             lore.add(ChatColor.translateAlternateColorCodes('&',Coloritem + " "));
             lore.add(ChatColor.translateAlternateColorCodes('&',"&8" + "Mas información con " + ColorLink + "/help"));
-            leggings.add(newItemBoxPVP(Material.LEATHER_LEGGINGS ,"<#" + blockToHex(mina.getMaterial()) + ">Pantalones Tier " + Utils.arabicToRoman(i) + "<#" + modifyColorHexWithHLS(blockToHex(mina.getMaterial()), 0.1f, 0.3f, -0.3f) + ">", lore, i, blockToHex(mina.getMaterial())));
+            leggings.add(newItemBoxPVP(Material.LEATHER_LEGGINGS ,"<#" + blockToHex(mina.getMaterial()) + ">Pantalones Tier " + UtilsGlobal.arabicToRoman(i) + "<#" + modifyColorHexWithHLS(blockToHex(mina.getMaterial()), 0.1f, 0.3f, -0.3f) + ">", lore, i, blockToHex(mina.getMaterial())));
 
             lore.clear();
             lore.add(ChatColor.translateAlternateColorCodes('&',Coloritem + " "));
@@ -224,7 +224,7 @@ public record ItemManage(xBxTcore plugin) {
             lore.add(applyGradient("<#19fbff>a daño explosión<#2a7c7d>"));
             lore.add(ChatColor.translateAlternateColorCodes('&',Coloritem + " "));
             lore.add(ChatColor.translateAlternateColorCodes('&',"&8" + "Mas información con " + ColorLink + "/help"));
-            boots.add(newItemBoxPVP(Material.LEATHER_BOOTS ,"<#" + blockToHex(mina.getMaterial()) + ">Botas Tier " + Utils.arabicToRoman(i) + "<#" + modifyColorHexWithHLS(blockToHex(mina.getMaterial()), 0.1f, 0.3f, -0.3f) + ">", lore, i, blockToHex(mina.getMaterial())));
+            boots.add(newItemBoxPVP(Material.LEATHER_BOOTS ,"<#" + blockToHex(mina.getMaterial()) + ">Botas Tier " + UtilsGlobal.arabicToRoman(i) + "<#" + modifyColorHexWithHLS(blockToHex(mina.getMaterial()), 0.1f, 0.3f, -0.3f) + ">", lore, i, blockToHex(mina.getMaterial())));
 
             lore.clear();
             lore.add(ChatColor.translateAlternateColorCodes('&',Coloritem + " "));
@@ -232,14 +232,14 @@ public record ItemManage(xBxTcore plugin) {
             lore.add(applyGradient("<#19fbff>que te dos items<#2a7c7d>"));
             lore.add(ChatColor.translateAlternateColorCodes('&',Coloritem + " "));
             lore.add(ChatColor.translateAlternateColorCodes('&',"&8" + "Mas información con " + ColorLink + "/help"));
-            pickaxes.add(newItemBoxPVP(Material.NETHERITE_PICKAXE ,"<#" + blockToHex(mina.getMaterial()) + ">Pico Tier " + Utils.arabicToRoman(i) + "<#" + modifyColorHexWithHLS(blockToHex(mina.getMaterial()), 0.1f, 0.3f, -0.3f) + ">", lore, i, true));
+            pickaxes.add(newItemBoxPVP(Material.NETHERITE_PICKAXE ,"<#" + blockToHex(mina.getMaterial()) + ">Pico Tier " + UtilsGlobal.arabicToRoman(i) + "<#" + modifyColorHexWithHLS(blockToHex(mina.getMaterial()), 0.1f, 0.3f, -0.3f) + ">", lore, i, true));
 
             lore.clear();
             lore.add(ChatColor.translateAlternateColorCodes('&',Coloritem + " "));
             lore.add(applyGradient("<#19fbff>Mayor daño<#2a7c7d>"));
             lore.add(ChatColor.translateAlternateColorCodes('&',Coloritem + " "));
             lore.add(ChatColor.translateAlternateColorCodes('&',"&8" + "Mas información con " + ColorLink + "/help"));
-            itemStack = newItemBoxPVP(Material.NETHERITE_SWORD ,"<#" + blockToHex(mina.getMaterial()) + ">Espada Tier " + Utils.arabicToRoman(i) + "<#" + modifyColorHexWithHLS(blockToHex(mina.getMaterial()), 0.1f, 0.3f, -0.3f) + ">", lore, i, true);
+            itemStack = newItemBoxPVP(Material.NETHERITE_SWORD ,"<#" + blockToHex(mina.getMaterial()) + ">Espada Tier " + UtilsGlobal.arabicToRoman(i) + "<#" + modifyColorHexWithHLS(blockToHex(mina.getMaterial()), 0.1f, 0.3f, -0.3f) + ">", lore, i, true);
             itemMeta = itemStack.getItemMeta();
             assert itemMeta != null;
             itemMeta.addEnchant(Enchantment.DAMAGE_ALL, i * 2, true);
@@ -247,9 +247,9 @@ public record ItemManage(xBxTcore plugin) {
             swords.add(itemStack);
 
             lore.clear();
-            shurlkerBoxsPersonal.add(newItemBoxPVP(Utils.colorToMaterial(mina.getMaterial(), Material.BLACK_SHULKER_BOX) ,"<#" + blockToHex(mina.getMaterial()) + ">Shurlker Box Personal<#" + modifyColorHexWithHLS(blockToHex(mina.getMaterial()), 0.1f, 0.3f, -0.3f) + ">", lore, i, true));
+            shurlkerBoxsPersonal.add(newItemBoxPVP(UtilsGlobal.colorToMaterial(mina.getMaterial(), Material.BLACK_SHULKER_BOX) ,"<#" + blockToHex(mina.getMaterial()) + ">Shurlker Box Personal<#" + modifyColorHexWithHLS(blockToHex(mina.getMaterial()), 0.1f, 0.3f, -0.3f) + ">", lore, i, true));
 
-            shurlkerBoxs.add(newItemBoxPVP(Utils.colorToMaterial(mina.getMaterial(), Material.BLACK_SHULKER_BOX) ,"<#" + blockToHex(mina.getMaterial()) + ">Kit Tier " + Utils.arabicToRoman(i) + "<#" + modifyColorHexWithHLS(blockToHex(mina.getMaterial()), 0.1f, 0.3f, -0.3f) + ">", lore, i, true));
+            shurlkerBoxs.add(newItemBoxPVP(UtilsGlobal.colorToMaterial(mina.getMaterial(), Material.BLACK_SHULKER_BOX) ,"<#" + blockToHex(mina.getMaterial()) + ">Kit Tier " + UtilsGlobal.arabicToRoman(i) + "<#" + modifyColorHexWithHLS(blockToHex(mina.getMaterial()), 0.1f, 0.3f, -0.3f) + ">", lore, i, true));
 
         }
     }

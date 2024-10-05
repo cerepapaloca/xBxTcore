@@ -8,7 +8,7 @@ import org.bukkit.ChatColor;
 import java.sql.*;
 import java.util.UUID;
 
-import static xyz.xbcore.Messages.MessageManager.*;
+import static xyz.xbcommun.Messages.MessageManager.*;
 import static xyz.xbcore.Security.SystemBan.BanManager.*;
 import static xyz.xbcore.Security.SystemBan.BanManager.addListBanIp;
 

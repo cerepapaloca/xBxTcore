@@ -2,7 +2,7 @@ package xyz.xbcore.CombatLog.Listener;
 
 import xyz.xbcore.BoxPvp.BoxPvpSection;
 import xyz.xbcore.CombatLog.CombatSection;
-import xyz.xbcore.Messages.Messages.Messages;
+import xyz.xbcommun.Messages.Messages.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -15,7 +15,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import java.util.*;
 
 import static xyz.xbcore.PlayerManager.Listener.BlockerListener.ejey;
-import static xyz.xbcore.Messages.MessageManager.MasterMessageLocated;
+import static xyz.xbcommun.Messages.MessageManager.MasterMessageLocated;
 
 public class CombatlogListener implements Listener {
 

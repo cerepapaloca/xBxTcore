@@ -7,6 +7,7 @@ import xyz.xbcore.Duel.Model.Request;
 import xyz.xbcore.Environment.EnvironmentsSection;
 import xyz.xbcore.File.FileManagerSection;
 import xyz.xbcore.PlayerManager.PlayerManagerSection;
+import xyz.xbcommun.Utils.UtilsGlobal;
 import xyz.xbcore.Utils.Utils;
 import xyz.xbcore.xBxTcore;
 import org.bukkit.Bukkit;
@@ -22,8 +23,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
-import static xyz.xbcore.Messages.MessageManager.*;
-import static xyz.xbcore.Messages.MessageManager.Colorplayer;
+import static xyz.xbcommun.Messages.MessageManager.*;
+import static xyz.xbcommun.Messages.MessageManager.Colorplayer;
 import static xyz.xbcore.Security.BlockByPass.checkOpCreative;
 import static xyz.xbcore.Security.BlockByPass.passwordList;
 
@@ -76,7 +77,7 @@ public class JoinAndQuitPlayerListener implements Listener {
             event.getPlayer().setOp(false);
         }
         if(event.getPlayer().getWorld().getName().equals("boxpvp")){
-            FileManagerSection.getPlayerFileManager().SaveInventoryBoxPvp(event.getPlayer().getUniqueId(), Utils.getItensInvetory(player));
+            FileManagerSection.getPlayerFileManager().SaveInventoryBoxPvp(event.getPlayer().getUniqueId(), UtilsGlobal.getItensInvetory(player));
         }
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + Colorinfo
                 + "EL ping del jugador es: " + Colorplayer + event.getPlayer().getPing()));

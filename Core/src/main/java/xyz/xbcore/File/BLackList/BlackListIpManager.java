@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.net.UnknownHostException;
 
-import static xyz.xbcore.Messages.MessageManager.*;
+import static xyz.xbcommun.Messages.MessageManager.*;
 
 public class BlackListIpManager {
 

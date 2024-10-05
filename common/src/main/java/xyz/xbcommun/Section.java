@@ -1,4 +1,4 @@
-package xyz.xbcore;
+package xyz.xbcommun;
 
 public interface Section {
     void enable();

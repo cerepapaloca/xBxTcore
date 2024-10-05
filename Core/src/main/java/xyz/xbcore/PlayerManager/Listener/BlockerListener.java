@@ -2,7 +2,7 @@ package xyz.xbcore.PlayerManager.Listener;
 
 import xyz.xbcore.BoxPvp.BoxPvpSection;
 import xyz.xbcore.CombatLog.CombatSection;
-import xyz.xbcore.Messages.Messages.Messages;
+import xyz.xbcommun.Messages.Messages.Messages;
 import xyz.xbcore.xBxTcore;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
-import static xyz.xbcore.Messages.MessageManager.MasterMessageLocated;
+import static xyz.xbcommun.Messages.MessageManager.MasterMessageLocated;
 import static xyz.xbcore.Security.BlockByPass.*;
 import static xyz.xbcore.xBxTcore.worldBoxPvp;
 

@@ -1,11 +1,13 @@
 package xyz.xbcore.Security;
 
 import xyz.xbcore.File.FileManagerSection;
-import xyz.xbcore.Section;
+import xyz.xbcommun.Section;
 import xyz.xbcore.Security.SystemBan.AutoBan;
 import xyz.xbcore.Security.SystemBan.BanManager;
 import xyz.xbcore.xBxTcore;
 import lombok.Getter;
+
+import static xyz.xbcommun.RegisterManager.register;
 
 @Getter
 public class SecuritySection implements Section {
@@ -22,9 +24,9 @@ public class SecuritySection implements Section {
 
     @Override
     public void enable() {
-        plugin.register(new AntiBotListener());
-        plugin.register(new GrimAC());
-        plugin.register(banManager = new BanManager(FileManagerSection.getMysql(), plugin));
+        register(new AntiBotListener());
+        register(new GrimAC());
+        register(banManager = new BanManager(FileManagerSection.getMysql(), plugin));
         new AntiTwoPlayer();
         autoBan = new AutoBan(plugin);
     }

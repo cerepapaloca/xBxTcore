@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-import static xyz.xbcore.Messages.MessageManager.*;
+import static xyz.xbcommun.Messages.MessageManager.*;
 
 public class CommandRank extends BaseCommand {
 

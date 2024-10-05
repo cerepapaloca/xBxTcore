@@ -2,10 +2,10 @@ package xyz.xbcore.Inventory;
 
 import xyz.xbcore.Commands.CommandSection;
 import xyz.xbcore.File.FileManagerSection;
-import xyz.xbcore.Messages.Messages.Messages;
+import xyz.xbcommun.Messages.Messages.Messages;
 import xyz.xbcore.Inventory.Enum.PlayerFileTimes;
 import xyz.xbcore.Inventory.Models.InvetoryPlayer;
-import xyz.xbcore.Utils.Utils;
+import xyz.xbcommun.Utils.UtilsGlobal;
 import xyz.xbcore.xBxTcore;
 import com.onarandombox.MultiverseCore.api.MultiverseWorld;
 import org.bukkit.Material;
@@ -19,7 +19,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 import static xyz.xbcore.File.FileManagerSection.*;
-import static xyz.xbcore.Messages.MessageManager.MasterMessageLocated;
+import static xyz.xbcommun.Messages.MessageManager.MasterMessageLocated;
 
 public class InventoryClick extends InventoryManager {
 
@@ -194,10 +194,10 @@ public class InventoryClick extends InventoryManager {
                     case 13 -> {
                         if (xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).getTimeLimit()){
                             xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).setTimeLimit(false);
-                            Utils.newItemInventory(Messages.Inventory_MenuDuel_TimeLimit_Off, Material.ENDER_PEARL, 13, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer(), secondsToMinutesLore(invetoryPlayer.getPlayer()));
+                            UtilsGlobal.newItemInventory(Messages.Inventory_MenuDuel_TimeLimit_Off, Material.ENDER_PEARL, 13, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer(), secondsToMinutesLore(invetoryPlayer.getPlayer()));
                         }else{
                             xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).setTimeLimit(true);
-                            Utils.newItemInventory(Messages.Inventory_MenuDuel_TimeLimit_On, Material.ENDER_EYE, 13, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer(), secondsToMinutesLore(invetoryPlayer.getPlayer()));
+                            UtilsGlobal.newItemInventory(Messages.Inventory_MenuDuel_TimeLimit_On, Material.ENDER_EYE, 13, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer(), secondsToMinutesLore(invetoryPlayer.getPlayer()));
                         }
                     }
                     case 14 -> {
@@ -218,7 +218,7 @@ public class InventoryClick extends InventoryManager {
                         if (getPlayerFileManager().daily <= System.currentTimeMillis()){
                             rewardDaly(invetoryPlayer.getPlayer());
                             getPlayerFileManager().SaveTimesRewords(invetoryPlayer.getPlayer().getUniqueId(), PlayerFileTimes.daily, System.currentTimeMillis() + 1000L*60*60*24);
-                            Utils.newItemInventory(Messages.Reward_Daily, Material.MINECART, 20, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer());
+                            UtilsGlobal.newItemInventory(Messages.Reward_Daily, Material.MINECART, 20, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer());
                             invetoryPlayer.getPlayer().sendMessage(MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.Reward_GiveDaily));
                         }else{
                             invetoryPlayer.getPlayer().sendMessage(MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.Reward_RewardNotYet));
@@ -229,7 +229,7 @@ public class InventoryClick extends InventoryManager {
                         if (getPlayerFileManager().weekly <= System.currentTimeMillis()){
                             rewardWeekly(invetoryPlayer.getPlayer());
                             getPlayerFileManager().SaveTimesRewords(invetoryPlayer.getPlayer().getUniqueId(), PlayerFileTimes.weekly, System.currentTimeMillis() + 1000L*60*60*24*7);
-                            Utils.newItemInventory(Messages.Reward_Weekly, Material.MINECART, 22, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer());
+                            UtilsGlobal.newItemInventory(Messages.Reward_Weekly, Material.MINECART, 22, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer());
                             invetoryPlayer.getPlayer().sendMessage(MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.Reward_GiveWeekly));
                         }else{
                             invetoryPlayer.getPlayer().sendMessage(MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.Reward_RewardNotYet));
@@ -240,7 +240,7 @@ public class InventoryClick extends InventoryManager {
                         if (getPlayerFileManager().monthly <= System.currentTimeMillis()){
                             rewardMonthly(invetoryPlayer.getPlayer());
                             getPlayerFileManager().SaveTimesRewords(invetoryPlayer.getPlayer().getUniqueId(), PlayerFileTimes.monthly, System.currentTimeMillis() + 1000L*60*60*24*30);
-                            Utils.newItemInventory(Messages.Reward_Monthly, Material.MINECART, 24, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer());
+                            UtilsGlobal.newItemInventory(Messages.Reward_Monthly, Material.MINECART, 24, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer());
                             invetoryPlayer.getPlayer().sendMessage(MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.Reward_GiveMonthly));
                         }else{
                             invetoryPlayer.getPlayer().sendMessage(MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.Reward_RewardNotYet));

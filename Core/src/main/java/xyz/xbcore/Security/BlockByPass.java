@@ -1,7 +1,7 @@
 package xyz.xbcore.Security;
 
-import xyz.xbcore.Messages.Messages.Messages;
-import xyz.xbcore.Messages.MessageManager;
+import xyz.xbcommun.Messages.Messages.Messages;
+import xyz.xbcommun.Messages.MessageManager;
 import xyz.xbcore.xBxTcore;
 import fr.xephi.authme.api.v3.AuthMeApi;
 import net.luckperms.api.node.types.InheritanceNode;
@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Objects;
 import java.util.UUID;
 
-import static xyz.xbcore.Messages.MessageManager.*;
+import static xyz.xbcommun.Messages.MessageManager.*;
 
 public class BlockByPass {
 

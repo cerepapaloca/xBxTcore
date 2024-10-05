@@ -1,8 +1,8 @@
 package xyz.xbcore.Commands.User;
 
 import xyz.xbcommun.Command.BaseCommand;
-import xyz.xbcore.Messages.Messages.Messages;
-import xyz.xbcore.Utils.Utils;
+import xyz.xbcommun.Messages.Messages.Messages;
+import xyz.xbcommun.Utils.UtilsGlobal;
 import org.bukkit.command.CommandSender;
 
 public class CommandDonate extends BaseCommand {
@@ -17,6 +17,6 @@ public class CommandDonate extends BaseCommand {
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-        Utils.sendMessage(sender, Messages.Others_Donate);
+        UtilsGlobal.sendMessage(sender, Messages.Others_Donate);
     }
 }

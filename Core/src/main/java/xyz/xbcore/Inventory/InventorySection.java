@@ -3,9 +3,11 @@ package xyz.xbcore.Inventory;
 import xyz.xbcore.Inventory.Listener.InventoryListener;
 import xyz.xbcore.Inventory.Listener.ItemframeListener;
 import xyz.xbcore.Inventory.Listener.ShulkerBoxInventoryListener;
-import xyz.xbcore.Section;
+import xyz.xbcommun.Section;
 import xyz.xbcore.xBxTcore;
 import lombok.Getter;
+
+import static xyz.xbcommun.RegisterManager.register;
 
 public class InventorySection implements Section {
 
@@ -21,9 +23,9 @@ public class InventorySection implements Section {
 
     @Override
     public void enable() {
-        plugin.register(new InventoryListener());
-        plugin.register(new ItemframeListener());
-        plugin.register(new ShulkerBoxInventoryListener());
+        register(new InventoryListener());
+        register(new ItemframeListener());
+        register(new ShulkerBoxInventoryListener());
         inventoryClick = new InventoryClick(plugin);
         inventoryMenu = new InventoryMenu(plugin);
     }

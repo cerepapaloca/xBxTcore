@@ -2,9 +2,11 @@ package xyz.xbcore.PlayerManager;
 
 import xyz.xbcore.PlayerManager.Listener.*;
 import xyz.xbcore.PlayerManager.Model.PlayerDataGLobal;
-import xyz.xbcore.Section;
+import xyz.xbcommun.Section;
 import xyz.xbcore.xBxTcore;
 import lombok.Getter;
+
+import static xyz.xbcommun.RegisterManager.register;
 
 @Getter
 public class PlayerManagerSection implements Section {
@@ -24,11 +26,11 @@ public class PlayerManagerSection implements Section {
         moderationChat = new ModerationChat(plugin);
         playerDataGLobal = new PlayerDataGLobal();
         playerManager = new PlayerManager(plugin);
-        plugin.register(new BlockerListener(plugin));
-        plugin.register(new PlayerListener(plugin));
-        plugin.register(new CommandListener());
-        plugin.register(new JoinAndQuitPlayerListener());
-        plugin.register(new EnvironmentInteractListener());
+        register(new BlockerListener(plugin));
+        register(new PlayerListener(plugin));
+        register(new CommandListener());
+        register(new JoinAndQuitPlayerListener());
+        register(new EnvironmentInteractListener());
     }
 
     @Override

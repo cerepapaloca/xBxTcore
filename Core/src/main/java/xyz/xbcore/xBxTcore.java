@@ -1,6 +1,6 @@
 package xyz.xbcore;
 
-import xyz.xbcommun.Main;
+import xyz.xbcommun.xBxTcommon;
 import xyz.xbcore.Service.DDNS_NameCheap;
 import xyz.xbcore.BoxPvp.BoxPvpSection;
 import xyz.xbcore.CombatLog.CombatSection;
@@ -9,17 +9,16 @@ import xyz.xbcore.Duel.DuelSection;
 import xyz.xbcore.Environment.*;
 import xyz.xbcore.File.FileManagerSection;
 import xyz.xbcore.Inventory.InventorySection;
-import xyz.xbcore.Messages.Messages.Messages;
+import xyz.xbcommun.Messages.Messages.Messages;
 import xyz.xbcore.Messages.MessageSection;
 import xyz.xbcore.Duel.Model.PlayerDataRequestDuel;
 import xyz.xbcore.Placeholder.Placeholder;
 import xyz.xbcore.PlayerManager.Listener.BlockerListener;
 import xyz.xbcore.PlayerManager.PlayerManagerSection;
 import xyz.xbcore.Security.SecuritySection;
-import xyz.xbcore.Utils.ColorUtils;
-import xyz.xbcore.Utils.SystemOperative;
-import xyz.xbcore.Utils.Utils;
-import xyz.xbcore.Utils.UtilsMain;
+import xyz.xbcommun.Utils.ColorUtils;
+import xyz.xbcommun.Utils.UtilsGlobal;
+import xyz.xbcommun.Utils.UtilsGlobalSection;
 import xyz.xbcore.Vote.VoteSection;
 import xyz.xbcore.Service.PingRequest;
 import ac.grim.grimac.api.GrimAbstractAPI;
@@ -30,19 +29,20 @@ import net.luckperms.api.LuckPerms;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import net.md_5.bungee.api.ChatColor;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-import static xyz.xbcommun.Main.Enable;
+import static xyz.xbcommun.RegisterManager.register;
+import static xyz.xbcommun.RegisterManager.startRegister;
+import static xyz.xbcommun.xBxTcommon.Disable;
+import static xyz.xbcommun.xBxTcommon.Enable;
 import static xyz.xbcore.Service.DDNS_NameCheap.updateIP;
-import static xyz.xbcore.Messages.MessageManager.*;
+import static xyz.xbcommun.Messages.MessageManager.*;
 
 public final class xBxTcore extends JavaPlugin {
 
@@ -51,7 +51,6 @@ public final class xBxTcore extends JavaPlugin {
     @Getter private static LuckPerms luckPerms;
     public static xBxTcore plugin;
     public static GrimAbstractAPI grimAPI;
-    public static SystemOperative getSystemOperative;
     public static final String worldBoxPvp = "boxpvp";
 
     public static String bedrockPrefix = ".";
@@ -59,11 +58,11 @@ public final class xBxTcore extends JavaPlugin {
     public long serverStartTime;
 
     public static ArrayList<World> worlds;
-    private static final List<Section> sections = new ArrayList<>();
+
 
     @Override
     public void onEnable() {
-        Enable();
+        Enable(this);
         long timeStaringTotal = System.currentTimeMillis();
         plugin = this;
         OtherRegister();
@@ -72,37 +71,23 @@ public final class xBxTcore extends JavaPlugin {
         register(new FileManagerSection(this));
         register(new CommandSection(this));
         register(new PlayerManagerSection(this));
-        register(new MessageSection(this));
+        register(new MessageSection());
         register(new InventorySection(this));
         register(new EnvironmentsSection(this));
         register(new BoxPvpSection(this));
-        register(new UtilsMain(this));
+        register(new UtilsGlobalSection(this));
         register(new DuelSection(this));
         register(new CombatSection(this));
         register(new VoteSection(this));
         register(new SecuritySection(this));
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', ColorSuccess + "Registro completado"));
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',Colorinfo + "iniciando..."));
-        for (Section section : sections) {
-            try {
-                section.enable();
-                Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', Colorinfo + section.getName() + ColorSuccess + " Ok"));
-            } catch (Exception e) {
-                Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorError + "Error al Cargar " + section.getName() + " servidor requiere reinicio"));
-                throw new RuntimeException(e);
-            }
-        }
+        startRegister();
         Bukkit.getScheduler().runTaskAsynchronously(plugin, DDNS_NameCheap::updateIP);
         serverStartTime = System.currentTimeMillis();
-        String os = System.getProperty("os.name").toLowerCase();
-        if (os.contains("win")) {
-            getSystemOperative = SystemOperative.WINDOWS;
-        } else if (os.contains("nix") || os.contains("nux")) {
-            getSystemOperative = SystemOperative.LINUX;
-        }
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', ColorSuccess + "xBxTcore Cargado " + Colorplayer + (System.currentTimeMillis() - timeStaringTotal) + "ms"));
 
-        switch (getSystemOperative){
+        switch (xBxTcommon.getSystemOperative){
             case WINDOWS -> MessageONWindows();
             case LINUX -> MessageONLinux();
         }
@@ -114,11 +99,10 @@ public final class xBxTcore extends JavaPlugin {
         }
 
         for (Player p : Objects.requireNonNull(Bukkit.getWorld(worldBoxPvp)).getPlayers()) {
-            FileManagerSection.getPlayerFileManager().SaveInventoryBoxPvp(p.getUniqueId(), Utils.getItensInvetory(p));
+            FileManagerSection.getPlayerFileManager().SaveInventoryBoxPvp(p.getUniqueId(), UtilsGlobal.getItensInvetory(p));
         }
-        sections.forEach(Section::disable);
-        sections.clear();
         HandlerList.unregisterAll(this);
+        Disable();
         MessageOFF();
     }
 
@@ -157,22 +141,6 @@ public final class xBxTcore extends JavaPlugin {
 
     private void MessageOFF(){
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',  Colorinfo + "XBXTPVP.XYZ " + Colorplayer + "OFF"));
-    }
-
-    private void register(@NotNull Section section) {
-        if (getSectionByName(section.getName()) != null)
-            throw new IllegalArgumentException("Section has already been registered " + section.getName());
-        sections.add(section);
-    }
-
-    public void register(Listener @NotNull ... listeners) {
-        for (Listener listener : listeners) {
-            getServer().getPluginManager().registerEvents(listener, this);
-        }
-    }
-
-    public Section getSectionByName(String name) {
-        return sections.stream().filter(s -> s.getName().equals(name)).findFirst().orElse(null);
     }
 
     public void APIs(){
@@ -347,7 +315,7 @@ public final class xBxTcore extends JavaPlugin {
                     }
                     Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorSuccess +
                             "Se guardo exitosamente el inventario del Box PvP del jugador " + Colorplayer + players.get(i).getName()));
-                    FileManagerSection.getPlayerFileManager().SaveInventoryBoxPvp(players.get(i).getUniqueId(), Utils.getItensInvetory(players.get(i)));
+                    FileManagerSection.getPlayerFileManager().SaveInventoryBoxPvp(players.get(i).getUniqueId(), UtilsGlobal.getItensInvetory(players.get(i)));
                     i++;
                 }
             }.runTaskTimer(this, 0, 2);

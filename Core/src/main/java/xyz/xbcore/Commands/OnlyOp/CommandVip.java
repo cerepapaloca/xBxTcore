@@ -1,7 +1,7 @@
 package xyz.xbcore.Commands.OnlyOp;
 
 import xyz.xbcommun.Command.BaseCommand;
-import xyz.xbcore.Messages.Messages.Messages;
+import xyz.xbcommun.Messages.Messages.Messages;
 import xyz.xbcore.xBxTcore;
 import net.luckperms.api.node.types.InheritanceNode;
 import org.bukkit.Bukkit;
@@ -11,8 +11,8 @@ import org.bukkit.entity.Player;
 
 import java.util.concurrent.TimeUnit;
 
-import static xyz.xbcore.Messages.MessageManager.BroadcastMessageBuy;
-import static xyz.xbcore.Messages.MessageManager.MasterMessageLocated;
+import static xyz.xbcommun.Messages.MessageManager.BroadcastMessageBuy;
+import static xyz.xbcommun.Messages.MessageManager.MasterMessageLocated;
 
 public class CommandVip extends BaseCommand {
 
@@ -21,7 +21,7 @@ public class CommandVip extends BaseCommand {
                 "/vip",
                 "xbxtcore.command.vip",
                 true,
-                "le da vip como si hubiera comprado");
+                "");
     }
 
     @Override

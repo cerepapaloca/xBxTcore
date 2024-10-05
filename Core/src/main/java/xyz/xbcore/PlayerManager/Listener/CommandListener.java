@@ -1,8 +1,8 @@
 package xyz.xbcore.PlayerManager.Listener;
 
 import xyz.xbcommun.Command.BaseCommand;
-import xyz.xbcore.Commands.CommandSection;
-import xyz.xbcore.Messages.Messages.Messages;
+import xyz.xbcommun.Command.CommandSectionCommon;
+import xyz.xbcommun.Messages.Messages.Messages;
 import fr.xephi.authme.api.v3.AuthMeApi;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 
-import static xyz.xbcore.Messages.MessageManager.MasterMessageLocated;
+import static xyz.xbcommun.Messages.MessageManager.MasterMessageLocated;
 import static xyz.xbcore.Security.BlockByPass.*;
 
 public class CommandListener implements Listener {
@@ -31,7 +31,7 @@ public class CommandListener implements Listener {
         AlloedCommands.add("tell");
         AlloedCommands.add("msg");
         AlloedCommandsWithPermissions.put("skin", "xbxtcore.vip");
-        for (BaseCommand command : CommandSection.getCommandHandler().getCommands()){
+        for (BaseCommand command : CommandSectionCommon.getCommandHandler().getCommands()){
             AlloedCommands.addAll(Arrays.asList(command.getName()));
         }
         //////////////////////////////////////

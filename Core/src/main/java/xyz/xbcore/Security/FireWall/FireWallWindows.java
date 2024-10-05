@@ -1,5 +1,5 @@
 package xyz.xbcore.Security.FireWall;
-import xyz.xbcore.Utils.Utils;
+import xyz.xbcommun.Utils.UtilsGlobal;
 import xyz.xbcore.xBxTcore;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -12,9 +12,9 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 import static xyz.xbcore.File.BLackList.BlackListIpManager.blackListedIps;
-import static xyz.xbcore.Messages.MessageManager.ColorSuccess;
-import static xyz.xbcore.Messages.MessageManager.prefixConsole;
-import static xyz.xbcore.Utils.Utils.executeCommandCMD;
+import static xyz.xbcommun.Messages.MessageManager.ColorSuccess;
+import static xyz.xbcommun.Messages.MessageManager.prefixConsole;
+import static xyz.xbcommun.Utils.UtilsGlobal.executeCommandCMD;
 
 public class FireWallWindows {
 
@@ -35,7 +35,7 @@ public class FireWallWindows {
             }
         }
 
-        if (Utils.isRunningAsAdmin()){
+        if (UtilsGlobal.isRunningAsAdmin()){
             executeCommandCMD("netsh advfirewall firewall delete rule name=\"Bloquear_IPs\"");
             executeCommandCMD("netsh advfirewall firewall add rule name=Bloquear_IPs dir=in action=block remoteip=" + ipList + " protocol=any");
         }else {

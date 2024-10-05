@@ -1,12 +1,12 @@
-package xyz.xbcore.Messages.Messages;
+package xyz.xbcommun.Messages.Messages;
 
 import net.md_5.bungee.api.ChatColor;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static xyz.xbcore.Messages.Messages.Messages.*;
-import static xyz.xbcore.Messages.MessageManager.*;
+import static xyz.xbcommun.Messages.Messages.Messages.*;
+import static xyz.xbcommun.Messages.MessageManager.*;
 
 public record MessagesES() {
 
@@ -18,7 +18,7 @@ public record MessagesES() {
         esMessages.put(Generic_NotAllowed,prefix + ColorError + "No esta permitido");
         esMessages.put(Generic_InArea,prefix + ColorError + "No se puede usar aquí");
         esMessages.put(Generic_HoverExecute,"Ejecutar este comando");
-        esMessages.put(Generic_OnlyPlayers, prefixConsole + ColorError + "solo ser ejecutado por jugadores");
+        esMessages.put(Generic_OnlyPlayers, ColorError + "solo ser ejecutado por jugadores");
         //Vote
         esMessages.put(Vote_Voted,prefix + ColorSuccess + "Gracias Por votar");
         esMessages.put(Vote_NotBoxPvp, prefix + Colorinfo + "Tienes que entrar al box pvp para recibir las recompensas");

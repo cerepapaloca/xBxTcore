@@ -2,7 +2,7 @@ package xyz.xbcore.PlayerManager.Listener;
 
 import xyz.xbcore.CombatLog.CombatSection;
 import xyz.xbcore.File.FileManagerSection;
-import xyz.xbcore.Messages.Messages.Messages;
+import xyz.xbcommun.Messages.Messages.Messages;
 import xyz.xbcore.PlayerManager.Model.PlayerDataGLobal;
 import xyz.xbcore.PlayerManager.PlayerManagerSection;
 import xyz.xbcore.Security.SystemBan.ContextBan;
@@ -21,7 +21,7 @@ import java.util.*;
 
 import static xyz.xbcore.BoxPvp.BoxPvpSection.getZoneSafeBoxPvp;
 import static xyz.xbcore.BoxPvp.ItemsBoxPvp.BonusUpdate.UpdateBonus;
-import static xyz.xbcore.Messages.MessageManager.*;
+import static xyz.xbcommun.Messages.MessageManager.*;
 import static xyz.xbcore.PlayerManager.PlayerManager.playresInSafeZone;
 import static xyz.xbcore.PlayerManager.PlayerManager.punishedTiemer;
 import static xyz.xbcore.Security.SystemBan.BanManager.checkBanPlayer;

@@ -2,7 +2,7 @@ package xyz.xbcore.BoxPvp;
 
 import xyz.xbcore.BoxPvp.Model.MinaBoxPvp;
 import xyz.xbcore.BoxPvp.Model.SafeArea;
-import xyz.xbcore.Utils.Utils;
+import xyz.xbcommun.Utils.UtilsGlobal;
 import org.bukkit.Location;
 
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ public class ZoneSafeBoxPvp {
         SafeArea mine1;
         for (MinaBoxPvp mine : AutoFillsBox.minas){
             if (mine.getIsSafeZone()){
-                location = Utils.getMidpoint(mine.getLocationA(), mine.getLocationB());
+                location = UtilsGlobal.getMidpoint(mine.getLocationA(), mine.getLocationB());
                 mine1 = new SafeArea(location.clone().add(10, 6, 10), location.clone().add(-10, -10, -10));
                 safeAreas.add(mine1);
             }

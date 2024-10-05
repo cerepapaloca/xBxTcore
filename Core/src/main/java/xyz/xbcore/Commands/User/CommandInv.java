@@ -1,8 +1,8 @@
 package xyz.xbcore.Commands.User;
 
 import xyz.xbcommun.Command.BaseCommand;
-import xyz.xbcore.Messages.Messages.Messages;
-import xyz.xbcore.Utils.Utils;
+import xyz.xbcommun.Messages.Messages.Messages;
+import xyz.xbcommun.Utils.UtilsGlobal;
 import xyz.xbcore.xBxTcore;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 
 import java.util.Objects;
 
-import static xyz.xbcore.Messages.MessageManager.*;
+import static xyz.xbcommun.Messages.MessageManager.*;
 
 public class CommandInv extends BaseCommand {
 
@@ -34,13 +34,13 @@ public class CommandInv extends BaseCommand {
                         xBxTcore.getPlayerDataUnique(p.getUniqueId()).addGuestPlayer(Objects.requireNonNull(Bukkit.getPlayer(name)));
                     }
                 }else{
-                    Utils.sendMessage(sender, Messages.Others_WarningGetGuestPlayers);
+                    UtilsGlobal.sendMessage(sender, Messages.Others_WarningGetGuestPlayers);
                 }
             }
-            Utils.sendMessage(sender, Messages.RequestDuel_Inv);
+            UtilsGlobal.sendMessage(sender, Messages.RequestDuel_Inv);
             Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',   prefixConsole + Colorplayer + xBxTcore.getPlayerDataUnique(p.getUniqueId()).getGuestPlayers(false).size() + Colorinfo + " Catidad de ivn"));
         }else{
-            Utils.sendMessage(sender, Messages.Generic_OnlyPlayers);
+            UtilsGlobal.sendMessage(sender, Messages.Generic_OnlyPlayers);
         }
     }
 }

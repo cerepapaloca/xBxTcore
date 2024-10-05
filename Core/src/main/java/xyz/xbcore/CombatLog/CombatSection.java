@@ -1,8 +1,10 @@
 package xyz.xbcore.CombatLog;
 
 import xyz.xbcore.CombatLog.Listener.CombatlogListener;
-import xyz.xbcore.Section;
+import xyz.xbcommun.Section;
 import xyz.xbcore.xBxTcore;
+
+import static xyz.xbcommun.RegisterManager.register;
 
 public class CombatSection implements Section {
 
@@ -17,7 +19,7 @@ public class CombatSection implements Section {
 
     @Override
     public void enable() {
-        plugin.register(new CombatlogListener());
+        register(new CombatlogListener());
     }
 
     @Override

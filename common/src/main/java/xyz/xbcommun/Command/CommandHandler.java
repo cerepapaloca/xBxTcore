@@ -12,9 +12,10 @@ import org.jetbrains.annotations.NotNull;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Getter
 @RequiredArgsConstructor
 public class CommandHandler implements TabExecutor {
-    @Getter private final HashSet<BaseCommand> commands = new HashSet<>();
+    private final HashSet<BaseCommand> commands = new HashSet<>();
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {

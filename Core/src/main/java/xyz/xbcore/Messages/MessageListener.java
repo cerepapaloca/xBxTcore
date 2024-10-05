@@ -1,66 +1,23 @@
 package xyz.xbcore.Messages;
 
-import xyz.xbcore.Messages.Messages.Messages;
-import xyz.xbcore.xBxTcore;
-import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.events.ListenerPriority;
-import com.comphenix.protocol.events.PacketAdapter;
-import com.comphenix.protocol.events.PacketContainer;
+import xyz.xbcommun.Messages.Messages.Messages;
 import com.comphenix.protocol.events.PacketEvent;
-import com.comphenix.protocol.wrappers.WrappedChatComponent;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import fr.xephi.authme.api.v3.AuthMeApi;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import xyz.xbcommun.Messages.PacketMessagesListener;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static xyz.xbcore.Messages.MessageManager.*;
+import static xyz.xbcommun.Messages.MessageManager.*;
 
-public class MessageTranslatorManager {
+public class MessageListener implements PacketMessagesListener {
 
-    private final xBxTcore plugin;
-
-    public MessageTranslatorManager(xBxTcore plugin) {
-        this.plugin = plugin;
-        registerPacketListener();
-    }
-
-    private void registerPacketListener() {
-        ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(
-                plugin,
-                ListenerPriority.NORMAL,
-                PacketType.Play.Server.SYSTEM_CHAT
-        ) {
-            @Override
-            public void onPacketSending(PacketEvent event) {
-                String message;
-                try {
-                    PacketContainer packet = event.getPacket();
-                    WrappedChatComponent chatComponent = packet.getChatComponents().read(0);
-                    message = normalizeChatMessage(chatComponent.getJson());
-
-                } catch (Exception exception) {
-                    try {
-                        message = extractExtraValue(event.getPacket().getChatComponents().read(0).getJson());
-                    }catch (Exception ignored) {
-                        message = "";
-                    }
-
-                }
-                replaceMessages(message, event);
-            }
-        });
-    }
-
-    public void replaceMessages(String messageId, PacketEvent event) {
+    @Override
+    public void PacketMessagesEvent(PacketEvent event, String messageId) {
         switch (messageId) {
             case "Crates » givekey" -> event.setCancelled(true);
             case "reward" -> {
@@ -124,39 +81,5 @@ public class MessageTranslatorManager {
                 }
             }
         }
-    }
-
-
-    public static String normalizeChatMessage(String jsonMessage) {
-        JsonObject jsonObject = JsonParser.parseString(jsonMessage).getAsJsonObject();
-        return extractText(jsonObject);
-    }
-
-    private static String extractText(JsonObject jsonObject) {
-        StringBuilder sb = new StringBuilder();
-
-        if (jsonObject.has("text")) {
-            sb.append(jsonObject.get("text").getAsString());
-        }
-
-        if (jsonObject.has("extra")) {
-            for (JsonElement element : jsonObject.getAsJsonArray("extra")) {
-                sb.append(extractText(element.getAsJsonObject()));
-            }
-        }
-
-        return sb.toString();
-    }
-
-    public static String extractExtraValue(String jsonString) {
-        // Parsear el JSON de entrada
-        JsonObject jsonObject = JsonParser.parseString(jsonString).getAsJsonObject();
-
-        // Obtener el primer elemento del array "extra"
-        JsonArray extraArray = jsonObject.getAsJsonArray("extra");
-        String extraValue = extraArray.get(0).getAsString();
-
-        // Retornar el valor extraído
-        return extraValue;
     }
 }

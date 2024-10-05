@@ -6,8 +6,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 
-import static xyz.xbcore.Messages.MessageManager.ColorError;
-import static xyz.xbcore.Messages.MessageManager.prefixKick;
+import static xyz.xbcommun.Messages.MessageManager.ColorError;
+import static xyz.xbcommun.Messages.MessageManager.prefixKick;
 
 public class AntiTwoPlayer implements Listener {
 

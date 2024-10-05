@@ -1,10 +1,10 @@
-package xyz.xbcore.Messages.Listener;
+package xyz.xbcore.Messages;
 
 import xyz.xbcore.CombatLog.CombatSection;
 import xyz.xbcore.Duel.DuelSection;
 import xyz.xbcore.Duel.Enum.EndCombatCauses;
 import xyz.xbcore.Environment.EnvironmentsSection;
-import xyz.xbcore.Messages.Messages.Messages;
+import xyz.xbcommun.Messages.Messages.Messages;
 import xyz.xbcore.xBxTcore;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -20,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
-import static xyz.xbcore.Messages.MessageManager.BroadcastMessageDied;
+import static xyz.xbcommun.Messages.MessageManager.BroadcastMessageDied;
 
 public class MessageDiedListener implements Listener {
 

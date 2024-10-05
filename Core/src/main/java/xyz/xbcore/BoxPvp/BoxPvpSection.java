@@ -1,11 +1,12 @@
 package xyz.xbcore.BoxPvp;
 
+import xyz.xbcommun.RegisterManager;
 import xyz.xbcore.BoxPvp.ItemsBoxPvp.BonusUpdate;
 import xyz.xbcore.BoxPvp.ItemsBoxPvp.ItemManage;
 import xyz.xbcore.BoxPvp.ItemsBoxPvp.Listener.AddRangeListener;
 import xyz.xbcore.BoxPvp.ItemsBoxPvp.Listener.ArmorBonusListener;
 import xyz.xbcore.BoxPvp.ItemsBoxPvp.Listener.ItemBonusListener;
-import xyz.xbcore.Section;
+import xyz.xbcommun.Section;
 import xyz.xbcore.xBxTcore;
 
 public class BoxPvpSection implements Section {
@@ -23,9 +24,9 @@ public class BoxPvpSection implements Section {
 
     @Override
     public void enable() {
-        plugin.register(new ArmorBonusListener(plugin));
-        plugin.register(new ItemBonusListener(plugin));
-        plugin.register(new AddRangeListener(plugin));
+        RegisterManager.register(new ArmorBonusListener(plugin));
+        RegisterManager.register(new ItemBonusListener(plugin));
+        RegisterManager.register(new AddRangeListener(plugin));
         autoFillsBox = new AutoFillsBox(plugin);
         zoneSafeBoxPvp = new ZoneSafeBoxPvp();
         itemManage = new ItemManage(plugin);

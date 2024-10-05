@@ -1,4 +1,4 @@
-package xyz.xbcore.Utils;
+package xyz.xbcommun.Utils;
 
 public enum SystemOperative {
     WINDOWS,

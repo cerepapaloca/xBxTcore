@@ -13,7 +13,7 @@ public class Commandinfo extends BaseCommand {
                 "/info",
                 "xbxtcore.command.info",
                 true,
-                "Da información básica del estado del servidor");
+                "");
         this.plugin = plugin;
     }
 

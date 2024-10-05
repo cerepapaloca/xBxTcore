@@ -1,12 +1,12 @@
-package xyz.xbcore.Messages.Messages;
+package xyz.xbcommun.Messages.Messages;
 
 import net.md_5.bungee.api.ChatColor;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static xyz.xbcore.Messages.Messages.Messages.*;
-import static xyz.xbcore.Messages.MessageManager.*;
+import static xyz.xbcommun.Messages.Messages.Messages.*;
+import static xyz.xbcommun.Messages.MessageManager.*;
 
 public record MessagesEN() {
 

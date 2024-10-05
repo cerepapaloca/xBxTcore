@@ -7,8 +7,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import static xyz.xbcore.Messages.MessageManager.ColorSuccess;
-import static xyz.xbcore.Messages.MessageManager.Colorinfo;
+import static xyz.xbcommun.Messages.MessageManager.ColorSuccess;
+import static xyz.xbcommun.Messages.MessageManager.Colorinfo;
 
 public class MySQLManager {
 

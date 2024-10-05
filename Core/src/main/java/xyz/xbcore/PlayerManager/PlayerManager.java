@@ -2,7 +2,7 @@ package xyz.xbcore.PlayerManager;
 
 import xyz.xbcore.BoxPvp.BoxPvpSection;
 import xyz.xbcore.Duel.DuelSection;
-import xyz.xbcore.Messages.Messages.Messages;
+import xyz.xbcommun.Messages.Messages.Messages;
 import xyz.xbcore.xBxTcore;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -18,7 +18,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 import static xyz.xbcore.BoxPvp.BoxPvpSection.getZoneSafeBoxPvp;
-import static xyz.xbcore.Messages.MessageManager.*;
+import static xyz.xbcommun.Messages.MessageManager.*;
 
 public class PlayerManager {
 

@@ -7,9 +7,9 @@ import xyz.xbcore.Duel.Enum.MapsDuel;
 import xyz.xbcore.Inventory.InventorySection;
 import xyz.xbcore.Inventory.InventoryManager;
 import xyz.xbcore.Inventory.Models.InvetoryPlayer;
-import xyz.xbcore.Messages.Messages.Messages;
+import xyz.xbcommun.Messages.Messages.Messages;
 import xyz.xbcore.Duel.Model.Request;
-import xyz.xbcore.Utils.Utils;
+import xyz.xbcommun.Utils.UtilsGlobal;
 import xyz.xbcore.xBxTcore;
 import lombok.Getter;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -24,8 +24,8 @@ import org.bukkit.entity.Player;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static xyz.xbcore.Messages.MessageManager.*;
-import static xyz.xbcore.Utils.Utils.AntiSpam;
+import static xyz.xbcommun.Messages.MessageManager.*;
+import static xyz.xbcommun.Utils.UtilsGlobal.AntiSpam;
 
 public class CommandDuel extends BaseTabCommand {
 
@@ -83,10 +83,10 @@ public class CommandDuel extends BaseTabCommand {
                                 players.add(target);
                                 sendRequest(players, "bedrock", (playareSender).getUniqueId());
                             }else{
-                                Utils.sendMessage(sender, Messages.RequestDuel_SendSelf);
+                                UtilsGlobal.sendMessage(sender, Messages.RequestDuel_SendSelf);
                             }
                         }else{
-                            Utils.sendMessage(sender, Messages.RequestDuel_PlayerOffTarget);
+                            UtilsGlobal.sendMessage(sender, Messages.RequestDuel_PlayerOffTarget);
                         }
                         return;
                     case 2:
@@ -107,21 +107,21 @@ public class CommandDuel extends BaseTabCommand {
                                     sendRequest(players, args[1].toLowerCase(), (playareSender).getUniqueId());
 
                                 }else{
-                                    Utils.sendMessage(sender, Messages.RequestDuel_WorldType);
+                                    UtilsGlobal.sendMessage(sender, Messages.RequestDuel_WorldType);
                                 }
                             }else{
-                                Utils.sendMessage(sender, Messages.RequestDuel_SendSelf);
+                                UtilsGlobal.sendMessage(sender, Messages.RequestDuel_SendSelf);
                             }
                         }else{
-                            Utils.sendMessage(sender, Messages.RequestDuel_PlayerOffTarget);
+                            UtilsGlobal.sendMessage(sender, Messages.RequestDuel_PlayerOffTarget);
                         }
                 }
             }else{
-                Utils.sendMessage(sender, Messages.RequestDuel_OnDuel);
+                UtilsGlobal.sendMessage(sender, Messages.RequestDuel_OnDuel);
             }
 
         } else {
-            Utils.sendMessage(sender, Messages.Generic_OnlyPlayers);
+            UtilsGlobal.sendMessage(sender, Messages.Generic_OnlyPlayers);
         }
     }
 

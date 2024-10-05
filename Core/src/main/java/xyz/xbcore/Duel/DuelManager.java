@@ -3,9 +3,9 @@ package xyz.xbcore.Duel;
 import xyz.xbcore.Duel.Enum.EndCombatCauses;
 import xyz.xbcore.Environment.EnvironmentsSection;
 import xyz.xbcore.File.FileManagerSection;
-import xyz.xbcore.Messages.MessageManager;
+import xyz.xbcommun.Messages.MessageManager;
 import xyz.xbcore.Inventory.Models.KitData;
-import xyz.xbcore.Messages.Messages.Messages;
+import xyz.xbcommun.Messages.Messages.Messages;
 import xyz.xbcore.xBxTcore;
 import com.onarandombox.MultiverseCore.api.MultiverseWorld;
 import me.neznamy.tab.api.TabPlayer;
@@ -23,7 +23,7 @@ import org.bukkit.scheduler.BukkitTask;
 
 import java.util.*;
 
-import static xyz.xbcore.Messages.MessageManager.MasterMessageLocated;
+import static xyz.xbcommun.Messages.MessageManager.MasterMessageLocated;
 
 public class DuelManager{
 

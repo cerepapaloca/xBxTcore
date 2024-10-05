@@ -1,7 +1,7 @@
 package xyz.xbcore.Security.SystemBan;
 
 import xyz.xbcore.File.MySQLConnection;
-import xyz.xbcore.Utils.Utils;
+import xyz.xbcommun.Utils.UtilsGlobal;
 import xyz.xbcore.xBxTcore;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -19,7 +19,7 @@ import java.net.UnknownHostException;
 import java.sql.*;
 import java.util.*;
 
-import static xyz.xbcore.Messages.MessageManager.*;
+import static xyz.xbcommun.Messages.MessageManager.*;
 
 public class BanManager implements Listener {
 
@@ -107,12 +107,12 @@ public class BanManager implements Listener {
             if (context.equals("GLOBAL")) context = "xBxTpvp.xyz";
             context = context.toLowerCase().replace("_", " ");
             String reasonFinal = ChatColor.translateAlternateColorCodes('&', prefixKick + Colorinfo + "Haz sido baneado de &o" + context + "&r\n" +
-                    Colorinfo + "Expira en: " + Colorplayer + Utils.TimeToString(unbanDate - banDate, 1) + "\n" +
+                    Colorinfo + "Expira en: " + Colorplayer + UtilsGlobal.TimeToString(unbanDate - banDate, 1) + "\n" +
                     Colorinfo + "Razón de baneo: " + Colorplayer + reason + "\n" +
                     Colorinfo + "Apelación de ban: " + LinkDiscord);
             Bukkit.getScheduler().runTask(plugin, () -> Objects.requireNonNull(Bukkit.getPlayer(name)).kickPlayer(reasonFinal));
             Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + Colorplayer + name +  Colorinfo + " Baneado: \n" +
-                    Colorinfo + "Tiempo Baneado: " + Colorplayer + Utils.TimeToString(unbanDate - banDate, 1) + "\n" +
+                    Colorinfo + "Tiempo Baneado: " + Colorplayer + UtilsGlobal.TimeToString(unbanDate - banDate, 1) + "\n" +
                     Colorinfo + "Razón de baneo: " + Colorplayer + reason + "\n"  +
                     Colorinfo + "Contexto: " + Colorplayer + context));
         } catch (SQLException e) {
@@ -172,7 +172,7 @@ public class BanManager implements Listener {
                     Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorWarning + player.getName() +
                             " se echo por que estar baneado de: " + contextName + ". Se detecto por Nombre:" + checkName + " por ip:" + checkIp));
                     String reason = ChatColor.translateAlternateColorCodes('&', prefixKick + Colorinfo + "Haz sido baneado de &o" + contextName + "&r\n" +
-                            Colorinfo + "Expira en: " + Colorplayer + Utils.TimeToString(unbanDate - currentTime, 1) + "\n" +
+                            Colorinfo + "Expira en: " + Colorplayer + UtilsGlobal.TimeToString(unbanDate - currentTime, 1) + "\n" +
                             Colorinfo + "Razón de baneo: " + Colorplayer + dataBan.getReason() + "\n" +
                             Colorinfo + "Apelación de ban: " + LinkDiscord);
                     Bukkit.getScheduler().runTask(plugin, () -> player.kickPlayer(reason));

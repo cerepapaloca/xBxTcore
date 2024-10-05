@@ -2,7 +2,7 @@ package xyz.xbcore.File.PlayerData;
 
 import xyz.xbcore.File.FileManagerSection;
 import xyz.xbcore.Inventory.Enum.PlayerFileTimes;
-import xyz.xbcore.Messages.Messages.Messages;
+import xyz.xbcommun.Messages.Messages.Messages;
 import xyz.xbcore.xBxTcore;
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -18,7 +18,7 @@ import org.bukkit.persistence.PersistentDataType;
 import java.util.*;
 
 import static xyz.xbcore.File.FileManagerSection.*;
-import static xyz.xbcore.Messages.MessageManager.*;
+import static xyz.xbcommun.Messages.MessageManager.*;
 
 
 public class PlayerfileManager {

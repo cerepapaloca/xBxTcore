@@ -2,8 +2,8 @@ package xyz.xbcore.Commands.User;
 
 import xyz.xbcommun.Command.BaseTabCommand;
 import xyz.xbcore.File.FileManagerSection;
-import xyz.xbcore.Messages.Messages.Messages;
-import xyz.xbcore.Messages.MessageManager;
+import xyz.xbcommun.Messages.Messages.Messages;
+import xyz.xbcommun.Messages.MessageManager;
 import xyz.xbcore.xBxTcore;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
@@ -15,8 +15,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static xyz.xbcore.Messages.MessageManager.MasterMessageLocated;
-import static xyz.xbcore.Utils.Utils.AntiSpam;
+import static xyz.xbcommun.Messages.MessageManager.MasterMessageLocated;
+import static xyz.xbcommun.Utils.UtilsGlobal.AntiSpam;
 
 public class CommandSaveKit extends BaseTabCommand {
 

@@ -38,7 +38,7 @@ public abstract class BaseCommand {
         this.name = name;
         this.usage = usage;
         this.permissions = new String[]{permission};
-        this.description = description;
+        this.description = description == null || description.isEmpty() ? "&oSin Descripción" : description;
         this.onlyOP = onlyOP;
         this.subCommands = subCommands;
     }
@@ -47,7 +47,7 @@ public abstract class BaseCommand {
         this.name = new String[]{name};
         this.usage = usage;
         this.permissions = permissions;
-        this.description = description;
+        this.description = description == null || description.isEmpty() ? "&oSin Descripción" : description;
         this.onlyOP = onlyOP;
         this.subCommands = subCommands;
     }
@@ -56,7 +56,7 @@ public abstract class BaseCommand {
         this.name = new String[]{name};;
         this.usage = usage;
         this.permissions = new String[]{permissions};
-        this.description = description;
+        this.description = description == null || description.isEmpty()  ? "&oSin Descripción" : description;
         this.onlyOP = onlyOP;
         this.subCommands = subCommands;
     }
@@ -65,7 +65,7 @@ public abstract class BaseCommand {
         this.name = name;
         this.usage = usage;
         this.permissions = permissions;
-        this.description = description;
+        this.description = description == null || description.isEmpty()  ? "&oSin Descripción" : description;
         this.onlyOP = onlyOP;
         this.subCommands = subCommands;
     }

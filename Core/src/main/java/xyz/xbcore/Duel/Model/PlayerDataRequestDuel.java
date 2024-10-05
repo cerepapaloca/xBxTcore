@@ -2,7 +2,7 @@ package xyz.xbcore.Duel.Model;
 
 import xyz.xbcore.Inventory.Models.KitData;
 import xyz.xbcore.Duel.Enum.MapsDuel;
-import xyz.xbcore.Messages.Messages.Messages;
+import xyz.xbcommun.Messages.Messages.Messages;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.UUID;
 
-import static xyz.xbcore.Messages.MessageManager.ColorWarning;
-import static xyz.xbcore.Messages.MessageManager.MasterMessageLocated;
+import static xyz.xbcommun.Messages.MessageManager.ColorWarning;
+import static xyz.xbcommun.Messages.MessageManager.MasterMessageLocated;
 
 public class PlayerDataRequestDuel {
 

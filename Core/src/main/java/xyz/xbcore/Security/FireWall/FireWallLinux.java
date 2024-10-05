@@ -10,7 +10,7 @@ import java.net.UnknownHostException;
 import java.util.*;
 
 import static xyz.xbcore.File.BLackList.BlackListIpManager.blackListedIps;
-import static xyz.xbcore.Messages.MessageManager.*;
+import static xyz.xbcommun.Messages.MessageManager.*;
 
 public class FireWallLinux {
 

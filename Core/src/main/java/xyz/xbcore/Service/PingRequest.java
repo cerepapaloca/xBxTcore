@@ -1,5 +1,6 @@
 package xyz.xbcore.Service;
 
+import xyz.xbcommun.xBxTcommon;
 import xyz.xbcore.xBxTcore;
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -8,8 +9,8 @@ import org.bukkit.ChatColor;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-import static xyz.xbcore.Messages.MessageManager.ColorError;
-import static xyz.xbcore.Messages.MessageManager.ColorSuccess;
+import static xyz.xbcommun.Messages.MessageManager.ColorError;
+import static xyz.xbcommun.Messages.MessageManager.ColorSuccess;
 
 public final class PingRequest {
 
@@ -26,7 +27,7 @@ public final class PingRequest {
                 String notConexion;
                 String regex;
                 notConexion = "no pudo encontrar el host";
-                switch(xBxTcore.getSystemOperative){
+                switch(xBxTcommon.getSystemOperative){
                     case WINDOWS -> {
                         timeLoc = "tiempo=";
                         regex = "ms";

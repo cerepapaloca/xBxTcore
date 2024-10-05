@@ -2,8 +2,8 @@ package xyz.xbcore.Environment.Hologrmas;
 
 import xyz.xbcore.BoxPvp.AutoFillsBox;
 import xyz.xbcore.BoxPvp.Model.MinaBoxPvp;
-import xyz.xbcore.Utils.ColorUtils;
-import xyz.xbcore.Utils.Utils;
+import xyz.xbcommun.Utils.ColorUtils;
+import xyz.xbcommun.Utils.UtilsGlobal;
 import xyz.xbcore.xBxTcore;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -12,9 +12,9 @@ import org.bukkit.entity.EntityType;
 
 import java.util.Objects;
 
-import static xyz.xbcore.Messages.MessageManager.Colorinfo;
-import static xyz.xbcore.Messages.MessageManager.Colorplayer;
-import static xyz.xbcore.Utils.ColorUtils.applyGradient;
+import static xyz.xbcommun.Messages.MessageManager.Colorinfo;
+import static xyz.xbcommun.Messages.MessageManager.Colorplayer;
+import static xyz.xbcommun.Utils.ColorUtils.applyGradient;
 
 public class HologramasBoxPvp extends Hologramas {
 
@@ -46,7 +46,7 @@ public class HologramasBoxPvp extends Hologramas {
     public void updateHologramTimesMina(){
         for (MinaBoxPvp mina : AutoFillsBox.minas){
             ArmorStand armorStand = mina.getArmorStand();
-            armorStand.setCustomName(ChatColor.translateAlternateColorCodes('&',Colorinfo + "Tiempo Restante " + Colorplayer + Utils.TimeToString(mina.getTimeLeft(), 0)));
+            armorStand.setCustomName(ChatColor.translateAlternateColorCodes('&',Colorinfo + "Tiempo Restante " + Colorplayer + UtilsGlobal.TimeToString(mina.getTimeLeft(), 0)));
         }
     }
 }

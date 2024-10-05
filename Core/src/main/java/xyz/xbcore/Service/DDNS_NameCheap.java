@@ -11,7 +11,7 @@ import java.io.InputStreamReader;
 import java.net.*;
 import java.util.Enumeration;
 
-import static xyz.xbcore.Messages.MessageManager.*;
+import static xyz.xbcommun.Messages.MessageManager.*;
 
 public final class DDNS_NameCheap {
 

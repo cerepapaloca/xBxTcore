@@ -2,15 +2,15 @@ package xyz.xbcore.Commands.OnlyOp;
 
 import xyz.xbcommun.Command.BaseCommand;
 import xyz.xbcore.File.FileManagerSection;
-import xyz.xbcore.Messages.Messages.Messages;
+import xyz.xbcommun.Messages.Messages.Messages;
 import xyz.xbcore.Inventory.Enum.PlayerFileTimes;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import static xyz.xbcore.Messages.MessageManager.BroadcastMessageBuy;
-import static xyz.xbcore.Messages.MessageManager.MasterMessageLocated;
+import static xyz.xbcommun.Messages.MessageManager.BroadcastMessageBuy;
+import static xyz.xbcommun.Messages.MessageManager.MasterMessageLocated;
 
 public class CommandTimeRewardSkip extends BaseCommand {
 
@@ -19,7 +19,7 @@ public class CommandTimeRewardSkip extends BaseCommand {
                 "/timerewardskip",
                 "xbxtcore.command.o",
                 true,
-                "nulo");
+                "");
     }
 
     @Override

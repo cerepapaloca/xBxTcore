@@ -2,8 +2,8 @@ package xyz.xbcore.Commands.User;
 
 import xyz.xbcommun.Command.BaseTabCommand;
 import xyz.xbcore.File.FileManagerSection;
-import xyz.xbcore.Messages.Messages.Messages;
-import xyz.xbcore.Utils.Utils;
+import xyz.xbcommun.Messages.Messages.Messages;
+import xyz.xbcommun.Utils.UtilsGlobal;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -34,10 +34,10 @@ public class CommandDelKit extends BaseTabCommand {
                 GetItemInvetort(player);
 
             }else{
-                Utils.sendMessage(sender , Messages.Kit_DelError);
+                UtilsGlobal.sendMessage(sender , Messages.Kit_DelError);
             }
         }else{
-            Utils.sendMessage(sender , Messages.Generic_OnlyPlayers);
+            UtilsGlobal.sendMessage(sender , Messages.Generic_OnlyPlayers);
         }
     }
 

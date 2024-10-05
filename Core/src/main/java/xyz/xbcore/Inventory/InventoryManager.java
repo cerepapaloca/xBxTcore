@@ -1,9 +1,9 @@
 package xyz.xbcore.Inventory;
 
 import xyz.xbcore.Duel.Enum.MapsDuel;
-import xyz.xbcore.Messages.Messages.Messages;
+import xyz.xbcommun.Messages.Messages.Messages;
 import xyz.xbcore.Inventory.Models.InvetoryPlayer;
-import xyz.xbcore.Utils.Utils;
+import xyz.xbcommun.Utils.UtilsGlobal;
 import xyz.xbcore.xBxTcore;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
@@ -13,7 +13,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.*;
 
-import static xyz.xbcore.Messages.MessageManager.*;
+import static xyz.xbcommun.Messages.MessageManager.*;
 
 public class InventoryManager {
 
@@ -136,22 +136,22 @@ public class InventoryManager {
             lore.add(ChatColor.translateAlternateColorCodes('&',"&7" + s));
         }
         lore.set(xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).getIndexMap(),MasterMessageLocated(invetoryPlayer.getPlayer(), Messages.Inventory_MenuDuel_SelectWorld_Lore) + lore.get(xBxTcore.getPlayerDataUnique(invetoryPlayer.getPlayer().getUniqueId()).getIndexMap()));
-        Utils.newItemInventory(Messages.Inventory_MenuDuel_SelectWorld_Title, Material.FILLED_MAP, 16, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer(), lore);
+        UtilsGlobal.newItemInventory(Messages.Inventory_MenuDuel_SelectWorld_Title, Material.FILLED_MAP, 16, invetoryPlayer.getPlayer().getOpenInventory().getTopInventory(), invetoryPlayer.getPlayer(), lore);
     }
 
     public static ArrayList<String> secondsToMinutesLore(Player player){
         int time = xBxTcore.getPlayerDataUnique(player.getUniqueId()).getTimeDuel();
         ArrayList<String> lore = new ArrayList<>();
-        lore.add(MasterMessageLocated(player, Messages.Inventory_MenuDuel_TimeLimit_ItemLore) + Utils.TimeToString(time, 1));
+        lore.add(MasterMessageLocated(player, Messages.Inventory_MenuDuel_TimeLimit_ItemLore) + UtilsGlobal.TimeToString(time, 1));
         return lore;
     }
 
     protected void UpdateEnderPearl(Player player, ArrayList<String> lore){
         Inventory inv = player.getOpenInventory().getTopInventory();
         if (xBxTcore.getPlayerDataUnique(player.getUniqueId()).getTimeLimit()){
-            Utils.newItemInventory(Messages.Inventory_MenuDuel_TimeLimit_On, Material.ENDER_EYE, 13, inv, player, lore);
+            UtilsGlobal.newItemInventory(Messages.Inventory_MenuDuel_TimeLimit_On, Material.ENDER_EYE, 13, inv, player, lore);
         }else{
-            Utils.newItemInventory(Messages.Inventory_MenuDuel_TimeLimit_Off, Material.ENDER_PEARL, 13, inv, player, lore);
+            UtilsGlobal.newItemInventory(Messages.Inventory_MenuDuel_TimeLimit_Off, Material.ENDER_PEARL, 13, inv, player, lore);
         }
     }
 

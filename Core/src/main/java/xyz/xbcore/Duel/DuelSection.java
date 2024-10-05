@@ -1,13 +1,17 @@
 package xyz.xbcore.Duel;
 
+import lombok.Getter;
 import xyz.xbcore.Duel.Listener.DuelListener;
-import xyz.xbcore.Section;
+import xyz.xbcommun.Section;
 import xyz.xbcore.xBxTcore;
+
+import static xyz.xbcommun.RegisterManager.register;
 
 public class DuelSection implements Section {
 
     private static xBxTcore plugin;
 
+    @Getter
     private static DuelManager duelManager;
 
     public DuelSection(xBxTcore xBxTcore) {
@@ -16,7 +20,7 @@ public class DuelSection implements Section {
 
     @Override
     public void enable() {
-        plugin.register(new DuelListener());
+        register(new DuelListener());
         duelManager = new DuelManager(plugin);
     }
 
@@ -35,7 +39,4 @@ public class DuelSection implements Section {
 
     }
 
-    public static DuelManager getDuelManager() {
-        return duelManager;
-    }
 }

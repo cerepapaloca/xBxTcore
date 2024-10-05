@@ -1,4 +1,4 @@
-package xyz.xbcore.Messages.Messages;
+package xyz.xbcommun.Messages.Messages;
 
 public enum Messages {
     //Generico

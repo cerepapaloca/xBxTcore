@@ -3,9 +3,9 @@ package xyz.xbcore.Commands.OnlyOp;
 import xyz.xbcore.BoxPvp.BoxPvpSection;
 import xyz.xbcore.BoxPvp.ItemsBoxPvp.Enum.TagsRanges;
 import xyz.xbcommun.Command.BaseTabCommand;
-import xyz.xbcore.Messages.Messages.Messages;
+import xyz.xbcommun.Messages.Messages.Messages;
 import xyz.xbcore.BoxPvp.ItemsBoxPvp.ItemManage;
-import xyz.xbcore.Utils.Utils;
+import xyz.xbcommun.Utils.UtilsGlobal;
 import xyz.xbcore.xBxTcore;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -23,8 +23,8 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import static xyz.xbcore.Messages.MessageManager.*;
-import static xyz.xbcore.Utils.ColorUtils.applyGradient;
+import static xyz.xbcommun.Messages.MessageManager.*;
+import static xyz.xbcommun.Utils.ColorUtils.applyGradient;
 
 public class CommandItemBoxpvp extends BaseTabCommand {
 
@@ -36,14 +36,14 @@ public class CommandItemBoxpvp extends BaseTabCommand {
                 "/itemboxpvp",
                 "xbxtcore.command.itemboxpvp",
                 true,
-                "te da los items del box pvp");
+                "");
         this.plugin = plugin;
     }
 
 
     public void addItems(ArrayList<ItemStack> itemStacks) {
         for (ItemStack item : itemStacks) {
-            Utils.additem(player, item);
+            UtilsGlobal.additem(player, item);
         }
     }
 
@@ -90,32 +90,32 @@ public class CommandItemBoxpvp extends BaseTabCommand {
             if (player == null) return;
             for (ItemStack item : ItemManage.helmets){
                 if (String.valueOf(args[1]).equals(String.valueOf(Objects.requireNonNull(item.getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(plugin, "tier"), PersistentDataType.INTEGER)))){
-                    Utils.additem(player, item);
+                    UtilsGlobal.additem(player, item);
                 }
             }
             for (ItemStack item : ItemManage.elytras){
                 if (String.valueOf(args[1]).equals(String.valueOf(Objects.requireNonNull(item.getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(plugin, "tier"), PersistentDataType.INTEGER)))){
-                    Utils.additem(player, item);
+                    UtilsGlobal.additem(player, item);
                 }
             }
             for (ItemStack item : ItemManage.leggings){
                 if (String.valueOf(args[1]).equals(String.valueOf(Objects.requireNonNull(item.getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(plugin, "tier"), PersistentDataType.INTEGER)))){
-                    Utils.additem(player, item);
+                    UtilsGlobal.additem(player, item);
                 }
             }
             for (ItemStack item : ItemManage.boots){
                 if (String.valueOf(args[1]).equals(String.valueOf(Objects.requireNonNull(item.getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(plugin, "tier"), PersistentDataType.INTEGER)))){
-                    Utils.additem(player, item);
+                    UtilsGlobal.additem(player, item);
                 }
             }
             for (ItemStack item : ItemManage.swords){
                 if (String.valueOf(args[1]).equals(String.valueOf(Objects.requireNonNull(item.getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(plugin, "tier"), PersistentDataType.INTEGER)))){
-                    Utils.additem(player, item);
+                    UtilsGlobal.additem(player, item);
                 }
             }
             for (ItemStack item : ItemManage.pickaxes) {
                 if (String.valueOf(args[1]).equals(String.valueOf(Objects.requireNonNull(item.getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(plugin, "tier"), PersistentDataType.INTEGER)))) {
-                    Utils.additem(player, item);
+                    UtilsGlobal.additem(player, item);
                 }
             }
             if (args.length == 4 && args[3].equals("message")) {
@@ -135,7 +135,7 @@ public class CommandItemBoxpvp extends BaseTabCommand {
             }catch (IllegalArgumentException e){
                 sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorError + "Ese rango no existe"));
             }
-            String time = Utils.TimeToString(Utils.StringToMilliseconds(args[2]), 2);
+            String time = UtilsGlobal.TimeToString(UtilsGlobal.StringToMilliseconds(args[2]), 2);
 
             if (range == null)return ;
             switch (range){
@@ -148,11 +148,11 @@ public class CommandItemBoxpvp extends BaseTabCommand {
             ItemMeta tagMeta = tag.getItemMeta();
             tagMeta.getPersistentDataContainer().set(new NamespacedKey(plugin, "uuid"),  PersistentDataType.STRING, UUID.randomUUID().toString());
             tagMeta.getPersistentDataContainer().set(new NamespacedKey(plugin, "range"), PersistentDataType.STRING, range.name());
-            tagMeta.getPersistentDataContainer().set(new NamespacedKey(plugin, "duration"), PersistentDataType.LONG, Utils.StringToMilliseconds(args[2]));
+            tagMeta.getPersistentDataContainer().set(new NamespacedKey(plugin, "duration"), PersistentDataType.LONG, UtilsGlobal.StringToMilliseconds(args[2]));
             tag.setItemMeta(tagMeta);
             Player player = Bukkit.getPlayer(args[3]);
             if (player != null) {
-                Utils.additem(player, tag);
+                UtilsGlobal.additem(player, tag);
             }else {
                 Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorError + "El jugador no existe"));
             }

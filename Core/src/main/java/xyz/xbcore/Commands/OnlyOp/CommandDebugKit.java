@@ -2,7 +2,7 @@ package xyz.xbcore.Commands.OnlyOp;
 
 import xyz.xbcommun.Command.BaseTabCommand;
 import xyz.xbcore.File.FileManagerSection;
-import xyz.xbcore.Messages.Messages.Messages;
+import xyz.xbcommun.Messages.Messages.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
@@ -15,7 +15,7 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import static xyz.xbcore.Messages.MessageManager.MasterMessageLocated;
+import static xyz.xbcommun.Messages.MessageManager.MasterMessageLocated;
 
 public class CommandDebugKit extends BaseTabCommand {
 
@@ -28,7 +28,7 @@ public class CommandDebugKit extends BaseTabCommand {
                 "/deugkit",
                 "xbxtcore.command.debugkit",
                 true,
-                "sirve para investigar el kit de otro usuarios");
+                "");
     }
 
 

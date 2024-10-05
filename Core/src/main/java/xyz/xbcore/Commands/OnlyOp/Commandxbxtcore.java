@@ -1,20 +1,20 @@
 package xyz.xbcore.Commands.OnlyOp;
 
 import xyz.xbcommun.Command.BaseTabCommand;
+import xyz.xbcommun.xBxTcommon;
 import xyz.xbcore.File.BLackList.BlackListIpManager;
 import xyz.xbcore.File.FileManagerSection;
 import xyz.xbcore.File.MySQLConnection;
 import xyz.xbcore.File.PlayerData.PlayerfileManager;
-import xyz.xbcore.Messages.MessageManager;
-import xyz.xbcore.Messages.Messages.Messages;
+import xyz.xbcommun.Messages.MessageManager;
+import xyz.xbcommun.Messages.Messages.Messages;
 import xyz.xbcore.PlayerManager.PlayerManagerSection;
 import xyz.xbcore.Security.SystemBan.BanManager;
 import xyz.xbcore.Security.FireWall.FireWallLinux;
 import xyz.xbcore.Security.FireWall.FireWallWindows;
 import xyz.xbcore.Security.SecuritySection;
 import xyz.xbcore.Security.SystemBan.ContextBan;
-import xyz.xbcore.Utils.Utils;
-import xyz.xbcore.xBxTcore;
+import xyz.xbcommun.Utils.UtilsGlobal;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static xyz.xbcore.File.BLackList.BlackListIpManager.RemoveIpBlackListAndSave;
-import static xyz.xbcore.Messages.MessageManager.*;
+import static xyz.xbcommun.Messages.MessageManager.*;
 import static xyz.xbcore.Security.SystemBan.AutoBan.checkAutoBanCheat;
 
 public class Commandxbxtcore extends BaseTabCommand {
@@ -39,7 +39,7 @@ public class Commandxbxtcore extends BaseTabCommand {
                 "/xbxtcore",
                 "xbxtcore.command.xbxtcore",
                 true,
-                "se encarga de todas las funciones del servidor");
+                "");
         contexts.add("global");
         contexts.add("box_pvp");
         contexts.add("chat");
@@ -50,7 +50,7 @@ public class Commandxbxtcore extends BaseTabCommand {
         if (!(sender instanceof Player)) {
 
             if (args.length < 1) {
-                Utils.sendMessage(sender, prefixConsole + ColorError + "Pon los argumentos");
+                UtilsGlobal.sendMessage(sender, prefixConsole + ColorError + "Pon los argumentos");
                 return;
             }
             args[0] = args[0].toLowerCase();
@@ -60,11 +60,11 @@ public class Commandxbxtcore extends BaseTabCommand {
                     switch (args[1]) {
                         case "true" -> {
                             SecuritySection.ActiveAntiBot = true;
-                            Utils.sendMessage(sender, prefixConsole + ColorSuccess + "Sistema antiBot Activo");
+                            UtilsGlobal.sendMessage(sender, prefixConsole + ColorSuccess + "Sistema antiBot Activo");
                         }
                         case "false" -> {
                             SecuritySection.ActiveAntiBot = false;
-                            Utils.sendMessage(sender, prefixConsole + ColorWarning + "Sistema antiBot Desactivado");
+                            UtilsGlobal.sendMessage(sender, prefixConsole + ColorWarning + "Sistema antiBot Desactivado");
                         }
 
                     }
@@ -77,7 +77,7 @@ public class Commandxbxtcore extends BaseTabCommand {
                             Player player = Bukkit.getPlayer(args[2]);
                             if(player == null)return;
                             if (checkAutoBanCheat(player))return;
-                            Utils.sendMessage(sender, prefixConsole + ColorSuccess + "Se Echo al jugador por hacks");
+                            UtilsGlobal.sendMessage(sender, prefixConsole + ColorSuccess + "Se Echo al jugador por hacks");
                             player.kickPlayer(MasterMessageLocated(player, Messages.Kick_Cheat));
                         }
                     }
@@ -86,20 +86,20 @@ public class Commandxbxtcore extends BaseTabCommand {
                 case "ip" -> {
                     switch (args[1]) {
                         case "save" -> {
-                            switch (xBxTcore.getSystemOperative){
+                            switch (xBxTcommon.getSystemOperative){
                                 case WINDOWS -> FireWallWindows.updateFirewallRule();
                                 case LINUX -> FireWallLinux.updateFirewallZone();
                             }
 
                             BlackListIpManager.saveIpBlacklist();
-                            Utils.sendMessage(sender, prefixConsole + ColorSuccess + "Se guardo las ips Correctamente");
+                            UtilsGlobal.sendMessage(sender, prefixConsole + ColorSuccess + "Se guardo las ips Correctamente");
                         }
                         case "reload" -> {
                             FileManagerSection.getBlacklistIpManager().ReloadIpBlacklist();
-                            Utils.sendMessage(sender, prefixConsole + ColorSuccess + "Lista negra recargada");
+                            UtilsGlobal.sendMessage(sender, prefixConsole + ColorSuccess + "Lista negra recargada");
                         }
                         case "update" -> {
-                            switch (xBxTcore.getSystemOperative){
+                            switch (xBxTcommon.getSystemOperative){
                                 case LINUX -> FireWallLinux.executeFirewallScript();
                                 case WINDOWS -> FireWallWindows.runBatFile();
                             }
@@ -126,12 +126,12 @@ public class Commandxbxtcore extends BaseTabCommand {
                             reason = reason.concat(args[i] + " ");
                         }
 
-                        long duration = Utils.StringToMilliseconds(args[3]);
+                        long duration = UtilsGlobal.StringToMilliseconds(args[3]);
                         if (contexts.contains(args[2].toLowerCase())) {
 
                             BanManager.banPlayer(target, reason, duration, ContextBan.valueOf(args[2].toUpperCase()));
                         }else{
-                            Utils.sendMessage(sender, prefixConsole + ColorError +
+                            UtilsGlobal.sendMessage(sender, prefixConsole + ColorError +
                                     "Ese Contexto no existe solo exite 'global' y 'box_pvp'");
                         }
 
@@ -148,7 +148,7 @@ public class Commandxbxtcore extends BaseTabCommand {
                         }
                         case "false" -> {
                             PlayerManagerSection.moderationChatEnabled = false;
-                            Utils.sendMessage(sender, prefixConsole + ColorWarning + "Moderación del chat desactivada ");
+                            UtilsGlobal.sendMessage(sender, prefixConsole + ColorWarning + "Moderación del chat desactivada ");
                         }
                     }
                 }
@@ -158,7 +158,7 @@ public class Commandxbxtcore extends BaseTabCommand {
                         case "reload" -> {
                             long time = System.currentTimeMillis();
                             PlayerfileManager.getPlayesfiles().reloadConfigs();
-                            Utils.sendMessage(sender ,prefixConsole + ColorSuccess + "Se recargo los datos de los usuarios y tardo: " + (System.currentTimeMillis() - time));
+                            UtilsGlobal.sendMessage(sender ,prefixConsole + ColorSuccess + "Se recargo los datos de los usuarios y tardo: " + (System.currentTimeMillis() - time));
                         }
                         case "ping" -> {
                             for (Player p : Bukkit.getOnlinePlayers()) {

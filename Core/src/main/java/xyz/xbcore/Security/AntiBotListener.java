@@ -14,8 +14,8 @@ import java.util.HashMap;
 import java.util.UUID;
 
 import static xyz.xbcore.File.BLackList.BlackListIpManager.blackListedIps;
-import static xyz.xbcore.Messages.MessageManager.*;
-import static xyz.xbcore.Messages.MessageManager.ColorWarning;
+import static xyz.xbcommun.Messages.MessageManager.*;
+import static xyz.xbcommun.Messages.MessageManager.ColorWarning;
 
 public class AntiBotListener implements Listener {
 

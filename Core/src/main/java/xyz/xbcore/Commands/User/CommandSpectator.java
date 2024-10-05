@@ -1,8 +1,8 @@
 package xyz.xbcore.Commands.User;
 
 import xyz.xbcommun.Command.BaseTabCommand;
-import xyz.xbcore.Messages.Messages.Messages;
-import xyz.xbcore.Utils.Utils;
+import xyz.xbcommun.Messages.Messages.Messages;
+import xyz.xbcommun.Utils.UtilsGlobal;
 import xyz.xbcore.xBxTcore;
 import org.bukkit.*;
 import org.bukkit.command.CommandSender;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static xyz.xbcore.Messages.MessageManager.MasterMessageLocated;
+import static xyz.xbcommun.Messages.MessageManager.MasterMessageLocated;
 
 public class CommandSpectator extends BaseTabCommand {
 
@@ -41,7 +41,7 @@ public class CommandSpectator extends BaseTabCommand {
                             if(!Objects.requireNonNull(world).getPlayers().isEmpty()){
                                 Location loc = new Location(world,0,15,0);
                                 p.teleport(loc);
-                                Utils.ClickExecuteCommand("lobby", Messages.SpectatorMode_SpectatorSuccess, p);
+                                UtilsGlobal.ClickExecuteCommand("lobby", Messages.SpectatorMode_SpectatorSuccess, p);
                                 new BukkitRunnable() {
                                     public void run() {
                                         p.setGameMode(GameMode.SPECTATOR);
@@ -62,14 +62,14 @@ public class CommandSpectator extends BaseTabCommand {
                         p.teleport(Objects.requireNonNull(Bukkit.getWorld("lobby")).getSpawnLocation());
                     }else {
                         p.setGameMode(GameMode.SPECTATOR);
-                        Utils.ClickExecuteCommand("lobby", Messages.SpectatorMode_SpectatorSuccess, p);
+                        UtilsGlobal.ClickExecuteCommand("lobby", Messages.SpectatorMode_SpectatorSuccess, p);
                     }
                 }
             }else{
                 p.sendMessage(MasterMessageLocated(p, Messages.Generic_InArea));
             }
         }else{
-            Utils.sendMessage(sender, Messages.Generic_InArea);
+            UtilsGlobal.sendMessage(sender, Messages.Generic_InArea);
         }
     }
 

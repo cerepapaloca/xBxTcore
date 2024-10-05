@@ -1,11 +1,11 @@
 package xyz.xbcore.PlayerManager;
 
-import xyz.xbcore.Messages.Messages.Messages;
+import xyz.xbcommun.Messages.Messages.Messages;
 import xyz.xbcore.Security.SecuritySection;
 import xyz.xbcore.Security.SystemBan.BanManager;
 import xyz.xbcore.Security.SystemBan.ContextBan;
-import xyz.xbcore.Utils.ColorUtils;
-import xyz.xbcore.Utils.Utils;
+import xyz.xbcommun.Utils.ColorUtils;
+import xyz.xbcommun.Utils.UtilsGlobal;
 import xyz.xbcore.xBxTcore;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -16,7 +16,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.HashSet;
 import java.util.UUID;
 
-import static xyz.xbcore.Messages.MessageManager.MasterMessageLocated;
+import static xyz.xbcommun.Messages.MessageManager.MasterMessageLocated;
 import static xyz.xbcore.PlayerManager.PlayerManagerSection.moderationChatEnabled;
 
 public class ModerationChat {
@@ -45,7 +45,7 @@ public class ModerationChat {
 
     public void CheckMessage(AsyncPlayerChatEvent event){
         Player player = event.getPlayer();
-        String prefix = ColorUtils.applyGradient(Utils.getPlayerPrefix(player).replace("&l", ""), 'l');
+        String prefix = ColorUtils.applyGradient(UtilsGlobal.getPlayerPrefix(player).replace("&l", ""), 'l');
 
         if (BanManager.checkBanPlayer(player, ContextBan.CHAT) != null) {
             Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',

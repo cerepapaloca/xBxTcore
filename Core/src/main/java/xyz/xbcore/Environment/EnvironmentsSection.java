@@ -2,7 +2,7 @@ package xyz.xbcore.Environment;
 
 import xyz.xbcore.Environment.Hologrmas.Hologramas;
 import xyz.xbcore.Environment.Hologrmas.HologramasBoxPvp;
-import xyz.xbcore.Section;
+import xyz.xbcommun.Section;
 import xyz.xbcore.xBxTcore;
 import lombok.Getter;
 

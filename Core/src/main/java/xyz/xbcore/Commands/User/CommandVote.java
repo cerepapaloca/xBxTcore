@@ -1,12 +1,12 @@
 package xyz.xbcore.Commands.User;
 
 import xyz.xbcommun.Command.BaseCommand;
-import xyz.xbcore.Messages.Messages.Messages;
-import xyz.xbcore.Utils.Utils;
+import xyz.xbcommun.Messages.Messages.Messages;
+import xyz.xbcommun.Utils.UtilsGlobal;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
-import static xyz.xbcore.Messages.MessageManager.ColorLink;
+import static xyz.xbcommun.Messages.MessageManager.ColorLink;
 
 public class CommandVote extends BaseCommand {
 
@@ -20,7 +20,7 @@ public class CommandVote extends BaseCommand {
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-        Utils.sendMessage(sender, Messages.Others_Vote);
-        Utils.sendMessage(sender, ChatColor.translateAlternateColorCodes('&', ColorLink + "https://minecraft-mp.com/server-s334744"));
+        UtilsGlobal.sendMessage(sender, Messages.Others_Vote);
+        UtilsGlobal.sendMessage(sender, ChatColor.translateAlternateColorCodes('&', ColorLink + "https://minecraft-mp.com/server-s334744"));
     }
 }
