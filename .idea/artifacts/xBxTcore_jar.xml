@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="xBxTcore:jar">
+    <output-path>$USER_HOME$/Desktop/Servidores/xBxTpvp.xyz/plugins</output-path>
+    <root id="archive" name="xBxTcore.jar">
+      <element id="module-output" name="Core" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/github/GrimAnticheat/GrimAPI/-1193c4fa41-1/GrimAPI--1193c4fa41-1.jar" path-in-jar="/" />
+      <element id="module-output" name="common" />
+    </root>
+  </artifact>
+</component>

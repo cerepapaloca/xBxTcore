@@ -1,0 +1,34 @@
+package xyz.xbcore.Commands.User;
+
+import xyz.xbcommun.Command.BaseCommand;
+import xyz.xbcore.Messages.Messages.Messages;
+import xyz.xbcore.Utils.Utils;
+import xyz.xbcore.xBxTcore;
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+public class CommandKill extends BaseCommand {
+
+    public CommandKill(){
+        super("kill",
+                "/kill",
+                "xbxtcore.command.user",
+                false,
+                "te matas a ti mismo");
+    }
+
+    @Override
+    public void execute(CommandSender sender, String[] args) {
+        if(sender instanceof Player p){
+            if (xBxTcore.getWorldProtec().contains(p.getWorld())){
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "minecraft:kill " + p.getName());
+            }else{
+                Utils.sendMessage(sender, Messages.Generic_InArea);
+            }
+
+        }else{
+            Utils.sendMessage(sender, Messages.Generic_OnlyPlayers);
+        }
+    }
+}
