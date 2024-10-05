@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
-public class RewardsListener implements Listener {
+public class EnvironmentInteractListener implements Listener {
 
     @EventHandler
     public void onPlayerInteract(@NotNull PlayerInteractEvent event) {

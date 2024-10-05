@@ -1,8 +1,6 @@
 package Plugin.PlayerManager;
 
-import Plugin.PlayerManager.Listener.BlockerListener;
-import Plugin.PlayerManager.Listener.PlayerListener;
-import Plugin.PlayerManager.Listener.RewardsListener;
+import Plugin.PlayerManager.Listener.*;
 import Plugin.PlayerManager.Model.PlayerDataGLobal;
 import Plugin.Section;
 import Plugin.xBxTcore;
@@ -28,7 +26,9 @@ public class PlayerManagerSection implements Section {
         playerManager = new PlayerManager(plugin);
         plugin.register(new BlockerListener(plugin));
         plugin.register(new PlayerListener(plugin));
-        plugin.register(new RewardsListener());
+        plugin.register(new CommandListener());
+        plugin.register(new JoinAndQuitPlayerListener());
+        plugin.register(new EnvironmentInteractListener());
     }
 
     @Override

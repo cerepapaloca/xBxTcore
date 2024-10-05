@@ -4,6 +4,7 @@ import Plugin.File.FileManagerSection;
 import Plugin.Inventory.Enum.PlayerFileTimes;
 import Plugin.Messages.Messages.Messages;
 import Plugin.xBxTcore;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -28,7 +29,7 @@ public class PlayerfileManager {
     private final xBxTcore plugin;
     public List<Material> materials;
     public String namekitfavorite;
-    public static PlayersFiles playesfiles;
+    @Getter private static PlayersFiles playesfiles;
     public HashMap<UUID, String> listPrefix;
     public HashSet<UUID> UuidsPlayres = new HashSet<>();
 

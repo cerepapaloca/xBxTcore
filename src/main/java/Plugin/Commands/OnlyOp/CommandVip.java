@@ -1,5 +1,6 @@
 package Plugin.Commands.OnlyOp;
 
+import Plugin.Commands.BaseCommand;
 import Plugin.Messages.Messages.Messages;
 import Plugin.xBxTcore;
 import net.luckperms.api.node.types.InheritanceNode;
@@ -16,9 +17,18 @@ import java.util.concurrent.TimeUnit;
 import static Plugin.Messages.MessageManager.BroadcastMessageBuy;
 import static Plugin.Messages.MessageManager.MasterMessageLocated;
 
-public class CommandVip implements CommandExecutor {
+public class CommandVip extends BaseCommand {
 
-    public boolean onCommand(@Nullable CommandSender sender, @Nullable Command cmd, @Nullable String label, String[] args) {
+    public CommandVip() {
+        super ("vip",
+                "/vip",
+                "xbxtcore.command.vip",
+                true,
+                "le da vip como si hubiera comprado");
+    }
+
+    @Override
+    public void execute(CommandSender sender, String[] args) {
         Player player = Bukkit.getPlayer(args[0]);
         if (player != null) {
             switch (args[1]) {
@@ -36,9 +46,7 @@ public class CommandVip implements CommandExecutor {
                                 "Rango Vip"), 10 ,60 ,10);
                 player.playSound(player, Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
             }
-            return true;
         }
-        return false;
     }
 }
 

@@ -18,7 +18,7 @@ public class MySQLManager {
         this.mysql = mysql;
     }
 
-    public void createBanTableIfNotExists() {
+    public void createBanTable() {
         String createTableSQL = "CREATE TABLE IF NOT EXISTS bans (" +
                 "uuid VARCHAR(100) NOT NULL, " +
                 "name VARCHAR(36), " +

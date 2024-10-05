@@ -1,70 +1,65 @@
 package Plugin.Commands.OnlyOp;
 
 import Plugin.BoxPvp.BoxPvpSection;
-import Plugin.BoxPvp.ItemsBoxPvp.BonusUpdate;
 import Plugin.BoxPvp.ItemsBoxPvp.Enum.TagsRanges;
+import Plugin.Commands.BaseTabCommand;
 import Plugin.Messages.Messages.Messages;
 import Plugin.BoxPvp.ItemsBoxPvp.ItemManage;
-import Plugin.Security.SystemBan.AutoBan;
 import Plugin.Utils.Utils;
 import Plugin.xBxTcore;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import static Plugin.Messages.MessageManager.*;
 import static Plugin.Utils.ColorUtils.applyGradient;
 
-public class CommandItemBoxpvp implements CommandExecutor {
+public class CommandItemBoxpvp extends BaseTabCommand {
 
     private final xBxTcore plugin;
     private Player player;
 
     public CommandItemBoxpvp(xBxTcore plugin) {
+        super("itemboxpvp",
+                "/itemboxpvp",
+                "xbxtcore.command.itemboxpvp",
+                true,
+                "te da los items del box pvp");
         this.plugin = plugin;
     }
 
-    public boolean onCommand(@Nullable CommandSender sender,@Nullable Command cmd,@Nullable String label, String[] args) {
+
+    public void addItems(ArrayList<ItemStack> itemStacks) {
+        for (ItemStack item : itemStacks) {
+            Utils.additem(player, item);
+        }
+    }
+
+    @Override
+    public void execute(CommandSender sender, String[] args) {
         assert sender != null;
         if (sender instanceof Player p) {
             player = p;
             if (!p.isOp()) {
                 p.sendMessage(MasterMessageLocated(p, Messages.Generic_NotOp));
-                return false;
+                return ;
             }
         }
 
         if (args.length == 1) {
             switch (args[0]){
-                case "*" -> {
-                    addItems(ItemManage.coinNormal);
-                    addItems(ItemManage.coinCompact);
-                    addItems(ItemManage.helmets);
-                    addItems(ItemManage.elytras);
-                    addItems(ItemManage.leggings);
-                    addItems(ItemManage.boots);
-                    addItems(ItemManage.moneyNormal);
-                    addItems(ItemManage.moneyCompact);
-                    addItems(ItemManage.swords);
-                    addItems(ItemManage.pickaxes);
-                    addItems(ItemManage.especialItems);
-                    addItems(ItemManage.moneyPrincipal);
-                    addItems(ItemManage.shurlkerBoxs);
-
-                }
                 case "coins" -> {
                     addItems(ItemManage.coinNormal);
                     addItems(ItemManage.coinCompact);
@@ -92,9 +87,7 @@ public class CommandItemBoxpvp implements CommandExecutor {
             }
         } else if (args.length >= 3 && args[0].equals("tier")){
             player = Bukkit.getPlayer(args[2]);
-            if (player == null) {
-                return false;
-            }
+            if (player == null) return;
             for (ItemStack item : ItemManage.helmets){
                 if (String.valueOf(args[1]).equals(String.valueOf(Objects.requireNonNull(item.getItemMeta()).getPersistentDataContainer().get(new NamespacedKey(plugin, "tier"), PersistentDataType.INTEGER)))){
                     Utils.additem(player, item);
@@ -128,7 +121,6 @@ public class CommandItemBoxpvp implements CommandExecutor {
             if (args.length == 4 && args[3].equals("message")) {
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', MasterMessageLocated(player, Messages.Reward_BuysTitel)));
             }
-            return true;
         }else if (args.length == 4 && args[0].equals("tag")){
             ArrayList<String> lore = new ArrayList<>();
             lore.add(" ");
@@ -145,7 +137,7 @@ public class CommandItemBoxpvp implements CommandExecutor {
             }
             String time = Utils.TimeToString(Utils.StringToMilliseconds(args[2]), 2);
 
-            if (range == null)return false;
+            if (range == null)return ;
             switch (range){
                 case vip -> title = String.format("<#FDC661>Rango VIP %s<#FF7302>", time);
                 case vote -> title = String.format("<#FFE50E>Rango VOTE %s<#FDF192>", time);
@@ -164,14 +156,37 @@ public class CommandItemBoxpvp implements CommandExecutor {
             }else {
                 Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorError + "El jugador no existe"));
             }
-
         }
-        return true;
     }
 
-    public void addItems(ArrayList<ItemStack> itemStacks){
-        for (ItemStack item : itemStacks){
-            Utils.additem(player, item);
+    @Override
+    public List<String> onTab(CommandSender sender, String[] args) {
+        List<String> nameworlds = new ArrayList<>();
+        nameworlds.add("coins");
+        nameworlds.add("coin_normal");
+        nameworlds.add("coin_compact");
+        nameworlds.add("helmets");
+        nameworlds.add("elytra");
+        nameworlds.add("leggings");
+        nameworlds.add("boots");
+        nameworlds.add("sword");
+        nameworlds.add("tier");
+        nameworlds.add("money_normal");
+        nameworlds.add("money_compact");
+        nameworlds.add("moneys");
+        nameworlds.add("especial_items");
+        nameworlds.add("kits");
+        nameworlds.add("shurlker_Boxs_Personal");
+        nameworlds.add("keys");
+        nameworlds.add("tags");
+
+        if (args.length == 1) {
+            String currentArg = args[0].toLowerCase();
+            return nameworlds.stream()
+                    .filter(name -> name.startsWith(currentArg))
+                    .collect(Collectors.toList());
         }
+
+        return null;
     }
 }

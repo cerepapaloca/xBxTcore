@@ -17,7 +17,6 @@ public class MessageSection implements Section {
     @Override
     public void enable() {
         plugin.register(new MessageDiedListener());
-        new MessageManager();
         new MessageTranslatorManager(plugin);
         new MessagesEN();
         new MessagesES();

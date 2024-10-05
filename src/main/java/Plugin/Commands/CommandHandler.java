@@ -1,5 +1,6 @@
 package Plugin.Commands;
 
+import Plugin.Commands.OnlyOp.*;
 import Plugin.Commands.User.*;
 import Plugin.Messages.MessageManager;
 import Plugin.Messages.Messages.Messages;
@@ -43,6 +44,14 @@ public class CommandHandler implements TabExecutor {
         addCommand(new CommandDiscord());
         addCommand(new CommandDelKit());
         addCommand(new CommandBoxPvp());
+        //////////////
+        addCommand(new CommandCleaner());
+        addCommand(new CommandDebugKit());
+        addCommand(new Commandinfo(plugin));
+        addCommand(new CommandItemBoxpvp(plugin));
+        addCommand(new CommandTimeRewardSkip());
+        addCommand(new CommandVip());
+        addCommand(new Commandxbxtcore());
     }
 
     private void addCommand(BaseCommand command) {

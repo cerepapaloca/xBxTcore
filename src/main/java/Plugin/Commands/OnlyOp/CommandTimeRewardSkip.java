@@ -1,5 +1,6 @@
 package Plugin.Commands.OnlyOp;
 
+import Plugin.Commands.BaseCommand;
 import Plugin.File.FileManagerSection;
 import Plugin.Messages.Messages.Messages;
 import Plugin.Inventory.Enum.PlayerFileTimes;
@@ -14,9 +15,18 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import static Plugin.Messages.MessageManager.BroadcastMessageBuy;
 import static Plugin.Messages.MessageManager.MasterMessageLocated;
 
-public class CommandTimeRewardSkip implements CommandExecutor {
+public class CommandTimeRewardSkip extends BaseCommand {
 
-    public boolean onCommand(@Nullable CommandSender sender, @Nullable Command cmd, @Nullable String label, String[] args) {
+    public CommandTimeRewardSkip() {
+        super("timerewardskip",
+                "/timerewardskip",
+                "xbxtcore.command.o",
+                true,
+                "nulo");
+    }
+
+    @Override
+    public void execute(CommandSender sender, String[] args) {
         Player player = Bukkit.getPlayer(args[1]);
         String nameCompra = "?";
         if (player != null) {
@@ -41,9 +51,7 @@ public class CommandTimeRewardSkip implements CommandExecutor {
                                 nameCompra), 10 ,60 ,10);
                 player.playSound(player, Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
             }
-            return true;
         }
-        return false;
     }
 }
 

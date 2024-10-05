@@ -18,17 +18,9 @@ public class PlayerDataGLobal {
         return playerKills.getOrDefault(playerUUID, 0);
     }
 
-    /*public void resgisterKill(UUID playerUUID) {
-        playerKills.put(playerUUID, playerKills.getOrDefault(playerUUID, 0));
-    }*/
-
     public void resetKills(UUID playerUUID) {
         playerKills.put(playerUUID, 0);
     }
-
-    /*public void removePlayer(UUID playerUUID) {
-        playerKills.remove(playerUUID);
-    }*/
 
     public Map<UUID, Integer> getPlayerKills() {
         return playerKills;

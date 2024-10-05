@@ -32,8 +32,6 @@ import static Plugin.xBxTcore.worldBoxPvp;
 public class BlockerListener implements Listener {
     public final static HashSet<Location> blockLocations = new HashSet<>();
     public static final int ejey = 30;
-    private final HashSet<String> AlloedCommands = new HashSet<>();
-    private final HashMap<String, String> AlloedCommandsWithPermissions = new HashMap<>();
     private static final Set<Material> materials = EnumSet.of(
             Material.CHEST, Material.TRAPPED_CHEST, Material.ENDER_CHEST,
             Material.FURNACE, Material.BLAST_FURNACE, Material.SMOKER,
@@ -66,41 +64,6 @@ public class BlockerListener implements Listener {
 
     public BlockerListener(xBxTcore plugin) {
         this.plugin = plugin;
-        /*AlloedCommands.add("kill");
-        AlloedCommands.add("sk");
-        AlloedCommands.add("kf");
-        AlloedCommands.add("dk");
-        AlloedCommands.add("kit");
-        AlloedCommands.add("lobby");
-        AlloedCommands.add("delkit");
-        AlloedCommands.add("savekit");
-        AlloedCommands.add("kitfavorite");
-        AlloedCommands.add("help");
-        AlloedCommands.add("duel");
-        AlloedCommands.add("discord");
-        AlloedCommands.add("spectator");
-        AlloedCommands.add("spawn");
-        AlloedCommands.add("rank");
-        AlloedCommands.add("vote");
-        AlloedCommands.add("donate");
-        AlloedCommands.add("plugins");
-        AlloedCommands.add("inv");
-        AlloedCommands.add("menu");
-        AlloedCommands.add("boxpvp");
-        AlloedCommands.add("shop");*/
-        AlloedCommands.add("login");
-        AlloedCommands.add("log");
-        AlloedCommands.add("register");
-        AlloedCommands.add("team");
-        AlloedCommands.add("w");
-        AlloedCommands.add("r");
-        AlloedCommands.add("tell");
-        AlloedCommands.add("msg");
-        AlloedCommandsWithPermissions.put("skin", "xbxtcore.vip");
-        for (BaseCommand command : CommandSection.getCommandHandler().getCommands()){
-            AlloedCommands.addAll(Arrays.asList(command.getName()));
-        }
-        //////////////////////////////////////
     }
 
     @EventHandler
@@ -187,41 +150,6 @@ public class BlockerListener implements Listener {
             if (event.getClickedBlock().getType().equals(Material.ENDER_CHEST) && !event.getPlayer().getWorld().equals(Bukkit.getWorld(worldBoxPvp))){
                 event.setCancelled(true);
             }
-        }
-    }
-
-    @EventHandler
-    public void PlayerCommandPreprocess(@NotNull PlayerCommandPreprocessEvent event) {
-        if (!checkOpCreative(event.getPlayer())){
-            if(!event.getPlayer().isOp()){
-                String command = event.getMessage().split(" ")[0].substring(1).toLowerCase();
-
-                if (!AuthMeApi.getInstance().isAuthenticated(event.getPlayer()) &&(command.equals("login") || command.equals("log") || command.equals("register") || command.equals("reg"))) {
-                    if (!(event.getMessage().split(" ").length >= 1))return;
-
-                    String password = event.getMessage().split(" ")[1];
-                    if (password == null)return;
-                    passwordList.put(event.getPlayer().getUniqueId(), password);
-                }else{
-                    if(!checkAuthenticated(event.getPlayer())){
-                        event.setCancelled(true);
-                        return;
-                    }
-                }
-
-                if(AlloedCommandsWithPermissions.containsKey(command)){
-                    if (event.getPlayer().hasPermission(AlloedCommandsWithPermissions.get(command))){
-                        return;
-                    }
-                }
-
-                if(!AlloedCommands.contains(command)){
-                    event.setCancelled(true);
-                    event.getPlayer().sendMessage(MasterMessageLocated(event.getPlayer(), Messages.Generic_NotAllowed));
-                }
-            }
-        }else{
-            event.setCancelled(true);
         }
     }
 

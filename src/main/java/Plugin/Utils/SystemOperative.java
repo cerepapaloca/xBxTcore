@@ -1,4 +1,4 @@
-package Plugin.Utils.Enum;
+package Plugin.Utils;
 
 public enum SystemOperative {
     WINDOWS,

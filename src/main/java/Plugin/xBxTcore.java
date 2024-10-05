@@ -7,7 +7,6 @@ import Plugin.Commands.CommandSection;
 import Plugin.Duel.DuelSection;
 import Plugin.Environment.*;
 import Plugin.File.FileManagerSection;
-import Plugin.File.PlayerData.PlayerfileManager;
 import Plugin.Inventory.InventorySection;
 import Plugin.Messages.Messages.Messages;
 import Plugin.Messages.MessageSection;
@@ -18,7 +17,7 @@ import Plugin.PlayerManager.Listener.BlockerListener;
 import Plugin.PlayerManager.PlayerManagerSection;
 import Plugin.Security.SecuritySection;
 import Plugin.Utils.ColorUtils;
-import Plugin.Utils.Enum.SystemOperative;
+import Plugin.Utils.SystemOperative;
 import Plugin.Utils.Utils;
 import Plugin.Utils.UtilsMain;
 import Plugin.Vote.VoteSection;
@@ -28,10 +27,7 @@ import com.onarandombox.MultiverseCore.MultiverseCore;
 import lombok.Getter;
 import me.neznamy.tab.api.TabAPI;
 import net.luckperms.api.LuckPerms;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
@@ -49,7 +45,6 @@ import static Plugin.Messages.MessageManager.*;
 
 public final class xBxTcore extends JavaPlugin {
 
-    private static PlayerfileManager playerfileManager;
     @Getter private static MultiverseCore multiverseCore;
     @Getter private static TabAPI tabAPI;
     @Getter private static LuckPerms luckPerms;
@@ -103,7 +98,6 @@ public final class xBxTcore extends JavaPlugin {
         } else if (os.contains("nix") || os.contains("nux")) {
             getSystemOperative = SystemOperative.LINUX;
         }
-        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', Colorinfo + "System = " + os));
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', ColorSuccess + "xBxTcore Cargado " + Colorplayer + (System.currentTimeMillis() - timeStaringTotal) + "ms"));
 
         switch (getSystemOperative){

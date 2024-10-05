@@ -40,7 +40,7 @@ public class FileManagerSection implements Section {
         mysql = new MySQLConnection(myIpMySql, "xbxtcore", "root", "");
         MySQLConnection.connect();
         mySQLManager = new MySQLManager(mysql);
-        mySQLManager.createBanTableIfNotExists();
+        mySQLManager.createBanTable();
         MySQLConnection.reloadBannedBans();
     }
 

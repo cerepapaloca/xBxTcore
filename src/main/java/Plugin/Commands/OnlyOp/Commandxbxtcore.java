@@ -1,8 +1,12 @@
 package Plugin.Commands.OnlyOp;
 
+import Plugin.Commands.BaseCommand;
+import Plugin.Commands.BaseTabCommand;
 import Plugin.File.BLackList.BlackListIpManager;
 import Plugin.File.FileManagerSection;
 import Plugin.File.MySQLConnection;
+import Plugin.File.PlayerData.PlayerfileManager;
+import Plugin.Messages.MessageManager;
 import Plugin.Messages.Messages.Messages;
 import Plugin.PlayerManager.PlayerManagerSection;
 import Plugin.Security.SystemBan.BanManager;
@@ -24,27 +28,34 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static Plugin.File.BLackList.BlackListIpManager.RemoveIpBlackListAndSave;
 import static Plugin.Messages.MessageManager.*;
 import static Plugin.Security.SystemBan.AutoBan.checkAutoBanCheat;
 
-public class Commandxbxtcore implements CommandExecutor {
+public class Commandxbxtcore extends BaseTabCommand {
 
     private final List<String> contexts = new ArrayList<>();
 
     public Commandxbxtcore(){
+        super("xbxtcore",
+                "/xbxtcore",
+                "xbxtcore.command.xbxtcore",
+                true,
+                "se encarga de todas las funciones del servidor");
         contexts.add("global");
         contexts.add("box_pvp");
         contexts.add("chat");
     }
 
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
+    @Override
+    public void execute(CommandSender sender, String[] args) {
         if (!(sender instanceof Player)) {
 
             if (args.length < 1) {
-                Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorError + "Pon los argumentos"));
-                return false;
+                Utils.sendMessage(sender, prefixConsole + ColorError + "Pon los argumentos");
+                return;
             }
             args[0] = args[0].toLowerCase();
             switch (args[0]) {
@@ -53,13 +64,11 @@ public class Commandxbxtcore implements CommandExecutor {
                     switch (args[1]) {
                         case "true" -> {
                             SecuritySection.ActiveAntiBot = true;
-                            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorSuccess + "Sistema antiBot Activo"));
-                            return true;
+                            Utils.sendMessage(sender, prefixConsole + ColorSuccess + "Sistema antiBot Activo");
                         }
                         case "false" -> {
                             SecuritySection.ActiveAntiBot = false;
-                            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorWarning + "Sistema antiBot Desactivado"));
-                            return true;
+                            Utils.sendMessage(sender, prefixConsole + ColorWarning + "Sistema antiBot Desactivado");
                         }
 
                     }
@@ -68,13 +77,12 @@ public class Commandxbxtcore implements CommandExecutor {
                 case "ac" -> {
                     switch (args[1]) {
                         case "kick" -> {
-                            if(!(args.length == 3))return false;
+                            if(!(args.length == 3))return;
                             Player player = Bukkit.getPlayer(args[2]);
-                            if(player == null)return false;
-                            if (checkAutoBanCheat(player))return false;
-                            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',prefixConsole + ColorSuccess + "Se Echo al jugador por hacks"));
+                            if(player == null)return;
+                            if (checkAutoBanCheat(player))return;
+                            Utils.sendMessage(sender, prefixConsole + ColorSuccess + "Se Echo al jugador por hacks");
                             player.kickPlayer(MasterMessageLocated(player, Messages.Kick_Cheat));
-                            return true;
                         }
                     }
                 }
@@ -88,36 +96,32 @@ public class Commandxbxtcore implements CommandExecutor {
                             }
 
                             BlackListIpManager.saveIpBlacklist();
-                            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorSuccess + "Se guardo las ips Correctamente"));
-                            return true;
+                            Utils.sendMessage(sender, prefixConsole + ColorSuccess + "Se guardo las ips Correctamente");
                         }
                         case "reload" -> {
                             FileManagerSection.getBlacklistIpManager().ReloadIpBlacklist();
-                            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorSuccess + "Lista negra recargada"));
-                            return true;
+                            Utils.sendMessage(sender, prefixConsole + ColorSuccess + "Lista negra recargada");
                         }
                         case "update" -> {
                             switch (xBxTcore.getSystemOperative){
                                 case LINUX -> FireWallLinux.executeFirewallScript();
                                 case WINDOWS -> FireWallWindows.runBatFile();
                             }
-                            return true;
                         }
                         case "remove" -> {
-                            if(!(args.length == 3))return false;
+                            if(!(args.length == 3))return;
                             try {
                                 RemoveIpBlackListAndSave(InetAddress.getByName(args[2]));
                             } catch (UnknownHostException e) {
                                 throw new RuntimeException(e);
                             }
-                            return true;
                         }
                     }
                 }
 
                 case "ban" -> {
                     if (args[1].equalsIgnoreCase("reload")) MySQLConnection.reloadBannedBans();
-                    if(!(args.length >= 5))return false;
+                    if(!(args.length >= 5))return;
                     Player target = sender.getServer().getPlayer(args[1]);
                     if (target != null) {
                         String name = target.getName();
@@ -131,8 +135,8 @@ public class Commandxbxtcore implements CommandExecutor {
 
                             BanManager.banPlayer(target, reason, duration, ContextBan.valueOf(args[2].toUpperCase()));
                         }else{
-                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorError +
-                                    "Ese Contexto no existe solo exite 'global' y 'box_pvp'"));
+                            Utils.sendMessage(sender, prefixConsole + ColorError +
+                                    "Ese Contexto no existe solo exite 'global' y 'box_pvp'");
                         }
 
                     } else {
@@ -145,22 +149,85 @@ public class Commandxbxtcore implements CommandExecutor {
                         case "true" -> {
                             PlayerManagerSection.moderationChatEnabled = true;
                             BroadcastMessage(Messages.Others_Chat_Active);
-                            return true;
                         }
                         case "false" -> {
                             PlayerManagerSection.moderationChatEnabled = false;
-                            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', prefixConsole + ColorWarning + "Moderación del chat desactivada "));
-                            return true;
+                            Utils.sendMessage(sender, prefixConsole + ColorWarning + "Moderación del chat desactivada ");
                         }
-
                     }
                 }
 
-                default -> {
-                    return false;
+                case "users" -> {
+                    switch (args[1]) {
+                        case "reload" -> {
+                            long time = System.currentTimeMillis();
+                            PlayerfileManager.getPlayesfiles().reloadConfigs();
+                            Utils.sendMessage(sender ,prefixConsole + ColorSuccess + "Se recargo los datos de los usuarios y tardo: " + (System.currentTimeMillis() - time));
+                        }
+                        case "ping" -> {
+                            for (Player p : Bukkit.getOnlinePlayers()) {
+                                p.getPing();
+                                Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', MessageManager.prefix + MessageManager.Colorplayer + p.getName() + MessageManager.Colorinfo + " Tiene "
+                                        + MessageManager.Colorplayer + p.getPing()));
+                            }
+                        }
+                    }
                 }
             }
         }
-        return false;
+    }
+
+    @Override
+    public List<String> onTab(CommandSender sender, String[] args) {
+        List<String> argsTab = new ArrayList<>();
+        argsTab.add("ip");
+        argsTab.add("antibot");
+        argsTab.add("ac");
+        argsTab.add("ban");
+        argsTab.add("chatmodetarion");
+        List<String> argsIp = new ArrayList<>();
+        argsIp.add("reload");
+        argsIp.add("save");
+        argsIp.add("update");
+        argsIp.add("remove");
+        List<String> argsAntiBot = new ArrayList<>();
+        argsAntiBot.add("true");
+        argsAntiBot.add("false");
+        List<String> argsBan = new ArrayList<>();
+        argsBan.add("<Player> <Contexto> <tiempo> <Razón>");
+        List<String> argsUser = new ArrayList<>();
+        argsAntiBot.add("reload");
+        argsAntiBot.add("ping");
+
+        if (args.length == 1) {
+            String currentArg = args[0].toLowerCase();
+            return argsTab.stream()
+                    .filter(name -> name.startsWith(currentArg))
+                    .collect(Collectors.toList());
+        }
+        switch (args[0].toLowerCase()){
+            case "ip" -> {
+                String currentArg = args[1].toLowerCase();
+                return argsIp.stream()
+                        .filter(name -> name.startsWith(currentArg))
+                        .collect(Collectors.toList());
+            }
+            case "antibot", "chatmodetarion" -> {
+                String currentArg = args[1].toLowerCase();
+                return argsAntiBot.stream()
+                        .filter(name -> name.startsWith(currentArg))
+                        .collect(Collectors.toList());
+            }
+            case "ban" -> {
+                if (args.length == 2) return null;
+                return argsBan;
+            }
+            case "user" -> {
+                if (args.length == 2) return null;
+                return argsUser;
+            }
+        }
+
+        return null;
     }
 }
